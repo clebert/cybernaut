@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "capabilities": {
+      "type": "object",
+      "properties": {
+        "browserName": {
+          "type": "string",
+          "enum": [
+            "android",
+            "chrome",
+            "MicrosoftEdge",
+            "firefox",
+            "internet explorer",
+            "iPad",
+            "iPhone",
+            "opera",
+            "phantomjs",
+            "safari",
+            "htmlunit"
+          ]
+        }
+      },
+      "required": [
+        "browserName"
+      ],
+      "additionalProperties": true
+    },
+    "concurrency": {
+      "type": "number",
+      "minimum": 1,
+      "multipleOf": 1
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "exclude": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "include": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stepTimeout": {
+      "type": "number",
+      "minimum": 0,
+      "multipleOf": 1
+    }
+  },
+  "additionalProperties": false
+}
