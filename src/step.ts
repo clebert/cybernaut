@@ -32,7 +32,7 @@ export async function run(step: Step, stepTimeout: number): Promise<void> {
         error = e;
       }
 
-      // The next line makes sure that the while loop runs asynchronously
+      // The next line makes sure that this while loop runs asynchronously
       await sleep(0).wakeUp;
     } while (!timedOut);
   };
