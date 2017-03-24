@@ -32,10 +32,35 @@ If the default configuration is used, Chrome and a matching version of [`chromed
 npm install chromedriver
 ```
 
+## Usage
+
+Cybernaut must be started directly from the command line:
+
+```sh
+cybernaut
+```
+
+Directories are recursed, with all `**/*.e2e.js` files being treated as test files.
+
+It is recommended to write tests using async functions, which are natively supported by Node.js as of version 7. Alternatively, the tests must be transpiled using TypeScript or Babel.
+
+The following configuration is active by default:
+
+```json
+{
+  "capabilities": {"browserName": "chrome"},
+  "concurrency": 1,
+  "dependencies": ["chromedriver"],
+  "exclude": ["**/node_modules/**/*"],
+  "include": "**/*.e2e.js",
+  "stepTimeout": 10000
+}
+```
+
 Cybernaut produces an output in TAP format, [`tap-mocha-reporter`][12] can be used to format it:
 
 ```sh
-npm install tap-mocha-reporter
+cybernaut | tap-mocha-reporter spec
 ```
 
 ## API
