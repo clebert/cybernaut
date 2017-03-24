@@ -1,9 +1,10 @@
 # cybernaut
 
 [![npm][0]][1]
-[![Build Status][2]][3]
-[![Commitizen friendly][4]][5]
-[![Greenkeeper badge][6]][7]
+[![build][2]][3]
+[![coverage][4]][5]
+[![commitizen][6]][7]
+[![Greenkeeper][8]][9]
 
 Reliable, zero configuration end-to-end testing in BDD-style.
 
@@ -70,7 +71,9 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [1]: https://www.npmjs.com/package/cybernaut
 [2]: https://travis-ci.org/clebert/cybernaut.svg?branch=master
 [3]: https://travis-ci.org/clebert/cybernaut
-[4]: https://img.shields.io/badge/commitizen-friendly-brightgreen.svg
-[5]: http://commitizen.github.io/cz-cli/
-[6]: https://badges.greenkeeper.io/clebert/cybernaut.svg
-[7]: https://greenkeeper.io/
+[4]: https://coveralls.io/repos/github/clebert/cybernaut/badge.svg?branch=master
+[5]: https://coveralls.io/github/clebert/cybernaut?branch=master
+[6]: https://img.shields.io/badge/commitizen-friendly-brightgreen.svg
+[7]: http://commitizen.github.io/cz-cli/
+[8]: https://badges.greenkeeper.io/clebert/cybernaut.svg
+[9]: https://greenkeeper.io/
