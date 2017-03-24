@@ -19,13 +19,13 @@ TODO
 
 ## Development
 
-### Installing the dev dependencies
+### Installing dev dependencies
 
 ```sh
 npm install
 ```
 
-### Watching the sources and unit tests
+### Watching sources and unit tests
 
 ```sh
 npm run watch
@@ -37,7 +37,7 @@ npm run watch
 npm run check
 ```
 
-### Formatting the sources
+### Formatting sources
 
 ```sh
 npm run format
