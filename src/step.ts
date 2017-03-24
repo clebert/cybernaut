@@ -8,32 +8,34 @@ export async function run(step: Step, stepTimeout: number): Promise<void> {
   let cancelTimeout: any; // tslint:disable-line no-any
   let timedOut = false;
 
-  await Promise.race<void>([
-    (async () => {
-      const result = sleep(stepTimeout);
+  const startTimeout = async () => {
+    const result = sleep(stepTimeout);
 
-      cancelTimeout = result.cancel;
+    cancelTimeout = result.cancel;
 
-      await result.wakeUp;
+    await result.wakeUp;
 
-      timedOut = true;
+    timedOut = true;
 
-      throw error || new Error(`step timed out after ${stepTimeout} ms`);
-    })(),
-    (async () => {
-      do {
-        try {
-          await step();
+    throw error || new Error(`step timed out after ${stepTimeout} ms`);
+  };
 
-          cancelTimeout();
+  const executeStep = async () => {
+    do {
+      try {
+        await step();
 
-          return;
-        } catch (e) {
-          error = e;
-        }
+        cancelTimeout();
 
-        await sleep(0).wakeUp;
-      } while (!timedOut);
-    })()
-  ]);
+        return;
+      } catch (e) {
+        error = e;
+      }
+
+      // The next line makes sure that the while loop runs asynchronously
+      await sleep(0).wakeUp;
+    } while (!timedOut);
+  };
+
+  await Promise.race<void>([startTimeout(), executeStep()]);
 }
