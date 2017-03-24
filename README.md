@@ -3,6 +3,7 @@
 [![npm][0]][1]
 [![Build Status][2]][3]
 [![Commitizen friendly][4]][5]
+[![Greenkeeper badge][6]][7]
 
 Reliable, zero configuration end-to-end testing in BDD-style.
 
@@ -71,3 +72,5 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [3]: https://travis-ci.org/clebert/cybernaut
 [4]: https://img.shields.io/badge/commitizen-friendly-brightgreen.svg
 [5]: http://commitizen.github.io/cz-cli/
+[6]: https://badges.greenkeeper.io/clebert/cybernaut.svg
+[7]: https://greenkeeper.io/
