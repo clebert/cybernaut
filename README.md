@@ -24,12 +24,6 @@ TODO
 npm install
 ```
 
-### Running the example e2e tests
-
-```sh
-npm start
-```
-
 ### Watching the sources and unit tests
 
 ```sh
