@@ -71,13 +71,17 @@ export function test(
   });
 }
 
-export function skip(name: string, implementation?: Implementation): void {
+export function skip(
+  name: string, implementation?: Implementation, stepTimeout?: number
+): void {
   tasks.push(() => {
     tap.test(name, {skip: true}); // tslint:disable-line no-floating-promises
   });
 }
 
-export function todo(name: string, implementation?: Implementation): void {
+export function todo(
+  name: string, implementation?: Implementation, stepTimeout?: number
+): void {
   tasks.push(() => {
     tap.test(name, {todo: true}); // tslint:disable-line no-floating-promises
   });

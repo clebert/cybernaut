@@ -14,9 +14,231 @@ Reliable, zero configuration end-to-end testing in BDD-style.
 npm install cybernaut
 ```
 
-## Usage
+## API
 
-TODO
+* [Test](#test)
+* [Browser](#browser)
+* [Element](#element)
+* [PredicateBuilder](#predicatebuilder)
+
+### Test
+
+```ts
+test(name: string, implementation: (t: Test) => Promise<void>, stepTimeout?: number): void
+
+skip(name: string, implementation?: (t: Test) => Promise<void>, stepTimeout?: number): void
+
+todo(name: string, implementation?: (t: Test) => Promise<void>, stepTimeout?: number): void
+```
+
+```ts
+import {skip, test, todo} from 'cybernaut';
+
+test('foo', async t => {
+  // ...
+});
+
+skip('bar');
+todo('baz');
+```
+
+#### Methods
+
+```ts
+t.assert<T>(accessor: Accessor<T>, predicate: Predicate<T>, stepTimeout?: number): Promise<void>
+```
+
+```ts
+t.perform(action: Action, stepTimeout?: number): Promise<void>
+```
+
+```ts
+t.verify<T>(accessor: Accessor<T>, predicate: Predicate<T>, stepTimeout?: number): Promise<boolean>
+```
+
+```ts
+t.fail(message: string, cause: Error): void
+```
+
+```ts
+t.pass(message: string): void
+```
+
+### Browser
+
+```ts
+import {browser} from 'cybernaut';
+```
+
+#### Accessors
+
+```ts
+browser.pageTitle: Accessor<string>
+```
+
+```ts
+browser.pageUrl: Accessor<string>
+```
+
+```ts
+browser.windowX: Accessor<number>
+```
+
+```ts
+browser.windowY: Accessor<number>
+```
+
+```ts
+browser.windowWidth: Accessor<number>
+```
+
+```ts
+browser.windowHeight: Accessor<number>
+```
+
+#### Actions
+
+```ts
+browser.loadPage(url: string): Action
+```
+
+```ts
+browser.maximizeWindow(): Action
+```
+
+```ts
+browser.navigateBack(): Action
+```
+
+```ts
+browser.navigateForward(): Action
+```
+
+```ts
+browser.reloadPage(): Action
+```
+
+```ts
+browser.setWindowPosition(x: number, y: number): Action
+```
+
+```ts
+browser.setWindowSize(width: number, height: number): Action
+```
+
+```ts
+browser.sleep(duration: number): Action
+```
+
+### Element
+
+```ts
+defineElement(selector: string): Element
+```
+
+```ts
+import {defineElement} from 'cybernaut';
+
+const element = defineElement('#foo');
+```
+
+#### Accessors
+
+```ts
+element.tagName: Accessor<string>
+```
+
+```ts
+element.text: Accessor<string>
+```
+
+```ts
+element.visibility: Accessor<boolean>
+```
+
+```ts
+element.x: Accessor<number>
+```
+
+```ts
+element.y: Accessor<number>
+```
+
+```ts
+element.width: Accessor<number>
+```
+
+```ts
+element.height: Accessor<number>
+```
+
+```ts
+element.cssValue(cssName: string): Accessor<string>
+```
+
+```ts
+element.propertyValue(propertyName: string): Accessor<string | null>
+```
+
+#### Actions
+
+```ts
+element.clearValue(): Action
+```
+
+```ts
+element.click(): Action
+```
+
+```ts
+element.sendKeys(...keys: string[]): Action
+```
+
+```ts
+element.submitForm(): Action
+```
+
+### PredicateBuilder
+
+```ts
+import {it} from 'cybernaut';
+```
+
+#### Predicates
+
+```ts
+it.should.contain(expectedValue: string): Predicate<string>
+
+it.should.not.contain(expectedValue: string): Predicate<string>
+```
+
+```ts
+it.should.equal<T>(expectedValue: T): Predicate<T>
+
+it.should.not.equal<T>(expectedValue: T): Predicate<T>
+```
+
+```ts
+it.should.match(regex: RegExp): Predicate<string>
+
+it.should.not.match(regex: RegExp): Predicate<string>
+```
+
+```ts
+it.should.be.above(expectedValue: number): Predicate<number>
+```
+
+```ts
+it.should.be.at.least(expectedValue: number): Predicate<number>
+```
+
+```ts
+it.should.be.below(expectedValue: number): Predicate<number>
+```
+
+```ts
+it.should.be.at.most(expectedValue: number): Predicate<number>
+```
 
 ## Development
 
