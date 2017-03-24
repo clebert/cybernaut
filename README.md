@@ -1,4 +1,4 @@
-# cybernaut
+# Cybernaut
 
 [![npm][0]][1]
 [![build][2]][3]
@@ -23,7 +23,19 @@ test('Check existence of "clebert/cybernaut" repository on GitHub', async t => {
 ## Installation
 
 ```sh
-npm install cybernaut chromedriver
+npm install cybernaut
+```
+
+If the default configuration is used, the [`chromedriver`][11] must also be installed:
+
+```sh
+npm install chromedriver
+```
+
+Cybernaut produces an output in TAP format, [`tap-mocha-reporter`][12] can be used to format it:
+
+```sh
+npm install tap-mocha-reporter
 ```
 
 ## API
@@ -312,3 +324,5 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [8]: https://badges.greenkeeper.io/clebert/cybernaut.svg
 [9]: https://greenkeeper.io/
 [10]: https://raw.githubusercontent.com/clebert/cybernaut/master/docs/example.png
+[11]: https://github.com/giggio/node-chromedriver
+[12]: https://github.com/tapjs/tap-mocha-reporter
