@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+/// <reference path="../@types/selenium-webdriver.d.ts" />
+
 import tap = require('tap');
 
 import {sync} from 'glob';
@@ -80,8 +82,6 @@ export function todo(name: string, implementation?: Implementation): void {
     tap.test(name, {todo: true}); // tslint:disable-line no-floating-promises
   });
 }
-
-// tslint:disable no-var-requires
 
 if (require.main !== module) {
   const packageName = require('../package.json').name;

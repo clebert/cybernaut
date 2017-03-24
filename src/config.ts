@@ -1,5 +1,3 @@
-// tslint:disable no-var-requires
-
 import Ajv = require('ajv');
 
 import {resolve} from 'path';
