@@ -9,7 +9,7 @@ Reliable, zero configuration end-to-end testing in BDD-style.
 ## Installation
 
 ```sh
-npm install -g cybernaut
+npm install cybernaut
 ```
 
 ## Usage
