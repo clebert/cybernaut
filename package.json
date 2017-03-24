@@ -1,6 +1,6 @@
 {
   "name": "cybernaut",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Reliable, zero configuration end-to-end testing in BDD-style.",
   "license": "MIT",
   "author": "Clemens Akens <clebert@me.com>",
