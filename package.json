@@ -81,7 +81,7 @@
     "coveralls": "2.12.0",
     "custom-tslint-formatters": "2.0.0",
     "cz-customizable": "4.0.0",
-    "husky": "0.13.2",
+    "husky": "0.13.3",
     "npm-run-all": "4.0.2",
     "nyc": "10.1.2",
     "proxyquire": "1.7.11",
