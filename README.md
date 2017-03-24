@@ -4,7 +4,7 @@
 [![Build Status][2]][3]
 [![Commitizen friendly][4]][5]
 
-TODO
+Reliable, zero configuration end-to-end testing in BDD-style.
 
 ## Installation
 

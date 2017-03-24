@@ -1,7 +1,7 @@
 {
   "name": "cybernaut",
   "version": "0.0.0",
-  "description": "TODO",
+  "description": "Reliable, zero configuration end-to-end testing in BDD-style.",
   "license": "MIT",
   "author": "Clemens Akens <clebert@me.com>",
   "repository": {
