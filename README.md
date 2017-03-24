@@ -26,7 +26,7 @@ test('Check existence of "clebert/cybernaut" repository on GitHub', async t => {
 npm install cybernaut
 ```
 
-If the default configuration is used, the [`chromedriver`][11] must also be installed:
+If the default configuration is used, Chrome and a matching version of [`chromedriver`][11] must also be installed:
 
 ```sh
 npm install chromedriver
