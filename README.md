@@ -8,10 +8,22 @@
 
 Reliable, zero configuration end-to-end testing in BDD-style.
 
+```ts
+import {browser, it, test} from 'cybernaut';
+
+test('Check existence of "clebert/cybernaut" repository on GitHub', async t => {
+  await t.perform(browser.loadPage('https://github.com/clebert/cybernaut'));
+
+  await t.assert(browser.pageTitle, it.should.match(/clebert\/cybernaut/));
+});
+```
+
+![Example][10]
+
 ## Installation
 
 ```sh
-npm install cybernaut
+npm install cybernaut chromedriver
 ```
 
 ## API
@@ -299,3 +311,4 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [7]: http://commitizen.github.io/cz-cli/
 [8]: https://badges.greenkeeper.io/clebert/cybernaut.svg
 [9]: https://greenkeeper.io/
+[10]: https://raw.githubusercontent.com/clebert/cybernaut/master/docs/example.png
