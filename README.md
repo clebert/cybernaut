@@ -42,6 +42,12 @@ cybernaut
 
 Directories are recursed, with all `**/*.e2e.js` files being treated as test files.
 
+Cybernaut produces output in TAP format, [`tap-mocha-reporter`][12] can be used to format it:
+
+```sh
+cybernaut | tap-mocha-reporter spec
+```
+
 It is recommended to write tests using async functions, which are natively supported by Node.js as of version 7. Alternatively, the tests must be transpiled using TypeScript or Babel.
 
 The following configuration is active by default:
@@ -57,10 +63,30 @@ The following configuration is active by default:
 }
 ```
 
-Cybernaut produces an output in TAP format, [`tap-mocha-reporter`][12] can be used to format it:
+A separate configuration can be passed as a command line argument:
 
 ```sh
-cybernaut | tap-mocha-reporter spec
+cybernaut firefox-config.js
+```
+
+The configuration can be written as JSON or JavaScript module:
+
+*firefox-config.json*
+
+```json
+{
+  "capabilities": {"browserName": "firefox"},
+  "dependencies": ["geckodriver"]
+}
+```
+
+*firefox-config.js*
+
+```js
+module.exports = {
+  capabilities: {browserName: 'firefox'},
+  dependencies: ['geckodriver']
+};
 ```
 
 ## API
