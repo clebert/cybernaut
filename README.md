@@ -3,6 +3,7 @@
 [![npm][0]][1]
 [![build][2]][3]
 [![coverage][4]][5]
+[![TypeScript][17]][18]
 [![commitizen][6]][7]
 [![Greenkeeper][8]][9]
 
@@ -18,7 +19,14 @@ test('Check existence of "clebert/cybernaut" repository on GitHub', async t => {
 });
 ```
 
-![Example][10]
+[![Example][10]][13]
+
+## Contents
+
+* [Installation](#installation)
+* [Usage](#usage)
+* [API](#api)
+* [Development](#development)
 
 ## Installation
 
@@ -380,10 +388,12 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [7]: http://commitizen.github.io/cz-cli/
 [8]: https://badges.greenkeeper.io/clebert/cybernaut.svg
 [9]: https://greenkeeper.io/
-[10]: https://raw.githubusercontent.com/clebert/cybernaut/master/docs/example.png
+[10]: https://raw.githubusercontent.com/clebert/cybernaut/master/example/screenshot.png
 [11]: https://github.com/giggio/node-chromedriver
 [12]: https://github.com/tapjs/tap-mocha-reporter
 [13]: https://github.com/clebert/cybernaut/tree/master/example
 [14]: https://github.com/SeleniumHQ/selenium
 [15]: https://github.com/vladikoff/node-geckodriver
 [16]: https://github.com/SeleniumHQ/selenium/issues/3625
+[17]: https://img.shields.io/badge/TypeScript-friendly-blue.svg
+[18]: http://www.typescriptlang.org/

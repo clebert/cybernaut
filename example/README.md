@@ -5,6 +5,8 @@
 ## Installation
 
 ```sh
+git clone https://github.com/clebert/cybernaut.git && \
+cd cybernaut/example/ && \
 npm install
 ```
 
