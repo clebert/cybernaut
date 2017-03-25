@@ -9,7 +9,7 @@
 Reliable, zero configuration end-to-end testing in BDD-style.
 
 ```ts
-import {browser, it, test} from 'cybernaut';
+const {browser, it, test} = require('cybernaut');
 
 test('Check existence of "clebert/cybernaut" repository on GitHub', async t => {
   await t.perform(browser.loadPage('https://github.com/clebert/cybernaut'));
@@ -23,13 +23,13 @@ test('Check existence of "clebert/cybernaut" repository on GitHub', async t => {
 ## Installation
 
 ```sh
-npm install cybernaut
+npm install --save-dev cybernaut
 ```
 
 If the default configuration is used, Chrome and a matching version of [`chromedriver`][11] must also be installed:
 
 ```sh
-npm install chromedriver
+npm install --save-dev chromedriver
 ```
 
 ## Usage
@@ -37,7 +37,7 @@ npm install chromedriver
 Cybernaut must be started directly from the command line:
 
 ```sh
-cybernaut
+$(npm bin)/cybernaut
 ```
 
 Directories are recursed, with all `**/*.e2e.js` files being treated as test files.
@@ -45,10 +45,14 @@ Directories are recursed, with all `**/*.e2e.js` files being treated as test fil
 Cybernaut produces output in TAP format, [`tap-mocha-reporter`][12] can be used to format it:
 
 ```sh
-cybernaut | tap-mocha-reporter spec
+npm install --save-dev tap-mocha-reporter
 ```
 
-It is recommended to write tests using async functions, which are natively supported by Node.js as of version 7. Alternatively, the tests must be transpiled using TypeScript or Babel.
+```sh
+$(npm bin)/cybernaut | $(npm bin)/tap-mocha-reporter spec
+```
+
+It is recommended to write tests using async functions, which are natively supported by Node.js as of version 7. Alternatively, the tests must be transpiled using TypeScript or Babel. A working example project can be found [here][13].
 
 The following configuration is active by default:
 
@@ -66,7 +70,7 @@ The following configuration is active by default:
 A separate configuration can be passed as a command line argument:
 
 ```sh
-cybernaut firefox-config.js
+$(npm bin)/cybernaut firefox-config.js
 ```
 
 The configuration can be written as JSON or JavaScript module:
@@ -88,6 +92,8 @@ module.exports = {
   dependencies: ['geckodriver']
 };
 ```
+
+**A note for Firefox users:** Cybernaut uses [`selenium-webdriver@3.3.0`][14], which is incompatible with [`geckodriver@1.5.0`][15]. Until these [incompatibilities][16] have been solved, [`geckodriver@1.4.0`][15] must be used.
 
 ## API
 
@@ -377,3 +383,7 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [10]: https://raw.githubusercontent.com/clebert/cybernaut/master/docs/example.png
 [11]: https://github.com/giggio/node-chromedriver
 [12]: https://github.com/tapjs/tap-mocha-reporter
+[13]: https://github.com/clebert/cybernaut/tree/master/example
+[14]: https://github.com/SeleniumHQ/selenium
+[15]: https://github.com/vladikoff/node-geckodriver
+[16]: https://github.com/SeleniumHQ/selenium/issues/3625
