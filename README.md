@@ -21,6 +21,13 @@ test('Check existence of "clebert/cybernaut" repository on GitHub', async t => {
 
 [![Example][10]][13]
 
+## Contents
+
+* [Installation](#installation)
+* [Usage](#usage)
+* [API](#api)
+* [Development](#development)
+
 ## Installation
 
 ```sh
