@@ -5,7 +5,11 @@
     "rootDir": "src"
   },
   "exclude": [
+    ".nyc_output",
+    ".vscode",
+    "coverage",
     "dist",
+    "example",
     "node_modules"
   ]
 }

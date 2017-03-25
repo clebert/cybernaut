@@ -54,6 +54,7 @@
     "check": "tsfmt --verify && tslint --config tslint.json --project tsconfig.json --type-check --formatters-dir node_modules/custom-tslint-formatters/formatters --format grouped",
     "cz": "git-cz",
     "format": "tsfmt --replace",
+    "prerelease": "npm run build",
     "release": "semantic-release pre && npm publish && semantic-release post",
     "pretest": "npm run build",
     "test": "npm run check && nyc ava",
