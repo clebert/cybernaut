@@ -3,9 +3,9 @@
 [![npm][0]][1]
 [![build][2]][3]
 [![coverage][4]][5]
-[![TypeScript][17]][18]
-[![commitizen][6]][7]
+[![semantic-release][6]][7]
 [![Greenkeeper][8]][9]
+[![TypeScript][17]][18]
 
 Reliable, zero configuration end-to-end testing in BDD-style.
 
@@ -361,20 +361,6 @@ npm run format
 npm run cz
 ```
 
-### Publishing a new version
-
-```sh
-npm run release
-```
-
-```sh
-git push --follow-tags origin master
-```
-
-```sh
-npm publish
-```
-
 ---
 Built by (c) Clemens Akens. Released under the MIT license.
 
@@ -384,8 +370,8 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [3]: https://travis-ci.org/clebert/cybernaut
 [4]: https://coveralls.io/repos/github/clebert/cybernaut/badge.svg?branch=master
 [5]: https://coveralls.io/github/clebert/cybernaut?branch=master
-[6]: https://img.shields.io/badge/commitizen-friendly-brightgreen.svg
-[7]: http://commitizen.github.io/cz-cli/
+[6]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
+[7]: https://github.com/semantic-release/semantic-release
 [8]: https://badges.greenkeeper.io/clebert/cybernaut.svg
 [9]: https://greenkeeper.io/
 [10]: https://raw.githubusercontent.com/clebert/cybernaut/master/example/screenshot.png
