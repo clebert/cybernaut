@@ -10,7 +10,7 @@
 Reliable, zero configuration end-to-end testing in BDD-style.
 
 ```ts
-const {browser, it, test} = require('cybernaut');
+import {browser, it, test} from 'cybernaut';
 
 test('Check existence of "clebert/cybernaut" repository on GitHub', async t => {
   await t.perform(browser.loadPage('https://github.com/clebert/cybernaut'));
