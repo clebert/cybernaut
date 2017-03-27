@@ -47,7 +47,7 @@
     ]
   },
   "scripts": {
-    "commitmsg": "conventional-changelog-lint -e",
+    "commitmsg": "conventional-changelog-lint --edit",
     "prebuild": "rm -rf dist/*",
     "build": "tsc --project .",
     "postbuild": "chmod +x dist/index.js",
@@ -57,7 +57,7 @@
     "prerelease": "npm run build",
     "release": "semantic-release pre && npm publish && semantic-release post",
     "pretest": "npm run build",
-    "test": "npm run check && nyc ava",
+    "test": "conventional-changelog-lint --from=HEAD~1 && npm run check && nyc ava",
     "prewatch": "npm run build",
     "watch": "run-p --continue-on-error watch:*",
     "watch:sources": "tsc --project . --watch",
