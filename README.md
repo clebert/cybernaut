@@ -117,22 +117,23 @@ module.exports = {
 ### Test
 
 ```ts
-test(name: string, implementation: (t: Test) => Promise<void>, stepTimeout?: number): void
+test(name: string, implementation?: (t: Test) => Promise<void>, stepTimeout?: number): void
 
-skip(name: string, implementation?: (t: Test) => Promise<void>, stepTimeout?: number): void
-
-todo(name: string, implementation?: (t: Test) => Promise<void>, stepTimeout?: number): void
+skip(name: string, implementation: (t: Test) => Promise<void>, stepTimeout?: number): void
 ```
 
 ```ts
-import {skip, test, todo} from 'cybernaut';
+import {skip, test} from 'cybernaut';
 
-test('foo', async t => {
+test('foo'); // This test will be marked as TODO
+
+test('bar', async t => { // This test will be executed
   // ...
 });
 
-skip('bar');
-todo('baz');
+skip('baz', async t => { // This test won't be executed (and marked as SKIP)
+  // ...
+});
 ```
 
 #### Methods
