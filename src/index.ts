@@ -57,20 +57,24 @@ const tasks: (() => void)[] = [];
 
 export function test(
   name: string,
-  implementation: Implementation,
+  implementation?: Implementation,
   stepTimeout: number = config.stepTimeout
 ): void {
   tasks.push(() => {
     // tslint:disable-next-line no-floating-promises
-    tap.test(name, {timeout: 0, diagnostic: false}, async t => {
-      const driver = await new Builder().withCapabilities(
-        config.capabilities
-      ).build();
+    tap.test(name, {
+      diagnostic: false, timeout: 0, todo: !implementation
+    }, async t => {
+      if (implementation) {
+        const driver = await new Builder().withCapabilities(
+          config.capabilities
+        ).build();
 
-      try {
-        await implementation(new TapTest(driver, stepTimeout, t));
-      } finally {
-        await driver.quit();
+        try {
+          await implementation(new TapTest(driver, stepTimeout, t));
+        } finally {
+          await driver.quit();
+        }
       }
     }).catch((error: Error) => {
       tap.fail(error.message);
@@ -79,18 +83,10 @@ export function test(
 }
 
 export function skip(
-  name: string, implementation?: Implementation, stepTimeout?: number
+  name: string, implementation: Implementation, stepTimeout?: number
 ): void {
   tasks.push(() => {
     tap.test(name, {skip: true}); // tslint:disable-line no-floating-promises
-  });
-}
-
-export function todo(
-  name: string, implementation?: Implementation, stepTimeout?: number
-): void {
-  tasks.push(() => {
-    tap.test(name, {todo: true}); // tslint:disable-line no-floating-promises
   });
 }
 
