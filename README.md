@@ -12,7 +12,7 @@ Reliable, zero configuration end-to-end testing in BDD-style.
 ```ts
 import {browser, defineElement, it, test} from 'cybernaut';
 
-test('Star repository "clebert/cybernaut" on GitHub', async t => {
+test('Star the "clebert/cybernaut" repository on GitHub', async t => {
   await t.perform(browser.loadPage('https://github.com/clebert/cybernaut'));
 
   await t.assert(browser.pageTitle, it.should.contain('clebert/cybernaut'));
