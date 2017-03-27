@@ -43,6 +43,7 @@
       "dist/config.js",
       "dist/index.js",
       "example/**",
+      "fixtures/**",
       "wallaby.js"
     ],
     "reporter": [
