@@ -85,7 +85,7 @@ A separate configuration can be passed as a command line argument:
 $(npm bin)/cybernaut firefox-config.js
 ```
 
-The configuration can be written as JSON or JavaScript module:
+Such a configuration can be validated with [this JSON schema][19] and written as a JSON file or JavaScript module:
 
 *firefox-config.json*
 
@@ -388,3 +388,4 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [16]: https://github.com/SeleniumHQ/selenium/issues/3625
 [17]: https://img.shields.io/badge/TypeScript-friendly-blue.svg
 [18]: http://www.typescriptlang.org/
+[19]: https://github.com/clebert/cybernaut/blob/master/config-schema.json
