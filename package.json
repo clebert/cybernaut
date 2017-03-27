@@ -34,12 +34,16 @@
     "statements": 100,
     "functions": 100,
     "branches": 100,
-    "all": false,
+    "all": true,
     "cache": false,
     "check-coverage": true,
     "exclude": [
-      "dist/**/__mocks__/**",
-      "dist/**/__tests__/**"
+      "coverage/**",
+      "dist/**/__tests__/**",
+      "dist/config.js",
+      "dist/index.js",
+      "example/**",
+      "wallaby.js"
     ],
     "reporter": [
       "html",
