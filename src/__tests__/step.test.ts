@@ -1,69 +1,75 @@
 import test from 'ava';
-import {stub} from 'sinon';
+import {Stub, stub} from 'sinon';
 import {run} from '../step';
 
-const stepTimeout = 100;
+let step: Stub;
 
-function createTestName(behavior: string, callCount: string): string {
-  return `\`run\` should ${behavior} after it has called \`step\` ${callCount}`;
-}
+test.beforeEach(t => {
+  step = stub();
 
-const never = new Promise<void>(() => undefined);
+  step.onFirstCall().rejects(new Error('foo'));
+  step.onSecondCall().rejects(new Error('bar'));
+  step.onThirdCall().resolves(undefined);
+});
 
-test(createTestName('return', 'once'), async t => {
-  t.plan(1);
+test('\`run\` should return 1', async t => {
+  t.plan(2);
 
-  const step = stub().resolves(undefined);
+  step = stub().resolves(undefined);
 
-  await run(step, stepTimeout);
+  const attempts = await run(step, 0, 0);
+
+  t.is(attempts, 1);
+  t.is(step.callCount, attempts);
+});
+
+test('\`run\` should return 3', async t => {
+  t.plan(2);
+
+  const attempts = await run(step, 2, 0);
+
+  t.is(attempts, 3);
+  t.is(step.callCount, attempts);
+});
+
+test('\`run\` should throw an error with the message "foo"', async t => {
+  t.plan(2);
+
+  await t.throws(run(step, 0, 0), 'foo');
 
   t.is(step.callCount, 1);
 });
 
-test(createTestName('return', 'twice'), async t => {
-  t.plan(1);
+test('\`run\` should throw an error with the message "bar"', async t => {
+  t.plan(2);
 
-  const step = stub();
-
-  step.onFirstCall().rejects(new Error('message'));
-  step.onSecondCall().resolves(undefined);
-
-  await run(step, stepTimeout);
+  await t.throws(run(step, 1, 0), 'bar');
 
   t.is(step.callCount, 2);
 });
 
-test(createTestName('throw an error', 'once'), async t => {
+test('\`run\` should have a runtime between 100 ms and 150 ms', async t => {
   t.plan(2);
 
-  const step = stub().resolves(never);
+  const startTime = Date.now();
 
-  await t.throws(
-    run(step, stepTimeout), `step timed out after ${stepTimeout} ms`
-  );
+  await run(step, 2, 50);
 
-  t.is(step.callCount, 1);
+  const endTime = Date.now();
+
+  t.true(endTime - startTime > 100);
+  t.true(endTime - startTime < 150);
 });
 
-test(createTestName('throw an error', 'twice'), async t => {
+test('\`run\` should have a runtime between 150 ms and 225 ms', async t => {
   t.plan(2);
 
-  const step = stub();
+  const startTime = Date.now();
 
-  step.onFirstCall().rejects(new Error('message'));
-  step.onSecondCall().resolves(never);
+  await run(step, 2, 75);
 
-  await t.throws(run(step, stepTimeout), 'message');
+  const endTime = Date.now();
 
-  t.is(step.callCount, 2);
-});
-
-test(createTestName('throw an error', 'several times'), async t => {
-  t.plan(2);
-
-  const step = stub().rejects(new Error('message'));
-
-  await t.throws(run(step, stepTimeout), 'message');
-
-  t.true(step.callCount > 2);
+  t.true(endTime - startTime > 150);
+  t.true(endTime - startTime < 225);
 });

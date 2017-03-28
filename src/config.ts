@@ -9,7 +9,8 @@ export interface Config {
   readonly dependencies: string[];
   readonly exclude: string[];
   readonly include: string;
-  readonly stepTimeout: number;
+  readonly retries: number;
+  readonly retryDelay: number;
 }
 
 const defaultConfig: Config = {
@@ -18,7 +19,8 @@ const defaultConfig: Config = {
   dependencies: ['chromedriver'],
   exclude: ['**/node_modules/**/*'],
   include: '**/*.e2e.js',
-  stepTimeout: 10000
+  retries: 4,
+  retryDelay: 500
 };
 
 const configFilename = process.argv[2];

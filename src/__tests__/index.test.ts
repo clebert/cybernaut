@@ -39,10 +39,13 @@ test('`stdout` should contain a test marked as SKIP', t => {
 });
 
 test('`stderr` should contain a copy of the configuration', t => {
+  t.plan(7);
+
   t.regex(result.stderr, /capabilities: \{ browserName: 'chrome' \}/);
   t.regex(result.stderr, /concurrency: 1/);
   t.regex(result.stderr, /dependencies: \[\]/);
   t.regex(result.stderr, /exclude: \[ '\*\*\/node_modules\/\*\*\/\*' \]/);
   t.regex(result.stderr, /include: '\*\*\/\*\.e2e\.js'/);
-  t.regex(result.stderr, /stepTimeout: 10000/);
+  t.regex(result.stderr, /retries: 4/);
+  t.regex(result.stderr, /retryDelay: 500/);
 });

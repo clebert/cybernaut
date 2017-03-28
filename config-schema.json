@@ -52,7 +52,12 @@
       "type": "string",
       "minLength": 1
     },
-    "stepTimeout": {
+    "retries": {
+      "type": "number",
+      "minimum": 0,
+      "multipleOf": 1
+    },
+    "retryDelay": {
       "type": "number",
       "minimum": 0,
       "multipleOf": 1

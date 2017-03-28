@@ -10,8 +10,8 @@ proxyquire('../predicate', {'deep-strict-equal': deepStrictEqual});
 
 import {PredicateBuilder} from '../predicate';
 
-function createTestName(methodName: string): string {
-  return `\`${methodName}\` should return a predicate`;
+function createTestName(method: string): string {
+  return `\`PredicateBuilder.${method}\` should return a predicate`;
 }
 
 test.beforeEach(() => {
@@ -19,7 +19,7 @@ test.beforeEach(() => {
   deepStrictEqual.resetBehavior();
 });
 
-test(createTestName('PredicateBuilder.contain'), async t => {
+test(createTestName('contain'), async t => {
   t.plan(5);
 
   const predicate = new PredicateBuilder().contain('foo');
@@ -33,7 +33,7 @@ test(createTestName('PredicateBuilder.contain'), async t => {
   t.false(predicate.test('bar'));
 });
 
-test(createTestName('PredicateBuilder.not.contain'), async t => {
+test(createTestName('not.contain'), async t => {
   t.plan(5);
 
   const predicate = new PredicateBuilder().not.contain('foo');
@@ -47,7 +47,7 @@ test(createTestName('PredicateBuilder.not.contain'), async t => {
   t.false(predicate.test('barfoo'));
 });
 
-test(createTestName('PredicateBuilder.equal'), async t => {
+test(createTestName('equal'), async t => {
   t.plan(5);
 
   const predicate = new PredicateBuilder().equal('foo');
@@ -63,7 +63,7 @@ test(createTestName('PredicateBuilder.equal'), async t => {
   t.is(deepStrictEqual.args[0][1], 'foo');
 });
 
-test(createTestName('PredicateBuilder.not.equal'), async t => {
+test(createTestName('not.equal'), async t => {
   t.plan(5);
 
   const predicate = new PredicateBuilder().not.equal('foo');
@@ -79,7 +79,7 @@ test(createTestName('PredicateBuilder.not.equal'), async t => {
   t.is(deepStrictEqual.args[0][1], 'foo');
 });
 
-test(createTestName('PredicateBuilder.match'), async t => {
+test(createTestName('match'), async t => {
   t.plan(5);
 
   const predicate = new PredicateBuilder().match(/foo/);
@@ -93,7 +93,7 @@ test(createTestName('PredicateBuilder.match'), async t => {
   t.false(predicate.test('bar'));
 });
 
-test(createTestName('PredicateBuilder.not.match'), async t => {
+test(createTestName('not.match'), async t => {
   t.plan(5);
 
   const predicate = new PredicateBuilder().not.match(/foo/);
@@ -107,7 +107,7 @@ test(createTestName('PredicateBuilder.not.match'), async t => {
   t.false(predicate.test('barfoo'));
 });
 
-test(createTestName('PredicateBuilder.be.above'), async t => {
+test(createTestName('be.above'), async t => {
   t.plan(4);
 
   const predicate = new PredicateBuilder().be.above(1);
@@ -120,7 +120,7 @@ test(createTestName('PredicateBuilder.be.above'), async t => {
   t.false(predicate.test(0));
 });
 
-test(createTestName('PredicateBuilder.not.be.above'), async t => {
+test(createTestName('not.be.above'), async t => {
   t.plan(4);
 
   const predicate = new PredicateBuilder().not.be.above(1);
@@ -133,7 +133,7 @@ test(createTestName('PredicateBuilder.not.be.above'), async t => {
   t.false(predicate.test(2));
 });
 
-test(createTestName('PredicateBuilder.be.at.least'), async t => {
+test(createTestName('be.at.least'), async t => {
   t.plan(4);
 
   const predicate = new PredicateBuilder().be.at.least(1);
@@ -146,7 +146,7 @@ test(createTestName('PredicateBuilder.be.at.least'), async t => {
   t.false(predicate.test(0));
 });
 
-test(createTestName('PredicateBuilder.not.be.at.least'), async t => {
+test(createTestName('not.be.at.least'), async t => {
   t.plan(4);
 
   const predicate = new PredicateBuilder().not.be.at.least(1);
@@ -159,7 +159,7 @@ test(createTestName('PredicateBuilder.not.be.at.least'), async t => {
   t.false(predicate.test(2));
 });
 
-test(createTestName('PredicateBuilder.be.below'), async t => {
+test(createTestName('be.below'), async t => {
   t.plan(4);
 
   const predicate = new PredicateBuilder().be.below(1);
@@ -172,7 +172,7 @@ test(createTestName('PredicateBuilder.be.below'), async t => {
   t.false(predicate.test(2));
 });
 
-test(createTestName('PredicateBuilder.not.be.below'), async t => {
+test(createTestName('not.be.below'), async t => {
   t.plan(4);
 
   const predicate = new PredicateBuilder().not.be.below(1);
@@ -185,7 +185,7 @@ test(createTestName('PredicateBuilder.not.be.below'), async t => {
   t.false(predicate.test(0));
 });
 
-test(createTestName('PredicateBuilder.be.at.most'), async t => {
+test(createTestName('be.at.most'), async t => {
   t.plan(4);
 
   const predicate = new PredicateBuilder().be.at.most(1);
@@ -198,7 +198,7 @@ test(createTestName('PredicateBuilder.be.at.most'), async t => {
   t.false(predicate.test(2));
 });
 
-test(createTestName('PredicateBuilder.not.be.at.most'), async t => {
+test(createTestName('not.be.at.most'), async t => {
   t.plan(4);
 
   const predicate = new PredicateBuilder().not.be.at.most(1);

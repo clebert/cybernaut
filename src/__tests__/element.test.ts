@@ -6,11 +6,11 @@ import {stub} from 'sinon';
 import {format} from '../description';
 import {Element} from '../element';
 
-function createTestName(methodName: string, resultName: string): string {
-  return `\`${methodName}\` should return an ${resultName}`;
+function createTestName(method: string, result: string): string {
+  return `\`Element.${method}\` should return an ${result}`;
 }
 
-test(createTestName('Element.tagName', 'accessor'), async t => {
+test(createTestName('tagName', 'accessor'), async t => {
   t.plan(5);
 
   const accessor = new Element('selector').tagName;
@@ -28,7 +28,7 @@ test(createTestName('Element.tagName', 'accessor'), async t => {
   t.is(getTagName.callCount, 1);
 });
 
-test(createTestName('Element.text', 'accessor'), async t => {
+test(createTestName('text', 'accessor'), async t => {
   t.plan(5);
 
   const accessor = new Element('selector').text;
@@ -46,7 +46,7 @@ test(createTestName('Element.text', 'accessor'), async t => {
   t.is(getText.callCount, 1);
 });
 
-test(createTestName('Element.visibility', 'accessor'), async t => {
+test(createTestName('visibility', 'accessor'), async t => {
   t.plan(5);
 
   const accessor = new Element('selector').visibility;
@@ -64,7 +64,7 @@ test(createTestName('Element.visibility', 'accessor'), async t => {
   t.is(isDisplayed.callCount, 1);
 });
 
-test(createTestName('Element.x', 'accessor'), async t => {
+test(createTestName('x', 'accessor'), async t => {
   t.plan(5);
 
   const accessor = new Element('selector').x;
@@ -82,7 +82,7 @@ test(createTestName('Element.x', 'accessor'), async t => {
   t.is(getLocation.callCount, 1);
 });
 
-test(createTestName('Element.y', 'accessor'), async t => {
+test(createTestName('y', 'accessor'), async t => {
   t.plan(5);
 
   const accessor = new Element('selector').y;
@@ -100,7 +100,7 @@ test(createTestName('Element.y', 'accessor'), async t => {
   t.is(getLocation.callCount, 1);
 });
 
-test(createTestName('Element.width', 'accessor'), async t => {
+test(createTestName('width', 'accessor'), async t => {
   t.plan(5);
 
   const accessor = new Element('selector').width;
@@ -118,7 +118,7 @@ test(createTestName('Element.width', 'accessor'), async t => {
   t.is(getSize.callCount, 1);
 });
 
-test(createTestName('Element.height', 'accessor'), async t => {
+test(createTestName('height', 'accessor'), async t => {
   t.plan(5);
 
   const accessor = new Element('selector').height;
@@ -136,7 +136,7 @@ test(createTestName('Element.height', 'accessor'), async t => {
   t.is(getSize.callCount, 1);
 });
 
-test(createTestName('Element.cssValue', 'accessor'), async t => {
+test(createTestName('cssValue', 'accessor'), async t => {
   t.plan(6);
 
   const accessor = new Element('selector').cssValue('cssName');
@@ -158,7 +158,7 @@ test(createTestName('Element.cssValue', 'accessor'), async t => {
   t.is(getCssValue.args[0][0], 'cssName');
 });
 
-test(createTestName('Element.propertyValue', 'accessor'), async t => {
+test(createTestName('propertyValue', 'accessor'), async t => {
   t.plan(6);
 
   const accessor = new Element('selector').propertyValue('propertyName');
@@ -180,7 +180,7 @@ test(createTestName('Element.propertyValue', 'accessor'), async t => {
   t.is(getAttribute.args[0][0], 'propertyName');
 });
 
-test(createTestName('Element.clearValue', 'action'), async t => {
+test(createTestName('clearValue', 'action'), async t => {
   t.plan(4);
 
   const action = new Element('selector').clearValue();
@@ -198,7 +198,7 @@ test(createTestName('Element.clearValue', 'action'), async t => {
   t.is(clear.callCount, 1);
 });
 
-test(createTestName('Element.click', 'action'), async t => {
+test(createTestName('click', 'action'), async t => {
   t.plan(4);
 
   const action = new Element('selector').click();
@@ -216,7 +216,7 @@ test(createTestName('Element.click', 'action'), async t => {
   t.is(click.callCount, 1);
 });
 
-test(createTestName('Element.sendKeys', 'action'), async t => {
+test(createTestName('sendKeys', 'action'), async t => {
   t.plan(6);
 
   const action = new Element('selector').sendKeys('key1', 'key2');
@@ -239,7 +239,7 @@ test(createTestName('Element.sendKeys', 'action'), async t => {
   t.is(sendKeys.args[0][1], 'key2');
 });
 
-test(createTestName('Element.submitForm', 'action'), async t => {
+test(createTestName('submitForm', 'action'), async t => {
   t.plan(4);
 
   const action = new Element('selector').submitForm();
