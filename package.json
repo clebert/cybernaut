@@ -29,6 +29,12 @@
     "serial": true,
     "verbose": true
   },
+  "lint-staged": {
+    "*.ts": [
+      "tsfmt --replace",
+      "git add"
+    ]
+  },
   "nyc": {
     "lines": 100,
     "statements": 100,
@@ -53,6 +59,7 @@
   },
   "scripts": {
     "commitmsg": "conventional-changelog-lint --edit",
+    "precommit": "lint-staged",
     "prebuild": "rm -rf dist/*",
     "build": "tsc --project .",
     "postbuild": "chmod +x dist/index.js",
@@ -86,6 +93,7 @@
     "custom-tslint-formatters": "2.0.0",
     "cz-customizable": "4.0.0",
     "husky": "0.13.3",
+    "lint-staged": "3.4.0",
     "npm-run-all": "4.0.2",
     "nyc": "10.2.0",
     "proxyquire": "1.7.11",
