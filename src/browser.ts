@@ -1,6 +1,5 @@
 import {Accessor} from './accessor';
 import {Action} from './action';
-import {sleep} from './utils';
 
 export class Browser {
   public get pageTitle(): Accessor<string> {
@@ -99,7 +98,9 @@ export class Browser {
   public sleep(duration: number): Action {
     return {
       description: {template: 'sleep for {} ms', args: [duration]},
-      perform: async () => sleep(duration).wakeUp
+      perform: async () => new Promise<void>(resolve => {
+        setTimeout(resolve, duration);
+      })
     };
   }
 }

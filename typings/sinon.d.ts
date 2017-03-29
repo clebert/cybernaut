@@ -11,6 +11,7 @@ declare module 'sinon' {
   export interface Stub extends Spy {
     onFirstCall(): this;
     onSecondCall(): this;
+    onThirdCall(): this;
     rejects(error: Error): this;
     reset(): void;
     resetBehavior(): void;

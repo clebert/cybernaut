@@ -5,11 +5,11 @@ import {stub} from 'sinon';
 import {Browser} from '../browser';
 import {format} from '../description';
 
-function createTestName(methodName: string, resultName: string): string {
-  return `\`${methodName}\` should return an ${resultName}`;
+function createTestName(method: string, result: string): string {
+  return `\`Browser.${method}\` should return an ${result}`;
 }
 
-test(createTestName('Browser.pageTitle', 'accessor'), async t => {
+test(createTestName('pageTitle', 'accessor'), async t => {
   t.plan(3);
 
   const accessor = new Browser().pageTitle;
@@ -23,7 +23,7 @@ test(createTestName('Browser.pageTitle', 'accessor'), async t => {
   t.is(getTitle.callCount, 1);
 });
 
-test(createTestName('Browser.pageUrl', 'accessor'), async t => {
+test(createTestName('pageUrl', 'accessor'), async t => {
   t.plan(3);
 
   const accessor = new Browser().pageUrl;
@@ -37,7 +37,7 @@ test(createTestName('Browser.pageUrl', 'accessor'), async t => {
   t.is(getCurrentUrl.callCount, 1);
 });
 
-test(createTestName('Browser.windowX', 'accessor'), async t => {
+test(createTestName('windowX', 'accessor'), async t => {
   t.plan(3);
 
   const accessor = new Browser().windowX;
@@ -53,7 +53,7 @@ test(createTestName('Browser.windowX', 'accessor'), async t => {
   t.is(getPosition.callCount, 1);
 });
 
-test(createTestName('Browser.windowY', 'accessor'), async t => {
+test(createTestName('windowY', 'accessor'), async t => {
   t.plan(3);
 
   const accessor = new Browser().windowY;
@@ -69,7 +69,7 @@ test(createTestName('Browser.windowY', 'accessor'), async t => {
   t.is(getPosition.callCount, 1);
 });
 
-test(createTestName('Browser.windowWidth', 'accessor'), async t => {
+test(createTestName('windowWidth', 'accessor'), async t => {
   t.plan(3);
 
   const accessor = new Browser().windowWidth;
@@ -85,7 +85,7 @@ test(createTestName('Browser.windowWidth', 'accessor'), async t => {
   t.is(getSize.callCount, 1);
 });
 
-test(createTestName('Browser.windowHeight', 'accessor'), async t => {
+test(createTestName('windowHeight', 'accessor'), async t => {
   t.plan(3);
 
   const accessor = new Browser().windowHeight;
@@ -101,7 +101,7 @@ test(createTestName('Browser.windowHeight', 'accessor'), async t => {
   t.is(getSize.callCount, 1);
 });
 
-test(createTestName('Browser.loadPage', 'action'), async t => {
+test(createTestName('loadPage', 'action'), async t => {
   t.plan(3);
 
   const action = new Browser().loadPage('pageUrl');
@@ -116,7 +116,7 @@ test(createTestName('Browser.loadPage', 'action'), async t => {
   t.is(to.args[0][0], 'pageUrl');
 });
 
-test(createTestName('Browser.maximizeWindow', 'action'), async t => {
+test(createTestName('maximizeWindow', 'action'), async t => {
   t.plan(2);
 
   const action = new Browser().maximizeWindow();
@@ -132,7 +132,7 @@ test(createTestName('Browser.maximizeWindow', 'action'), async t => {
   t.is(maximize.callCount, 1);
 });
 
-test(createTestName('Browser.navigateBack', 'action'), async t => {
+test(createTestName('navigateBack', 'action'), async t => {
   t.plan(2);
 
   const action = new Browser().navigateBack();
@@ -146,7 +146,7 @@ test(createTestName('Browser.navigateBack', 'action'), async t => {
   t.is(back.callCount, 1);
 });
 
-test(createTestName('Browser.navigateForward', 'action'), async t => {
+test(createTestName('navigateForward', 'action'), async t => {
   t.plan(2);
 
   const action = new Browser().navigateForward();
@@ -160,7 +160,7 @@ test(createTestName('Browser.navigateForward', 'action'), async t => {
   t.is(forward.callCount, 1);
 });
 
-test(createTestName('Browser.reloadPage', 'action'), async t => {
+test(createTestName('reloadPage', 'action'), async t => {
   t.plan(2);
 
   const action = new Browser().reloadPage();
@@ -174,7 +174,7 @@ test(createTestName('Browser.reloadPage', 'action'), async t => {
   t.is(refresh.callCount, 1);
 });
 
-test(createTestName('Browser.setWindowPosition', 'action'), async t => {
+test(createTestName('setWindowPosition', 'action'), async t => {
   t.plan(4);
 
   const action = new Browser().setWindowPosition(123, 456);
@@ -192,7 +192,7 @@ test(createTestName('Browser.setWindowPosition', 'action'), async t => {
   t.is(setPosition.args[0][1], 456);
 });
 
-test(createTestName('Browser.setWindowSize', 'action'), async t => {
+test(createTestName('setWindowSize', 'action'), async t => {
   t.plan(4);
 
   const action = new Browser().setWindowSize(123, 456);
@@ -210,7 +210,7 @@ test(createTestName('Browser.setWindowSize', 'action'), async t => {
   t.is(setSize.args[0][1], 456);
 });
 
-test(createTestName('Browser.sleep', 'action'), async t => {
+test(createTestName('sleep', 'action'), async t => {
   t.plan(2);
 
   const action = new Browser().sleep(100);

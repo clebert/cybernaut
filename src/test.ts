@@ -3,76 +3,78 @@ import {Accessor} from './accessor';
 import {Action} from './action';
 import {format} from './description';
 import {Predicate} from './predicate';
-import {Step, run} from './step';
+import {run} from './step';
 
 export abstract class Test {
   private readonly _driver: WebDriver;
-  private readonly _stepTimeout: number;
+  private readonly _retries: number;
+  private readonly _retryDelay: number;
 
-  public constructor(driver: WebDriver, stepTimeout: number) {
+  public constructor(driver: WebDriver, retries: number, retryDelay: number) {
     this._driver = driver;
-    this._stepTimeout = stepTimeout;
+    this._retries = retries;
+    this._retryDelay = retryDelay;
   }
 
   public abstract fail(message: string, cause: Error): void;
   public abstract pass(message: string): void;
 
   public async assert<T>(
-    accessor: Accessor<T>, predicate: Predicate<T>, stepTimeout?: number
+    accessor: Accessor<T>,
+    predicate: Predicate<T>,
+    retries: number = this._retries,
+    retryDelay: number = this._retryDelay
   ): Promise<void> {
     const message =
       `${format(accessor.description)} ${format(predicate.description)}`;
 
     try {
-      await this._run(async () => {
+      const attempts = await run(async () => {
         if (!predicate.test(await accessor.get(this._driver))) {
           throw new Error('Predicate evaluates to false');
         }
-      }, stepTimeout);
+      }, retries, retryDelay);
 
-      this.pass(message);
+      this.pass(`${message} (attempt ${attempts} of ${retries + 1})`);
     } catch (e) {
       this.fail(message, e);
     }
   }
 
-  public async perform(action: Action, stepTimeout?: number): Promise<void> {
+  public async perform(
+    action: Action,
+    retries: number = this._retries,
+    retryDelay: number = this._retryDelay
+  ): Promise<void> {
     const message = format(action.description);
 
     try {
-      await this._run(async () => {
+      const attempts = await run(async () => {
         await action.perform(this._driver);
-      }, stepTimeout);
+      }, retries, retryDelay);
 
-      this.pass(message);
+      this.pass(`${message} (attempt ${attempts} of ${retries + 1})`);
     } catch (e) {
       this.fail(message, e);
     }
   }
 
   public async verify<T>(
-    accessor: Accessor<T>, predicate: Predicate<T>, stepTimeout?: number
+    accessor: Accessor<T>,
+    predicate: Predicate<T>,
+    retries: number = this._retries,
+    retryDelay: number = this._retryDelay
   ): Promise<boolean> {
     try {
-      await this._run(async () => {
+      await run(async () => {
         if (!predicate.test(await accessor.get(this._driver))) {
           throw new Error('Predicate evaluates to false');
         }
-      }, stepTimeout);
+      }, retries, retryDelay);
 
       return true;
     } catch (e) {
       return false;
     }
-  }
-
-  private async _run(
-    step: Step, stepTimeout: number = this._stepTimeout
-  ): Promise<void> {
-    await this._driver.manage().timeouts().implicitlyWait(stepTimeout);
-    await this._driver.manage().timeouts().pageLoadTimeout(stepTimeout);
-    await this._driver.manage().timeouts().setScriptTimeout(stepTimeout);
-
-    await run(step, stepTimeout);
   }
 }

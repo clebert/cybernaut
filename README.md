@@ -75,7 +75,8 @@ The following configuration is active by default:
   "dependencies": ["chromedriver"],
   "exclude": ["**/node_modules/**/*"],
   "include": "**/*.e2e.js",
-  "stepTimeout": 10000
+  "retries": 4,
+  "retryDelay": 500
 }
 ```
 
@@ -117,9 +118,9 @@ module.exports = {
 ### Test
 
 ```ts
-test(name: string, implementation?: (t: Test) => Promise<void>, stepTimeout?: number): void
+test(name: string, implementation?: (t: Test) => Promise<void>): void
 
-skip(name: string, implementation: (t: Test) => Promise<void>, stepTimeout?: number): void
+skip(name: string, implementation: (t: Test) => Promise<void>): void
 ```
 
 ```ts
@@ -139,15 +140,15 @@ skip('baz', async t => { // This test won't be executed (and marked as SKIP)
 #### Methods
 
 ```ts
-t.assert<T>(accessor: Accessor<T>, predicate: Predicate<T>, stepTimeout?: number): Promise<void>
+t.assert<T>(accessor: Accessor<T>, predicate: Predicate<T>, retries?: number, retryDelay?: number): Promise<void>
 ```
 
 ```ts
-t.perform(action: Action, stepTimeout?: number): Promise<void>
+t.perform(action: Action, retries?: number, retryDelay?: number): Promise<void>
 ```
 
 ```ts
-t.verify<T>(accessor: Accessor<T>, predicate: Predicate<T>, stepTimeout?: number): Promise<boolean>
+t.verify<T>(accessor: Accessor<T>, predicate: Predicate<T>, retries?: number, retryDelay?: number): Promise<boolean>
 ```
 
 ```ts

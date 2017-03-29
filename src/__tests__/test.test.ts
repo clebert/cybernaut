@@ -13,12 +13,9 @@ const stubs = {
   fail: stub(),
   format: stub(),
   get: stub(),
-  implicitlyWait: stub(),
-  pageLoadTimeout: stub(),
   pass: stub(),
   perform: stub(),
   run: stub(),
-  setScriptTimeout: stub(),
   test: stub()
 };
 
@@ -28,21 +25,11 @@ proxyquire('../test', {
 
 import {Test} from '../test';
 
-const driver: any = {
-  manage: () => ({
-    timeouts: () => ({
-      implicitlyWait: stubs.implicitlyWait,
-      pageLoadTimeout: stubs.pageLoadTimeout,
-      setScriptTimeout: stubs.setScriptTimeout
-    })
-  })
-};
-
-const stepTimeout = 50;
+const driver: any = {};
 
 class CustomTest extends Test {
   public constructor() {
-    super(driver, stepTimeout);
+    super(driver, 10, 500);
 
     this.fail = stubs.fail;
     this.pass = stubs.pass;
@@ -82,7 +69,7 @@ test('`Test.assert` should call `Test.pass`', async t => {
   stubs.format.onFirstCall().returns('accessor');
   stubs.format.onSecondCall().returns('predicate');
 
-  stubs.run.resolves(undefined);
+  stubs.run.resolves(2);
 
   await new CustomTest().assert(accessor, predicate);
 
@@ -91,7 +78,7 @@ test('`Test.assert` should call `Test.pass`', async t => {
   t.is(stubs.format.args[1][0], predicate.description);
 
   t.is(stubs.pass.callCount, 1);
-  t.is(stubs.pass.args[0][0], 'accessor predicate');
+  t.is(stubs.pass.args[0][0], 'accessor predicate (attempt 2 of 11)');
 
   t.is(stubs.fail.callCount, 0);
 });
@@ -117,43 +104,27 @@ test('`Test.assert` should call `Test.fail`', async t => {
   t.deepEqual(stubs.fail.args[0][1], new Error('message'));
 });
 
-test('`Test.assert` should run a step with the default timeout', async t => {
-  t.plan(8);
+test('`Test.assert` should pass default values to `run`', async t => {
+  t.plan(3);
 
   await new CustomTest().assert(accessor, predicate);
 
-  t.is(stubs.implicitlyWait.callCount, 1);
-  t.is(stubs.implicitlyWait.args[0][0], stepTimeout);
-
-  t.is(stubs.pageLoadTimeout.callCount, 1);
-  t.is(stubs.pageLoadTimeout.args[0][0], stepTimeout);
-
-  t.is(stubs.setScriptTimeout.callCount, 1);
-  t.is(stubs.setScriptTimeout.args[0][0], stepTimeout);
-
   t.is(stubs.run.callCount, 1);
-  t.is(stubs.run.args[0][1], stepTimeout);
+  t.is(stubs.run.args[0][1], 10);
+  t.is(stubs.run.args[0][2], 500);
 });
 
-test('`Test.assert` should run a step with an individual timeout', async t => {
-  t.plan(8);
+test('`Test.assert` should pass individual values to `run`', async t => {
+  t.plan(3);
 
-  await new CustomTest().assert(accessor, predicate, stepTimeout * 2);
-
-  t.is(stubs.implicitlyWait.callCount, 1);
-  t.is(stubs.implicitlyWait.args[0][0], stepTimeout * 2);
-
-  t.is(stubs.pageLoadTimeout.callCount, 1);
-  t.is(stubs.pageLoadTimeout.args[0][0], stepTimeout * 2);
-
-  t.is(stubs.setScriptTimeout.callCount, 1);
-  t.is(stubs.setScriptTimeout.args[0][0], stepTimeout * 2);
+  await new CustomTest().assert(accessor, predicate, 20, 1000);
 
   t.is(stubs.run.callCount, 1);
-  t.is(stubs.run.args[0][1], stepTimeout * 2);
+  t.is(stubs.run.args[0][1], 20);
+  t.is(stubs.run.args[0][2], 1000);
 });
 
-test('`Test.assert` should create a step that returns', async t => {
+test('`Test.assert` should run a step that returns', async t => {
   t.plan(5);
 
   stubs.get.returns('value');
@@ -174,7 +145,7 @@ test('`Test.assert` should create a step that returns', async t => {
   t.is(stubs.test.args[0][0], 'value');
 });
 
-test('`Test.assert` should create a step that throws an error', async t => {
+test('`Test.assert` should run a step that throws an error', async t => {
   t.plan(6);
 
   stubs.get.returns('value');
@@ -200,7 +171,7 @@ test('`Test.perform` should call `Test.pass`', async t => {
 
   stubs.format.onFirstCall().returns('action');
 
-  stubs.run.resolves(undefined);
+  stubs.run.resolves(2);
 
   await new CustomTest().perform(action);
 
@@ -208,7 +179,7 @@ test('`Test.perform` should call `Test.pass`', async t => {
   t.is(stubs.format.args[0][0], action.description);
 
   t.is(stubs.pass.callCount, 1);
-  t.is(stubs.pass.args[0][0], 'action');
+  t.is(stubs.pass.args[0][0], 'action (attempt 2 of 11)');
 
   t.is(stubs.fail.callCount, 0);
 });
@@ -232,43 +203,27 @@ test('`Test.perform` should call `Test.fail`', async t => {
   t.deepEqual(stubs.fail.args[0][1], new Error('message'));
 });
 
-test('`Test.perform` should run a step with the default timeout', async t => {
-  t.plan(8);
+test('`Test.perform` should pass default values to `run`', async t => {
+  t.plan(3);
 
   await new CustomTest().perform(action);
 
-  t.is(stubs.implicitlyWait.callCount, 1);
-  t.is(stubs.implicitlyWait.args[0][0], stepTimeout);
-
-  t.is(stubs.pageLoadTimeout.callCount, 1);
-  t.is(stubs.pageLoadTimeout.args[0][0], stepTimeout);
-
-  t.is(stubs.setScriptTimeout.callCount, 1);
-  t.is(stubs.setScriptTimeout.args[0][0], stepTimeout);
-
   t.is(stubs.run.callCount, 1);
-  t.is(stubs.run.args[0][1], stepTimeout);
+  t.is(stubs.run.args[0][1], 10);
+  t.is(stubs.run.args[0][2], 500);
 });
 
-test('`Test.perform` should run a step with an individual timeout', async t => {
-  t.plan(8);
+test('`Test.perform` should pass individual values to `run`', async t => {
+  t.plan(3);
 
-  await new CustomTest().perform(action, stepTimeout * 2);
-
-  t.is(stubs.implicitlyWait.callCount, 1);
-  t.is(stubs.implicitlyWait.args[0][0], stepTimeout * 2);
-
-  t.is(stubs.pageLoadTimeout.callCount, 1);
-  t.is(stubs.pageLoadTimeout.args[0][0], stepTimeout * 2);
-
-  t.is(stubs.setScriptTimeout.callCount, 1);
-  t.is(stubs.setScriptTimeout.args[0][0], stepTimeout * 2);
+  await new CustomTest().perform(action, 20, 1000);
 
   t.is(stubs.run.callCount, 1);
-  t.is(stubs.run.args[0][1], stepTimeout * 2);
+  t.is(stubs.run.args[0][1], 20);
+  t.is(stubs.run.args[0][2], 1000);
 });
 
-test('`Test.perform` should create a step that returns', async t => {
+test('`Test.perform` should run a step that returns', async t => {
   t.plan(3);
 
   await new CustomTest().perform(action);
@@ -283,7 +238,7 @@ test('`Test.perform` should create a step that returns', async t => {
   t.is(stubs.perform.args[0][0], driver);
 });
 
-test('`Test.perform` should create a step that throws an error', async t => {
+test('`Test.perform` should run a step that throws an error', async t => {
   t.plan(4);
 
   stubs.perform.throws(new Error('message'));
@@ -303,7 +258,7 @@ test('`Test.perform` should create a step that throws an error', async t => {
 test('`Test.verify` should return true', async t => {
   t.plan(3);
 
-  stubs.run.resolves(undefined);
+  stubs.run.resolves(2);
 
   t.true(await new CustomTest().verify(accessor, predicate));
 
@@ -322,43 +277,27 @@ test('`Test.verify` should return false', async t => {
   t.is(stubs.fail.callCount, 0);
 });
 
-test('`Test.verify` should run a step with the default timeout', async t => {
-  t.plan(8);
+test('`Test.verify` should pass default values to `run`', async t => {
+  t.plan(3);
 
   await new CustomTest().verify(accessor, predicate);
 
-  t.is(stubs.implicitlyWait.callCount, 1);
-  t.is(stubs.implicitlyWait.args[0][0], stepTimeout);
-
-  t.is(stubs.pageLoadTimeout.callCount, 1);
-  t.is(stubs.pageLoadTimeout.args[0][0], stepTimeout);
-
-  t.is(stubs.setScriptTimeout.callCount, 1);
-  t.is(stubs.setScriptTimeout.args[0][0], stepTimeout);
-
   t.is(stubs.run.callCount, 1);
-  t.is(stubs.run.args[0][1], stepTimeout);
+  t.is(stubs.run.args[0][1], 10);
+  t.is(stubs.run.args[0][2], 500);
 });
 
-test('`Test.verify` should run a step with an individual timeout', async t => {
-  t.plan(8);
+test('`Test.verify` should pass individual values to `run`', async t => {
+  t.plan(3);
 
-  await new CustomTest().verify(accessor, predicate, stepTimeout * 2);
-
-  t.is(stubs.implicitlyWait.callCount, 1);
-  t.is(stubs.implicitlyWait.args[0][0], stepTimeout * 2);
-
-  t.is(stubs.pageLoadTimeout.callCount, 1);
-  t.is(stubs.pageLoadTimeout.args[0][0], stepTimeout * 2);
-
-  t.is(stubs.setScriptTimeout.callCount, 1);
-  t.is(stubs.setScriptTimeout.args[0][0], stepTimeout * 2);
+  await new CustomTest().verify(accessor, predicate, 20, 1000);
 
   t.is(stubs.run.callCount, 1);
-  t.is(stubs.run.args[0][1], stepTimeout * 2);
+  t.is(stubs.run.args[0][1], 20);
+  t.is(stubs.run.args[0][2], 1000);
 });
 
-test('`Test.verify` should create a step that returns', async t => {
+test('`Test.verify` should run a step that returns', async t => {
   t.plan(5);
 
   stubs.get.returns('value');
@@ -379,7 +318,7 @@ test('`Test.verify` should create a step that returns', async t => {
   t.is(stubs.test.args[0][0], 'value');
 });
 
-test('`Test.verify` should create a step that throws an error', async t => {
+test('`Test.verify` should run a step that throws an error', async t => {
   t.plan(6);
 
   stubs.get.returns('value');

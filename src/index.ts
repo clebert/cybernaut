@@ -38,8 +38,8 @@ export const browser = new Browser();
 class TapTest extends Test {
   private readonly t: Tap.Test;
 
-  public constructor(driver: WebDriver, stepTimeout: number, t: Tap.Test) {
-    super(driver, stepTimeout);
+  public constructor(driver: WebDriver, t: Tap.Test) {
+    super(driver, config.retries, config.retryDelay);
 
     this.t = t;
   }
@@ -55,11 +55,7 @@ class TapTest extends Test {
 
 const tasks: (() => void)[] = [];
 
-export function test(
-  name: string,
-  implementation?: Implementation,
-  stepTimeout: number = config.stepTimeout
-): void {
+export function test(name: string, implementation?: Implementation): void {
   tasks.push(() => {
     // tslint:disable-next-line no-floating-promises
     tap.test(name, {
@@ -71,7 +67,7 @@ export function test(
         ).build();
 
         try {
-          await implementation(new TapTest(driver, stepTimeout, t));
+          await implementation(new TapTest(driver, t));
         } finally {
           await driver.quit();
         }
@@ -82,9 +78,7 @@ export function test(
   });
 }
 
-export function skip(
-  name: string, implementation: Implementation, stepTimeout?: number
-): void {
+export function skip(name: string, implementation: Implementation): void {
   tasks.push(() => {
     tap.test(name, {skip: true}); // tslint:disable-line no-floating-promises
   });

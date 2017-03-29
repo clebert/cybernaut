@@ -1,41 +1,21 @@
-import {sleep} from './utils';
-
 export type Step = () => Promise<void>;
 
-export async function run(step: Step, stepTimeout: number): Promise<void> {
-  let error: Error | undefined;
+export async function run(
+  step: Step, retries: number, retryDelay: number, attempts: number = 1
+): Promise<number> {
+  try {
+    await step();
 
-  let cancelTimeout: any; // tslint:disable-line no-any
-  let timedOut = false;
+    return attempts;
+  } catch (e) {
+    if (retries >= attempts) {
+      await new Promise<void>(resolve => {
+        setTimeout(resolve, retryDelay);
+      });
 
-  const startTimeout = async () => {
-    const result = sleep(stepTimeout);
-
-    cancelTimeout = result.cancel;
-
-    await result.wakeUp;
-
-    timedOut = true;
-
-    throw error || new Error(`step timed out after ${stepTimeout} ms`);
-  };
-
-  const executeStep = async () => {
-    do {
-      try {
-        await step();
-
-        cancelTimeout();
-
-        return;
-      } catch (e) {
-        error = e;
-      }
-
-      // The next line makes sure that this while loop runs asynchronously
-      await sleep(0).wakeUp;
-    } while (!timedOut);
-  };
-
-  await Promise.race<void>([startTimeout(), executeStep()]);
+      return await run(step, retries, retryDelay, attempts + 1);
+    } else {
+      throw e;
+    }
+  }
 }
