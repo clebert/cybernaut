@@ -1,4 +1,4 @@
-// tslint:disable max-line-length no-any
+// tslint:disable max-line-length no-any promise-function-async
 
 // https://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index.html
 // https://github.com/SeleniumHQ/selenium/blob/master/javascript/node/selenium-webdriver/index.js
@@ -261,8 +261,8 @@ declare module 'selenium-webdriver' {
   export class WebDriver {
     public actions(): ActionSequence;
     public close(): Promise<void>;
-    public executeAsyncScript<TValue>(script: string | (() => TValue), ...args: any[]): Promise<TValue>;
-    public executeScript<TValue>(script: string | (() => TValue), ...args: any[]): Promise<TValue>;
+    public executeAsyncScript<TValue>(script: string | ((...args: any[]) => void), ...args: any[]): Promise<TValue>;
+    public executeScript<TValue>(script: string | ((...args: any[]) => TValue), ...args: any[]): Promise<TValue>;
     public findElement(locator: By): Promise<WebElement>;
     public findElements(locator: By): Promise<WebElement[]>;
     public get(url: string): Promise<void>;
