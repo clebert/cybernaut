@@ -129,6 +129,8 @@ test('bar', async t => { // This test will be executed
 });
 ```
 
+---
+
 #### `skip(name: string, implementation: (t: Test) => Promise<void>): void`
 
 ```ts
@@ -245,13 +247,21 @@ import {it} from 'cybernaut';
 
 #### `it.should.not.contain(expectedValue: string): Predicate<string>`
 
+---
+
 #### `it.should.equal<T>(expectedValue: T): Predicate<T>`
 
 #### `it.should.not.equal<T>(expectedValue: T): Predicate<T>`
 
+The comparison is performed with [`deep-strict-equal`][20].
+
+---
+
 #### `it.should.match(regex: RegExp): Predicate<string>`
 
 #### `it.should.not.match(regex: RegExp): Predicate<string>`
+
+---
 
 #### `it.should.be.above(expectedValue: number): Predicate<number>`
 
@@ -316,3 +326,4 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [17]: https://img.shields.io/badge/TypeScript-friendly-blue.svg
 [18]: http://www.typescriptlang.org/
 [19]: https://github.com/clebert/cybernaut/blob/master/config-schema.json
+[20]: https://github.com/sindresorhus/deep-strict-equal
