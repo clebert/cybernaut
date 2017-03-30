@@ -129,8 +129,6 @@ test('bar', async t => { // This test will be executed
 });
 ```
 
----
-
 #### `skip(name: string, implementation: (t: Test) => Promise<void>): void`
 
 ```ts
@@ -195,7 +193,9 @@ import {browser} from 'cybernaut';
 
 ### Element
 
-#### `defineElement(selector: string): Element`
+##### defineElement
+
+`defineElement(selector: string): Element`
 
 ```ts
 import {defineElement} from 'cybernaut';
@@ -205,37 +205,65 @@ const element = defineElement('#foo');
 
 #### Accessors
 
-#### `element.tagName: Accessor<string>`
+##### tagName
 
-#### `element.text: Accessor<string>`
+`element.tagName: Accessor<string>`
 
-#### `element.visibility: Accessor<boolean>`
+##### text
 
-#### `element.x: Accessor<number>`
+`element.text: Accessor<string>`
 
-#### `element.y: Accessor<number>`
+##### visibility
 
-#### `element.width: Accessor<number>`
+`element.visibility: Accessor<boolean>`
 
-#### `element.height: Accessor<number>`
+##### x
 
-#### `element.cssValue(cssName: string): Accessor<string>`
+`element.x: Accessor<number>`
 
-#### `element.propertyValue(propertyName: string): Accessor<string | null>`
+##### y
+
+`element.y: Accessor<number>`
+
+##### width
+
+`element.width: Accessor<number>`
+
+##### height
+
+`element.height: Accessor<number>`
+
+##### cssValue
+
+`element.cssValue(cssName: string): Accessor<string>`
+
+##### propertyValue
+
+`element.propertyValue(propertyName: string): Accessor<string | null>`
 
 #### Actions
 
-#### `element.clearValue(): Action`
+##### clearValue
 
-#### `element.click(): Action`
+`element.clearValue(): Action`
 
-#### `element.sendKeys(...keys: string[]): Action`
+##### click
 
-#### `element.submitForm(): Action`
+`element.click(): Action`
+
+##### sendKeys
+
+`element.sendKeys(...keys: string[]): Action`
+
+##### submitForm
+
+`element.submitForm(): Action`
 
 ### PredicateBuilder
 
-#### `it`
+##### it
+
+`it: {should: PredicateBuilder}`
 
 ```ts
 import {it} from 'cybernaut';
@@ -243,33 +271,41 @@ import {it} from 'cybernaut';
 
 #### Predicates
 
-#### `it.should.contain(expectedValue: string): Predicate<string>`
+##### contain
 
-#### `it.should.not.contain(expectedValue: string): Predicate<string>`
+`it.should.contain(expectedValue: string): Predicate<string>`
 
----
+`it.should.not.contain(expectedValue: string): Predicate<string>`
 
-#### `it.should.equal<T>(expectedValue: T): Predicate<T>`
+##### equal `===`
 
-#### `it.should.not.equal<T>(expectedValue: T): Predicate<T>`
+`it.should.equal<T>(expectedValue: T): Predicate<T>`
+
+`it.should.not.equal<T>(expectedValue: T): Predicate<T>`
 
 The comparison is performed with [`deep-strict-equal`][20].
 
----
+##### match
 
-#### `it.should.match(regex: RegExp): Predicate<string>`
+`it.should.match(regex: RegExp): Predicate<string>`
 
-#### `it.should.not.match(regex: RegExp): Predicate<string>`
+`it.should.not.match(regex: RegExp): Predicate<string>`
 
----
+##### above `>`
 
-#### `it.should.be.above(expectedValue: number): Predicate<number>`
+`it.should.be.above(expectedValue: number): Predicate<number>`
 
-#### `it.should.be.at.least(expectedValue: number): Predicate<number>`
+##### least `>=`
 
-#### `it.should.be.below(expectedValue: number): Predicate<number>`
+`it.should.be.at.least(expectedValue: number): Predicate<number>`
 
-#### `it.should.be.at.most(expectedValue: number): Predicate<number>`
+##### below `<`
+
+`it.should.be.below(expectedValue: number): Predicate<number>`
+
+##### most `<=`
+
+`it.should.be.at.most(expectedValue: number): Predicate<number>`
 
 ## Development
 
