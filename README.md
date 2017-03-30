@@ -193,6 +193,8 @@ import {browser} from 'cybernaut';
 
 ### Element
 
+#### Factory Function
+
 ##### defineElement
 
 `defineElement(selector: string): Element`
@@ -260,6 +262,8 @@ const element = defineElement('#foo');
 `element.submitForm(): Action`
 
 ### PredicateBuilder
+
+#### Factory Function
 
 ##### it
 
