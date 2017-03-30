@@ -90,7 +90,7 @@
     "commitizen": "2.9.6",
     "conventional-changelog-lint": "1.1.7",
     "coveralls": "2.13.0",
-    "custom-tslint-formatters": "2.0.1",
+    "custom-tslint-formatters": "2.1.0",
     "cz-customizable": "4.0.0",
     "husky": "0.13.3",
     "lint-staged": "3.4.0",
