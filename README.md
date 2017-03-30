@@ -153,7 +153,7 @@ skip('foo', async t => { // This test won't be executed (and marked as SKIP)
 
 ### Browser
 
-#### browser
+#### `browser`
 
 ```ts
 import {browser} from 'cybernaut';
@@ -179,35 +179,21 @@ import {browser} from 'cybernaut';
 
 #### `browser.maximizeWindow(): Action`
 
-```ts
-browser.navigateBack(): Action
-```
+#### `browser.navigateBack(): Action`
 
-```ts
-browser.navigateForward(): Action
-```
+#### `browser.navigateForward(): Action`
 
-```ts
-browser.reloadPage(): Action
-```
+#### `browser.reloadPage(): Action`
 
-```ts
-browser.setWindowPosition(x: number, y: number): Action
-```
+#### `browser.setWindowPosition(x: number, y: number): Action`
 
-```ts
-browser.setWindowSize(width: number, height: number): Action
-```
+#### `browser.setWindowSize(width: number, height: number): Action`
 
-```ts
-browser.sleep(duration: number): Action
-```
+#### `browser.sleep(duration: number): Action`
 
 ### Element
 
-```ts
-defineElement(selector: string): Element
-```
+#### `defineElement(selector: string): Element`
 
 ```ts
 import {defineElement} from 'cybernaut';
@@ -217,61 +203,37 @@ const element = defineElement('#foo');
 
 #### Accessors
 
-```ts
-element.tagName: Accessor<string>
-```
+#### `element.tagName: Accessor<string>`
 
-```ts
-element.text: Accessor<string>
-```
+#### `element.text: Accessor<string>`
 
-```ts
-element.visibility: Accessor<boolean>
-```
+#### `element.visibility: Accessor<boolean>`
 
-```ts
-element.x: Accessor<number>
-```
+#### `element.x: Accessor<number>`
 
-```ts
-element.y: Accessor<number>
-```
+#### `element.y: Accessor<number>`
 
-```ts
-element.width: Accessor<number>
-```
+#### `element.width: Accessor<number>`
 
-```ts
-element.height: Accessor<number>
-```
+#### `element.height: Accessor<number>`
 
-```ts
-element.cssValue(cssName: string): Accessor<string>
-```
+#### `element.cssValue(cssName: string): Accessor<string>`
 
-```ts
-element.propertyValue(propertyName: string): Accessor<string | null>
-```
+#### `element.propertyValue(propertyName: string): Accessor<string | null>`
 
 #### Actions
 
-```ts
-element.clearValue(): Action
-```
+#### `element.clearValue(): Action`
 
-```ts
-element.click(): Action
-```
+#### `element.click(): Action`
 
-```ts
-element.sendKeys(...keys: string[]): Action
-```
+#### `element.sendKeys(...keys: string[]): Action`
 
-```ts
-element.submitForm(): Action
-```
+#### `element.submitForm(): Action`
 
 ### PredicateBuilder
+
+#### `it`
 
 ```ts
 import {it} from 'cybernaut';
@@ -279,39 +241,25 @@ import {it} from 'cybernaut';
 
 #### Predicates
 
-```ts
-it.should.contain(expectedValue: string): Predicate<string>
+#### `it.should.contain(expectedValue: string): Predicate<string>`
 
-it.should.not.contain(expectedValue: string): Predicate<string>
-```
+#### `it.should.not.contain(expectedValue: string): Predicate<string>`
 
-```ts
-it.should.equal<T>(expectedValue: T): Predicate<T>
+#### `it.should.equal<T>(expectedValue: T): Predicate<T>`
 
-it.should.not.equal<T>(expectedValue: T): Predicate<T>
-```
+#### `it.should.not.equal<T>(expectedValue: T): Predicate<T>`
 
-```ts
-it.should.match(regex: RegExp): Predicate<string>
+#### `it.should.match(regex: RegExp): Predicate<string>`
 
-it.should.not.match(regex: RegExp): Predicate<string>
-```
+#### `it.should.not.match(regex: RegExp): Predicate<string>`
 
-```ts
-it.should.be.above(expectedValue: number): Predicate<number>
-```
+#### `it.should.be.above(expectedValue: number): Predicate<number>`
 
-```ts
-it.should.be.at.least(expectedValue: number): Predicate<number>
-```
+#### `it.should.be.at.least(expectedValue: number): Predicate<number>`
 
-```ts
-it.should.be.below(expectedValue: number): Predicate<number>
-```
+#### `it.should.be.below(expectedValue: number): Predicate<number>`
 
-```ts
-it.should.be.at.most(expectedValue: number): Predicate<number>
-```
+#### `it.should.be.at.most(expectedValue: number): Predicate<number>`
 
 ## Development
 
