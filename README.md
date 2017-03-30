@@ -117,49 +117,63 @@ module.exports = {
 
 ### Test
 
-```ts
-test(name: string, implementation?: (t: Test) => Promise<void>): void
+#### Factory Functions
 
-skip(name: string, implementation: (t: Test) => Promise<void>): void
-```
+##### test
+
+`test(name: string, implementation?: (t: Test) => Promise<void>): void`
 
 ```ts
-import {skip, test} from 'cybernaut';
+import {test} from 'cybernaut';
 
 test('foo'); // This test will be marked as TODO
 
 test('bar', async t => { // This test will be executed
   // ...
 });
+```
 
-skip('baz', async t => { // This test won't be executed (and marked as SKIP)
+##### skip
+
+`skip(name: string, implementation: (t: Test) => Promise<void>): void`
+
+```ts
+import {skip} from 'cybernaut';
+
+skip('foo', async t => { // This test won't be executed (and marked as SKIP)
   // ...
 });
 ```
 
 #### Methods
 
-```ts
-t.assert<T>(accessor: Accessor<T>, predicate: Predicate<T>, retries?: number, retryDelay?: number): Promise<void>
-```
+##### assert
 
-```ts
-t.perform(action: Action, retries?: number, retryDelay?: number): Promise<void>
-```
+`t.assert<T>(accessor: Accessor<T>, predicate: Predicate<T>, retries?: number, retryDelay?: number): Promise<void>`
 
-```ts
-t.verify<T>(accessor: Accessor<T>, predicate: Predicate<T>, retries?: number, retryDelay?: number): Promise<boolean>
-```
+##### perform
 
-```ts
-t.fail(message: string, cause: Error): void
-```
+`t.perform(action: Action, retries?: number, retryDelay?: number): Promise<void>`
 
-```ts
-t.pass(message: string): void
-```
+##### verify
+
+`t.verify<T>(accessor: Accessor<T>, predicate: Predicate<T>, retries?: number, retryDelay?: number): Promise<boolean>`
+
+##### fail
+
+`t.fail(message: string, cause: Error): void`
+
+##### pass
+
+`t.pass(message: string): void`
 
 ### Browser
+
+#### Factory Function
+
+##### browser
+
+`browser: Browser`
 
 ```ts
 import {browser} from 'cybernaut';
@@ -167,69 +181,71 @@ import {browser} from 'cybernaut';
 
 #### Accessors
 
-```ts
-browser.pageTitle: Accessor<string>
-```
+##### pageTitle
 
-```ts
-browser.pageUrl: Accessor<string>
-```
+`browser.pageTitle: Accessor<string>`
 
-```ts
-browser.windowX: Accessor<number>
-```
+##### pageUrl
 
-```ts
-browser.windowY: Accessor<number>
-```
+`browser.pageUrl: Accessor<string>`
 
-```ts
-browser.windowWidth: Accessor<number>
-```
+##### windowX
 
-```ts
-browser.windowHeight: Accessor<number>
-```
+`browser.windowX: Accessor<number>`
+
+##### windowY
+
+`browser.windowY: Accessor<number>`
+
+##### windowWidth
+
+`browser.windowWidth: Accessor<number>`
+
+##### windowHeight
+
+`browser.windowHeight: Accessor<number>`
 
 #### Actions
 
-```ts
-browser.loadPage(url: string): Action
-```
+##### loadPage
 
-```ts
-browser.maximizeWindow(): Action
-```
+`browser.loadPage(url: string): Action`
 
-```ts
-browser.navigateBack(): Action
-```
+##### maximizeWindow
 
-```ts
-browser.navigateForward(): Action
-```
+`browser.maximizeWindow(): Action`
 
-```ts
-browser.reloadPage(): Action
-```
+##### navigateBack
 
-```ts
-browser.setWindowPosition(x: number, y: number): Action
-```
+`browser.navigateBack(): Action`
 
-```ts
-browser.setWindowSize(width: number, height: number): Action
-```
+##### navigateForward
 
-```ts
-browser.sleep(duration: number): Action
-```
+`browser.navigateForward(): Action`
+
+##### reloadPage
+
+`browser.reloadPage(): Action`
+
+##### setWindowPosition
+
+`browser.setWindowPosition(x: number, y: number): Action`
+
+##### setWindowSize
+
+`browser.setWindowSize(width: number, height: number): Action`
+
+##### sleep
+
+`browser.sleep(duration: number): Action`
 
 ### Element
 
-```ts
-defineElement(selector: string): Element
-```
+#### Factory Function
+
+##### defineElement
+
+`defineElement(selector: string): Element`
 
 ```ts
 import {defineElement} from 'cybernaut';
@@ -239,61 +255,67 @@ const element = defineElement('#foo');
 
 #### Accessors
 
-```ts
-element.tagName: Accessor<string>
-```
+##### tagName
 
-```ts
-element.text: Accessor<string>
-```
+`element.tagName: Accessor<string>`
 
-```ts
-element.visibility: Accessor<boolean>
-```
+##### text
 
-```ts
-element.x: Accessor<number>
-```
+`element.text: Accessor<string>`
 
-```ts
-element.y: Accessor<number>
-```
+##### visibility
 
-```ts
-element.width: Accessor<number>
-```
+`element.visibility: Accessor<boolean>`
 
-```ts
-element.height: Accessor<number>
-```
+##### x
 
-```ts
-element.cssValue(cssName: string): Accessor<string>
-```
+`element.x: Accessor<number>`
 
-```ts
-element.propertyValue(propertyName: string): Accessor<string | null>
-```
+##### y
+
+`element.y: Accessor<number>`
+
+##### width
+
+`element.width: Accessor<number>`
+
+##### height
+
+`element.height: Accessor<number>`
+
+##### cssValue
+
+`element.cssValue(cssName: string): Accessor<string>`
+
+##### propertyValue
+
+`element.propertyValue(propertyName: string): Accessor<string | null>`
 
 #### Actions
 
-```ts
-element.clearValue(): Action
-```
+##### clearValue
 
-```ts
-element.click(): Action
-```
+`element.clearValue(): Action`
 
-```ts
-element.sendKeys(...keys: string[]): Action
-```
+##### click
 
-```ts
-element.submitForm(): Action
-```
+`element.click(): Action`
+
+##### sendKeys
+
+`element.sendKeys(...keys: string[]): Action`
+
+##### submitForm
+
+`element.submitForm(): Action`
 
 ### PredicateBuilder
+
+#### Factory Function
+
+##### it
+
+`it: {should: PredicateBuilder}`
 
 ```ts
 import {it} from 'cybernaut';
@@ -301,39 +323,41 @@ import {it} from 'cybernaut';
 
 #### Predicates
 
-```ts
-it.should.contain(expectedValue: string): Predicate<string>
+##### contain
 
-it.should.not.contain(expectedValue: string): Predicate<string>
-```
+`it.should.contain(expectedValue: string): Predicate<string>`
 
-```ts
-it.should.equal<T>(expectedValue: T): Predicate<T>
+`it.should.not.contain(expectedValue: string): Predicate<string>`
 
-it.should.not.equal<T>(expectedValue: T): Predicate<T>
-```
+##### equal `===`
 
-```ts
-it.should.match(regex: RegExp): Predicate<string>
+`it.should.equal<T>(expectedValue: T): Predicate<T>`
 
-it.should.not.match(regex: RegExp): Predicate<string>
-```
+`it.should.not.equal<T>(expectedValue: T): Predicate<T>`
 
-```ts
-it.should.be.above(expectedValue: number): Predicate<number>
-```
+The comparison is done via [`deep-strict-equal`][20].
 
-```ts
-it.should.be.at.least(expectedValue: number): Predicate<number>
-```
+##### match
 
-```ts
-it.should.be.below(expectedValue: number): Predicate<number>
-```
+`it.should.match(regex: RegExp): Predicate<string>`
 
-```ts
-it.should.be.at.most(expectedValue: number): Predicate<number>
-```
+`it.should.not.match(regex: RegExp): Predicate<string>`
+
+##### above `>`
+
+`it.should.be.above(expectedValue: number): Predicate<number>`
+
+##### least `>=`
+
+`it.should.be.at.least(expectedValue: number): Predicate<number>`
+
+##### below `<`
+
+`it.should.be.below(expectedValue: number): Predicate<number>`
+
+##### most `<=`
+
+`it.should.be.at.most(expectedValue: number): Predicate<number>`
 
 ## Development
 
@@ -390,3 +414,4 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [17]: https://img.shields.io/badge/TypeScript-friendly-blue.svg
 [18]: http://www.typescriptlang.org/
 [19]: https://github.com/clebert/cybernaut/blob/master/config-schema.json
+[20]: https://github.com/sindresorhus/deep-strict-equal
