@@ -117,49 +117,43 @@ module.exports = {
 
 ### Test
 
-```ts
-test(name: string, implementation?: (t: Test) => Promise<void>): void
-
-skip(name: string, implementation: (t: Test) => Promise<void>): void
-```
+#### `test(name: string, implementation?: (t: Test) => Promise<void>): void`
 
 ```ts
-import {skip, test} from 'cybernaut';
+import {test} from 'cybernaut';
 
 test('foo'); // This test will be marked as TODO
 
 test('bar', async t => { // This test will be executed
   // ...
 });
+```
 
-skip('baz', async t => { // This test won't be executed (and marked as SKIP)
+#### `skip(name: string, implementation: (t: Test) => Promise<void>): void`
+
+```ts
+import {skip} from 'cybernaut';
+
+skip('foo', async t => { // This test won't be executed (and marked as SKIP)
   // ...
 });
 ```
 
 #### Methods
 
-```ts
-t.assert<T>(accessor: Accessor<T>, predicate: Predicate<T>, retries?: number, retryDelay?: number): Promise<void>
-```
+#### `t.assert<T>(accessor: Accessor<T>, predicate: Predicate<T>, retries?: number, retryDelay?: number): Promise<void>`
 
-```ts
-t.perform(action: Action, retries?: number, retryDelay?: number): Promise<void>
-```
+#### `t.perform(action: Action, retries?: number, retryDelay?: number): Promise<void>`
 
-```ts
-t.verify<T>(accessor: Accessor<T>, predicate: Predicate<T>, retries?: number, retryDelay?: number): Promise<boolean>
-```
+#### `t.verify<T>(accessor: Accessor<T>, predicate: Predicate<T>, retries?: number, retryDelay?: number): Promise<boolean>`
 
-```ts
-t.fail(message: string, cause: Error): void
-```
+#### `t.fail(message: string, cause: Error): void`
 
-```ts
-t.pass(message: string): void
-```
+#### `t.pass(message: string): void`
 
 ### Browser
+
+#### browser
 
 ```ts
 import {browser} from 'cybernaut';
@@ -167,39 +161,23 @@ import {browser} from 'cybernaut';
 
 #### Accessors
 
-```ts
-browser.pageTitle: Accessor<string>
-```
+#### `browser.pageTitle: Accessor<string>`
 
-```ts
-browser.pageUrl: Accessor<string>
-```
+#### `browser.pageUrl: Accessor<string>`
 
-```ts
-browser.windowX: Accessor<number>
-```
+#### `browser.windowX: Accessor<number>`
 
-```ts
-browser.windowY: Accessor<number>
-```
+#### `browser.windowY: Accessor<number>`
 
-```ts
-browser.windowWidth: Accessor<number>
-```
+#### `browser.windowWidth: Accessor<number>`
 
-```ts
-browser.windowHeight: Accessor<number>
-```
+#### `browser.windowHeight: Accessor<number>`
 
 #### Actions
 
-```ts
-browser.loadPage(url: string): Action
-```
+#### `browser.loadPage(url: string): Action`
 
-```ts
-browser.maximizeWindow(): Action
-```
+#### `browser.maximizeWindow(): Action`
 
 ```ts
 browser.navigateBack(): Action
