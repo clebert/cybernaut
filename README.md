@@ -117,7 +117,11 @@ module.exports = {
 
 ### Test
 
-#### `test(name: string, implementation?: (t: Test) => Promise<void>): void`
+#### Factory Functions
+
+##### test
+
+`test(name: string, implementation?: (t: Test) => Promise<void>): void`
 
 ```ts
 import {test} from 'cybernaut';
@@ -129,7 +133,9 @@ test('bar', async t => { // This test will be executed
 });
 ```
 
-#### `skip(name: string, implementation: (t: Test) => Promise<void>): void`
+##### skip
+
+`skip(name: string, implementation: (t: Test) => Promise<void>): void`
 
 ```ts
 import {skip} from 'cybernaut';
@@ -141,19 +147,33 @@ skip('foo', async t => { // This test won't be executed (and marked as SKIP)
 
 #### Methods
 
-#### `t.assert<T>(accessor: Accessor<T>, predicate: Predicate<T>, retries?: number, retryDelay?: number): Promise<void>`
+##### assert
 
-#### `t.perform(action: Action, retries?: number, retryDelay?: number): Promise<void>`
+`t.assert<T>(accessor: Accessor<T>, predicate: Predicate<T>, retries?: number, retryDelay?: number): Promise<void>`
 
-#### `t.verify<T>(accessor: Accessor<T>, predicate: Predicate<T>, retries?: number, retryDelay?: number): Promise<boolean>`
+##### perform
 
-#### `t.fail(message: string, cause: Error): void`
+`t.perform(action: Action, retries?: number, retryDelay?: number): Promise<void>`
 
-#### `t.pass(message: string): void`
+##### verify
+
+`t.verify<T>(accessor: Accessor<T>, predicate: Predicate<T>, retries?: number, retryDelay?: number): Promise<boolean>`
+
+##### fail
+
+`t.fail(message: string, cause: Error): void`
+
+##### pass
+
+`t.pass(message: string): void`
 
 ### Browser
 
-#### `browser`
+#### Factory Function
+
+##### browser
+
+`browser: Browser`
 
 ```ts
 import {browser} from 'cybernaut';
@@ -161,35 +181,63 @@ import {browser} from 'cybernaut';
 
 #### Accessors
 
-#### `browser.pageTitle: Accessor<string>`
+##### pageTitle
 
-#### `browser.pageUrl: Accessor<string>`
+`browser.pageTitle: Accessor<string>`
 
-#### `browser.windowX: Accessor<number>`
+##### pageUrl
 
-#### `browser.windowY: Accessor<number>`
+`browser.pageUrl: Accessor<string>`
 
-#### `browser.windowWidth: Accessor<number>`
+##### windowX
 
-#### `browser.windowHeight: Accessor<number>`
+`browser.windowX: Accessor<number>`
+
+##### windowY
+
+`browser.windowY: Accessor<number>`
+
+##### windowWidth
+
+`browser.windowWidth: Accessor<number>`
+
+##### windowHeight
+
+`browser.windowHeight: Accessor<number>`
 
 #### Actions
 
-#### `browser.loadPage(url: string): Action`
+##### loadPage
 
-#### `browser.maximizeWindow(): Action`
+`browser.loadPage(url: string): Action`
 
-#### `browser.navigateBack(): Action`
+##### maximizeWindow
 
-#### `browser.navigateForward(): Action`
+`browser.maximizeWindow(): Action`
 
-#### `browser.reloadPage(): Action`
+##### navigateBack
 
-#### `browser.setWindowPosition(x: number, y: number): Action`
+`browser.navigateBack(): Action`
 
-#### `browser.setWindowSize(width: number, height: number): Action`
+##### navigateForward
 
-#### `browser.sleep(duration: number): Action`
+`browser.navigateForward(): Action`
+
+##### reloadPage
+
+`browser.reloadPage(): Action`
+
+##### setWindowPosition
+
+`browser.setWindowPosition(x: number, y: number): Action`
+
+##### setWindowSize
+
+`browser.setWindowSize(width: number, height: number): Action`
+
+##### sleep
+
+`browser.sleep(duration: number): Action`
 
 ### Element
 
