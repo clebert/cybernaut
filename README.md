@@ -335,7 +335,7 @@ import {it} from 'cybernaut';
 
 `it.should.not.equal<T>(expectedValue: T): Predicate<T>`
 
-The comparison is performed with [`deep-strict-equal`][20].
+The comparison is done via [`deep-strict-equal`][20].
 
 ##### match
 
