@@ -1,4 +1,4 @@
-// tslint:disable max-line-length
+// tslint:disable max-line-length promise-function-async
 
 declare namespace Tap {
   export type TestCallback = (t: Test) => void | Promise<void>;
