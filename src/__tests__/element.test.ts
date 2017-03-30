@@ -5,6 +5,9 @@ import {By} from 'selenium-webdriver';
 import {stub} from 'sinon';
 import {format} from '../description';
 import {Element} from '../element';
+import {sleep} from '../utils';
+
+const duration = 30;
 
 function createTestName(method: string, result: string): string {
   return `\`Element.${method}\` should return an ${result}`;
@@ -181,16 +184,19 @@ test(createTestName('propertyValue', 'accessor'), async t => {
 });
 
 test(createTestName('clearValue', 'action'), async t => {
-  t.plan(4);
+  t.plan(5);
 
   const action = new Element('selector').clearValue();
 
   t.is(format(action.description), 'clear value of element \'selector\'');
 
-  const clear = stub();
+  const clear = stub().returns(sleep(duration));
   const findElement = stub().resolves({clear});
+  const startTime = Date.now();
 
   await action.perform({findElement} as any);
+
+  t.true(Date.now() - startTime >= duration);
 
   t.is(findElement.callCount, 1);
   t.deepEqual(findElement.args[0][0], By.css('selector'));
@@ -199,16 +205,19 @@ test(createTestName('clearValue', 'action'), async t => {
 });
 
 test(createTestName('click', 'action'), async t => {
-  t.plan(4);
+  t.plan(5);
 
   const action = new Element('selector').click();
 
   t.is(format(action.description), 'click on element \'selector\'');
 
-  const click = stub();
+  const click = stub().returns(sleep(duration));
   const findElement = stub().resolves({click});
+  const startTime = Date.now();
 
   await action.perform({findElement} as any);
+
+  t.true(Date.now() - startTime >= duration);
 
   t.is(findElement.callCount, 1);
   t.deepEqual(findElement.args[0][0], By.css('selector'));
@@ -217,7 +226,7 @@ test(createTestName('click', 'action'), async t => {
 });
 
 test(createTestName('sendKeys', 'action'), async t => {
-  t.plan(6);
+  t.plan(7);
 
   const action = new Element('selector').sendKeys('key1', 'key2');
 
@@ -226,10 +235,13 @@ test(createTestName('sendKeys', 'action'), async t => {
     'send keys [ \'key1\', \'key2\' ] to element \'selector\''
   );
 
-  const sendKeys = stub();
+  const sendKeys = stub().returns(sleep(duration));
   const findElement = stub().resolves({sendKeys});
+  const startTime = Date.now();
 
   await action.perform({findElement} as any);
+
+  t.true(Date.now() - startTime >= duration);
 
   t.is(findElement.callCount, 1);
   t.deepEqual(findElement.args[0][0], By.css('selector'));
@@ -240,7 +252,7 @@ test(createTestName('sendKeys', 'action'), async t => {
 });
 
 test(createTestName('submitForm', 'action'), async t => {
-  t.plan(4);
+  t.plan(5);
 
   const action = new Element('selector').submitForm();
 
@@ -248,10 +260,13 @@ test(createTestName('submitForm', 'action'), async t => {
     format(action.description), 'submit form containing element \'selector\''
   );
 
-  const submit = stub();
+  const submit = stub().returns(sleep(duration));
   const findElement = stub().resolves({submit});
+  const startTime = Date.now();
 
   await action.perform({findElement} as any);
+
+  t.true(Date.now() - startTime >= duration);
 
   t.is(findElement.callCount, 1);
   t.deepEqual(findElement.args[0][0], By.css('selector'));

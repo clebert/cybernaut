@@ -1,3 +1,5 @@
+import {sleep} from './utils';
+
 export type Step = () => Promise<void>;
 
 export async function run(
@@ -9,11 +11,9 @@ export async function run(
     return attempts;
   } catch (e) {
     if (retries >= attempts) {
-      await new Promise<void>(resolve => {
-        setTimeout(resolve, retryDelay);
-      });
+      await sleep(retryDelay);
 
-      return await run(step, retries, retryDelay, attempts + 1);
+      return run(step, retries, retryDelay, attempts + 1);
     } else {
       throw e;
     }

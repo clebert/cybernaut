@@ -121,21 +121,25 @@ module.exports = {
 
 ##### test
 
-`test(name: string, implementation?: (t: Test) => Promise<void>): void`
+`test(name: string, implementation?: Implementation): void`
+
+`type Implementation = (t: Test) => Promise<void>`
 
 ```ts
 import {test} from 'cybernaut';
 
 test('foo'); // This test will be marked as TODO
 
-test('bar', async t => { // This test will be executed
+test('foo', async t => { // This test will be executed
   // ...
 });
 ```
 
 ##### skip
 
-`skip(name: string, implementation: (t: Test) => Promise<void>): void`
+`skip(name: string, implementation: Implementation): void`
+
+`type Implementation = (t: Test) => Promise<void>`
 
 ```ts
 import {skip} from 'cybernaut';
@@ -205,7 +209,35 @@ import {browser} from 'cybernaut';
 
 `browser.windowHeight: Accessor<number>`
 
+##### scriptResult
+
+`browser.scriptResult(scriptName: string, script: Script): Accessor<any>`
+
+`type Script = (callback: (result?: any) => void) => void`
+
+```ts
+await t.assert(browser.scriptResult('foo', callback => { // This script will be executed in the browser
+  // ...
+
+  callback('bar');
+}), it.should.equal('bar'));
+```
+
 #### Actions
+
+##### executeScript
+
+`browser.executeScript(scriptName: string, script: Script): Action`
+
+`type Script = (callback: (result?: any) => void) => void`
+
+```ts
+await t.perform(browser.executeScript('foo', callback => { // This script will be executed in the browser
+  // ...
+
+  callback();
+}));
+```
 
 ##### loadPage
 
