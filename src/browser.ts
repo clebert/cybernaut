@@ -1,5 +1,9 @@
 import {Accessor} from './accessor';
 import {Action} from './action';
+import {sleep} from './utils';
+
+// tslint:disable-next-line no-any
+export type Script = (callback: (result?: any) => void) => void;
 
 export class Browser {
   public get pageTitle(): Accessor<string> {
@@ -41,6 +45,21 @@ export class Browser {
     return {
       description: {template: 'window height'},
       get: async driver => (await driver.manage().window().getSize()).height
+    };
+  }
+
+  // tslint:disable-next-line no-any
+  public scriptResult(scriptName: string, script: Script): Accessor<any> {
+    return {
+      description: {template: 'result of script {}', args: [scriptName]},
+      get: async driver => driver.executeAsyncScript(script)
+    };
+  }
+
+  public executeScript(scriptName: string, script: Script): Action {
+    return {
+      description: {template: 'execute script {}', args: [scriptName]},
+      perform: async driver => void await driver.executeAsyncScript(script)
     };
   }
 
@@ -98,9 +117,7 @@ export class Browser {
   public sleep(duration: number): Action {
     return {
       description: {template: 'sleep for {} ms', args: [duration]},
-      perform: async () => new Promise<void>(resolve => {
-        setTimeout(resolve, duration);
-      })
+      perform: async () => sleep(duration)
     };
   }
 }
