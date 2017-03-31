@@ -88,7 +88,7 @@
   "devDependencies": {
     "ava": "0.18.2",
     "commitizen": "2.9.6",
-    "conventional-changelog-lint": "1.1.7",
+    "conventional-changelog-lint": "1.1.8",
     "coveralls": "2.13.0",
     "custom-tslint-formatters": "2.1.0",
     "cz-customizable": "4.0.0",
