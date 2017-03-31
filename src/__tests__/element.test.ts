@@ -196,7 +196,7 @@ test(createTestName('clearValue', 'action'), async t => {
 
   await action.perform({findElement} as any);
 
-  t.true(Date.now() - startTime >= duration);
+  t.true(Date.now() - startTime >= duration - 1);
 
   t.is(findElement.callCount, 1);
   t.deepEqual(findElement.args[0][0], By.css('selector'));
@@ -217,7 +217,7 @@ test(createTestName('click', 'action'), async t => {
 
   await action.perform({findElement} as any);
 
-  t.true(Date.now() - startTime >= duration);
+  t.true(Date.now() - startTime >= duration - 1);
 
   t.is(findElement.callCount, 1);
   t.deepEqual(findElement.args[0][0], By.css('selector'));
@@ -241,7 +241,7 @@ test(createTestName('sendKeys', 'action'), async t => {
 
   await action.perform({findElement} as any);
 
-  t.true(Date.now() - startTime >= duration);
+  t.true(Date.now() - startTime >= duration - 1);
 
   t.is(findElement.callCount, 1);
   t.deepEqual(findElement.args[0][0], By.css('selector'));
@@ -266,7 +266,7 @@ test(createTestName('submitForm', 'action'), async t => {
 
   await action.perform({findElement} as any);
 
-  t.true(Date.now() - startTime >= duration);
+  t.true(Date.now() - startTime >= duration - 1);
 
   t.is(findElement.callCount, 1);
   t.deepEqual(findElement.args[0][0], By.css('selector'));

@@ -133,7 +133,7 @@ test(createTestName('executeScript', 'action'), async t => {
 
   await action.perform({executeAsyncScript} as any);
 
-  t.true(Date.now() - startTime >= duration);
+  t.true(Date.now() - startTime >= duration - 1);
 
   t.is(executeAsyncScript.callCount, 1);
   t.is(executeAsyncScript.args[0][0], script);
@@ -151,7 +151,7 @@ test(createTestName('loadPage', 'action'), async t => {
 
   await action.perform({navigate: () => ({to})} as any);
 
-  t.true(Date.now() - startTime >= duration);
+  t.true(Date.now() - startTime >= duration - 1);
 
   t.is(to.callCount, 1);
   t.is(to.args[0][0], 'pageUrl');
@@ -169,7 +169,7 @@ test(createTestName('maximizeWindow', 'action'), async t => {
 
   await action.perform({manage: () => ({window: () => ({maximize})})} as any);
 
-  t.true(Date.now() - startTime >= duration);
+  t.true(Date.now() - startTime >= duration - 1);
 
   t.is(maximize.callCount, 1);
 });
@@ -186,7 +186,7 @@ test(createTestName('navigateBack', 'action'), async t => {
 
   await action.perform({navigate: () => ({back})} as any);
 
-  t.true(Date.now() - startTime >= duration);
+  t.true(Date.now() - startTime >= duration - 1);
 
   t.is(back.callCount, 1);
 });
@@ -203,7 +203,7 @@ test(createTestName('navigateForward', 'action'), async t => {
 
   await action.perform({navigate: () => ({forward})} as any);
 
-  t.true(Date.now() - startTime >= duration);
+  t.true(Date.now() - startTime >= duration - 1);
 
   t.is(forward.callCount, 1);
 });
@@ -220,7 +220,7 @@ test(createTestName('reloadPage', 'action'), async t => {
 
   await action.perform({navigate: () => ({refresh})} as any);
 
-  t.true(Date.now() - startTime >= duration);
+  t.true(Date.now() - startTime >= duration - 1);
 
   t.is(refresh.callCount, 1);
 });
@@ -239,7 +239,7 @@ test(createTestName('setWindowPosition', 'action'), async t => {
     manage: () => ({window: () => ({setPosition})})
   } as any);
 
-  t.true(Date.now() - startTime >= duration);
+  t.true(Date.now() - startTime >= duration - 1);
 
   t.is(setPosition.callCount, 1);
   t.is(setPosition.args[0][0], 123);
@@ -258,7 +258,7 @@ test(createTestName('setWindowSize', 'action'), async t => {
 
   await action.perform({manage: () => ({window: () => ({setSize})})} as any);
 
-  t.true(Date.now() - startTime >= duration);
+  t.true(Date.now() - startTime >= duration - 1);
 
   t.is(setSize.callCount, 1);
   t.is(setSize.args[0][0], 123);
@@ -276,5 +276,5 @@ test(createTestName('sleep', 'action'), async t => {
 
   await action.perform({} as any);
 
-  t.true(Date.now() - startTime >= duration);
+  t.true(Date.now() - startTime >= duration - 1);
 });
