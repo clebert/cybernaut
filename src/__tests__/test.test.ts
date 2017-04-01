@@ -37,11 +37,11 @@ class CustomTest extends Test {
 
   public fail(message: string, cause: Error): void {
     return;
-  };
+  }
 
   public pass(message: string): void {
     return;
-  };
+  }
 }
 
 const accessor: Accessor<string> = {
