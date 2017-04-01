@@ -9,7 +9,7 @@
     "chrome": "cybernaut | tap-mocha-reporter spec",
     "firefox": "cybernaut firefox-config.js | tap-mocha-reporter spec"
   },
-  "devDependencies": {
+  "dependencies": {
     "chromedriver": "2.28.0",
     "cybernaut": "latest",
     "geckodriver": "1.4.0",
