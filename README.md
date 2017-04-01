@@ -9,6 +9,8 @@
 
 Reliable, zero configuration end-to-end testing in BDD-style.
 
+[![Example][10]][13]
+
 ```ts
 import {browser, defineElement, it, test} from 'cybernaut';
 
@@ -22,8 +24,6 @@ test('Star the "clebert/cybernaut" repository on GitHub', async t => {
   await t.perform(starButton.click());
 });
 ```
-
-[![Example][10]][13]
 
 The above [example][13] can be executed without configuration or dependencies in a [Docker][21] container:
 
@@ -73,7 +73,7 @@ npm install --save-dev tap-mocha-reporter
 $(npm bin)/cybernaut | $(npm bin)/tap-mocha-reporter spec
 ```
 
-It is recommended to write tests using async functions, which are natively supported by Node.js as of version 7. Alternatively, the tests must be transpiled using TypeScript or Babel. A working example project can be found [here][13].
+It is recommended to write tests using async functions, which are natively supported by Node.js as of version 7. Alternatively, the tests must be transpiled using [TypeScript][18] or [Babel][22].
 
 The following configuration is active by default:
 
@@ -457,3 +457,4 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [19]: https://github.com/clebert/cybernaut/blob/master/config-schema.json
 [20]: https://github.com/sindresorhus/deep-strict-equal
 [21]: https://www.docker.com/
+[22]: https://babeljs.io/

@@ -1,6 +1,8 @@
 # Cybernaut Example
 
-If you want to run the test locally then Node.js is required in version 7 or higher. A tool such as [avn][0] can be used to automatically select the appropriate Node.js version.
+![Example][1]
+
+If you want to run the test **locally** then Node.js is required in version 7 or higher. A tool such as [avn][0] can be used to automatically select the appropriate Node.js version.
 
 ## Chrome
 
@@ -25,3 +27,4 @@ npm install && npm run firefox
 ```
 
 [0]: https://github.com/wbyoung/avn
+[1]: https://raw.githubusercontent.com/clebert/cybernaut/master/example/screenshot.png
