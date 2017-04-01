@@ -30,8 +30,8 @@ The above [example][13] can be executed without configuration or dependencies in
 ```sh
 git clone https://github.com/clebert/cybernaut.git && \
 cd cybernaut/example/ && \
-docker build -t chrome . && \
-docker run chrome
+docker build -t clebert/cybernaut-example . && \
+docker run clebert/cybernaut-example
 ```
 
 ## Contents
@@ -55,6 +55,8 @@ npm install --save-dev chromedriver
 
 ## Usage
 
+### Starting Cybernaut
+
 Cybernaut must be started directly from the command line:
 
 ```sh
@@ -73,7 +75,7 @@ npm install --save-dev tap-mocha-reporter
 $(npm bin)/cybernaut | $(npm bin)/tap-mocha-reporter spec
 ```
 
-It is recommended to write tests using async functions, which are natively supported by Node.js as of version 7. Alternatively, the tests must be transpiled using [TypeScript][18] or [Babel][22].
+### Configuring Cybernaut
 
 The following configuration is active by default:
 
@@ -116,6 +118,12 @@ module.exports = {
 ```
 
 **A note for Firefox users:** Cybernaut uses [`selenium-webdriver@3.3.0`][14], which is incompatible with [`geckodriver@1.5.0`][15]. Until these [incompatibilities][16] have been solved, [`geckodriver@1.4.0`][15] must be used.
+
+### Writing tests
+
+It is recommended to write tests using [async functions][26], which are natively supported by [Node.js][27] as of version 7. Alternatively, the tests must be transpiled using [TypeScript][18] or [Babel][22].
+
+If you write your tests with [TypeScript][18], it is recommended to enable the [TSLint][23] rule [`no-floating-promises`][24]. This can prevent the [`await`][25] operators from being forgotten.
 
 ## API
 
@@ -458,3 +466,8 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [20]: https://github.com/sindresorhus/deep-strict-equal
 [21]: https://www.docker.com/
 [22]: https://babeljs.io/
+[23]: https://palantir.github.io/tslint/
+[24]: https://palantir.github.io/tslint/rules/no-floating-promises/
+[25]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await
+[26]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
+[27]: https://nodejs.org/en/
