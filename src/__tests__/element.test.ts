@@ -5,9 +5,7 @@ import {By} from 'selenium-webdriver';
 import {stub} from 'sinon';
 import {format} from '../description';
 import {Element} from '../element';
-import {sleep} from '../utils';
-
-const duration = 30;
+import {Deferred} from './utils';
 
 function createTestName(method: string, result: string): string {
   return `\`Element.${method}\` should return an ${result}`;
@@ -190,13 +188,13 @@ test(createTestName('clearValue', 'action'), async t => {
 
   t.is(format(action.description), 'clear value of element \'selector\'');
 
-  const clear = stub().returns(sleep(duration));
+  const deferred = new Deferred();
+  const clear = stub().resolves(deferred);
   const findElement = stub().resolves({clear});
-  const startTime = Date.now();
 
   await action.perform({findElement} as any);
 
-  t.true(Date.now() - startTime >= duration - 1);
+  t.true(deferred.done);
 
   t.is(findElement.callCount, 1);
   t.deepEqual(findElement.args[0][0], By.css('selector'));
@@ -211,13 +209,13 @@ test(createTestName('click', 'action'), async t => {
 
   t.is(format(action.description), 'click on element \'selector\'');
 
-  const click = stub().returns(sleep(duration));
+  const deferred = new Deferred();
+  const click = stub().resolves(deferred);
   const findElement = stub().resolves({click});
-  const startTime = Date.now();
 
   await action.perform({findElement} as any);
 
-  t.true(Date.now() - startTime >= duration - 1);
+  t.true(deferred.done);
 
   t.is(findElement.callCount, 1);
   t.deepEqual(findElement.args[0][0], By.css('selector'));
@@ -235,13 +233,13 @@ test(createTestName('sendKeys', 'action'), async t => {
     'send keys [ \'key1\', \'key2\' ] to element \'selector\''
   );
 
-  const sendKeys = stub().returns(sleep(duration));
+  const deferred = new Deferred();
+  const sendKeys = stub().resolves(deferred);
   const findElement = stub().resolves({sendKeys});
-  const startTime = Date.now();
 
   await action.perform({findElement} as any);
 
-  t.true(Date.now() - startTime >= duration - 1);
+  t.true(deferred.done);
 
   t.is(findElement.callCount, 1);
   t.deepEqual(findElement.args[0][0], By.css('selector'));
@@ -260,13 +258,13 @@ test(createTestName('submitForm', 'action'), async t => {
     format(action.description), 'submit form containing element \'selector\''
   );
 
-  const submit = stub().returns(sleep(duration));
+  const deferred = new Deferred();
+  const submit = stub().resolves(deferred);
   const findElement = stub().resolves({submit});
-  const startTime = Date.now();
 
   await action.perform({findElement} as any);
 
-  t.true(Date.now() - startTime >= duration - 1);
+  t.true(deferred.done);
 
   t.is(findElement.callCount, 1);
   t.deepEqual(findElement.args[0][0], By.css('selector'));

@@ -57,19 +57,6 @@ test('\`run\` should have a runtime between 100 ms and 150 ms', async t => {
 
   const endTime = Date.now();
 
-  t.true(endTime - startTime > 100);
-  t.true(endTime - startTime < 150);
-});
-
-test('\`run\` should have a runtime between 150 ms and 225 ms', async t => {
-  t.plan(2);
-
-  const startTime = Date.now();
-
-  await run(step, 2, 75);
-
-  const endTime = Date.now();
-
-  t.true(endTime - startTime > 150);
-  t.true(endTime - startTime < 225);
+  t.true(endTime - startTime >= 98);
+  t.true(endTime - startTime < 147);
 });
