@@ -8,7 +8,8 @@ interface Result {
   readonly stderr: string;
 }
 
-const customStderr = `Config:
+const customStderr = `
+Config:
   capabilities: { browserName: 'phantomjs' }
   concurrency: 2
   dependencies: []
@@ -18,7 +19,8 @@ const customStderr = `Config:
   retryDelay: 1000
 `;
 
-const defaultStderr = `Config:
+const defaultStderr = `
+Config:
   capabilities: { browserName: 'chrome' }
   concurrency: 1
   dependencies: [ 'chromedriver' ]
