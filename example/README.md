@@ -1,29 +1,27 @@
 # Cybernaut Example
 
-**Important note:** Node.js is required in version 7 or higher. A tool such as [avn][1] can be used to automatically select the appropriate Node.js version.
+If you want to run the test locally then Node.js is required in version 7 or higher. A tool such as [avn][0] can be used to automatically select the appropriate Node.js version.
 
-## Installation
+## Chrome
 
-```sh
-git clone https://github.com/clebert/cybernaut.git && \
-cd cybernaut/example/ && \
-npm install
-```
-
-[1]: https://github.com/wbyoung/avn
-
-## Usage
-
-The test files are located in the `tests` folder. To run them, use one of the following commands:
-
-### Chrome
+Run the test with your locally installed Chrome:
 
 ```sh
-npm run chrome
+npm install && npm run chrome
 ```
 
-### Firefox
+Alternatively, run the test in a docker container:
 
 ```sh
-npm run firefox
+docker build -t chrome . && docker run chrome
 ```
+
+## Firefox
+
+Run the test with your locally installed Firefox:
+
+```sh
+npm install && npm run firefox
+```
+
+[0]: https://github.com/wbyoung/avn

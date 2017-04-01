@@ -25,6 +25,15 @@ test('Star the "clebert/cybernaut" repository on GitHub', async t => {
 
 [![Example][10]][13]
 
+The above [example][13] can be executed without configuration or dependencies in a [Docker][21] container:
+
+```sh
+git clone https://github.com/clebert/cybernaut.git && \
+cd cybernaut/example/ && \
+docker build -t chrome . && \
+docker run chrome
+```
+
 ## Contents
 
 * [Installation](#installation)
@@ -447,3 +456,4 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [18]: http://www.typescriptlang.org/
 [19]: https://github.com/clebert/cybernaut/blob/master/config-schema.json
 [20]: https://github.com/sindresorhus/deep-strict-equal
+[21]: https://www.docker.com/
