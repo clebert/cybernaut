@@ -61,6 +61,10 @@
       "type": "number",
       "minimum": 0,
       "multipleOf": 1
+    },
+    "screenshotDirectory": {
+      "type": "string",
+      "minLength": 1
     }
   },
   "additionalProperties": false

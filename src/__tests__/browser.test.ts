@@ -1,19 +1,42 @@
 // tslint:disable no-any
 
+import proxyquire = require('proxyquire');
+
 import test from 'ava';
 import {stub} from 'sinon';
-import {Browser} from '../browser';
 import {format} from '../description';
 import {Deferred} from './utils';
+
+const stubs = {
+  outputFile: stub(),
+  uuidV4: stub()
+};
+
+proxyquire('../browser', {
+  'fs-promise': {outputFile: stubs.outputFile}, 'uuid/v4': stubs.uuidV4
+});
+
+import {Browser} from '../browser';
 
 function createTestName(method: string, result: string): string {
   return `\`Browser.${method}\` should return an ${result}`;
 }
 
+let browser: Browser;
+
+test.beforeEach(() => {
+  browser = new Browser('screenshotDirectory');
+
+  for (const key of Object.keys(stubs)) {
+    (stubs as any)[key].reset();
+    (stubs as any)[key].resetBehavior();
+  }
+});
+
 test(createTestName('pageTitle', 'accessor'), async t => {
   t.plan(3);
 
-  const accessor = new Browser().pageTitle;
+  const accessor = browser.pageTitle;
 
   t.is(format(accessor.description), 'page title');
 
@@ -27,7 +50,7 @@ test(createTestName('pageTitle', 'accessor'), async t => {
 test(createTestName('pageUrl', 'accessor'), async t => {
   t.plan(3);
 
-  const accessor = new Browser().pageUrl;
+  const accessor = browser.pageUrl;
 
   t.is(format(accessor.description), 'page url');
 
@@ -41,7 +64,7 @@ test(createTestName('pageUrl', 'accessor'), async t => {
 test(createTestName('windowX', 'accessor'), async t => {
   t.plan(3);
 
-  const accessor = new Browser().windowX;
+  const accessor = browser.windowX;
 
   t.is(format(accessor.description), 'window x-position');
 
@@ -57,7 +80,7 @@ test(createTestName('windowX', 'accessor'), async t => {
 test(createTestName('windowY', 'accessor'), async t => {
   t.plan(3);
 
-  const accessor = new Browser().windowY;
+  const accessor = browser.windowY;
 
   t.is(format(accessor.description), 'window y-position');
 
@@ -73,7 +96,7 @@ test(createTestName('windowY', 'accessor'), async t => {
 test(createTestName('windowWidth', 'accessor'), async t => {
   t.plan(3);
 
-  const accessor = new Browser().windowWidth;
+  const accessor = browser.windowWidth;
 
   t.is(format(accessor.description), 'window width');
 
@@ -89,7 +112,7 @@ test(createTestName('windowWidth', 'accessor'), async t => {
 test(createTestName('windowHeight', 'accessor'), async t => {
   t.plan(3);
 
-  const accessor = new Browser().windowHeight;
+  const accessor = browser.windowHeight;
 
   t.is(format(accessor.description), 'window height');
 
@@ -106,7 +129,7 @@ test(createTestName('scriptResult', 'accessor'), async t => {
   t.plan(4);
 
   const script = () => undefined;
-  const accessor = new Browser().scriptResult('scriptName', script);
+  const accessor = browser.scriptResult('scriptName', script);
 
   t.is(format(accessor.description), 'result of script \'scriptName\'');
 
@@ -122,7 +145,7 @@ test(createTestName('executeScript', 'action'), async t => {
   t.plan(4);
 
   const script = () => undefined;
-  const action = new Browser().executeScript('scriptName', script);
+  const action = browser.executeScript('scriptName', script);
 
   t.is(format(action.description), 'execute script \'scriptName\'');
 
@@ -140,7 +163,7 @@ test(createTestName('executeScript', 'action'), async t => {
 test(createTestName('loadPage', 'action'), async t => {
   t.plan(4);
 
-  const action = new Browser().loadPage('pageUrl');
+  const action = browser.loadPage('pageUrl');
 
   t.is(format(action.description), 'load page \'pageUrl\'');
 
@@ -158,7 +181,7 @@ test(createTestName('loadPage', 'action'), async t => {
 test(createTestName('maximizeWindow', 'action'), async t => {
   t.plan(3);
 
-  const action = new Browser().maximizeWindow();
+  const action = browser.maximizeWindow();
 
   t.is(format(action.description), 'maximize window');
 
@@ -175,7 +198,7 @@ test(createTestName('maximizeWindow', 'action'), async t => {
 test(createTestName('navigateBack', 'action'), async t => {
   t.plan(3);
 
-  const action = new Browser().navigateBack();
+  const action = browser.navigateBack();
 
   t.is(format(action.description), 'navigate back');
 
@@ -192,7 +215,7 @@ test(createTestName('navigateBack', 'action'), async t => {
 test(createTestName('navigateForward', 'action'), async t => {
   t.plan(3);
 
-  const action = new Browser().navigateForward();
+  const action = browser.navigateForward();
 
   t.is(format(action.description), 'navigate forward');
 
@@ -209,7 +232,7 @@ test(createTestName('navigateForward', 'action'), async t => {
 test(createTestName('reloadPage', 'action'), async t => {
   t.plan(3);
 
-  const action = new Browser().reloadPage();
+  const action = browser.reloadPage();
 
   t.is(format(action.description), 'reload page');
 
@@ -226,7 +249,7 @@ test(createTestName('reloadPage', 'action'), async t => {
 test(createTestName('setWindowPosition', 'action'), async t => {
   t.plan(5);
 
-  const action = new Browser().setWindowPosition(123, 456);
+  const action = browser.setWindowPosition(123, 456);
 
   t.is(format(action.description), 'set window position to 123,456');
 
@@ -247,7 +270,7 @@ test(createTestName('setWindowPosition', 'action'), async t => {
 test(createTestName('setWindowSize', 'action'), async t => {
   t.plan(5);
 
-  const action = new Browser().setWindowSize(123, 456);
+  const action = browser.setWindowSize(123, 456);
 
   t.is(format(action.description), 'set window size to 123x456');
 
@@ -266,7 +289,7 @@ test(createTestName('setWindowSize', 'action'), async t => {
 test(createTestName('sleep', 'action'), async t => {
   t.plan(2);
 
-  const action = new Browser().sleep(50);
+  const action = browser.sleep(50);
 
   t.is(format(action.description), `sleep for ${50} ms`);
 
@@ -275,4 +298,31 @@ test(createTestName('sleep', 'action'), async t => {
   await action.perform({} as any);
 
   t.true(Date.now() - startTime >= 49);
+});
+
+test(createTestName('takeScreenshot', 'action'), async t => {
+  t.plan(6);
+
+  stubs.uuidV4.returns('uuid');
+
+  const action = browser.takeScreenshot();
+
+  t.is(
+    format(action.description),
+    'take screenshot \'screenshotDirectory/uuid.png\''
+  );
+
+  const takeScreenshot = stub().resolves('screenshot');
+  const deferred = new Deferred();
+
+  stubs.outputFile.resolves(deferred);
+
+  await action.perform({takeScreenshot} as any);
+
+  t.true(deferred.done);
+
+  t.is(stubs.outputFile.callCount, 1);
+  t.is(stubs.outputFile.args[0][0], 'screenshotDirectory/uuid.png');
+  t.is(stubs.outputFile.args[0][1], 'screenshot');
+  t.deepEqual(stubs.outputFile.args[0][2], {encoding: 'base64'});
 });

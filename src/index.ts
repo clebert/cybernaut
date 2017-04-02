@@ -39,8 +39,7 @@ export class It {
 }
 
 export const it = new It();
-
-export const browser = new Browser();
+export const browser = new Browser(config.screenshotDirectory);
 
 class TapTest extends Test {
   private readonly t: Tap.Test;

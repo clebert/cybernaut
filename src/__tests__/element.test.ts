@@ -11,10 +11,16 @@ function createTestName(method: string, result: string): string {
   return `\`Element.${method}\` should return an ${result}`;
 }
 
+let element: Element;
+
+test.beforeEach(() => {
+  element = new Element('selector');
+});
+
 test(createTestName('tagName', 'accessor'), async t => {
   t.plan(5);
 
-  const accessor = new Element('selector').tagName;
+  const accessor = element.tagName;
 
   t.is(format(accessor.description), 'tag name of element \'selector\'');
 
@@ -32,7 +38,7 @@ test(createTestName('tagName', 'accessor'), async t => {
 test(createTestName('text', 'accessor'), async t => {
   t.plan(5);
 
-  const accessor = new Element('selector').text;
+  const accessor = element.text;
 
   t.is(format(accessor.description), 'text of element \'selector\'');
 
@@ -50,7 +56,7 @@ test(createTestName('text', 'accessor'), async t => {
 test(createTestName('visibility', 'accessor'), async t => {
   t.plan(5);
 
-  const accessor = new Element('selector').visibility;
+  const accessor = element.visibility;
 
   t.is(format(accessor.description), 'visibility of element \'selector\'');
 
@@ -68,7 +74,7 @@ test(createTestName('visibility', 'accessor'), async t => {
 test(createTestName('x', 'accessor'), async t => {
   t.plan(5);
 
-  const accessor = new Element('selector').x;
+  const accessor = element.x;
 
   t.is(format(accessor.description), 'x-position of element \'selector\'');
 
@@ -86,7 +92,7 @@ test(createTestName('x', 'accessor'), async t => {
 test(createTestName('y', 'accessor'), async t => {
   t.plan(5);
 
-  const accessor = new Element('selector').y;
+  const accessor = element.y;
 
   t.is(format(accessor.description), 'y-position of element \'selector\'');
 
@@ -104,7 +110,7 @@ test(createTestName('y', 'accessor'), async t => {
 test(createTestName('width', 'accessor'), async t => {
   t.plan(5);
 
-  const accessor = new Element('selector').width;
+  const accessor = element.width;
 
   t.is(format(accessor.description), 'width of element \'selector\'');
 
@@ -122,7 +128,7 @@ test(createTestName('width', 'accessor'), async t => {
 test(createTestName('height', 'accessor'), async t => {
   t.plan(5);
 
-  const accessor = new Element('selector').height;
+  const accessor = element.height;
 
   t.is(format(accessor.description), 'height of element \'selector\'');
 
@@ -140,7 +146,7 @@ test(createTestName('height', 'accessor'), async t => {
 test(createTestName('cssValue', 'accessor'), async t => {
   t.plan(6);
 
-  const accessor = new Element('selector').cssValue('cssName');
+  const accessor = element.cssValue('cssName');
 
   t.is(
     format(accessor.description),
@@ -162,7 +168,7 @@ test(createTestName('cssValue', 'accessor'), async t => {
 test(createTestName('propertyValue', 'accessor'), async t => {
   t.plan(6);
 
-  const accessor = new Element('selector').propertyValue('propertyName');
+  const accessor = element.propertyValue('propertyName');
 
   t.is(
     format(accessor.description),
@@ -184,7 +190,7 @@ test(createTestName('propertyValue', 'accessor'), async t => {
 test(createTestName('clearValue', 'action'), async t => {
   t.plan(5);
 
-  const action = new Element('selector').clearValue();
+  const action = element.clearValue();
 
   t.is(format(action.description), 'clear value of element \'selector\'');
 
@@ -205,7 +211,7 @@ test(createTestName('clearValue', 'action'), async t => {
 test(createTestName('click', 'action'), async t => {
   t.plan(5);
 
-  const action = new Element('selector').click();
+  const action = element.click();
 
   t.is(format(action.description), 'click on element \'selector\'');
 
@@ -226,7 +232,7 @@ test(createTestName('click', 'action'), async t => {
 test(createTestName('sendKeys', 'action'), async t => {
   t.plan(7);
 
-  const action = new Element('selector').sendKeys('key1', 'key2');
+  const action = element.sendKeys('key1', 'key2');
 
   t.is(
     format(action.description),
@@ -252,7 +258,7 @@ test(createTestName('sendKeys', 'action'), async t => {
 test(createTestName('submitForm', 'action'), async t => {
   t.plan(5);
 
-  const action = new Element('selector').submitForm();
+  const action = element.submitForm();
 
   t.is(
     format(action.description), 'submit form containing element \'selector\''

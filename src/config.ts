@@ -11,6 +11,7 @@ export interface Config {
   readonly include: string;
   readonly retries: number;
   readonly retryDelay: number;
+  readonly screenshotDirectory: string;
 }
 
 const defaultConfig: Config = {
@@ -20,7 +21,8 @@ const defaultConfig: Config = {
   exclude: ['**/node_modules/**/*'],
   include: '**/*.e2e.js',
   retries: 4,
-  retryDelay: 500
+  retryDelay: 500,
+  screenshotDirectory: 'screenshots'
 };
 
 const configFilename = process.argv[2];
