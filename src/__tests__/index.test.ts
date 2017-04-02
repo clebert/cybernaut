@@ -17,6 +17,7 @@ Config:
   include: '*.js'
   retries: 3
   retryDelay: 1000
+  screenshotDirectory: '/dev/null'
 `;
 
 const defaultStderr = `
@@ -28,6 +29,7 @@ Config:
   include: '**/*.e2e.js'
   retries: 4
   retryDelay: 500
+  screenshotDirectory: 'screenshots'
 `;
 
 let customResult: Result;

@@ -5,5 +5,6 @@ module.exports = {
   exclude: ['custom-config.js'],
   include: '*.js',
   retries: 3,
-  retryDelay: 1000
+  retryDelay: 1000,
+  screenshotDirectory: '/dev/null'
 };

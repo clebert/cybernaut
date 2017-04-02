@@ -5,6 +5,8 @@ test('Star the "clebert/cybernaut" repository on GitHub', async t => {
 
   await t.assert(browser.pageTitle, it.should.contain('clebert/cybernaut'));
 
+  await t.perform(browser.takeScreenshot());
+
   const starButton = defineElement('ul.pagehead-actions > li:nth-child(2) > a:nth-child(1)');
 
   await t.perform(starButton.click());
