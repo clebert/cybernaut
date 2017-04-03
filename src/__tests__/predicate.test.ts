@@ -6,6 +6,9 @@ import {format} from '../description';
 
 const deepStrictEqual = stub();
 
+proxyquire.noPreserveCache();
+proxyquire.preserveCache();
+
 proxyquire('../predicate', {'deep-strict-equal': deepStrictEqual});
 
 import {PredicateBuilder} from '../predicate';

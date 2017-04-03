@@ -1,14 +1,29 @@
 // tslint:disable no-any
 
+import proxyquire = require('proxyquire');
+
 import test from 'ava';
 import {stub} from 'sinon';
-import {Browser} from '../browser';
 import {format} from '../description';
-import {Deferred} from './utils';
+import {Deferred} from './deferred';
+
+const sleep = stub();
+
+proxyquire.noPreserveCache();
+proxyquire.preserveCache();
+
+proxyquire('../browser', {'./utils': {sleep}});
+
+import {Browser} from '../browser';
 
 function createTestName(method: string, result: string): string {
   return `\`Browser.${method}\` should return an ${result}`;
 }
+
+test.beforeEach(t => {
+  sleep.reset();
+  sleep.resetBehavior();
+});
 
 test(createTestName('pageTitle', 'accessor'), async t => {
   t.plan(3);
@@ -264,15 +279,20 @@ test(createTestName('setWindowSize', 'action'), async t => {
 });
 
 test(createTestName('sleep', 'action'), async t => {
-  t.plan(2);
+  t.plan(4);
 
   const action = new Browser().sleep(50);
 
-  t.is(format(action.description), `sleep for ${50} ms`);
+  t.is(format(action.description), `sleep for 50 ms`);
 
-  const startTime = Date.now();
+  const deferred = new Deferred();
+
+  sleep.resolves(deferred);
 
   await action.perform({} as any);
 
-  t.true(Date.now() - startTime >= 49);
+  t.true(deferred.done);
+
+  t.is(sleep.callCount, 1);
+  t.is(sleep.args[0][0], 50);
 });

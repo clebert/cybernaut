@@ -5,7 +5,7 @@ import {By} from 'selenium-webdriver';
 import {stub} from 'sinon';
 import {format} from '../description';
 import {Element} from '../element';
-import {Deferred} from './utils';
+import {Deferred} from './deferred';
 
 function createTestName(method: string, result: string): string {
   return `\`Element.${method}\` should return an ${result}`;
