@@ -5,6 +5,8 @@ ADD . /opt/cybernaut-example
 WORKDIR /opt/cybernaut-example
 
 RUN rm -rf node_modules
+RUN rm -rf screenshots
+
 RUN npm install
 RUN apt-get update && apt-get install -y libgconf-2-4
 

@@ -32,8 +32,9 @@ The above [example][13] can be executed without configuration or dependencies in
 ```sh
 git clone https://github.com/clebert/cybernaut.git && \
 cd cybernaut/example/ && \
+mkdir -p screenshots && \
 docker build -t clebert/cybernaut-example . && \
-docker run clebert/cybernaut-example
+docker run -v screenshots:/opt/cybernaut-example/screenshots -t clebert/cybernaut-example
 ```
 
 ## Contents
