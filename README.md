@@ -935,12 +935,16 @@ Type definition:
 
 - **`contain(expectedValue: string): Predicate<string>`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - page title should contain 'bar' (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {browser, it, test} = require('cybernaut');
+
+test('foo', async t => {
+  await t.assert(browser.pageTitle, it.should.contain('bar'));
+});
 ```
 
 #### [`not.contain`](#api)
@@ -949,12 +953,16 @@ Type definition:
 
 - **`not.contain(expectedValue: string): Predicate<string>`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - page title should not contain 'bar' (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {browser, it, test} = require('cybernaut');
+
+test('foo', async t => {
+  await t.assert(browser.pageTitle, it.should.not.contain('bar'));
+});
 ```
 
 #### [`equal`](#api)
@@ -963,12 +971,16 @@ Type definition:
 
 - **`equal<T>(expectedValue: T): Predicate<T>`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - page title should equal 'bar' (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {browser, it, test} = require('cybernaut');
+
+test('foo', async t => {
+  await t.assert(browser.pageTitle, it.should.equal('bar'));
+});
 ```
 
 #### [`not.equal`](#api)
@@ -977,12 +989,16 @@ Type definition:
 
 - **`not.equal<T>(expectedValue: T): Predicate<T>`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - page title should not equal 'bar' (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {browser, it, test} = require('cybernaut');
+
+test('foo', async t => {
+  await t.assert(browser.pageTitle, it.should.not.equal('bar'));
+});
 ```
 
 #### [`match`](#api)
@@ -991,12 +1007,16 @@ Type definition:
 
 - **`match(regex: RegExp): Predicate<string>`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - page title should match /bar/ (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {browser, it, test} = require('cybernaut');
+
+test('foo', async t => {
+  await t.assert(browser.pageTitle, it.should.match(/bar/));
+});
 ```
 
 #### [`not.match`](#api)
@@ -1005,12 +1025,16 @@ Type definition:
 
 - **`not.match(regex: RegExp): Predicate<string>`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - page title should not match /bar/ (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {browser, it, test} = require('cybernaut');
+
+test('foo', async t => {
+  await t.assert(browser.pageTitle, it.should.not.match(/bar/));
+});
 ```
 
 #### [`be.above`](#api)
@@ -1019,12 +1043,16 @@ Type definition:
 
 - **`be.above(expectedValue: number): Predicate<number>`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - window width should be above 123 (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {browser, it, test} = require('cybernaut');
+
+test('foo', async t => {
+  await t.assert(browser.windowWidth, it.should.be.above(123)); // windowWidth > 123
+});
 ```
 
 #### [`be.at.least`](#api)
@@ -1033,12 +1061,16 @@ Type definition:
 
 - **`be.at.least(expectedValue: number): Predicate<number>`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - window width should be at least 123 (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {browser, it, test} = require('cybernaut');
+
+test('foo', async t => {
+  await t.assert(browser.windowWidth, it.should.be.at.least(123)); // windowWidth >= 123
+});
 ```
 
 #### [`be.below`](#api)
@@ -1047,12 +1079,16 @@ Type definition:
 
 - **`be.below(expectedValue: number): Predicate<number>`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - window width should be below 123 (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {browser, it, test} = require('cybernaut');
+
+test('foo', async t => {
+  await t.assert(browser.windowWidth, it.should.be.below(123)); // windowWidth < 123
+});
 ```
 
 #### [`be.at.most`](#api)
@@ -1061,12 +1097,16 @@ Type definition:
 
 - **`be.at.most(expectedValue: number): Predicate<number>`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - window width should be at most 123 (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {browser, it, test} = require('cybernaut');
+
+test('foo', async t => {
+  await t.assert(browser.windowWidth, it.should.be.at.most(123)); // windowWidth <= 123
+});
 ```
 
 ## Development
