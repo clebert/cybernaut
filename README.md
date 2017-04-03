@@ -673,12 +673,18 @@ Type definition:
 
 - **`tagName: Accessor<string>`**
 
-Example [TAP][28] output: `ok 1 - TODO (attempt 1 of 5)`
+Example [TAP][28] output: `ok 1 - tag name of element '#bar' should equal 'div' (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {defineElement, it, test} = require('cybernaut');
+
+test('foo', async t => {
+  const bar = defineElement('#bar');
+
+  await t.assert(bar.tagName, it.should.equal('div'));
+});
 ```
 
 #### [`text`](#api)
@@ -687,12 +693,18 @@ Type definition:
 
 - **`text: Accessor<string>`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - text of element '#bar' should equal 'baz' (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {defineElement, it, test} = require('cybernaut');
+
+test('foo', async t => {
+  const bar = defineElement('#bar');
+
+  await t.assert(bar.text, it.should.equal('baz'));
+});
 ```
 
 #### [`visibility`](#api)
@@ -701,12 +713,18 @@ Type definition:
 
 - **`visibility: Accessor<boolean>`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - visibility of element '#bar' should equal true (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {defineElement, it, test} = require('cybernaut');
+
+test('foo', async t => {
+  const bar = defineElement('#bar');
+
+  await t.assert(bar.visibility, it.should.equal(true));
+});
 ```
 
 #### [`x`](#api)
@@ -715,12 +733,18 @@ Type definition:
 
 - **`x: Accessor<number>`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - x-position of element '#bar' should equal 123 (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {defineElement, it, test} = require('cybernaut');
+
+test('foo', async t => {
+  const bar = defineElement('#bar');
+
+  await t.assert(bar.x, it.should.equal(123));
+});
 ```
 
 #### [`y`](#api)
@@ -729,12 +753,18 @@ Type definition:
 
 - **`y: Accessor<number>`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - y-position of element '#bar' should equal 123 (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {defineElement, it, test} = require('cybernaut');
+
+test('foo', async t => {
+  const bar = defineElement('#bar');
+
+  await t.assert(bar.y, it.should.equal(123));
+});
 ```
 
 #### [`width`](#api)
@@ -743,12 +773,18 @@ Type definition:
 
 - **`width: Accessor<number>`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - width of element '#bar' should equal 123 (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {defineElement, it, test} = require('cybernaut');
+
+test('foo', async t => {
+  const bar = defineElement('#bar');
+
+  await t.assert(bar.width, it.should.equal(123));
+});
 ```
 
 #### [`height`](#api)
@@ -757,12 +793,18 @@ Type definition:
 
 - **`height: Accessor<number>`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - height of element '#bar' should equal 123 (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {defineElement, it, test} = require('cybernaut');
+
+test('foo', async t => {
+  const bar = defineElement('#bar');
+
+  await t.assert(bar.height, it.should.equal(123));
+});
 ```
 
 #### [`cssValue`](#api)
