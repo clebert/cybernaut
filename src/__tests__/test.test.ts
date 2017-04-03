@@ -19,6 +19,9 @@ const stubs = {
   test: stub()
 };
 
+proxyquire.noPreserveCache();
+proxyquire.preserveCache();
+
 proxyquire('../test', {
   './description': {format: stubs.format}, './step': {run: stubs.run}
 });
