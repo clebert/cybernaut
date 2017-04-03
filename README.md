@@ -159,6 +159,7 @@ If you write your tests with [TypeScript][18], it is recommended to enable the [
   * [`setWindowPosition`](#setwindowposition)
   * [`setWindowSize`](#setwindowsize)
   * [`sleep`](#sleep)
+  * [`takeScreenshot`](#takescreenshot)
 * [Interface `Element`](#interface-element)
   * [`tagName`](#tagname)
   * [`text`](#text)
@@ -665,6 +666,24 @@ const {browser, test} = require('cybernaut');
 
 test('foo', async t => {
   await t.perform(browser.sleep(123));
+});
+```
+
+#### [`takeScreenshot`](#api)
+
+Type definition:
+
+- **`takeScreenshot(): Action`**
+
+Example [TAP][28] output: `ok 1 - take screenshot 'screenshots/07cc9369-ab10-4221-9bc9-18ad12b87c7c.png' (attempt 1 of 5)`
+
+Example usage:
+
+```ts
+const {browser, test} = require('cybernaut');
+
+test('foo', async t => {
+  await t.perform(browser.takeScreenshot());
 });
 ```
 
