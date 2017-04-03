@@ -813,12 +813,18 @@ Type definition:
 
 - **`cssValue(cssName: string): Accessor<string>`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - css value 'margin-left' of element '#bar' should equal '22px' (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {defineElement, it, test} = require('cybernaut');
+
+test('foo', async t => {
+  const bar = defineElement('#bar');
+
+  await t.assert(bar.cssValue('margin-left'), it.should.equal('22px'));
+});
 ```
 
 #### [`propertyValue`](#api)
@@ -827,12 +833,18 @@ Type definition:
 
 - **`propertyValue(propertyName: string): Accessor<string | null>`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - property value 'id' of element '#bar' should equal 'bar' (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {defineElement, it, test} = require('cybernaut');
+
+test('foo', async t => {
+  const bar = defineElement('#bar');
+
+  await t.assert(bar.propertyValue('id'), it.should.equal('bar'));
+});
 ```
 
 #### [`clearValue`](#api)
@@ -841,12 +853,18 @@ Type definition:
 
 - **`clearValue(): Action`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - clear value of element '#bar' (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {defineElement, test} = require('cybernaut');
+
+test('foo', async t => {
+  const bar = defineElement('#bar');
+
+  await t.perform(bar.clearValue());
+});
 ```
 
 #### [`click`](#api)
@@ -855,12 +873,18 @@ Type definition:
 
 - **`click(): Action`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - click on element '#bar' (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {defineElement, test} = require('cybernaut');
+
+test('foo', async t => {
+  const bar = defineElement('#bar');
+
+  await t.perform(bar.click());
+});
 ```
 
 #### [`sendKeys`](#api)
@@ -883,12 +907,18 @@ Type definition:
 
 - **`submitForm(): Action`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - submit form containing element '#bar' (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {defineElement, test} = require('cybernaut');
+
+test('foo', async t => {
+  const bar = defineElement('#bar');
+
+  await t.perform(bar.submitForm());
+});
 ```
 
 ### [Interface `PredicateBuilder`](#api)
