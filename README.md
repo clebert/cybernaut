@@ -983,6 +983,8 @@ test('foo', async t => {
 });
 ```
 
+*Note: The comparison is done via [deep-strict-equal][20].*
+
 #### [`not.equal`](#api)
 
 Type definition:
@@ -1000,6 +1002,8 @@ test('foo', async t => {
   await t.assert(browser.pageTitle, it.should.not.equal('bar'));
 });
 ```
+
+*Note: The comparison is done via [deep-strict-equal][20].*
 
 #### [`match`](#api)
 
