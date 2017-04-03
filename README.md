@@ -133,13 +133,13 @@ If you write your tests with [TypeScript][18], it is recommended to enable the [
   * [`browser`](#browser)
   * [`defineElement`](#defineelement)
   * [`it`](#it)
-* [Class `Test`](#class-test)
+* [Interface `Test`](#interface-test)
   * [`assert`](#assert)
   * [`perform`](#perform)
   * [`verify`](#verify)
   * [`fail`](#fail)
   * [`pass`](#pass)
-* [Class `Browser`](#class-browser)
+* [Interface `Browser`](#interface-browser)
   * [`pageTitle`](#pagetitle)
   * [`pageUrl`](#pageurl)
   * [`windowX`](#windowx)
@@ -156,7 +156,7 @@ If you write your tests with [TypeScript][18], it is recommended to enable the [
   * [`setWindowPosition`](#setwindowposition)
   * [`setWindowSize`](#setwindowsize)
   * [`sleep`](#sleep)
-* [Class `Element`](#class-element)
+* [Interface `Element`](#interface-element)
   * [`tagName`](#tagname)
   * [`text`](#text)
   * [`visibility`](#visibility)
@@ -170,7 +170,7 @@ If you write your tests with [TypeScript][18], it is recommended to enable the [
   * [`click`](#click)
   * [`sendKeys`](#sendkeys)
   * [`submitForm`](#submitform)
-* [Class `PredicateBuilder`](#class-predicatebuilder)
+* [Interface `PredicateBuilder`](#interface-predicatebuilder)
   * [`contain`](#contain)
   * [`not.contain`](#notcontain)
   * [`equal`](#equal)
@@ -190,7 +190,7 @@ Type definition:
 
 - **`test(name: string, implementation?: Implementation): void`**
 - `Implementation = (t: Test) => Promise<void>`
-- [`Test`](#class-test)
+- [`Test`](#interface-test)
 
 Example usage:
 
@@ -204,7 +204,7 @@ Type definition:
 
 - **`skip(name: string, implementation: Implementation): void`**
 - `Implementation = (t: Test) => Promise<void>`
-- [`Test`](#class-test)
+- [`Test`](#interface-test)
 
 Example usage:
 
@@ -217,7 +217,7 @@ TODO
 Type definition:
 
 - **`browser: Browser`**
-- [`Browser`](#class-browser)
+- [`Browser`](#interface-browser)
 
 Example usage:
 
@@ -230,7 +230,7 @@ TODO
 Type definition:
 
 - **`defineElement(selector: string): Element`**
-- [`Element`](#class-element)
+- [`Element`](#interface-element)
 
 Example usage:
 
@@ -243,7 +243,7 @@ TODO
 Type definition:
 
 - **`it: {should: PredicateBuilder}`**
-- [`PredicateBuilder`](#class-predicatebuilder)
+- [`PredicateBuilder`](#interface-predicatebuilder)
 
 Example usage:
 
@@ -251,13 +251,13 @@ Example usage:
 TODO
 ```
 
-### [Class `Test`](#api)
+### [Interface `Test`](#api)
 
 #### [`assert`](#api)
 
-Type definition: **`TODO`**
+Type definition:
 
-Example [TAP][28] output: `TODO`
+- **`assert<T>(accessor: Accessor<T>, predicate: Predicate<T>, retries?: number, retryDelay?: number): Promise<void>`**
 
 Example usage:
 
@@ -267,9 +267,9 @@ TODO
 
 #### [`perform`](#api)
 
-Type definition: **`TODO`**
+Type definition:
 
-Example [TAP][28] output: `TODO`
+- **`perform(action: Action, retries?: number, retryDelay?: number): Promise<void>`**
 
 Example usage:
 
@@ -279,9 +279,9 @@ TODO
 
 #### [`verify`](#api)
 
-Type definition: **`TODO`**
+Type definition:
 
-Example [TAP][28] output: `TODO`
+- **`verify<T>(accessor: Accessor<T>, predicate: Predicate<T>, retries?: number, retryDelay?: number): Promise<boolean>`**
 
 Example usage:
 
@@ -291,9 +291,11 @@ TODO
 
 #### [`fail`](#api)
 
-Type definition: **`TODO`**
+Type definition:
 
-Example [TAP][28] output: `TODO`
+- **`fail(message: string, cause: Error): void`**
+
+Example [TAP][28] output: `not ok 1 - bar (cause: baz)`
 
 Example usage:
 
@@ -303,9 +305,11 @@ TODO
 
 #### [`pass`](#api)
 
-Type definition: **`TODO`**
+Type definition:
 
-Example [TAP][28] output: `TODO`
+- **`pass(message: string): void`**
+
+Example [TAP][28] output: `ok 1 - bar`
 
 Example usage:
 
@@ -313,11 +317,13 @@ Example usage:
 TODO
 ```
 
-### [Class `Browser`](#api)
+### [Interface `Browser`](#api)
 
 #### [`pageTitle`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`pageTitle: Accessor<string>`**
 
 Example [TAP][28] output: `TODO`
 
@@ -329,7 +335,9 @@ TODO
 
 #### [`pageUrl`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`pageUrl: Accessor<string>`**
 
 Example [TAP][28] output: `TODO`
 
@@ -341,7 +349,9 @@ TODO
 
 #### [`windowX`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`windowX: Accessor<number>`**
 
 Example [TAP][28] output: `TODO`
 
@@ -353,7 +363,9 @@ TODO
 
 #### [`windowY`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`windowY: Accessor<number>`**
 
 Example [TAP][28] output: `TODO`
 
@@ -365,7 +377,9 @@ TODO
 
 #### [`windowWidth`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`windowWidth: Accessor<number>`**
 
 Example [TAP][28] output: `TODO`
 
@@ -377,7 +391,9 @@ TODO
 
 #### [`windowHeight`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`windowHeight: Accessor<number>`**
 
 Example [TAP][28] output: `TODO`
 
@@ -389,7 +405,10 @@ TODO
 
 #### [`scriptResult`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`scriptResult(scriptName: string, script: Script): Accessor<any>`**
+- `Script = (callback: (result?: any) => void) => void`
 
 Example [TAP][28] output: `TODO`
 
@@ -401,7 +420,10 @@ TODO
 
 #### [`executeScript`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`executeScript(scriptName: string, script: Script): Action`**
+- `Script = (callback: (result?: any) => void) => void`
 
 Example [TAP][28] output: `TODO`
 
@@ -413,7 +435,9 @@ TODO
 
 #### [`loadPage`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`loadPage(url: string): Action`**
 
 Example [TAP][28] output: `TODO`
 
@@ -425,7 +449,9 @@ TODO
 
 #### [`maximizeWindow`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`maximizeWindow(): Action`**
 
 Example [TAP][28] output: `TODO`
 
@@ -437,7 +463,9 @@ TODO
 
 #### [`navigateBack`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`navigateBack(): Action`**
 
 Example [TAP][28] output: `TODO`
 
@@ -449,7 +477,9 @@ TODO
 
 #### [`navigateForward`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`navigateForward(): Action`**
 
 Example [TAP][28] output: `TODO`
 
@@ -461,7 +491,9 @@ TODO
 
 #### [`reloadPage`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`reloadPage(): Action`**
 
 Example [TAP][28] output: `TODO`
 
@@ -473,7 +505,9 @@ TODO
 
 #### [`setWindowPosition`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`setWindowPosition(x: number, y: number): Action`**
 
 Example [TAP][28] output: `TODO`
 
@@ -485,7 +519,9 @@ TODO
 
 #### [`setWindowSize`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`setWindowSize(width: number, height: number): Action`**
 
 Example [TAP][28] output: `TODO`
 
@@ -497,7 +533,9 @@ TODO
 
 #### [`sleep`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`sleep(duration: number): Action`**
 
 Example [TAP][28] output: `TODO`
 
@@ -507,11 +545,13 @@ Example usage:
 TODO
 ```
 
-### [Class `Element`](#api)
+### [Interface `Element`](#api)
 
 #### [`tagName`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`tagName: Accessor<string>`**
 
 Example [TAP][28] output: `TODO`
 
@@ -523,7 +563,9 @@ TODO
 
 #### [`text`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`text: Accessor<string>`**
 
 Example [TAP][28] output: `TODO`
 
@@ -535,7 +577,9 @@ TODO
 
 #### [`visibility`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`visibility: Accessor<boolean>`**
 
 Example [TAP][28] output: `TODO`
 
@@ -547,7 +591,9 @@ TODO
 
 #### [`x`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`x: Accessor<number>`**
 
 Example [TAP][28] output: `TODO`
 
@@ -559,7 +605,9 @@ TODO
 
 #### [`y`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`y: Accessor<number>`**
 
 Example [TAP][28] output: `TODO`
 
@@ -571,7 +619,9 @@ TODO
 
 #### [`width`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`width: Accessor<number>`**
 
 Example [TAP][28] output: `TODO`
 
@@ -583,7 +633,9 @@ TODO
 
 #### [`height`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`height: Accessor<number>`**
 
 Example [TAP][28] output: `TODO`
 
@@ -595,7 +647,9 @@ TODO
 
 #### [`cssValue`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`cssValue(cssName: string): Accessor<string>`**
 
 Example [TAP][28] output: `TODO`
 
@@ -607,7 +661,9 @@ TODO
 
 #### [`propertyValue`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`propertyValue(propertyName: string): Accessor<string | null>`**
 
 Example [TAP][28] output: `TODO`
 
@@ -619,7 +675,9 @@ TODO
 
 #### [`clearValue`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`clearValue(): Action`**
 
 Example [TAP][28] output: `TODO`
 
@@ -631,7 +689,9 @@ TODO
 
 #### [`click`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`click(): Action`**
 
 Example [TAP][28] output: `TODO`
 
@@ -643,7 +703,9 @@ TODO
 
 #### [`sendKeys`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`sendKeys(...keys: string[]): Action`**
 
 Example [TAP][28] output: `TODO`
 
@@ -655,7 +717,9 @@ TODO
 
 #### [`submitForm`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`submitForm(): Action`**
 
 Example [TAP][28] output: `TODO`
 
@@ -665,11 +729,13 @@ Example usage:
 TODO
 ```
 
-### [Class `PredicateBuilder`](#api)
+### [Interface `PredicateBuilder`](#api)
 
 #### [`contain`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`contain(expectedValue: string): Predicate<string>`**
 
 Example [TAP][28] output: `TODO`
 
@@ -681,7 +747,9 @@ TODO
 
 #### [`not.contain`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`not.contain(expectedValue: string): Predicate<string>`**
 
 Example [TAP][28] output: `TODO`
 
@@ -693,7 +761,9 @@ TODO
 
 #### [`equal`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`equal<T>(expectedValue: T): Predicate<T>`**
 
 Example [TAP][28] output: `TODO`
 
@@ -705,7 +775,9 @@ TODO
 
 #### [`not.equal`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`not.equal<T>(expectedValue: T): Predicate<T>`**
 
 Example [TAP][28] output: `TODO`
 
@@ -717,7 +789,9 @@ TODO
 
 #### [`match`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`match(regex: RegExp): Predicate<string>`**
 
 Example [TAP][28] output: `TODO`
 
@@ -729,7 +803,9 @@ TODO
 
 #### [`not.match`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`not.match(regex: RegExp): Predicate<string>`**
 
 Example [TAP][28] output: `TODO`
 
@@ -741,7 +817,9 @@ TODO
 
 #### [`be.above`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`be.above(expectedValue: number): Predicate<number>`**
 
 Example [TAP][28] output: `TODO`
 
@@ -753,7 +831,9 @@ TODO
 
 #### [`be.at.least`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`be.at.least(expectedValue: number): Predicate<number>`**
 
 Example [TAP][28] output: `TODO`
 
@@ -765,7 +845,9 @@ TODO
 
 #### [`be.below`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`be.below(expectedValue: number): Predicate<number>`**
 
 Example [TAP][28] output: `TODO`
 
@@ -777,7 +859,9 @@ TODO
 
 #### [`be.at.most`](#api)
 
-Type definition: **`TODO`**
+Type definition:
+
+- **`be.at.most(expectedValue: number): Predicate<number>`**
 
 Example [TAP][28] output: `TODO`
 
