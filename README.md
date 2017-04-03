@@ -893,12 +893,18 @@ Type definition:
 
 - **`sendKeys(...keys: string[]): Action`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - send keys [ 'f', 'o', 'o' ] to element '#bar' (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {defineElement, test} = require('cybernaut');
+
+test('foo', async t => {
+  const bar = defineElement('#bar');
+
+  await t.perform(bar.sendKeys('f', 'o', 'o'));
+});
 ```
 
 #### [`submitForm`](#api)
