@@ -1,7 +1,7 @@
 // tslint:disable no-any
 
 import test from 'ava';
-import {By} from 'selenium-webdriver';
+import {By, Key} from 'selenium-webdriver';
 import {stub} from 'sinon';
 import {format} from '../description';
 import {Element} from '../element';
@@ -224,13 +224,16 @@ test(createTestName('click', 'action'), async t => {
 });
 
 test(createTestName('sendKeys', 'action'), async t => {
-  t.plan(7);
+  t.plan(10);
 
-  const action = new Element('selector').sendKeys('key1', 'key2');
+  const action = new Element('selector').sendKeys(
+    'text was', Key.CONTROL, 'a', Key.NULL, 'now text is'
+  );
 
   t.is(
     format(action.description),
-    'send keys [ \'key1\', \'key2\' ] to element \'selector\''
+    'send keys [ \'text was\', \'\uE009\', \'a\', \'\uE000\', \'now text is\'' +
+    ' ] to element \'selector\''
   );
 
   const deferred = new Deferred();
@@ -245,8 +248,11 @@ test(createTestName('sendKeys', 'action'), async t => {
   t.deepEqual(findElement.args[0][0], By.css('selector'));
 
   t.is(sendKeys.callCount, 1);
-  t.is(sendKeys.args[0][0], 'key1');
-  t.is(sendKeys.args[0][1], 'key2');
+  t.is(sendKeys.args[0][0], 'text was');
+  t.is(sendKeys.args[0][1], '\uE009');
+  t.is(sendKeys.args[0][2], 'a');
+  t.is(sendKeys.args[0][3], '\uE000');
+  t.is(sendKeys.args[0][4], 'now text is');
 });
 
 test(createTestName('submitForm', 'action'), async t => {

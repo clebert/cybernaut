@@ -5,7 +5,7 @@
 import tap = require('tap');
 
 import {sync} from 'glob';
-import {Builder, WebDriver} from 'selenium-webdriver';
+import {Builder, Key, WebDriver} from 'selenium-webdriver';
 import {Accessor} from './accessor';
 import {Action} from './action';
 import {Browser, Script} from './browser';
@@ -21,6 +21,7 @@ export {
   Browser,
   Description,
   Element,
+  Key,
   PredicateBuilder,
   Script,
   Test

@@ -893,19 +893,29 @@ Type definition:
 
 - **`sendKeys(...keys: string[]): Action`**
 
-Example [TAP][28] output: `ok 1 - send keys [ 'f', 'o', 'o' ] to element '#bar' (attempt 1 of 5)`
+Example [TAP][28] output: `ok 1 - send keys [ 'text was', '', 'a', '', 'now text is' ] to element '#bar' (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-const {defineElement, test} = require('cybernaut');
+const {Key, defineElement, test} = require('cybernaut');
 
 test('foo', async t => {
   const bar = defineElement('#bar');
 
-  await t.perform(bar.sendKeys('f', 'o', 'o'));
+  await t.perform(bar.sendKeys('text was', Key.CONTROL, 'a', Key.NULL, 'now text is'));
 });
 ```
+
+> Modifier keys ([Key.SHIFT][30], [Key.CONTROL][30], [Key.ALT][30], [Key.META][30]) are stateful; once a modifier is processed in the keysequence, that key state is toggled until one of the following occurs:
+>
+> - The modifier key is encountered again in the sequence. At this point the state of the key is toggled (along with the appropriate keyup/down events).
+>
+> - The [Key.NULL][30] key is encountered in the sequence. When this key is encountered, all modifier keys current in the down state are released (with accompanying keyup events).
+>
+> - The end of the keysequence is encountered. When there are no more keys to type, all depressed modifier keys are released (with accompanying keyup events).
+>
+> -- <cite>[selenium-webdriver.WebElement][29]</cite>
 
 #### [`submitForm`](#api)
 
@@ -1177,3 +1187,5 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [26]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
 [27]: https://nodejs.org/en/
 [28]: https://testanything.org/
+[29]: https://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html
+[30]: https://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/lib/input_exports_Key.html
