@@ -195,7 +195,13 @@ Type definition:
 Example usage:
 
 ```ts
-TODO
+const {test} = require('cybernaut');
+
+test('foo'); // This test will be marked as TODO
+
+test('foo', async t => { // This test will be executed
+  // ...
+});
 ```
 
 #### [`skip`](#api)
@@ -209,7 +215,11 @@ Type definition:
 Example usage:
 
 ```ts
-TODO
+const {skip} = require('cybernaut');
+
+skip('foo', async t => { // This test won't be executed (and marked as SKIP)
+  // ...
+});
 ```
 
 #### [`browser`](#api)
@@ -222,7 +232,11 @@ Type definition:
 Example usage:
 
 ```ts
-TODO
+const {browser, test} = require('cybernaut');
+
+test('foo', async t => {
+  await t.perform(browser.loadPage('http://bar.baz'));
+});
 ```
 
 #### [`defineElement`](#api)
@@ -235,7 +249,13 @@ Type definition:
 Example usage:
 
 ```ts
-TODO
+const {defineElement, test} = require('cybernaut');
+
+test('foo', async t => {
+  const bar = defineElement('#bar');
+
+  await t.perform(bar.click());
+});
 ```
 
 #### [`it`](#api)
@@ -248,7 +268,11 @@ Type definition:
 Example usage:
 
 ```ts
-TODO
+const {browser, it, test} = require('cybernaut');
+
+test('foo', async t => {
+  await t.assert(browser.pageTitle, it.should.contain('bar'));
+});
 ```
 
 ### [Interface `Test`](#api)
@@ -262,7 +286,11 @@ Type definition:
 Example usage:
 
 ```ts
-TODO
+const {browser, it, test} = require('cybernaut');
+
+test('foo', async t => {
+  await t.assert(browser.pageTitle, it.should.contain('bar')); // Throws an error if the condition isn't met
+});
 ```
 
 #### [`perform`](#api)
@@ -274,7 +302,11 @@ Type definition:
 Example usage:
 
 ```ts
-TODO
+const {browser, test} = require('cybernaut');
+
+test('foo', async t => {
+  await t.perform(browser.loadPage('http://bar.baz')); // Throws an error if the action fails
+});
 ```
 
 #### [`verify`](#api)
@@ -286,7 +318,13 @@ Type definition:
 Example usage:
 
 ```ts
-TODO
+const {browser, it, test} = require('cybernaut');
+
+test('foo', async t => {
+  if (await t.verify(browser.pageTitle, it.should.contain('bar'))) { // Evaluates to false if the condition isn't met
+    // ...
+  }
+});
 ```
 
 #### [`fail`](#api)
@@ -300,7 +338,11 @@ Example [TAP][28] output: `not ok 1 - bar (cause: baz)`
 Example usage:
 
 ```ts
-TODO
+const {test} = require('cybernaut');
+
+test('foo', async t => {
+  t.fail('bar', new Error('baz')); // Throws a new error
+});
 ```
 
 #### [`pass`](#api)
@@ -314,7 +356,11 @@ Example [TAP][28] output: `ok 1 - bar`
 Example usage:
 
 ```ts
-TODO
+const {test} = require('cybernaut');
+
+test('foo', async t => {
+  t.pass('bar'); // Prints a successful-test line in TAP format on standard output
+});
 ```
 
 ### [Interface `Browser`](#api)
@@ -325,12 +371,16 @@ Type definition:
 
 - **`pageTitle: Accessor<string>`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - page title should contain 'bar' (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {browser, it, test} = require('cybernaut');
+
+test('foo', async t => {
+  await t.assert(browser.pageTitle, it.should.contain('bar'));
+});
 ```
 
 #### [`pageUrl`](#api)
