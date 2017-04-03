@@ -12,7 +12,7 @@ Reliable, zero configuration end-to-end testing in BDD-style.
 [![Example][10]][13]
 
 ```ts
-import {browser, defineElement, it, test} from 'cybernaut';
+const {browser, defineElement, it, test} = require('cybernaut');
 
 test('Star the "clebert/cybernaut" repository on GitHub', async t => {
   await t.perform(browser.loadPage('https://github.com/clebert/cybernaut'));
@@ -57,7 +57,7 @@ npm install --save-dev chromedriver
 
 ### Starting Cybernaut
 
-Cybernaut must be started directly from the command line:
+Cybernaut must be started from the command line:
 
 ```sh
 $(npm bin)/cybernaut
@@ -65,7 +65,7 @@ $(npm bin)/cybernaut
 
 Directories are recursed, with all `**/*.e2e.js` files being treated as test files.
 
-Cybernaut produces output in TAP format, [`tap-mocha-reporter`][12] can be used to format it:
+Cybernaut produces output in [TAP][28] format, [`tap-mocha-reporter`][12] can be used to format it:
 
 ```sh
 npm install --save-dev tap-mocha-reporter
@@ -127,23 +127,74 @@ If you write your tests with [TypeScript][18], it is recommended to enable the [
 
 ## API
 
-* [Test](#test)
-* [Browser](#browser)
-* [Element](#element)
-* [PredicateBuilder](#predicatebuilder)
+* [Module `exports`](#module)
+  * [`test`](#test)
+  * [`skip`](#skip)
+  * [`browser`](#browser)
+  * [`defineElement`](#defineelement)
+  * [`it`](#it)
+* [Class `Test`](#test)
+  * [`assert`](#assert)
+  * [`perform`](#perform)
+  * [`verify`](#verify)
+  * [`fail`](#fail)
+  * [`pass`](#pass)
+* [Class `Browser`](#browser)
+  * [`pageTitle`](#pagetitle)
+  * [`pageUrl`](#pageurl)
+  * [`windowX`](#windowx)
+  * [`windowY`](#windowy)
+  * [`windowWidth`](#windowwidth)
+  * [`windowHeight`](#windowheight)
+  * [`scriptResult`](#scriptresult)
+  * [`executeScript`](#executescript)
+  * [`loadPage`](#loadpage)
+  * [`maximizeWindow`](#maximizewindow)
+  * [`navigateBack`](#navigateback)
+  * [`navigateForward`](#navigateforward)
+  * [`reloadPage`](#reloadpage)
+  * [`setWindowPosition`](#setwindowposition)
+  * [`setWindowSize`](#setwindowsize)
+  * [`sleep`](#sleep)
+* [Class `Element`](#element)
+  * [`tagName`](#tagname)
+  * [`text`](#text)
+  * [`visibility`](#visibility)
+  * [`x`](#x)
+  * [`y`](#y)
+  * [`width`](#width)
+  * [`height`](#height)
+  * [`cssValue`](#cssvalue)
+  * [`propertyValue`](#propertyvalue)
+  * [`clearValue`](#clearvalue)
+  * [`click`](#click)
+  * [`sendKeys`](#sendkeys)
+  * [`submitForm`](#submitform)
+* [Class `PredicateBuilder`](#predicatebuilder)
+  * [`contain`](#contain)
+  * [`not.contain`](#notcontain)
+  * [`equal`](#equal)
+  * [`not.equal`](#notequal)
+  * [`match`](#match)
+  * [`not.match`](#notmatch)
+  * [`be.above`](#beabove)
+  * [`be.at.least`](#beatleast)
+  * [`be.below`](#bebelow)
+  * [`be.at.most`](#beatmost)
 
 ### Test
 
-#### Factory Functions
+#### [`test`](#api)
 
-##### test
+Type definition:
 
-`test(name: string, implementation?: Implementation): void`
+- **`test(name: string, implementation?: Implementation): void`**
+- `Implementation = (t: Test) => Promise<void>`
 
-`type Implementation = (t: Test) => Promise<void>`
+Example usage:
 
 ```ts
-import {test} from 'cybernaut';
+const {test} = require('cybernaut');
 
 test('foo'); // This test will be marked as TODO
 
@@ -152,85 +203,172 @@ test('foo', async t => { // This test will be executed
 });
 ```
 
-##### skip
+#### [`skip`](#api)
 
-`skip(name: string, implementation: Implementation): void`
+Type definition:
 
-`type Implementation = (t: Test) => Promise<void>`
+- **`skip(name: string, implementation: Implementation): void`**
+- `Implementation = (t: Test) => Promise<void>`
+
+Example usage:
 
 ```ts
-import {skip} from 'cybernaut';
+const {skip} = require('cybernaut');
 
 skip('foo', async t => { // This test won't be executed (and marked as SKIP)
   // ...
 });
 ```
 
-#### Methods
+#### [`assert`](#api)
 
-##### assert
+Type definition: **`assert<T>(accessor: Accessor<T>, predicate: Predicate<T>, retries?: number, retryDelay?: number): Promise<void>`**
 
-`t.assert<T>(accessor: Accessor<T>, predicate: Predicate<T>, retries?: number, retryDelay?: number): Promise<void>`
+Example usage:
 
-##### perform
+```ts
+const {browser, test} = require('cybernaut');
 
-`t.perform(action: Action, retries?: number, retryDelay?: number): Promise<void>`
+test('foo', async t => {
+  await t.assert(browser.pageTitle, it.should.contain('bar')); // Throws an error if the condition isn't met
+});
+```
 
-##### verify
+#### [`perform`](#api)
 
-`t.verify<T>(accessor: Accessor<T>, predicate: Predicate<T>, retries?: number, retryDelay?: number): Promise<boolean>`
+Type definition: **`perform(action: Action, retries?: number, retryDelay?: number): Promise<void>`**
 
-##### fail
+Example usage:
 
-`t.fail(message: string, cause: Error): void`
+```ts
+const {browser, test} = require('cybernaut');
 
-##### pass
+test('foo', async t => {
+  await t.perform(browser.loadPage('http://bar.baz')); // Throws an error if the action fails
+});
+```
 
-`t.pass(message: string): void`
+#### [`verify`](#api)
+
+Type definition: **`verify<T>(accessor: Accessor<T>, predicate: Predicate<T>, retries?: number, retryDelay?: number): Promise<boolean>`**
+
+Example usage:
+
+```ts
+const {browser, test} = require('cybernaut');
+
+test('foo', async t => {
+  if (await t.verify(browser.pageTitle, it.should.contain('bar'))) { // Evaluates to false if the condition isn't met
+    // ...
+  }
+});
+```
+
+#### [`fail`](#api)
+
+Type definition: **`fail(message: string, cause: Error): void`**
+
+Example TAP output: `not ok 1 - bar (cause: baz)`
+
+Example usage:
+
+```ts
+const {test} = require('cybernaut');
+
+test('foo', async t => {
+  t.fail('bar', new Error('baz')); // Throws a new error
+});
+```
+
+#### [`pass`](#api)
+
+Type definition: **`pass(message: string): void`**
+
+Example TAP output: `ok 1 - bar`
+
+Example usage:
+
+```ts
+const {test} = require('cybernaut');
+
+test('foo', async t => {
+  t.pass('bar'); // Prints a successful-test line in TAP format on standard output
+});
+```
 
 ### Browser
 
-#### Factory Function
+TODO: browser einschieben
 
-##### browser
+#### [`pageTitle`](#api)
 
-`browser: Browser`
+Type definition: **`pageTitle: Accessor<string>`**
+
+Example TAP output: `ok 1 - page title should contain 'bar' (attempt 1 of 5)`
+
+Example usage:
 
 ```ts
-import {browser} from 'cybernaut';
+const {browser, test} = require('cybernaut');
+
+test('foo', async t => {
+  await t.assert(browser.pageTitle, it.should.contain('bar'));
+});
 ```
 
-#### Accessors
+#### [`pageUrl`](#api)
 
-##### pageTitle
+Type definition: **`pageUrl: Accessor<string>`**
 
-`browser.pageTitle: Accessor<string>`
+Example TAP output: `ok 1 - page url should contain 'http://bar.baz' (attempt 1 of 5)`
 
-##### pageUrl
+Example usage:
 
-`browser.pageUrl: Accessor<string>`
+```ts
+const {browser, test} = require('cybernaut');
 
-##### windowX
+test('foo', async t => {
+  await t.assert(browser.pageUrl, it.should.contain('http://bar.baz'));
+});
+```
 
-`browser.windowX: Accessor<number>`
+#### [`windowX`](#api)
 
-##### windowY
+Type definition: **`windowX: Accessor<number>`**
 
-`browser.windowY: Accessor<number>`
+Test output: `window x-position should ...`
 
-##### windowWidth
+#### [`windowY`](#api)
 
-`browser.windowWidth: Accessor<number>`
+Type definition: **`windowY: Accessor<number>`**
 
-##### windowHeight
+Test output: `window y-position should ...`
 
-`browser.windowHeight: Accessor<number>`
+#### [`windowWidth`](#api)
 
-##### scriptResult
+Type definition: **`windowWidth: Accessor<number>`**
+
+Test output: `window width should ...`
+
+#### [`windowHeight`](#api)
+
+Type definition: **`windowHeight: Accessor<number>`**
+
+Test output: `window height should ...`
+
+#### [`scriptResult`](#api)
+
+##### Typing:
 
 `browser.scriptResult(scriptName: string, script: Script): Accessor<any>`
 
 `type Script = (callback: (result?: any) => void) => void`
+
+##### Output:
+
+`result of script 'foo' should equal 'bar'`
+
+Example:
 
 ```ts
 await t.assert(browser.scriptResult('foo', callback => { // This script will be executed in the browser
@@ -297,7 +435,7 @@ await t.perform(browser.executeScript('foo', callback => { // This script will b
 `defineElement(selector: string): Element`
 
 ```ts
-import {defineElement} from 'cybernaut';
+const {defineElement} = require('cybernaut');
 
 const element = defineElement('#foo');
 ```
@@ -367,7 +505,7 @@ const element = defineElement('#foo');
 `it: {should: PredicateBuilder}`
 
 ```ts
-import {it} from 'cybernaut';
+const {it} = require('cybernaut');
 ```
 
 #### Predicates
@@ -392,19 +530,19 @@ The comparison is done via [`deep-strict-equal`][20].
 
 `it.should.not.match(regex: RegExp): Predicate<string>`
 
-##### above `>`
+##### be.above `>`
 
 `it.should.be.above(expectedValue: number): Predicate<number>`
 
-##### least `>=`
+##### be.at.least `>=`
 
 `it.should.be.at.least(expectedValue: number): Predicate<number>`
 
-##### below `<`
+##### be.below `<`
 
 `it.should.be.below(expectedValue: number): Predicate<number>`
 
-##### most `<=`
+##### be.at.most `<=`
 
 `it.should.be.at.most(expectedValue: number): Predicate<number>`
 
@@ -471,3 +609,4 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [25]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await
 [26]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
 [27]: https://nodejs.org/en/
+[28]: https://testanything.org/

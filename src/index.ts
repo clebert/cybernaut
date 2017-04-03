@@ -45,7 +45,7 @@ class TapTest extends Test {
   }
 
   public fail(message: string, cause: Error): void {
-    throw new Error(`${message} (Cause: ${cause.message})`);
+    throw new Error(`${message} (cause: ${cause.message})`);
   }
 
   public pass(message: string): void {
