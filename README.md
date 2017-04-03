@@ -186,9 +186,11 @@ If you write your tests with [TypeScript][18], it is recommended to enable the [
 
 #### [`test`](#api)
 
-Type definition: **`TODO`**
+Type definition:
 
-Example [TAP][28] output: `TODO`
+- **`test(name: string, implementation?: Implementation): void`**
+- `Implementation = (t: Test) => Promise<void>`
+- [`Test`](#class-test)
 
 Example usage:
 
@@ -198,9 +200,11 @@ TODO
 
 #### [`skip`](#api)
 
-Type definition: **`TODO`**
+Type definition:
 
-Example [TAP][28] output: `TODO`
+- **`skip(name: string, implementation: Implementation): void`**
+- `Implementation = (t: Test) => Promise<void>`
+- [`Test`](#class-test)
 
 Example usage:
 
@@ -210,9 +214,10 @@ TODO
 
 #### [`browser`](#api)
 
-Type definition: **`TODO`**
+Type definition:
 
-Example [TAP][28] output: `TODO`
+- **`browser: Browser`**
+- [`Browser`](#class-browser)
 
 Example usage:
 
@@ -222,9 +227,10 @@ TODO
 
 #### [`defineElement`](#api)
 
-Type definition: **`TODO`**
+Type definition:
 
-Example [TAP][28] output: `TODO`
+- **`defineElement(selector: string): Element`**
+- [`Element`](#class-element)
 
 Example usage:
 
@@ -234,9 +240,10 @@ TODO
 
 #### [`it`](#api)
 
-Type definition: **`TODO`**
+Type definition:
 
-Example [TAP][28] output: `TODO`
+- **`it: {should: PredicateBuilder}`**
+- [`PredicateBuilder`](#class-predicatebuilder)
 
 Example usage:
 
