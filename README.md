@@ -389,12 +389,16 @@ Type definition:
 
 - **`pageUrl: Accessor<string>`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - page url should contain 'http://bar.baz' (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {browser, it, test} = require('cybernaut');
+
+test('foo', async t => {
+  await t.assert(browser.pageUrl, it.should.contain('http://bar.baz'));
+});
 ```
 
 #### [`windowX`](#api)
@@ -403,12 +407,16 @@ Type definition:
 
 - **`windowX: Accessor<number>`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - window x-position should equal 123 (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {browser, it, test} = require('cybernaut');
+
+test('foo', async t => {
+  await t.assert(browser.windowX, it.should.equal(123));
+});
 ```
 
 #### [`windowY`](#api)
@@ -417,12 +425,16 @@ Type definition:
 
 - **`windowY: Accessor<number>`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - window y-position should equal 123 (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {browser, it, test} = require('cybernaut');
+
+test('foo', async t => {
+  await t.assert(browser.windowY, it.should.equal(123));
+});
 ```
 
 #### [`windowWidth`](#api)
@@ -431,12 +443,16 @@ Type definition:
 
 - **`windowWidth: Accessor<number>`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - window width should equal 123 (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {browser, it, test} = require('cybernaut');
+
+test('foo', async t => {
+  await t.assert(browser.windowWidth, it.should.equal(123));
+});
 ```
 
 #### [`windowHeight`](#api)
@@ -445,12 +461,16 @@ Type definition:
 
 - **`windowHeight: Accessor<number>`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - window height should equal 123 (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {browser, it, test} = require('cybernaut');
+
+test('foo', async t => {
+  await t.assert(browser.windowHeight, it.should.equal(123));
+});
 ```
 
 #### [`scriptResult`](#api)
@@ -460,12 +480,21 @@ Type definition:
 - **`scriptResult(scriptName: string, script: Script): Accessor<any>`**
 - `Script = (callback: (result?: any) => void) => void`
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - result of script 'bar' should equal 'baz' (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {browser, it, test} = require('cybernaut');
+
+test('foo', async t => {
+  await t.assert(browser.scriptResult('bar', callback => {
+    // This function will be executed in browser context, so any references to outer scope won't work
+    // ...
+
+    callback('baz');
+  }), it.should.equal('baz'));
+});
 ```
 
 #### [`executeScript`](#api)
@@ -475,12 +504,21 @@ Type definition:
 - **`executeScript(scriptName: string, script: Script): Action`**
 - `Script = (callback: (result?: any) => void) => void`
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - execute script 'bar' (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {browser, test} = require('cybernaut');
+
+test('foo', async t => {
+  await t.perform(browser.executeScript('bar', callback => {
+    // This function will be executed in browser context, so any references to outer scope won't work
+    // ...
+
+    callback();
+  }));
+});
 ```
 
 #### [`loadPage`](#api)
@@ -489,12 +527,16 @@ Type definition:
 
 - **`loadPage(url: string): Action`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - load page 'http://bar.baz' (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {browser, test} = require('cybernaut');
+
+test('foo', async t => {
+  await t.perform(browser.loadPage('http://bar.baz'));
+});
 ```
 
 #### [`maximizeWindow`](#api)
@@ -503,12 +545,16 @@ Type definition:
 
 - **`maximizeWindow(): Action`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - maximize window (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {browser, test} = require('cybernaut');
+
+test('foo', async t => {
+  await t.perform(browser.maximizeWindow());
+});
 ```
 
 #### [`navigateBack`](#api)
@@ -517,12 +563,16 @@ Type definition:
 
 - **`navigateBack(): Action`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - navigate back (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {browser, test} = require('cybernaut');
+
+test('foo', async t => {
+  await t.perform(browser.navigateBack());
+});
 ```
 
 #### [`navigateForward`](#api)
@@ -531,12 +581,16 @@ Type definition:
 
 - **`navigateForward(): Action`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - navigate forward (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {browser, test} = require('cybernaut');
+
+test('foo', async t => {
+  await t.perform(browser.navigateForward());
+});
 ```
 
 #### [`reloadPage`](#api)
@@ -545,12 +599,16 @@ Type definition:
 
 - **`reloadPage(): Action`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - reload page (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {browser, test} = require('cybernaut');
+
+test('foo', async t => {
+  await t.perform(browser.reloadPage());
+});
 ```
 
 #### [`setWindowPosition`](#api)
@@ -559,12 +617,16 @@ Type definition:
 
 - **`setWindowPosition(x: number, y: number): Action`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - set window position to 123,456 (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {browser, test} = require('cybernaut');
+
+test('foo', async t => {
+  await t.perform(browser.setWindowPosition(123, 456));
+});
 ```
 
 #### [`setWindowSize`](#api)
@@ -573,12 +635,16 @@ Type definition:
 
 - **`setWindowSize(width: number, height: number): Action`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - set window size to 123x456 (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {browser, test} = require('cybernaut');
+
+test('foo', async t => {
+  await t.perform(browser.setWindowSize(123, 456));
+});
 ```
 
 #### [`sleep`](#api)
@@ -587,12 +653,16 @@ Type definition:
 
 - **`sleep(duration: number): Action`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - sleep for 123 ms (attempt 1 of 5)`
 
 Example usage:
 
 ```ts
-TODO
+const {browser, test} = require('cybernaut');
+
+test('foo', async t => {
+  await t.perform(browser.sleep(123));
+});
 ```
 
 ### [Interface `Element`](#api)
@@ -603,7 +673,7 @@ Type definition:
 
 - **`tagName: Accessor<string>`**
 
-Example [TAP][28] output: `TODO`
+Example [TAP][28] output: `ok 1 - TODO (attempt 1 of 5)`
 
 Example usage:
 
