@@ -8,7 +8,7 @@ import {sync} from 'glob';
 import {Builder, WebDriver} from 'selenium-webdriver';
 import {Accessor} from './accessor';
 import {Action} from './action';
-import {Browser} from './browser';
+import {Browser, Script} from './browser';
 import {config} from './config';
 import {Description} from './description';
 import {Element} from './element';
@@ -16,7 +16,14 @@ import {PredicateBuilder} from './predicate';
 import {Test} from './test';
 
 export {
-  Accessor, Action, Browser, Description, Element, PredicateBuilder, Test
+  Accessor,
+  Action,
+  Browser,
+  Description,
+  Element,
+  PredicateBuilder,
+  Script,
+  Test
 };
 
 export type Implementation = (t: Test) => Promise<void>;
@@ -45,7 +52,7 @@ class TapTest extends Test {
   }
 
   public fail(message: string, cause: Error): void {
-    throw new Error(`${message} (Cause: ${cause.message})`);
+    throw new Error(`${message} (cause: ${cause.message})`);
   }
 
   public pass(message: string): void {
