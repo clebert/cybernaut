@@ -127,19 +127,19 @@ If you write your tests with [TypeScript][18], it is recommended to enable the [
 
 ## API
 
-* [Module `exports`](#module)
+* [Module `exports`](#module-exports)
   * [`test`](#test)
   * [`skip`](#skip)
   * [`browser`](#browser)
   * [`defineElement`](#defineelement)
   * [`it`](#it)
-* [Class `Test`](#test)
+* [Class `Test`](#class-test)
   * [`assert`](#assert)
   * [`perform`](#perform)
   * [`verify`](#verify)
   * [`fail`](#fail)
   * [`pass`](#pass)
-* [Class `Browser`](#browser)
+* [Class `Browser`](#class-browser)
   * [`pageTitle`](#pagetitle)
   * [`pageUrl`](#pageurl)
   * [`windowX`](#windowx)
@@ -156,7 +156,7 @@ If you write your tests with [TypeScript][18], it is recommended to enable the [
   * [`setWindowPosition`](#setwindowposition)
   * [`setWindowSize`](#setwindowsize)
   * [`sleep`](#sleep)
-* [Class `Element`](#element)
+* [Class `Element`](#class-element)
   * [`tagName`](#tagname)
   * [`text`](#text)
   * [`visibility`](#visibility)
@@ -170,7 +170,7 @@ If you write your tests with [TypeScript][18], it is recommended to enable the [
   * [`click`](#click)
   * [`sendKeys`](#sendkeys)
   * [`submitForm`](#submitform)
-* [Class `PredicateBuilder`](#predicatebuilder)
+* [Class `PredicateBuilder`](#class-predicatebuilder)
   * [`contain`](#contain)
   * [`not.contain`](#notcontain)
   * [`equal`](#equal)
@@ -182,369 +182,69 @@ If you write your tests with [TypeScript][18], it is recommended to enable the [
   * [`be.below`](#bebelow)
   * [`be.at.most`](#beatmost)
 
-### Test
+### [Module `exports`](#api)
 
 #### [`test`](#api)
-
-Type definition:
-
-- **`test(name: string, implementation?: Implementation): void`**
-- `Implementation = (t: Test) => Promise<void>`
-
-Example usage:
-
-```ts
-const {test} = require('cybernaut');
-
-test('foo'); // This test will be marked as TODO
-
-test('foo', async t => { // This test will be executed
-  // ...
-});
-```
-
 #### [`skip`](#api)
+#### [`browser`](#api)
+#### [`defineElement`](#api)
+#### [`it`](#api)
 
-Type definition:
-
-- **`skip(name: string, implementation: Implementation): void`**
-- `Implementation = (t: Test) => Promise<void>`
-
-Example usage:
-
-```ts
-const {skip} = require('cybernaut');
-
-skip('foo', async t => { // This test won't be executed (and marked as SKIP)
-  // ...
-});
-```
+### [Class `Test`](#api)
 
 #### [`assert`](#api)
-
-Type definition: **`assert<T>(accessor: Accessor<T>, predicate: Predicate<T>, retries?: number, retryDelay?: number): Promise<void>`**
-
-Example usage:
-
-```ts
-const {browser, test} = require('cybernaut');
-
-test('foo', async t => {
-  await t.assert(browser.pageTitle, it.should.contain('bar')); // Throws an error if the condition isn't met
-});
-```
-
 #### [`perform`](#api)
-
-Type definition: **`perform(action: Action, retries?: number, retryDelay?: number): Promise<void>`**
-
-Example usage:
-
-```ts
-const {browser, test} = require('cybernaut');
-
-test('foo', async t => {
-  await t.perform(browser.loadPage('http://bar.baz')); // Throws an error if the action fails
-});
-```
-
 #### [`verify`](#api)
-
-Type definition: **`verify<T>(accessor: Accessor<T>, predicate: Predicate<T>, retries?: number, retryDelay?: number): Promise<boolean>`**
-
-Example usage:
-
-```ts
-const {browser, test} = require('cybernaut');
-
-test('foo', async t => {
-  if (await t.verify(browser.pageTitle, it.should.contain('bar'))) { // Evaluates to false if the condition isn't met
-    // ...
-  }
-});
-```
-
 #### [`fail`](#api)
-
-Type definition: **`fail(message: string, cause: Error): void`**
-
-Example TAP output: `not ok 1 - bar (cause: baz)`
-
-Example usage:
-
-```ts
-const {test} = require('cybernaut');
-
-test('foo', async t => {
-  t.fail('bar', new Error('baz')); // Throws a new error
-});
-```
-
 #### [`pass`](#api)
 
-Type definition: **`pass(message: string): void`**
-
-Example TAP output: `ok 1 - bar`
-
-Example usage:
-
-```ts
-const {test} = require('cybernaut');
-
-test('foo', async t => {
-  t.pass('bar'); // Prints a successful-test line in TAP format on standard output
-});
-```
-
-### Browser
-
-TODO: browser einschieben
+### [Class `Browser`](#api)
 
 #### [`pageTitle`](#api)
-
-Type definition: **`pageTitle: Accessor<string>`**
-
-Example TAP output: `ok 1 - page title should contain 'bar' (attempt 1 of 5)`
-
-Example usage:
-
-```ts
-const {browser, test} = require('cybernaut');
-
-test('foo', async t => {
-  await t.assert(browser.pageTitle, it.should.contain('bar'));
-});
-```
-
 #### [`pageUrl`](#api)
-
-Type definition: **`pageUrl: Accessor<string>`**
-
-Example TAP output: `ok 1 - page url should contain 'http://bar.baz' (attempt 1 of 5)`
-
-Example usage:
-
-```ts
-const {browser, test} = require('cybernaut');
-
-test('foo', async t => {
-  await t.assert(browser.pageUrl, it.should.contain('http://bar.baz'));
-});
-```
-
 #### [`windowX`](#api)
-
-Type definition: **`windowX: Accessor<number>`**
-
-Test output: `window x-position should ...`
-
 #### [`windowY`](#api)
-
-Type definition: **`windowY: Accessor<number>`**
-
-Test output: `window y-position should ...`
-
 #### [`windowWidth`](#api)
-
-Type definition: **`windowWidth: Accessor<number>`**
-
-Test output: `window width should ...`
-
 #### [`windowHeight`](#api)
-
-Type definition: **`windowHeight: Accessor<number>`**
-
-Test output: `window height should ...`
-
 #### [`scriptResult`](#api)
-
-##### Typing:
-
-`browser.scriptResult(scriptName: string, script: Script): Accessor<any>`
-
-`type Script = (callback: (result?: any) => void) => void`
-
-##### Output:
-
-`result of script 'foo' should equal 'bar'`
-
-Example:
-
-```ts
-await t.assert(browser.scriptResult('foo', callback => { // This script will be executed in the browser
-  // ...
-
-  callback('bar');
-}), it.should.equal('bar'));
-```
-
-#### Actions
-
-##### executeScript
-
-`browser.executeScript(scriptName: string, script: Script): Action`
-
-`type Script = (callback: (result?: any) => void) => void`
-
-```ts
-await t.perform(browser.executeScript('foo', callback => { // This script will be executed in the browser
-  // ...
-
-  callback();
-}));
-```
-
-##### loadPage
-
-`browser.loadPage(url: string): Action`
-
-##### maximizeWindow
-
-`browser.maximizeWindow(): Action`
-
-##### navigateBack
-
-`browser.navigateBack(): Action`
-
-##### navigateForward
-
-`browser.navigateForward(): Action`
-
-##### reloadPage
-
-`browser.reloadPage(): Action`
-
-##### setWindowPosition
-
-`browser.setWindowPosition(x: number, y: number): Action`
-
-##### setWindowSize
-
-`browser.setWindowSize(width: number, height: number): Action`
-
-##### sleep
-
-`browser.sleep(duration: number): Action`
-
-### Element
-
-#### Factory Function
-
-##### defineElement
-
-`defineElement(selector: string): Element`
-
-```ts
-const {defineElement} = require('cybernaut');
-
-const element = defineElement('#foo');
-```
-
-#### Accessors
-
-##### tagName
-
-`element.tagName: Accessor<string>`
-
-##### text
-
-`element.text: Accessor<string>`
-
-##### visibility
-
-`element.visibility: Accessor<boolean>`
-
-##### x
-
-`element.x: Accessor<number>`
-
-##### y
-
-`element.y: Accessor<number>`
-
-##### width
-
-`element.width: Accessor<number>`
-
-##### height
-
-`element.height: Accessor<number>`
-
-##### cssValue
-
-`element.cssValue(cssName: string): Accessor<string>`
-
-##### propertyValue
-
-`element.propertyValue(propertyName: string): Accessor<string | null>`
-
-#### Actions
-
-##### clearValue
-
-`element.clearValue(): Action`
-
-##### click
-
-`element.click(): Action`
-
-##### sendKeys
-
-`element.sendKeys(...keys: string[]): Action`
-
-##### submitForm
-
-`element.submitForm(): Action`
-
-### PredicateBuilder
-
-#### Factory Function
-
-##### it
-
-`it: {should: PredicateBuilder}`
-
-```ts
-const {it} = require('cybernaut');
-```
-
-#### Predicates
-
-##### contain
-
-`it.should.contain(expectedValue: string): Predicate<string>`
-
-`it.should.not.contain(expectedValue: string): Predicate<string>`
-
-##### equal `===`
-
-`it.should.equal<T>(expectedValue: T): Predicate<T>`
-
-`it.should.not.equal<T>(expectedValue: T): Predicate<T>`
-
-The comparison is done via [`deep-strict-equal`][20].
-
-##### match
-
-`it.should.match(regex: RegExp): Predicate<string>`
-
-`it.should.not.match(regex: RegExp): Predicate<string>`
-
-##### be.above `>`
-
-`it.should.be.above(expectedValue: number): Predicate<number>`
-
-##### be.at.least `>=`
-
-`it.should.be.at.least(expectedValue: number): Predicate<number>`
-
-##### be.below `<`
-
-`it.should.be.below(expectedValue: number): Predicate<number>`
-
-##### be.at.most `<=`
-
-`it.should.be.at.most(expectedValue: number): Predicate<number>`
+#### [`executeScript`](#api)
+#### [`loadPage`](#api)
+#### [`maximizeWindow`](#api)
+#### [`navigateBack`](#api)
+#### [`navigateForward`](#api)
+#### [`reloadPage`](#api)
+#### [`setWindowPosition`](#api)
+#### [`setWindowSize`](#api)
+#### [`sleep`](#api)
+
+### [Class `Element`](#api)
+
+#### [`tagName`](#api)
+#### [`text`](#api)
+#### [`visibility`](#api)
+#### [`x`](#api)
+#### [`y`](#api)
+#### [`width`](#api)
+#### [`height`](#api)
+#### [`cssValue`](#api)
+#### [`propertyValue`](#api)
+#### [`clearValue`](#api)
+#### [`click`](#api)
+#### [`sendKeys`](#api)
+#### [`submitForm`](#api)
+
+### [Class `PredicateBuilder`](#api)
+
+#### [`contain`](#api)
+#### [`not.contain`](#api)
+#### [`equal`](#api)
+#### [`not.equal`](#api)
+#### [`match`](#api)
+#### [`not.match`](#api)
+#### [`be.above`](#api)
+#### [`be.at.least`](#api)
+#### [`be.below`](#api)
+#### [`be.at.most`](#api)
 
 ## Development
 
