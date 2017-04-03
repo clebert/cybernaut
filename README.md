@@ -185,66 +185,600 @@ If you write your tests with [TypeScript][18], it is recommended to enable the [
 ### [Module `exports`](#api)
 
 #### [`test`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`skip`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`browser`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`defineElement`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`it`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
 
 ### [Class `Test`](#api)
 
 #### [`assert`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`perform`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`verify`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`fail`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`pass`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
 
 ### [Class `Browser`](#api)
 
 #### [`pageTitle`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`pageUrl`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`windowX`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`windowY`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`windowWidth`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`windowHeight`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`scriptResult`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`executeScript`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`loadPage`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`maximizeWindow`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`navigateBack`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`navigateForward`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`reloadPage`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`setWindowPosition`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`setWindowSize`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`sleep`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
 
 ### [Class `Element`](#api)
 
 #### [`tagName`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`text`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`visibility`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`x`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`y`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`width`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`height`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`cssValue`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`propertyValue`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`clearValue`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`click`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`sendKeys`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`submitForm`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
 
 ### [Class `PredicateBuilder`](#api)
 
 #### [`contain`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`not.contain`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`equal`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`not.equal`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`match`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`not.match`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`be.above`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`be.at.least`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`be.below`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
+
 #### [`be.at.most`](#api)
+
+Type definition: `TODO`
+
+Example TAP output: `TODO`
+
+Example usage:
+
+```ts
+TODO
+```
 
 ## Development
 
