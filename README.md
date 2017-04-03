@@ -186,9 +186,9 @@ If you write your tests with [TypeScript][18], it is recommended to enable the [
 
 #### [`test`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -198,9 +198,9 @@ TODO
 
 #### [`skip`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -210,9 +210,9 @@ TODO
 
 #### [`browser`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -222,9 +222,9 @@ TODO
 
 #### [`defineElement`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -234,9 +234,9 @@ TODO
 
 #### [`it`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -248,9 +248,9 @@ TODO
 
 #### [`assert`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -260,9 +260,9 @@ TODO
 
 #### [`perform`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -272,9 +272,9 @@ TODO
 
 #### [`verify`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -284,9 +284,9 @@ TODO
 
 #### [`fail`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -296,9 +296,9 @@ TODO
 
 #### [`pass`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -310,9 +310,9 @@ TODO
 
 #### [`pageTitle`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -322,9 +322,9 @@ TODO
 
 #### [`pageUrl`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -334,9 +334,9 @@ TODO
 
 #### [`windowX`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -346,9 +346,9 @@ TODO
 
 #### [`windowY`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -358,9 +358,9 @@ TODO
 
 #### [`windowWidth`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -370,9 +370,9 @@ TODO
 
 #### [`windowHeight`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -382,9 +382,9 @@ TODO
 
 #### [`scriptResult`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -394,9 +394,9 @@ TODO
 
 #### [`executeScript`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -406,9 +406,9 @@ TODO
 
 #### [`loadPage`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -418,9 +418,9 @@ TODO
 
 #### [`maximizeWindow`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -430,9 +430,9 @@ TODO
 
 #### [`navigateBack`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -442,9 +442,9 @@ TODO
 
 #### [`navigateForward`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -454,9 +454,9 @@ TODO
 
 #### [`reloadPage`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -466,9 +466,9 @@ TODO
 
 #### [`setWindowPosition`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -478,9 +478,9 @@ TODO
 
 #### [`setWindowSize`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -490,9 +490,9 @@ TODO
 
 #### [`sleep`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -504,9 +504,9 @@ TODO
 
 #### [`tagName`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -516,9 +516,9 @@ TODO
 
 #### [`text`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -528,9 +528,9 @@ TODO
 
 #### [`visibility`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -540,9 +540,9 @@ TODO
 
 #### [`x`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -552,9 +552,9 @@ TODO
 
 #### [`y`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -564,9 +564,9 @@ TODO
 
 #### [`width`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -576,9 +576,9 @@ TODO
 
 #### [`height`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -588,9 +588,9 @@ TODO
 
 #### [`cssValue`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -600,9 +600,9 @@ TODO
 
 #### [`propertyValue`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -612,9 +612,9 @@ TODO
 
 #### [`clearValue`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -624,9 +624,9 @@ TODO
 
 #### [`click`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -636,9 +636,9 @@ TODO
 
 #### [`sendKeys`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -648,9 +648,9 @@ TODO
 
 #### [`submitForm`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -662,9 +662,9 @@ TODO
 
 #### [`contain`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -674,9 +674,9 @@ TODO
 
 #### [`not.contain`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -686,9 +686,9 @@ TODO
 
 #### [`equal`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -698,9 +698,9 @@ TODO
 
 #### [`not.equal`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -710,9 +710,9 @@ TODO
 
 #### [`match`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -722,9 +722,9 @@ TODO
 
 #### [`not.match`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -734,9 +734,9 @@ TODO
 
 #### [`be.above`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -746,9 +746,9 @@ TODO
 
 #### [`be.at.least`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -758,9 +758,9 @@ TODO
 
 #### [`be.below`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
@@ -770,9 +770,9 @@ TODO
 
 #### [`be.at.most`](#api)
 
-Type definition: `TODO`
+Type definition: **`TODO`**
 
-Example TAP output: `TODO`
+Example [TAP][28] output: `TODO`
 
 Example usage:
 
