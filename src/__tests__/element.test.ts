@@ -1,15 +1,30 @@
 // tslint:disable no-any
 
+import proxyquire = require('proxyquire');
+
 import test from 'ava';
-import {By} from 'selenium-webdriver';
+import {By, Key} from 'selenium-webdriver';
 import {stub} from 'sinon';
 import {format} from '../description';
-import {Element} from '../element';
 import {Deferred} from './deferred';
+
+const translate = stub();
+
+proxyquire.noPreserveCache();
+proxyquire.preserveCache();
+
+proxyquire('../element', {'./utils': {translate}});
+
+import {Element} from '../element';
 
 function createTestName(method: string, result: string): string {
   return `\`Element.${method}\` should return an ${result}`;
 }
+
+test.beforeEach(() => {
+  translate.reset();
+  translate.resetBehavior();
+});
 
 test(createTestName('tagName', 'accessor'), async t => {
   t.plan(5);
@@ -224,14 +239,23 @@ test(createTestName('click', 'action'), async t => {
 });
 
 test(createTestName('sendKeys', 'action'), async t => {
-  t.plan(7);
+  t.plan(12);
 
-  const action = new Element('selector').sendKeys('key1', 'key2');
+  translate.onFirstCall().returns('Key.CONTROL');
+  translate.onSecondCall().returns('a');
+  translate.onThirdCall().returns('Key.NULL');
+
+  const action = new Element('selector').sendKeys(Key.CONTROL, 'a', Key.NULL);
 
   t.is(
     format(action.description),
-    'send keys [ \'key1\', \'key2\' ] to element \'selector\''
+    'send keys [ \'Key.CONTROL\', \'a\', \'Key.NULL\' ] to element \'selector\''
   );
+
+  t.is(translate.callCount, 3);
+  t.is(translate.args[0][0], Key.CONTROL);
+  t.is(translate.args[1][0], 'a');
+  t.is(translate.args[2][0], Key.NULL);
 
   const deferred = new Deferred();
   const sendKeys = stub().resolves(deferred);
@@ -245,8 +269,9 @@ test(createTestName('sendKeys', 'action'), async t => {
   t.deepEqual(findElement.args[0][0], By.css('selector'));
 
   t.is(sendKeys.callCount, 1);
-  t.is(sendKeys.args[0][0], 'key1');
-  t.is(sendKeys.args[0][1], 'key2');
+  t.is(sendKeys.args[0][0], Key.CONTROL);
+  t.is(sendKeys.args[0][1], 'a');
+  t.is(sendKeys.args[0][2], Key.NULL);
 });
 
 test(createTestName('submitForm', 'action'), async t => {
