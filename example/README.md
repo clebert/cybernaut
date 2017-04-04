@@ -12,13 +12,15 @@ Run the test with your locally installed Chrome:
 npm install && npm run chrome
 ```
 
-Alternatively, run the test in a docker container:
+Alternatively, run the test in a [Docker][2] container:
 
 ```sh
 mkdir -p screenshots && \
 docker build -t clebert/cybernaut-example . && \
-docker run -v $(cd screenshots; pwd):/opt/cybernaut-example/screenshots -t clebert/cybernaut-example
+docker run -ti --rm -v $(cd screenshots; pwd):/opt/cybernaut-example/screenshots clebert/cybernaut-example
 ```
+
+*Note: A `screenshots` directory is created and shared with the [Docker][2] container.*
 
 ## Firefox
 
@@ -30,3 +32,4 @@ npm install && npm run firefox
 
 [0]: https://github.com/wbyoung/avn
 [1]: https://raw.githubusercontent.com/clebert/cybernaut/master/example/example.png
+[2]: https://www.docker.com/
