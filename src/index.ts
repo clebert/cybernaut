@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-/// <reference path="../typings/index.d.ts" />
+/// <reference path="../types/index.d.ts" />
 
 import tap = require('tap');
 
