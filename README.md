@@ -99,6 +99,20 @@ The following configuration is active by default:
 }
 ```
 
+Configuration options:
+
+- `capabilities`: Specifies the desired [WebDriver capabilities][34].
+- `concurrency`: Specifies the maximum number of tests running at the same time.
+- `dependencies`: Specifies the required modules to be loaded.
+- `exclude`: Specifies the [glob patterns][33], for which matching files will be removed from the set of test files.
+- `include`: Specifies the [glob pattern][33], for which matching files will be added to the set of test files.
+- `retries`: Specifies the maximum number of retries of failed test steps.
+- `retryDelay`: Specifies the time, in milliseconds, to wait between retries of failed test steps.
+- `screenshotDirectory`: Specifies the relative or absolute path to the screenshot directory.
+- `timeouts.element`: Specifies the maximum time, in milliseconds, to wait when searching for an element, that is not immediately present, before returning an error.
+- `timeouts.page`: Specifies the maximum time, in milliseconds, to wait for a page load to complete before returning an error.
+- `timeouts.script`: Specifies the maximum time, in milliseconds, for an asynchronous script to finish execution before returning an error.
+
 A separate configuration can be passed as a command line argument:
 
 ```sh
@@ -302,6 +316,8 @@ test('foo', async t => {
 });
 ```
 
+*Note: An assertion is a single test step for which the globally configured options `retries` and `retryDelay` can be overwritten.*
+
 #### [`perform`](#api)
 
 Type definition:
@@ -317,6 +333,8 @@ test('foo', async t => {
   await t.perform(browser.loadPage('http://bar.baz')); // Throws an error if the action fails
 });
 ```
+
+*Note: A performance is a single test step for which the globally configured options `retries` and `retryDelay` can be overwritten.*
 
 #### [`verify`](#api)
 
@@ -335,6 +353,8 @@ test('foo', async t => {
   }
 });
 ```
+
+*Note: A verification is a single test step for which the globally configured options `retries` and `retryDelay` can be overwritten.*
 
 #### [`fail`](#api)
 
@@ -1225,3 +1245,5 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [30]: https://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/lib/input_exports_Key.html
 [31]: https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html
 [32]: https://www.martinfowler.com/articles/microservice-testing/#testing-end-to-end-tips
+[33]: https://github.com/isaacs/node-glob
+[34]: https://github.com/SeleniumHQ/selenium/wiki/DesiredCapabilities
