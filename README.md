@@ -21,7 +21,11 @@ test('Star the "clebert/cybernaut" repository on GitHub', async t => {
 
   await t.perform(browser.takeScreenshot());
 
-  const starButton = defineElement('ul.pagehead-actions > li:nth-child(2) > a:nth-child(1)');
+  // The "star" button leads to a login form.
+  // Thus, the project is not really starred ;)
+  const starButton = defineElement(
+    'ul.pagehead-actions > li:nth-child(2) > a:nth-child(1)'
+  );
 
   await t.perform(starButton.click());
 });
@@ -34,8 +38,10 @@ git clone https://github.com/clebert/cybernaut.git && \
 cd cybernaut/example/ && \
 mkdir -p screenshots && \
 docker build -t clebert/cybernaut-example . && \
-docker run -v $(cd screenshots; pwd):/opt/cybernaut-example/screenshots -t clebert/cybernaut-example
+docker run -ti --rm -v $(cd screenshots; pwd):/opt/cybernaut-example/screenshots clebert/cybernaut-example
 ```
+
+*Note: A `screenshots` directory is created and shared with the [Docker][21] container.*
 
 ## Contents
 
@@ -940,6 +946,8 @@ test('foo', async t => {
 >
 > -- <cite>[selenium-webdriver.WebElement][29]</cite>
 
+*Note: The `WebElement` of `selenium-webdriver` is used internally, but is not accessible from the outside.*
+
 #### [`submitForm`](#api)
 
 Type definition:
@@ -1016,7 +1024,7 @@ test('foo', async t => {
 });
 ```
 
-*Note: The comparison is done via [deep-strict-equal][20].*
+*Note: The comparison is performed with [deep-strict-equal][20].*
 
 #### [`not.equal`](#api)
 
@@ -1036,7 +1044,7 @@ test('foo', async t => {
 });
 ```
 
-*Note: The comparison is done via [deep-strict-equal][20].*
+*Note: The comparison is performed with [deep-strict-equal][20].*
 
 #### [`match`](#api)
 

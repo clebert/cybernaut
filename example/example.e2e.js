@@ -7,7 +7,11 @@ test('Star the "clebert/cybernaut" repository on GitHub', async t => {
 
   await t.perform(browser.takeScreenshot());
 
-  const starButton = defineElement('ul.pagehead-actions > li:nth-child(2) > a:nth-child(1)');
+  // The "star" button leads to a login form.
+  // Thus, the project is not really starred ;)
+  const starButton = defineElement(
+    'ul.pagehead-actions > li:nth-child(2) > a:nth-child(1)'
+  );
 
   await t.perform(starButton.click());
 });
