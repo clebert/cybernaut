@@ -17,7 +17,7 @@ Alternatively, run the test in a docker container:
 ```sh
 mkdir -p screenshots && \
 docker build -t clebert/cybernaut-example . && \
-docker run -v screenshots:/opt/cybernaut-example/screenshots -t clebert/cybernaut-example
+docker run -v $(cd screenshots; pwd):/opt/cybernaut-example/screenshots -t clebert/cybernaut-example
 ```
 
 ## Firefox
@@ -29,4 +29,4 @@ npm install && npm run firefox
 ```
 
 [0]: https://github.com/wbyoung/avn
-[1]: https://raw.githubusercontent.com/clebert/cybernaut/master/example/screenshot.png
+[1]: https://raw.githubusercontent.com/clebert/cybernaut/master/example/example.png

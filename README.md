@@ -34,7 +34,7 @@ git clone https://github.com/clebert/cybernaut.git && \
 cd cybernaut/example/ && \
 mkdir -p screenshots && \
 docker build -t clebert/cybernaut-example . && \
-docker run -v screenshots:/opt/cybernaut-example/screenshots -t clebert/cybernaut-example
+docker run -v $(cd screenshots; pwd):/opt/cybernaut-example/screenshots -t clebert/cybernaut-example
 ```
 
 ## Contents
@@ -90,7 +90,8 @@ The following configuration is active by default:
   "exclude": ["**/node_modules/**/*"],
   "include": "**/*.e2e.js",
   "retries": 4,
-  "retryDelay": 500
+  "retryDelay": 500,
+  "screenshotDirectory": "screenshots"
 }
 ```
 
@@ -1190,7 +1191,7 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [7]: https://github.com/semantic-release/semantic-release
 [8]: https://badges.greenkeeper.io/clebert/cybernaut.svg
 [9]: https://greenkeeper.io/
-[10]: https://raw.githubusercontent.com/clebert/cybernaut/master/example/screenshot.png
+[10]: https://raw.githubusercontent.com/clebert/cybernaut/master/example/example.png
 [11]: https://github.com/giggio/node-chromedriver
 [12]: https://github.com/tapjs/tap-mocha-reporter
 [13]: https://github.com/clebert/cybernaut/tree/master/example
