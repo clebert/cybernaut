@@ -20,7 +20,7 @@ function createTestName(method: string, result: string): string {
   return `\`Browser.${method}\` should return an ${result}`;
 }
 
-test.beforeEach(t => {
+test.beforeEach(() => {
   sleep.reset();
   sleep.resetBehavior();
 });

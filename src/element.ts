@@ -1,6 +1,7 @@
 import {By} from 'selenium-webdriver';
 import {Accessor} from './accessor';
 import {Action} from './action';
+import {translate} from './utils';
 
 export class Element {
   protected readonly selector: string;
@@ -148,7 +149,8 @@ export class Element {
   public sendKeys(...keys: string[]): Action {
     return {
       description: {
-        template: 'send keys {} to element {}', args: [keys, this.selector]
+        template: 'send keys {} to element {}',
+        args: [keys.map(translate), this.selector]
       },
       perform: async driver => {
         const element = await driver.findElement(By.css(this.selector));
