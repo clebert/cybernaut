@@ -15,7 +15,9 @@ npm install && npm run chrome
 Alternatively, run the test in a docker container:
 
 ```sh
-docker build -t clebert/cybernaut-example . && docker run clebert/cybernaut-example
+mkdir -p screenshots && \
+docker build -t clebert/cybernaut-example . && \
+docker run -v screenshots:/opt/cybernaut-example/screenshots -t clebert/cybernaut-example
 ```
 
 ## Firefox

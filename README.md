@@ -19,6 +19,8 @@ test('Star the "clebert/cybernaut" repository on GitHub', async t => {
 
   await t.assert(browser.pageTitle, it.should.contain('clebert/cybernaut'));
 
+  await t.perform(browser.takeScreenshot());
+
   const starButton = defineElement('ul.pagehead-actions > li:nth-child(2) > a:nth-child(1)');
 
   await t.perform(starButton.click());
@@ -30,8 +32,9 @@ The above [example][13] can be executed without configuration or dependencies in
 ```sh
 git clone https://github.com/clebert/cybernaut.git && \
 cd cybernaut/example/ && \
+mkdir -p screenshots && \
 docker build -t clebert/cybernaut-example . && \
-docker run clebert/cybernaut-example
+docker run -v screenshots:/opt/cybernaut-example/screenshots -t clebert/cybernaut-example
 ```
 
 ## Contents
@@ -156,6 +159,7 @@ If you write your tests with [TypeScript][18], it is recommended to enable the [
   * [`setWindowPosition`](#setwindowposition)
   * [`setWindowSize`](#setwindowsize)
   * [`sleep`](#sleep)
+  * [`takeScreenshot`](#takescreenshot)
 * [Interface `Element`](#interface-element)
   * [`tagName`](#tagname)
   * [`text`](#text)
@@ -662,6 +666,24 @@ const {browser, test} = require('cybernaut');
 
 test('foo', async t => {
   await t.perform(browser.sleep(123));
+});
+```
+
+#### [`takeScreenshot`](#api)
+
+Type definition:
+
+- **`takeScreenshot(): Action`**
+
+Example [TAP][28] output: `ok 1 - take screenshot 'screenshots/07cc9369-ab10-4221-9bc9-18ad12b87c7c.png' (attempt 1 of 5)`
+
+Example usage:
+
+```ts
+const {browser, test} = require('cybernaut');
+
+test('foo', async t => {
+  await t.perform(browser.takeScreenshot());
 });
 ```
 

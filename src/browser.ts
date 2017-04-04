@@ -1,3 +1,7 @@
+import uuidV4 = require('uuid/v4');
+
+import {outputFile} from 'fs-promise';
+import {join} from 'path';
 import {Accessor} from './accessor';
 import {Action} from './action';
 import {sleep} from './utils';
@@ -6,6 +10,12 @@ import {sleep} from './utils';
 export type Script = (callback: (result?: any) => void) => void;
 
 export class Browser {
+  private readonly _screenshotDirectory: string;
+
+  public constructor(screenshotDirectory: string) {
+    this._screenshotDirectory = screenshotDirectory;
+  }
+
   public get pageTitle(): Accessor<string> {
     return {
       description: {template: 'page title'},
@@ -118,6 +128,19 @@ export class Browser {
     return {
       description: {template: 'sleep for {} ms', args: [duration]},
       perform: async () => sleep(duration)
+    };
+  }
+
+  public takeScreenshot(): Action {
+    const filename = join(this._screenshotDirectory, uuidV4() + '.png');
+
+    return {
+      description: {template: 'take screenshot {}', args: [filename]},
+      perform: async driver => {
+        const screenshot = await driver.takeScreenshot();
+
+        await outputFile(filename, screenshot, {encoding: 'base64'});
+      }
     };
   }
 }

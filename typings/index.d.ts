@@ -4,3 +4,4 @@
 /// <reference path="../typings/selenium-webdriver.d.ts" />
 /// <reference path="../typings/sinon.d.ts" />
 /// <reference path="../typings/tap.d.ts" />
+/// <reference path="../typings/uuid.d.ts" />
