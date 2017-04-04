@@ -6,5 +6,6 @@ module.exports = {
   include: '*.js',
   retries: 3,
   retryDelay: 1000,
-  screenshotDirectory: '/dev/null'
+  screenshotDirectory: '/dev/null',
+  timeouts: {element: 123, page: 456, script: 789}
 };
