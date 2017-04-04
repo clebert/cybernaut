@@ -45,9 +45,10 @@ docker run -ti --rm -v $(cd screenshots; pwd):/opt/cybernaut-example/screenshots
 * [Installation](#installation)
 * [Usage](#usage)
 * [API](#api)
+* [Related links](#related-links)
 * [Development](#development)
 
-## Installation
+## [Installation](#contents)
 
 ```sh
 npm install --save-dev cybernaut
@@ -59,7 +60,7 @@ If the default configuration is used, Chrome and a matching version of [`chromed
 npm install --save-dev chromedriver
 ```
 
-## Usage
+## [Usage](#contents)
 
 ### Starting Cybernaut
 
@@ -132,7 +133,7 @@ It is recommended to write tests using [async functions][26], which are natively
 
 If you write your tests with [TypeScript][18], it is recommended to enable the [TSLint][23] rule [`no-floating-promises`][24]. This can prevent the [`await`][25] operators from being forgotten.
 
-## API
+## [API](#contents)
 
 * [Module `exports`](#module-exports)
   * [`test`](#test)
@@ -1151,7 +1152,12 @@ test('foo', async t => {
 });
 ```
 
-## Development
+## [Related links](#contents)
+
+- [Google Testing Blog: Just Say No to More End-to-End Tests][31]
+- [Testing Strategies in a Microservice Architecture][32]
+
+## [Development](#contents)
 
 ### Installing dev dependencies
 
@@ -1217,3 +1223,5 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [28]: https://testanything.org/
 [29]: https://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html
 [30]: https://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/lib/input_exports_Key.html
+[31]: https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html
+[32]: https://www.martinfowler.com/articles/microservice-testing/#testing-end-to-end-tips
