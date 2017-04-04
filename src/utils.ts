@@ -9,11 +9,7 @@ export async function sleep(duration: number): Promise<void> {
 const KeyName = Object.create(null);
 
 for (const keyName of Object.keys(Key) as (keyof Key)[]) {
-  const key = Key[keyName];
-
-  if (key && key.length === 1) {
-    KeyName[Key[keyName]] = keyName;
-  }
+  KeyName[Key[keyName]] = keyName;
 }
 
 export function translate(char: string): string {
