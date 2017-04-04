@@ -893,7 +893,7 @@ Type definition:
 
 - **`sendKeys(...keys: string[]): Action`**
 
-Example [TAP][28] output: `ok 1 - send keys [ 'text was', '', 'a', '', 'now text is' ] to element '#bar' (attempt 1 of 5)`
+Example [TAP][28] output: `ok 1 - send keys [ 'text was', 'Key.CONTROL', 'a', 'Key.NULL', 'now text is' ] to element '#bar' (attempt 1 of 5)`
 
 Example usage:
 
