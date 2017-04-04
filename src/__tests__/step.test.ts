@@ -16,7 +16,7 @@ import {run} from '../step';
 let deferred: Deferred;
 let step: Stub;
 
-test.beforeEach(t => {
+test.beforeEach(() => {
   sleep.reset();
   sleep.resetBehavior();
 
