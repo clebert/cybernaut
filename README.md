@@ -21,11 +21,8 @@ test('Star the "clebert/cybernaut" repository on GitHub', async t => {
 
   await t.perform(browser.takeScreenshot());
 
-  // The "star" button leads to a login form.
-  // Thus, the project is not really starred ;)
-  const starButton = defineElement(
-    'ul.pagehead-actions > li:nth-child(2) > a:nth-child(1)'
-  );
+  // The "star" button leads to a login form. Thus, the project is not really starred ;)
+  const starButton = defineElement('ul.pagehead-actions > li:nth-child(2) > a:nth-child(1)');
 
   await t.perform(starButton.click());
 });
@@ -48,9 +45,10 @@ docker run -ti --rm -v $(cd screenshots; pwd):/opt/cybernaut-example/screenshots
 * [Installation](#installation)
 * [Usage](#usage)
 * [API](#api)
+* [Related links](#related-links)
 * [Development](#development)
 
-## Installation
+## [Installation](#contents)
 
 ```sh
 npm install --save-dev cybernaut
@@ -62,7 +60,7 @@ If the default configuration is used, Chrome and a matching version of [`chromed
 npm install --save-dev chromedriver
 ```
 
-## Usage
+## [Usage](#contents)
 
 ### Starting Cybernaut
 
@@ -127,7 +125,7 @@ module.exports = {
 };
 ```
 
-**A note for Firefox users:** Cybernaut uses [`selenium-webdriver@3.3.0`][14], which is incompatible with [`geckodriver@1.5.0`][15]. Until these [incompatibilities][16] have been solved, [`geckodriver@1.4.0`][15] must be used.
+*Note: Cybernaut uses [`selenium-webdriver@3.3.0`][14], which is incompatible with [`geckodriver@1.5.0`][15]. Until these [incompatibilities][16] have been solved, [`geckodriver@1.4.0`][15] must be used.*
 
 ### Writing tests
 
@@ -135,7 +133,7 @@ It is recommended to write tests using [async functions][26], which are natively
 
 If you write your tests with [TypeScript][18], it is recommended to enable the [TSLint][23] rule [`no-floating-promises`][24]. This can prevent the [`await`][25] operators from being forgotten.
 
-## API
+## [API](#contents)
 
 * [Module `exports`](#module-exports)
   * [`test`](#test)
@@ -1154,7 +1152,12 @@ test('foo', async t => {
 });
 ```
 
-## Development
+## [Related links](#contents)
+
+- [Google Testing Blog: Just Say No to More End-to-End Tests][31]
+- [Testing Strategies in a Microservice Architecture][32]
+
+## [Development](#contents)
 
 ### Installing dev dependencies
 
@@ -1220,3 +1223,5 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [28]: https://testanything.org/
 [29]: https://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html
 [30]: https://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/lib/input_exports_Key.html
+[31]: https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html
+[32]: https://www.martinfowler.com/articles/microservice-testing/#testing-end-to-end-tips
