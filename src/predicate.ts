@@ -34,7 +34,7 @@ export class PredicateBuilder {
   public contain(expectedValue: string): Predicate<string> {
     const description = {template: 'contain {}', args: [expectedValue]};
 
-    return this.build<string>(
+    return this._build<string>(
       description, actualValue => actualValue.indexOf(expectedValue) > -1
     );
   }
@@ -42,7 +42,7 @@ export class PredicateBuilder {
   public equal<T>(expectedValue: T): Predicate<T> {
     const description = {template: 'equal {}', args: [expectedValue]};
 
-    return this.build<T>(
+    return this._build<T>(
       description, actualValue => deepStrictEqual(actualValue, expectedValue)
     );
   }
@@ -50,7 +50,7 @@ export class PredicateBuilder {
   public match(regex: RegExp): Predicate<string> {
     const description = {template: 'match {}', args: [regex]};
 
-    return this.build<string>(
+    return this._build<string>(
       description, actualValue => regex.test(actualValue)
     );
   }
@@ -58,7 +58,7 @@ export class PredicateBuilder {
   public above(expectedValue: number): Predicate<number> {
     const description = {template: 'above {}', args: [expectedValue]};
 
-    return this.build<number>(
+    return this._build<number>(
       description, actualValue => actualValue > expectedValue
     );
   }
@@ -66,7 +66,7 @@ export class PredicateBuilder {
   public least(expectedValue: number): Predicate<number> {
     const description = {template: 'least {}', args: [expectedValue]};
 
-    return this.build<number>(
+    return this._build<number>(
       description, actualValue => actualValue >= expectedValue
     );
   }
@@ -74,7 +74,7 @@ export class PredicateBuilder {
   public below(expectedValue: number): Predicate<number> {
     const description = {template: 'below {}', args: [expectedValue]};
 
-    return this.build<number>(
+    return this._build<number>(
       description, actualValue => actualValue < expectedValue
     );
   }
@@ -82,12 +82,12 @@ export class PredicateBuilder {
   public most(expectedValue: number): Predicate<number> {
     const description = {template: 'most {}', args: [expectedValue]};
 
-    return this.build<number>(
+    return this._build<number>(
       description, actualValue => actualValue <= expectedValue
     );
   }
 
-  private build<T>(
+  private _build<T>(
     {args, template}: Description, test: (value: T) => boolean
   ): Predicate<T> {
     return {

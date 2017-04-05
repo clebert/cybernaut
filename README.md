@@ -38,7 +38,7 @@ docker build -t clebert/cybernaut-example . && \
 docker run -ti --rm -v $(cd screenshots; pwd):/opt/cybernaut-example/screenshots clebert/cybernaut-example
 ```
 
-*Note: A `screenshots` directory is created and shared with the [Docker][21] container.*
+*Note: A `screenshots` directory is created locally and shared with the [Docker][21] container.*
 
 ## Contents
 
