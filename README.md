@@ -95,7 +95,8 @@ The following configuration is active by default:
   "include": "**/*.e2e.js",
   "retries": 4,
   "retryDelay": 500,
-  "screenshotDirectory": "screenshots"
+  "screenshotDirectory": "screenshots",
+  "timeouts": {"element": 0, "page": 30000, "script": 30000}
 }
 ```
 

@@ -3,6 +3,12 @@ import Ajv = require('ajv');
 import {resolve} from 'path';
 import {inspect} from 'util';
 
+export interface Timeouts {
+  readonly element: number;
+  readonly page: number;
+  readonly script: number;
+}
+
 export interface Config {
   readonly capabilities: object;
   readonly concurrency: number;
@@ -12,6 +18,7 @@ export interface Config {
   readonly retries: number;
   readonly retryDelay: number;
   readonly screenshotDirectory: string;
+  readonly timeouts: Timeouts;
 }
 
 const defaultConfig: Config = {
@@ -22,7 +29,8 @@ const defaultConfig: Config = {
   include: '**/*.e2e.js',
   retries: 4,
   retryDelay: 500,
-  screenshotDirectory: 'screenshots'
+  screenshotDirectory: 'screenshots',
+  timeouts: {element: 0, page: 30000, script: 30000}
 };
 
 const configFilename = process.argv[2];
