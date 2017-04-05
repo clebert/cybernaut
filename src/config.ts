@@ -49,9 +49,9 @@ export const config = {...defaultConfig, ...customConfig};
 
 console.error('\nConfig:');
 
-for (const key of Object.keys(config)) {
+for (const key of Object.keys(config) as (keyof Config)[]) {
   // tslint:disable-next-line no-any
-  const value = inspect((config as any)[key], {breakLength: Infinity} as any);
+  const value = inspect(config[key], {breakLength: Infinity} as any);
 
   console.error(`  ${key}: ${value}`);
 }
