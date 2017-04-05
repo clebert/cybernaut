@@ -107,8 +107,8 @@ Configuration options:
 - `dependencies`: Specifies the required modules to be loaded.
 - `exclude`: Specifies the [glob patterns][33], for which matching files will be removed from the set of test files.
 - `include`: Specifies the [glob pattern][33], for which matching files will be added to the set of test files.
-- `retries`: Specifies the maximum number of retries of failed test steps.
-- `retryDelay`: Specifies the time, in milliseconds, to wait between retries of failed test steps.
+- `retries`: Specifies the maximum number of retries of failed [test steps](#assert).
+- `retryDelay`: Specifies the time, in milliseconds, to wait between retries of failed [test steps](#assert).
 - `screenshotDirectory`: Specifies the relative or absolute path to the screenshot directory.
 - `timeouts.element`: Specifies the maximum time, in milliseconds, to wait when searching for an element, that is not immediately present, before returning an error.
 - `timeouts.page`: Specifies the maximum time, in milliseconds, to wait for a page load to complete before returning an error.
