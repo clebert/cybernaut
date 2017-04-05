@@ -33,9 +33,9 @@ let browser: Browser;
 test.beforeEach(() => {
   browser = new Browser('screenshotDirectory');
 
-  for (const key of Object.keys(stubs)) {
-    (stubs as any)[key].reset();
-    (stubs as any)[key].resetBehavior();
+  for (const key of Object.keys(stubs) as (keyof typeof stubs)[]) {
+    stubs[key].reset();
+    stubs[key].resetBehavior();
   }
 });
 

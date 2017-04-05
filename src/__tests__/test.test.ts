@@ -60,9 +60,9 @@ const predicate: Predicate<string> = {
 };
 
 test.beforeEach(() => {
-  for (const key of Object.keys(stubs)) {
-    (stubs as any)[key].reset();
-    (stubs as any)[key].resetBehavior();
+  for (const key of Object.keys(stubs) as (keyof typeof stubs)[]) {
+    stubs[key].reset();
+    stubs[key].resetBehavior();
   }
 });
 
