@@ -1,9 +1,23 @@
 {
+  "files.exclude": {
+    "**/.DS_Store": true,
+    "**/.git": true,
+    "**/.nyc_output": true,
+    "**/coverage": true,
+    "**/dist": true,
+    "**/node_modules": true,
+    "**/npm-debug.log*": true,
+    "**/screenshots": true
+  },
   "search.exclude": {
-    ".nyc_output": true,
-    "coverage": true,
-    "dist": true,
-    "node_modules": true
+    "**/.DS_Store": true,
+    "**/.git": true,
+    "**/.nyc_output": true,
+    "**/coverage": true,
+    "**/dist": true,
+    "**/node_modules": true,
+    "**/npm-debug.log*": true,
+    "**/screenshots": true
   },
   "tslint.configFile": "./tslint.json",
   "tslint.enable": true,
