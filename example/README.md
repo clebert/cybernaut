@@ -9,7 +9,8 @@ If you want to run the example **locally** then Node.js is required in version 7
 Run the example with your locally installed Chrome:
 
 ```sh
-npm install && npm run chrome
+npm install && npm update && \
+npm run chrome
 ```
 
 Alternatively, run the example in a [Docker][2] container:
@@ -27,7 +28,8 @@ docker run -ti --rm -v $(cd screenshots; pwd):/opt/cybernaut-example/screenshots
 Run the example with your locally installed Firefox:
 
 ```sh
-npm install && npm run firefox
+npm install && npm update && \
+npm run firefox
 ```
 
 [0]: https://github.com/wbyoung/avn
