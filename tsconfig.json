@@ -10,7 +10,6 @@
     "coverage",
     "dist",
     "example",
-    "fixtures",
     "node_modules"
   ]
 }
