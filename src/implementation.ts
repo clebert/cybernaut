@@ -9,12 +9,12 @@ export type Options = Pick<
   >;
 
 class TapTest extends Test {
-  private readonly tap: Tap.Test;
+  private readonly _tap: Tap.Test;
 
   public constructor(driver: WebDriver, tap: Tap.Test, options: Options) {
     super(driver, options.retries, options.retryDelay);
 
-    this.tap = tap;
+    this._tap = tap;
   }
 
   public fail(message: string, cause: Error): void {
@@ -22,7 +22,7 @@ class TapTest extends Test {
   }
 
   public pass(message: string): void {
-    this.tap.pass(message);
+    this._tap.pass(message);
   }
 }
 
