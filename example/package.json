@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "chromedriver": "2.28.0",
-    "cybernaut": "latest",
+    "cybernaut": "*",
     "geckodriver": "1.4.0",
     "tap-mocha-reporter": "3.0.3"
   }
