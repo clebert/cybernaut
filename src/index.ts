@@ -74,6 +74,12 @@ export function test(name: string, implementation?: Implementation): void {
         ).build();
 
         try {
+          const {element, page, script} = config.timeouts;
+
+          await driver.manage().timeouts().implicitlyWait(element);
+          await driver.manage().timeouts().pageLoadTimeout(page);
+          await driver.manage().timeouts().setScriptTimeout(script);
+
           await implementation(new TapTest(driver, t));
         } finally {
           await driver.quit();

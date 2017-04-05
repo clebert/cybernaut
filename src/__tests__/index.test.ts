@@ -18,6 +18,7 @@ Config:
   retries: 3
   retryDelay: 1000
   screenshotDirectory: '/dev/null'
+  timeouts: { element: 123, page: 456, script: 789 }
 `;
 
 const defaultStderr = `
@@ -30,6 +31,7 @@ Config:
   retries: 4
   retryDelay: 500
   screenshotDirectory: 'screenshots'
+  timeouts: { element: 0, page: 30000, script: 30000 }
 `;
 
 let customResult: Result;
