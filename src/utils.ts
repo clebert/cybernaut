@@ -1,8 +1,12 @@
 import {Key} from 'selenium-webdriver';
 
-export async function sleep(duration: number): Promise<void> {
+export async function sleep(
+  duration: number,
+  /* istanbul ignore next */
+  _setTimeout: typeof setTimeout = setTimeout
+): Promise<void> {
   return new Promise<void>(resolve => {
-    setTimeout(resolve, duration);
+    _setTimeout(resolve, duration);
   });
 }
 

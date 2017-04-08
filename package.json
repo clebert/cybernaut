@@ -45,11 +45,10 @@
     "cache": false,
     "check-coverage": true,
     "exclude": [
-      "coverage/**",
-      "dist/**/__tests__/**",
-      "dist/config.js",
+      "coverage/**/*.js",
+      "dist/**/*.test.js",
       "dist/index.js",
-      "example/**",
+      "example/**/*.js",
       "wallaby.js"
     ],
     "reporter": [

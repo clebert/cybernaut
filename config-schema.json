@@ -1,12 +1,16 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
+  "additionalProperties": false,
   "properties": {
     "capabilities": {
       "type": "object",
+      "required": [
+        "browserName"
+      ],
+      "additionalProperties": true,
       "properties": {
         "browserName": {
-          "type": "string",
           "enum": [
             "android",
             "chrome",
@@ -21,11 +25,7 @@
             "htmlunit"
           ]
         }
-      },
-      "required": [
-        "browserName"
-      ],
-      "additionalProperties": true
+      }
     },
     "concurrency": {
       "type": "number",
@@ -34,19 +34,21 @@
     },
     "dependencies": {
       "type": "array",
+      "minItems": 0,
+      "uniqueItems": true,
       "items": {
         "type": "string",
         "minLength": 1
-      },
-      "uniqueItems": true
+      }
     },
     "exclude": {
       "type": "array",
+      "minItems": 0,
+      "uniqueItems": true,
       "items": {
         "type": "string",
         "minLength": 1
-      },
-      "uniqueItems": true
+      }
     },
     "include": {
       "type": "string",
@@ -68,6 +70,12 @@
     },
     "timeouts": {
       "type": "object",
+      "required": [
+        "element",
+        "page",
+        "script"
+      ],
+      "additionalProperties": false,
       "properties": {
         "element": {
           "type": "number",
@@ -84,14 +92,7 @@
           "minimum": 0,
           "multipleOf": 1
         }
-      },
-      "required": [
-        "element",
-        "page",
-        "script"
-      ],
-      "additionalProperties": false
+      }
     }
-  },
-  "additionalProperties": false
+  }
 }

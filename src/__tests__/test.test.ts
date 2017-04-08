@@ -3,21 +3,11 @@
 import proxyquire = require('proxyquire');
 
 import test from 'ava';
-import {stub} from 'sinon';
 import {Accessor} from '../accessor';
 import {Action} from '../action';
 import {Predicate} from '../predicate';
 import {Step} from '../step';
-
-const stubs = {
-  fail: stub(),
-  format: stub(),
-  get: stub(),
-  pass: stub(),
-  perform: stub(),
-  run: stub(),
-  test: stub()
-};
+import {resetAll, testStubs as stubs} from './stubs';
 
 proxyquire.noPreserveCache();
 proxyquire.preserveCache();
@@ -60,10 +50,7 @@ const predicate: Predicate<string> = {
 };
 
 test.beforeEach(() => {
-  for (const key of Object.keys(stubs) as (keyof typeof stubs)[]) {
-    stubs[key].reset();
-    stubs[key].resetBehavior();
-  }
+  resetAll(stubs);
 });
 
 test('`Test.assert` should call `Test.pass`', async t => {

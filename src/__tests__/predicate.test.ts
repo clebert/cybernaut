@@ -1,15 +1,13 @@
 import proxyquire = require('proxyquire');
 
 import test from 'ava';
-import {stub} from 'sinon';
 import {format} from '../description';
-
-const deepStrictEqual = stub();
+import {predicateStubs as stubs, resetAll} from './stubs';
 
 proxyquire.noPreserveCache();
 proxyquire.preserveCache();
 
-proxyquire('../predicate', {'deep-strict-equal': deepStrictEqual});
+proxyquire('../predicate', {'deep-strict-equal': stubs.deepStrictEqual});
 
 import {PredicateBuilder} from '../predicate';
 
@@ -18,8 +16,7 @@ function createTestName(method: string): string {
 }
 
 test.beforeEach(() => {
-  deepStrictEqual.reset();
-  deepStrictEqual.resetBehavior();
+  resetAll(stubs);
 });
 
 test(createTestName('contain'), async t => {
@@ -57,13 +54,13 @@ test(createTestName('equal'), async t => {
 
   t.is(format(predicate.description), 'should equal \'foo\'');
 
-  deepStrictEqual.returns(true);
+  stubs.deepStrictEqual.returns(true);
 
   t.true(predicate.test('bar'));
 
-  t.is(deepStrictEqual.callCount, 1);
-  t.is(deepStrictEqual.args[0][0], 'bar');
-  t.is(deepStrictEqual.args[0][1], 'foo');
+  t.is(stubs.deepStrictEqual.callCount, 1);
+  t.is(stubs.deepStrictEqual.args[0][0], 'bar');
+  t.is(stubs.deepStrictEqual.args[0][1], 'foo');
 });
 
 test(createTestName('not.equal'), async t => {
@@ -73,13 +70,13 @@ test(createTestName('not.equal'), async t => {
 
   t.is(format(predicate.description), 'should not equal \'foo\'');
 
-  deepStrictEqual.returns(true);
+  stubs.deepStrictEqual.returns(true);
 
   t.false(predicate.test('bar'));
 
-  t.is(deepStrictEqual.callCount, 1);
-  t.is(deepStrictEqual.args[0][0], 'bar');
-  t.is(deepStrictEqual.args[0][1], 'foo');
+  t.is(stubs.deepStrictEqual.callCount, 1);
+  t.is(stubs.deepStrictEqual.args[0][0], 'bar');
+  t.is(stubs.deepStrictEqual.args[0][1], 'foo');
 });
 
 test(createTestName('match'), async t => {
