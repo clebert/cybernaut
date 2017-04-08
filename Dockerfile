@@ -5,6 +5,7 @@ ADD example/example.e2e.js /opt/cybernaut-travis/test.e2e.js
 
 WORKDIR /opt/cybernaut-travis
 
+RUN rm -rf node_modules/cybernaut/.git
 RUN rm -rf node_modules/cybernaut/node_modules
 
 RUN echo '{"name": "cybernaut-travis"}' > package.json

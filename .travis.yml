@@ -6,9 +6,9 @@ node_js:
   - '6'
 before_script:
   - npm prune
-  - docker build -t clebert/cybernaut-travis .
 script:
   - npm test
+  - docker build -t clebert/cybernaut-travis .
   - docker run -ti --rm clebert/cybernaut-travis
 after_success:
   - npm run release
