@@ -7,9 +7,16 @@ node_js:
   - '6'
 before_script:
   - npm prune
+  - docker build -t clebert/cybernaut-travis .
+script:
+  - npm test
+  - docker run -ti --rm clebert/cybernaut-travis
 after_success:
   - npm run release
   - './node_modules/.bin/nyc report --reporter=text-lcov | ./node_modules/.bin/coveralls'
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
+sudo: required
+services:
+  - docker
