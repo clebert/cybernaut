@@ -1,7 +1,6 @@
 import proxyquire = require('proxyquire');
 
 import test from 'ava';
-import {stub} from 'sinon';
 import {resetAll, stepStubs as stubs} from './stubs';
 
 proxyquire.noPreserveCache();
@@ -22,15 +21,15 @@ test.beforeEach(() => {
 test('`run` should return 1', async t => {
   t.plan(3);
 
-  const step = stub().resolves(undefined);
+  stubs.step.onFirstCall().resolves(undefined);
 
-  const attempts = await run(step, 0, 0);
+  const attempts = await run(stubs.step, 0, 0);
 
   t.is(attempts, 1);
 
   t.is(stubs.sleep.callCount, 0);
 
-  t.is(step.callCount, attempts);
+  t.is(stubs.step.callCount, attempts);
 });
 
 test('`run` should return 3', async t => {

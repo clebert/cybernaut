@@ -22,9 +22,9 @@ function createTestName(method: string, result: string): string {
 let element: Element;
 
 test.beforeEach(() => {
-  element = new Element('selector');
-
   resetAll(stubs);
+
+  element = new Element('selector');
 });
 
 test(createTestName('tagName', 'accessor'), async t => {

@@ -6,6 +6,8 @@ declare module 'sinon' {
 
     readonly args: any[][];
     readonly callCount: number;
+
+    calledWithNew(): this;
   }
 
   export interface Stub extends Spy {
@@ -14,7 +16,6 @@ declare module 'sinon' {
     onThirdCall(): this;
     rejects(error: Error): this;
     reset(): void;
-    resetBehavior(): void;
     resolves(value: any): this;
     returns(value: any): this;
     throws(error: Error): this;
