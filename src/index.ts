@@ -6,10 +6,11 @@ import tap = require('tap');
 
 import {sync} from 'glob';
 import {Builder, Key, WebDriver} from 'selenium-webdriver';
+import {inspect} from 'util';
 import {Accessor} from './accessor';
 import {Action} from './action';
 import {Browser, Script} from './browser';
-import {config} from './config';
+import {Config, loadConfig, validate} from './config';
 import {Description} from './description';
 import {Element} from './element';
 import {PredicateBuilder} from './predicate';
@@ -28,6 +29,39 @@ export {
 };
 
 export type Implementation = (t: Test) => Promise<void>;
+
+let config: Config = {} as any; // tslint:disable-line no-any
+
+const configFilename = process.argv[2];
+
+try {
+  config = loadConfig(configFilename);
+} catch (e) {
+  console.error(`\nError: Unable to load config file '${configFilename}'`);
+
+  process.exit(1);
+}
+
+console.error('\nConfig:');
+
+for (const key of Object.keys(config) as (keyof Config)[]) {
+  // tslint:disable-next-line no-any
+  const value = inspect(config[key], {breakLength: Infinity} as any);
+
+  console.error(`  ${key}: ${value}`);
+}
+
+const configErrors = validate(config);
+
+if (configErrors.length > 0) {
+  console.error(`\nError: Unable to validate config file '${configFilename}'`);
+
+  for (const configError of configErrors) {
+    console.error('  ' + configError);
+  }
+
+  process.exit(1);
+}
 
 export function defineElement(selector: string): Element {
   return new Element(selector);

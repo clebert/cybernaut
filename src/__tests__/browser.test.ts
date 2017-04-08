@@ -5,12 +5,7 @@ import proxyquire = require('proxyquire');
 import test from 'ava';
 import {stub} from 'sinon';
 import {format} from '../description';
-
-const stubs = {
-  outputFile: stub(),
-  sleep: stub(),
-  uuidV4: stub()
-};
+import {browserStubs as stubs, resetAll} from './stubs';
 
 proxyquire.noPreserveCache();
 proxyquire.preserveCache();
@@ -32,10 +27,7 @@ let browser: Browser;
 test.beforeEach(() => {
   browser = new Browser('screenshotDirectory');
 
-  for (const key of Object.keys(stubs) as (keyof typeof stubs)[]) {
-    stubs[key].reset();
-    stubs[key].resetBehavior();
-  }
+  resetAll(stubs);
 });
 
 test(createTestName('pageTitle', 'accessor'), async t => {

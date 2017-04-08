@@ -1,42 +1,34 @@
 import test from 'ava';
 import {Key} from 'selenium-webdriver';
-import {Stub, stub} from 'sinon';
+import {stub} from 'sinon';
 import {sleep, translate} from '../utils';
 
-let originalSetTimeout: typeof global.setTimeout;
-let setTimeoutStub: Stub;
+test('`sleep` should return a promise ' +
+  'that resolves after the specified amount of time', async t => {
+    t.plan(4);
 
-test.beforeEach(() => {
-  originalSetTimeout = global.setTimeout;
-  global.setTimeout = setTimeoutStub = stub();
-});
+    const _setTimeout = stub();
 
-test.afterEach(() => {
-  global.setTimeout = originalSetTimeout;
-});
+    let resolved = false;
 
-test('`sleep` should return a promise that resolves after 50 ms', async t => {
-  t.plan(4);
+    const promise = sleep(50, _setTimeout).then(() => resolved = true);
 
-  let resolved = false;
+    t.is(_setTimeout.callCount, 1);
+    t.is(_setTimeout.args[0][1], 50);
 
-  const promise = sleep(50).then(() => resolved = true);
+    await new Promise<void>(resolve => {
+      setImmediate(resolve);
+    });
 
-  t.is(setTimeoutStub.callCount, 1);
-  t.is(setTimeoutStub.args[0][1], 50);
+    t.false(resolved);
 
-  await new Promise<void>(resolve => {
-    setImmediate(resolve);
-  });
+    _setTimeout.args[0][0]();
 
-  t.false(resolved);
+    await promise;
 
-  setTimeoutStub.args[0][0]();
-
-  await promise;
-
-  t.true(resolved);
-});
+    t.true(resolved);
+  }
+);
 
 test('`translate` should return the name for pressable keys', t => {
   t.plan(189);

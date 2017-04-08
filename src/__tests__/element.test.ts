@@ -6,13 +6,12 @@ import test from 'ava';
 import {By, Key} from 'selenium-webdriver';
 import {stub} from 'sinon';
 import {format} from '../description';
-
-const translate = stub();
+import {elementStubs as stubs, resetAll} from './stubs';
 
 proxyquire.noPreserveCache();
 proxyquire.preserveCache();
 
-proxyquire('../element', {'./utils': {translate}});
+proxyquire('../element', {'./utils': {translate: stubs.translate}});
 
 import {Element} from '../element';
 
@@ -25,8 +24,7 @@ let element: Element;
 test.beforeEach(() => {
   element = new Element('selector');
 
-  translate.reset();
-  translate.resetBehavior();
+  resetAll(stubs);
 });
 
 test(createTestName('tagName', 'accessor'), async t => {
@@ -238,9 +236,9 @@ test(createTestName('click', 'action'), async t => {
 test(createTestName('sendKeys', 'action'), async t => {
   t.plan(12);
 
-  translate.onFirstCall().returns('Key.CONTROL');
-  translate.onSecondCall().returns('a');
-  translate.onThirdCall().returns('Key.NULL');
+  stubs.translate.onFirstCall().returns('Key.CONTROL');
+  stubs.translate.onSecondCall().returns('a');
+  stubs.translate.onThirdCall().returns('Key.NULL');
 
   const action = element.sendKeys(Key.CONTROL, 'a', Key.NULL);
 
@@ -249,10 +247,10 @@ test(createTestName('sendKeys', 'action'), async t => {
     'send keys [ \'Key.CONTROL\', \'a\', \'Key.NULL\' ] to element \'selector\''
   );
 
-  t.is(translate.callCount, 3);
-  t.is(translate.args[0][0], Key.CONTROL);
-  t.is(translate.args[1][0], 'a');
-  t.is(translate.args[2][0], Key.NULL);
+  t.is(stubs.translate.callCount, 3);
+  t.is(stubs.translate.args[0][0], Key.CONTROL);
+  t.is(stubs.translate.args[1][0], 'a');
+  t.is(stubs.translate.args[2][0], Key.NULL);
 
   const sendKeys = stub().rejects(new Error('foo'));
   const findElement = stub().resolves({sendKeys});

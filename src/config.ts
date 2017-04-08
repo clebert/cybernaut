@@ -1,7 +1,6 @@
 import Ajv = require('ajv');
 
 import {resolve} from 'path';
-import {inspect} from 'util';
 
 export interface Timeouts {
   readonly element: number;
@@ -33,47 +32,30 @@ const defaultConfig: Config = {
   timeouts: {element: 0, page: 30000, script: 30000}
 };
 
-const configFilename = process.argv[2];
+export function loadConfig(
+  filename?: string,
+  /* istanbul ignore next */
+  _require: typeof require = require
+): Config {
+  const customConfig = filename ? _require(resolve(filename)) : {};
 
-let customConfig: Partial<Config> | undefined;
-
-try {
-  customConfig = configFilename ? require(resolve(configFilename)) : {};
-} catch (e) {
-  console.error(`\nError: Unable to load config file '${configFilename}'`);
-
-  process.exit(1);
-}
-
-export const config = {...defaultConfig, ...customConfig};
-
-console.error('\nConfig:');
-
-for (const key of Object.keys(config) as (keyof Config)[]) {
-  // tslint:disable-next-line no-any
-  const value = inspect(config[key], {breakLength: Infinity} as any);
-
-  console.error(`  ${key}: ${value}`);
+  return {...defaultConfig, ...customConfig};
 }
 
 const schema = require('../config-schema.json');
 
 schema.required = Object.keys(defaultConfig);
 
-const ajv = new Ajv({allErrors: true});
+export function validate(config: Config): string[] {
+  const ajv = new Ajv({allErrors: true});
 
-if (!ajv.validate(schema, config) && ajv.errors) {
-  const separator = '|';
+  if (!ajv.validate(schema, config) && ajv.errors) {
+    const separator = '///';
 
-  const errorsText = ajv.errorsText(ajv.errors, {
-    dataVar: '  config', separator
-  });
-
-  console.error(`\nError: Unable to validate config file '${configFilename}'`);
-
-  for (const errorText of errorsText.split(separator)) {
-    console.error(errorText);
+    return ajv.errorsText(ajv.errors, {
+      dataVar: 'config', separator
+    }).split(separator);
   }
 
-  process.exit(1);
+  return [];
 }
