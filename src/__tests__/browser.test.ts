@@ -5,7 +5,6 @@ import proxyquire = require('proxyquire');
 import test from 'ava';
 import {stub} from 'sinon';
 import {format} from '../description';
-import {Deferred} from './deferred';
 
 const stubs = {
   outputFile: stub(),
@@ -155,12 +154,9 @@ test(createTestName('executeScript', 'action'), async t => {
 
   t.is(format(action.description), 'execute script \'scriptName\'');
 
-  const deferred = new Deferred();
-  const executeAsyncScript = stub().resolves(deferred);
+  const executeAsyncScript = stub().rejects(new Error('foo'));
 
-  await action.perform({executeAsyncScript} as any);
-
-  t.true(deferred.done);
+  await t.throws(action.perform({executeAsyncScript} as any), 'foo');
 
   t.is(executeAsyncScript.callCount, 1);
   t.is(executeAsyncScript.args[0][0], script);
@@ -173,12 +169,9 @@ test(createTestName('loadPage', 'action'), async t => {
 
   t.is(format(action.description), 'load page \'pageUrl\'');
 
-  const deferred = new Deferred();
-  const to = stub().resolves(deferred);
+  const to = stub().rejects(new Error('foo'));
 
-  await action.perform({navigate: () => ({to})} as any);
-
-  t.true(deferred.done);
+  await t.throws(action.perform({navigate: () => ({to})} as any), 'foo');
 
   t.is(to.callCount, 1);
   t.is(to.args[0][0], 'pageUrl');
@@ -191,12 +184,11 @@ test(createTestName('maximizeWindow', 'action'), async t => {
 
   t.is(format(action.description), 'maximize window');
 
-  const deferred = new Deferred();
-  const maximize = stub().resolves(deferred);
+  const maximize = stub().rejects(new Error('foo'));
 
-  await action.perform({manage: () => ({window: () => ({maximize})})} as any);
-
-  t.true(deferred.done);
+  await t.throws(
+    action.perform({manage: () => ({window: () => ({maximize})})} as any), 'foo'
+  );
 
   t.is(maximize.callCount, 1);
 });
@@ -208,12 +200,9 @@ test(createTestName('navigateBack', 'action'), async t => {
 
   t.is(format(action.description), 'navigate back');
 
-  const deferred = new Deferred();
-  const back = stub().resolves(deferred);
+  const back = stub().rejects(new Error('foo'));
 
-  await action.perform({navigate: () => ({back})} as any);
-
-  t.true(deferred.done);
+  await t.throws(action.perform({navigate: () => ({back})} as any), 'foo');
 
   t.is(back.callCount, 1);
 });
@@ -225,12 +214,9 @@ test(createTestName('navigateForward', 'action'), async t => {
 
   t.is(format(action.description), 'navigate forward');
 
-  const deferred = new Deferred();
-  const forward = stub().resolves(deferred);
+  const forward = stub().rejects(new Error('foo'));
 
-  await action.perform({navigate: () => ({forward})} as any);
-
-  t.true(deferred.done);
+  await t.throws(action.perform({navigate: () => ({forward})} as any), 'foo');
 
   t.is(forward.callCount, 1);
 });
@@ -242,12 +228,9 @@ test(createTestName('reloadPage', 'action'), async t => {
 
   t.is(format(action.description), 'reload page');
 
-  const deferred = new Deferred();
-  const refresh = stub().resolves(deferred);
+  const refresh = stub().rejects(new Error('foo'));
 
-  await action.perform({navigate: () => ({refresh})} as any);
-
-  t.true(deferred.done);
+  await t.throws(action.perform({navigate: () => ({refresh})} as any), 'foo');
 
   t.is(refresh.callCount, 1);
 });
@@ -259,14 +242,11 @@ test(createTestName('setWindowPosition', 'action'), async t => {
 
   t.is(format(action.description), 'set window position to 123,456');
 
-  const deferred = new Deferred();
-  const setPosition = stub().resolves(deferred);
+  const setPosition = stub().rejects(new Error('foo'));
 
-  await action.perform({
+  await t.throws(action.perform({
     manage: () => ({window: () => ({setPosition})})
-  } as any);
-
-  t.true(deferred.done);
+  } as any), 'foo');
 
   t.is(setPosition.callCount, 1);
   t.is(setPosition.args[0][0], 123);
@@ -280,12 +260,11 @@ test(createTestName('setWindowSize', 'action'), async t => {
 
   t.is(format(action.description), 'set window size to 123x456');
 
-  const deferred = new Deferred();
-  const setSize = stub().resolves(deferred);
+  const setSize = stub().rejects(new Error('foo'));
 
-  await action.perform({manage: () => ({window: () => ({setSize})})} as any);
-
-  t.true(deferred.done);
+  await t.throws(
+    action.perform({manage: () => ({window: () => ({setSize})})} as any), 'foo'
+  );
 
   t.is(setSize.callCount, 1);
   t.is(setSize.args[0][0], 123);
@@ -299,13 +278,9 @@ test(createTestName('sleep', 'action'), async t => {
 
   t.is(format(action.description), `sleep for 50 ms`);
 
-  const deferred = new Deferred();
+  stubs.sleep.rejects(new Error('foo'));
 
-  stubs.sleep.resolves(deferred);
-
-  await action.perform({} as any);
-
-  t.true(deferred.done);
+  await t.throws(action.perform({} as any), 'foo');
 
   t.is(stubs.sleep.callCount, 1);
   t.is(stubs.sleep.args[0][0], 50);
@@ -324,13 +299,10 @@ test(createTestName('takeScreenshot', 'action'), async t => {
   );
 
   const takeScreenshot = stub().resolves('screenshot');
-  const deferred = new Deferred();
 
-  stubs.outputFile.resolves(deferred);
+  stubs.outputFile.rejects(new Error('foo'));
 
-  await action.perform({takeScreenshot} as any);
-
-  t.true(deferred.done);
+  await t.throws(action.perform({takeScreenshot} as any), 'foo');
 
   t.is(stubs.outputFile.callCount, 1);
   t.is(stubs.outputFile.args[0][0], 'screenshotDirectory/uuid.png');

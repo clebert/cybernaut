@@ -6,7 +6,6 @@ import test from 'ava';
 import {By, Key} from 'selenium-webdriver';
 import {stub} from 'sinon';
 import {format} from '../description';
-import {Deferred} from './deferred';
 
 const translate = stub();
 
@@ -207,13 +206,10 @@ test(createTestName('clearValue', 'action'), async t => {
 
   t.is(format(action.description), 'clear value of element \'selector\'');
 
-  const deferred = new Deferred();
-  const clear = stub().resolves(deferred);
+  const clear = stub().rejects(new Error('foo'));
   const findElement = stub().resolves({clear});
 
-  await action.perform({findElement} as any);
-
-  t.true(deferred.done);
+  await t.throws(action.perform({findElement} as any), 'foo');
 
   t.is(findElement.callCount, 1);
   t.deepEqual(findElement.args[0][0], By.css('selector'));
@@ -228,13 +224,10 @@ test(createTestName('click', 'action'), async t => {
 
   t.is(format(action.description), 'click on element \'selector\'');
 
-  const deferred = new Deferred();
-  const click = stub().resolves(deferred);
+  const click = stub().rejects(new Error('foo'));
   const findElement = stub().resolves({click});
 
-  await action.perform({findElement} as any);
-
-  t.true(deferred.done);
+  await t.throws(action.perform({findElement} as any), 'foo');
 
   t.is(findElement.callCount, 1);
   t.deepEqual(findElement.args[0][0], By.css('selector'));
@@ -261,13 +254,10 @@ test(createTestName('sendKeys', 'action'), async t => {
   t.is(translate.args[1][0], 'a');
   t.is(translate.args[2][0], Key.NULL);
 
-  const deferred = new Deferred();
-  const sendKeys = stub().resolves(deferred);
+  const sendKeys = stub().rejects(new Error('foo'));
   const findElement = stub().resolves({sendKeys});
 
-  await action.perform({findElement} as any);
-
-  t.true(deferred.done);
+  await t.throws(action.perform({findElement} as any), 'foo');
 
   t.is(findElement.callCount, 1);
   t.deepEqual(findElement.args[0][0], By.css('selector'));
@@ -287,13 +277,10 @@ test(createTestName('submitForm', 'action'), async t => {
     format(action.description), 'submit form containing element \'selector\''
   );
 
-  const deferred = new Deferred();
-  const submit = stub().resolves(deferred);
+  const submit = stub().rejects(new Error('foo'));
   const findElement = stub().resolves({submit});
 
-  await action.perform({findElement} as any);
-
-  t.true(deferred.done);
+  await t.throws(action.perform({findElement} as any), 'foo');
 
   t.is(findElement.callCount, 1);
   t.deepEqual(findElement.args[0][0], By.css('selector'));
