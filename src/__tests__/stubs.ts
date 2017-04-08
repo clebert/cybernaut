@@ -22,6 +22,23 @@ export class ElementStubs {
 
 export const elementStubs = new ElementStubs();
 
+export class ImplementationStubs {
+  public readonly Builder: Stub = stub();
+  public readonly Test: Stub = stub();
+  public readonly build: Stub = stub();
+  public readonly implementation: Stub = stub();
+  public readonly implicitlyWait: Stub = stub();
+  public readonly manage: Stub = stub();
+  public readonly pageLoadTimeout: Stub = stub();
+  public readonly pass: Stub = stub();
+  public readonly quit: Stub = stub();
+  public readonly setScriptTimeout: Stub = stub();
+  public readonly timeouts: Stub = stub();
+  public readonly withCapabilities: Stub = stub();
+}
+
+export const implementationStubs = new ImplementationStubs();
+
 export class PredicateStubs {
   public readonly deepStrictEqual: Stub = stub();
 }
@@ -51,6 +68,7 @@ export type Stubs =
   BrowserStubs |
   ConfigStubs |
   ElementStubs |
+  ImplementationStubs |
   PredicateStubs |
   StepStubs |
   TestStubs;
@@ -58,6 +76,5 @@ export type Stubs =
 export function resetAll(stubs: Stubs): void {
   for (const key of Object.keys(stubs)) {
     (stubs as any)[key].reset();
-    (stubs as any)[key].resetBehavior();
   }
 }

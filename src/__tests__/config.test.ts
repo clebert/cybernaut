@@ -210,6 +210,8 @@ test('`validate` should return errors', t => {
     '(items ## 0 and 1 are identical)'
   ]);
 
+  /****************************************************************************/
+
   // schema.properties.dependencies.items.type
   config = {...defaultConfig, dependencies: [123]};
 
@@ -236,6 +238,8 @@ test('`validate` should return errors', t => {
     'config.exclude should NOT have duplicate items ' +
     '(items ## 0 and 1 are identical)'
   ]);
+
+  /****************************************************************************/
 
   // schema.properties.exclude.items.type
   config = {...defaultConfig, exclude: [123]};

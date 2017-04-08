@@ -25,9 +25,9 @@ function createTestName(method: string, result: string): string {
 let browser: Browser;
 
 test.beforeEach(() => {
-  browser = new Browser('screenshotDirectory');
-
   resetAll(stubs);
+
+  browser = new Browser('screenshotDirectory');
 });
 
 test(createTestName('pageTitle', 'accessor'), async t => {
