@@ -13,4 +13,4 @@ RUN echo '{"name": "cybernaut-travis"}' > package.json
 RUN npm install chromedriver
 RUN apt-get update && apt-get install -y libgconf-2-4
 
-CMD $(npm bin)/cybernaut
+CMD node node_modules/cybernaut/dist/index.js
