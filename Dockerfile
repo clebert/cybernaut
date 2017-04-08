@@ -7,6 +7,8 @@ WORKDIR /opt/cybernaut-travis
 
 RUN rm -rf node_modules/cybernaut/node_modules
 
+RUN echo '{"name": "cybernaut-travis"}' > package.json
+
 RUN npm install chromedriver
 RUN apt-get update && apt-get install -y libgconf-2-4
 
