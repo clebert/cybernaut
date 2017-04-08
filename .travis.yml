@@ -3,13 +3,19 @@ cache:
   directories:
     - node_modules
 node_js:
-  - '7'
   - '6'
 before_script:
   - npm prune
+script:
+  - npm test
+  - docker build -t clebert/cybernaut-travis .
+  - docker run -ti --rm clebert/cybernaut-travis
 after_success:
   - npm run release
   - './node_modules/.bin/nyc report --reporter=text-lcov | ./node_modules/.bin/coveralls'
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
+sudo: required
+services:
+  - docker
