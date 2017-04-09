@@ -49,6 +49,7 @@
       "dist/**/*.test.js",
       "dist/index.js",
       "example/**/*.js",
+      "markdownlint.js",
       "wallaby.js"
     ],
     "reporter": [
@@ -62,7 +63,7 @@
     "prebuild": "rm -rf dist/*",
     "build": "tsc --project .",
     "postbuild": "chmod +x dist/index.js",
-    "check": "tsfmt --verify && tslint --config tslint.json --project tsconfig.json --type-check --formatters-dir node_modules/custom-tslint-formatters/formatters --format grouped \"{src,types}/**/*.ts\"",
+    "check": "node markdownlint.js && tsfmt --verify && tslint --config tslint.json --project tsconfig.json --type-check --formatters-dir node_modules/custom-tslint-formatters/formatters --format grouped \"{src,types}/**/*.ts\"",
     "cz": "git-cz",
     "format": "tsfmt --replace",
     "prerelease": "npm run build",
@@ -97,6 +98,7 @@
     "cz-customizable": "5.0.0",
     "husky": "0.13.3",
     "lint-staged": "3.4.0",
+    "markdownlint": "0.4.1",
     "npm-run-all": "4.0.2",
     "nyc": "10.2.0",
     "proxyquire": "1.7.11",

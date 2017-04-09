@@ -102,17 +102,17 @@ The following configuration is active by default:
 
 Configuration options:
 
-- `capabilities`: Specifies the desired [WebDriver capabilities][34].
-- `concurrency`: Specifies the maximum number of tests running at the same time.
-- `dependencies`: Specifies the required modules to be loaded.
-- `exclude`: Specifies the [glob patterns][33], for which matching files will be removed from the set of test files.
-- `include`: Specifies the [glob pattern][33], for which matching files will be added to the set of test files.
-- `retries`: Specifies the maximum number of retries of failed [test steps](#assert).
-- `retryDelay`: Specifies the time, in milliseconds, to wait between retries of failed [test steps](#assert).
-- `screenshotDirectory`: Specifies the relative or absolute path to the screenshot directory.
-- `timeouts.element`: Specifies the maximum time, in milliseconds, to wait when searching for an element, that is not immediately present, before returning an error.
-- `timeouts.page`: Specifies the maximum time, in milliseconds, to wait for a page load to complete before returning an error.
-- `timeouts.script`: Specifies the maximum time, in milliseconds, for an asynchronous script to finish execution before returning an error.
+* `capabilities`: Specifies the desired [WebDriver capabilities][34].
+* `concurrency`: Specifies the maximum number of tests running at the same time.
+* `dependencies`: Specifies the required modules to be loaded.
+* `exclude`: Specifies the [glob patterns][33], for which matching files will be removed from the set of test files.
+* `include`: Specifies the [glob pattern][33], for which matching files will be added to the set of test files.
+* `retries`: Specifies the maximum number of retries of failed [test steps](#assert).
+* `retryDelay`: Specifies the time, in milliseconds, to wait between retries of failed [test steps](#assert).
+* `screenshotDirectory`: Specifies the relative or absolute path to the screenshot directory.
+* `timeouts.element`: Specifies the maximum time, in milliseconds, to wait when searching for an element, that is not immediately present, before returning an error.
+* `timeouts.page`: Specifies the maximum time, in milliseconds, to wait for a page load to complete before returning an error.
+* `timeouts.script`: Specifies the maximum time, in milliseconds, for an asynchronous script to finish execution before returning an error.
 
 A separate configuration can be passed as a command line argument:
 
@@ -122,7 +122,7 @@ $(npm bin)/cybernaut firefox-config.js
 
 Such a configuration can be validated with [this JSON schema][19] and written as a JSON file or JavaScript module:
 
-*firefox-config.json*
+#### firefox-config.json
 
 ```json
 {
@@ -131,7 +131,7 @@ Such a configuration can be validated with [this JSON schema][19] and written as
 }
 ```
 
-*firefox-config.js*
+#### firefox-config.js
 
 ```js
 module.exports = {
@@ -212,9 +212,9 @@ If you write your tests with [TypeScript][18], it is recommended to enable the [
 
 Type definition:
 
-- **`test(name: string, implementation?: Implementation): void`**
-- `Implementation = (t: Test) => Promise<void>`
-- [`Test`](#interface-test)
+* **`test(name: string, implementation?: Implementation): void`**
+* `Implementation = (t: Test) => Promise<void>`
+* [`Test`](#interface-test)
 
 Example usage:
 
@@ -232,9 +232,9 @@ test('foo', async t => { // This test will be executed
 
 Type definition:
 
-- **`skip(name: string, implementation: Implementation): void`**
-- `Implementation = (t: Test) => Promise<void>`
-- [`Test`](#interface-test)
+* **`skip(name: string, implementation: Implementation): void`**
+* `Implementation = (t: Test) => Promise<void>`
+* [`Test`](#interface-test)
 
 Example usage:
 
@@ -250,8 +250,8 @@ skip('foo', async t => { // This test won't be executed (and marked as SKIP)
 
 Type definition:
 
-- **`browser: Browser`**
-- [`Browser`](#interface-browser)
+* **`browser: Browser`**
+* [`Browser`](#interface-browser)
 
 Example usage:
 
@@ -267,8 +267,8 @@ test('foo', async t => {
 
 Type definition:
 
-- **`defineElement(selector: string): Element`**
-- [`Element`](#interface-element)
+* **`defineElement(selector: string): Element`**
+* [`Element`](#interface-element)
 
 Example usage:
 
@@ -286,8 +286,8 @@ test('foo', async t => {
 
 Type definition:
 
-- **`it: {should: PredicateBuilder}`**
-- [`PredicateBuilder`](#interface-predicatebuilder)
+* **`it: {should: PredicateBuilder}`**
+* [`PredicateBuilder`](#interface-predicatebuilder)
 
 Example usage:
 
@@ -305,7 +305,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`assert<T>(accessor: Accessor<T>, predicate: Predicate<T>, retries?: number, retryDelay?: number): Promise<void>`**
+* **`assert<T>(accessor: Accessor<T>, predicate: Predicate<T>, retries?: number, retryDelay?: number): Promise<void>`**
 
 Example usage:
 
@@ -323,7 +323,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`perform(action: Action, retries?: number, retryDelay?: number): Promise<void>`**
+* **`perform(action: Action, retries?: number, retryDelay?: number): Promise<void>`**
 
 Example usage:
 
@@ -341,7 +341,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`verify<T>(accessor: Accessor<T>, predicate: Predicate<T>, retries?: number, retryDelay?: number): Promise<boolean>`**
+* **`verify<T>(accessor: Accessor<T>, predicate: Predicate<T>, retries?: number, retryDelay?: number): Promise<boolean>`**
 
 Example usage:
 
@@ -361,7 +361,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`fail(message: string, cause: Error): void`**
+* **`fail(message: string, cause: Error): void`**
 
 Example [TAP][28] output: `not ok 1 - bar (cause: baz)`
 
@@ -379,7 +379,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`pass(message: string): void`**
+* **`pass(message: string): void`**
 
 Example [TAP][28] output: `ok 1 - bar`
 
@@ -399,7 +399,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`pageTitle: Accessor<string>`**
+* **`pageTitle: Accessor<string>`**
 
 Example [TAP][28] output: `ok 1 - page title should contain 'bar' (attempt 1 of 5)`
 
@@ -417,7 +417,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`pageUrl: Accessor<string>`**
+* **`pageUrl: Accessor<string>`**
 
 Example [TAP][28] output: `ok 1 - page url should contain 'http://bar.baz' (attempt 1 of 5)`
 
@@ -435,7 +435,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`windowX: Accessor<number>`**
+* **`windowX: Accessor<number>`**
 
 Example [TAP][28] output: `ok 1 - window x-position should equal 123 (attempt 1 of 5)`
 
@@ -453,7 +453,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`windowY: Accessor<number>`**
+* **`windowY: Accessor<number>`**
 
 Example [TAP][28] output: `ok 1 - window y-position should equal 123 (attempt 1 of 5)`
 
@@ -471,7 +471,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`windowWidth: Accessor<number>`**
+* **`windowWidth: Accessor<number>`**
 
 Example [TAP][28] output: `ok 1 - window width should equal 123 (attempt 1 of 5)`
 
@@ -489,7 +489,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`windowHeight: Accessor<number>`**
+* **`windowHeight: Accessor<number>`**
 
 Example [TAP][28] output: `ok 1 - window height should equal 123 (attempt 1 of 5)`
 
@@ -507,8 +507,8 @@ test('foo', async t => {
 
 Type definition:
 
-- **`scriptResult(scriptName: string, script: Script): Accessor<any>`**
-- `Script = (callback: (result?: any) => void) => void`
+* **`scriptResult(scriptName: string, script: Script): Accessor<any>`**
+* `Script = (callback: (result?: any) => void) => void`
 
 Example [TAP][28] output: `ok 1 - result of script 'bar' should equal 'baz' (attempt 1 of 5)`
 
@@ -531,8 +531,8 @@ test('foo', async t => {
 
 Type definition:
 
-- **`executeScript(scriptName: string, script: Script): Action`**
-- `Script = (callback: (result?: any) => void) => void`
+* **`executeScript(scriptName: string, script: Script): Action`**
+* `Script = (callback: (result?: any) => void) => void`
 
 Example [TAP][28] output: `ok 1 - execute script 'bar' (attempt 1 of 5)`
 
@@ -555,7 +555,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`loadPage(url: string): Action`**
+* **`loadPage(url: string): Action`**
 
 Example [TAP][28] output: `ok 1 - load page 'http://bar.baz' (attempt 1 of 5)`
 
@@ -573,7 +573,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`maximizeWindow(): Action`**
+* **`maximizeWindow(): Action`**
 
 Example [TAP][28] output: `ok 1 - maximize window (attempt 1 of 5)`
 
@@ -591,7 +591,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`navigateBack(): Action`**
+* **`navigateBack(): Action`**
 
 Example [TAP][28] output: `ok 1 - navigate back (attempt 1 of 5)`
 
@@ -609,7 +609,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`navigateForward(): Action`**
+* **`navigateForward(): Action`**
 
 Example [TAP][28] output: `ok 1 - navigate forward (attempt 1 of 5)`
 
@@ -627,7 +627,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`reloadPage(): Action`**
+* **`reloadPage(): Action`**
 
 Example [TAP][28] output: `ok 1 - reload page (attempt 1 of 5)`
 
@@ -645,7 +645,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`setWindowPosition(x: number, y: number): Action`**
+* **`setWindowPosition(x: number, y: number): Action`**
 
 Example [TAP][28] output: `ok 1 - set window position to 123,456 (attempt 1 of 5)`
 
@@ -663,7 +663,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`setWindowSize(width: number, height: number): Action`**
+* **`setWindowSize(width: number, height: number): Action`**
 
 Example [TAP][28] output: `ok 1 - set window size to 123x456 (attempt 1 of 5)`
 
@@ -681,7 +681,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`sleep(duration: number): Action`**
+* **`sleep(duration: number): Action`**
 
 Example [TAP][28] output: `ok 1 - sleep for 123 ms (attempt 1 of 5)`
 
@@ -699,7 +699,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`takeScreenshot(): Action`**
+* **`takeScreenshot(): Action`**
 
 Example [TAP][28] output: `ok 1 - take screenshot 'screenshots/07cc9369-ab10-4221-9bc9-18ad12b87c7c.png' (attempt 1 of 5)`
 
@@ -719,7 +719,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`tagName: Accessor<string>`**
+* **`tagName: Accessor<string>`**
 
 Example [TAP][28] output: `ok 1 - tag name of element '#bar' should equal 'div' (attempt 1 of 5)`
 
@@ -739,7 +739,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`text: Accessor<string>`**
+* **`text: Accessor<string>`**
 
 Example [TAP][28] output: `ok 1 - text of element '#bar' should equal 'baz' (attempt 1 of 5)`
 
@@ -759,7 +759,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`visibility: Accessor<boolean>`**
+* **`visibility: Accessor<boolean>`**
 
 Example [TAP][28] output: `ok 1 - visibility of element '#bar' should equal true (attempt 1 of 5)`
 
@@ -779,7 +779,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`x: Accessor<number>`**
+* **`x: Accessor<number>`**
 
 Example [TAP][28] output: `ok 1 - x-position of element '#bar' should equal 123 (attempt 1 of 5)`
 
@@ -799,7 +799,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`y: Accessor<number>`**
+* **`y: Accessor<number>`**
 
 Example [TAP][28] output: `ok 1 - y-position of element '#bar' should equal 123 (attempt 1 of 5)`
 
@@ -819,7 +819,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`width: Accessor<number>`**
+* **`width: Accessor<number>`**
 
 Example [TAP][28] output: `ok 1 - width of element '#bar' should equal 123 (attempt 1 of 5)`
 
@@ -839,7 +839,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`height: Accessor<number>`**
+* **`height: Accessor<number>`**
 
 Example [TAP][28] output: `ok 1 - height of element '#bar' should equal 123 (attempt 1 of 5)`
 
@@ -859,7 +859,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`cssValue(cssName: string): Accessor<string>`**
+* **`cssValue(cssName: string): Accessor<string>`**
 
 Example [TAP][28] output: `ok 1 - css value 'margin-left' of element '#bar' should equal '22px' (attempt 1 of 5)`
 
@@ -879,7 +879,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`propertyValue(propertyName: string): Accessor<string | null>`**
+* **`propertyValue(propertyName: string): Accessor<string | null>`**
 
 Example [TAP][28] output: `ok 1 - property value 'id' of element '#bar' should equal 'bar' (attempt 1 of 5)`
 
@@ -899,7 +899,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`clearValue(): Action`**
+* **`clearValue(): Action`**
 
 Example [TAP][28] output: `ok 1 - clear value of element '#bar' (attempt 1 of 5)`
 
@@ -919,7 +919,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`click(): Action`**
+* **`click(): Action`**
 
 Example [TAP][28] output: `ok 1 - click on element '#bar' (attempt 1 of 5)`
 
@@ -939,7 +939,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`sendKeys(...keys: string[]): Action`**
+* **`sendKeys(...keys: string[]): Action`**
 
 Example [TAP][28] output: `ok 1 - send keys [ 'text was', 'Key.CONTROL', 'a', 'Key.NULL', 'now text is' ] to element '#bar' (attempt 1 of 5)`
 
@@ -963,7 +963,7 @@ test('foo', async t => {
 >
 > - The end of the keysequence is encountered. When there are no more keys to type, all depressed modifier keys are released (with accompanying keyup events).
 >
-> -- <cite>[selenium-webdriver.WebElement][29]</cite>
+> -- *[selenium-webdriver.WebElement][29]*
 
 *Note: The `WebElement` of `selenium-webdriver` is used internally, but is not accessible from the outside.*
 
@@ -971,7 +971,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`submitForm(): Action`**
+* **`submitForm(): Action`**
 
 Example [TAP][28] output: `ok 1 - submit form containing element '#bar' (attempt 1 of 5)`
 
@@ -993,7 +993,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`contain(expectedValue: string): Predicate<string>`**
+* **`contain(expectedValue: string): Predicate<string>`**
 
 Example [TAP][28] output: `ok 1 - page title should contain 'bar' (attempt 1 of 5)`
 
@@ -1011,7 +1011,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`not.contain(expectedValue: string): Predicate<string>`**
+* **`not.contain(expectedValue: string): Predicate<string>`**
 
 Example [TAP][28] output: `ok 1 - page title should not contain 'bar' (attempt 1 of 5)`
 
@@ -1029,7 +1029,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`equal<T>(expectedValue: T): Predicate<T>`**
+* **`equal<T>(expectedValue: T): Predicate<T>`**
 
 Example [TAP][28] output: `ok 1 - page title should equal 'bar' (attempt 1 of 5)`
 
@@ -1049,7 +1049,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`not.equal<T>(expectedValue: T): Predicate<T>`**
+* **`not.equal<T>(expectedValue: T): Predicate<T>`**
 
 Example [TAP][28] output: `ok 1 - page title should not equal 'bar' (attempt 1 of 5)`
 
@@ -1069,7 +1069,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`match(regex: RegExp): Predicate<string>`**
+* **`match(regex: RegExp): Predicate<string>`**
 
 Example [TAP][28] output: `ok 1 - page title should match /bar/ (attempt 1 of 5)`
 
@@ -1087,7 +1087,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`not.match(regex: RegExp): Predicate<string>`**
+* **`not.match(regex: RegExp): Predicate<string>`**
 
 Example [TAP][28] output: `ok 1 - page title should not match /bar/ (attempt 1 of 5)`
 
@@ -1105,7 +1105,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`be.above(expectedValue: number): Predicate<number>`**
+* **`be.above(expectedValue: number): Predicate<number>`**
 
 Example [TAP][28] output: `ok 1 - window width should be above 123 (attempt 1 of 5)`
 
@@ -1123,7 +1123,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`be.at.least(expectedValue: number): Predicate<number>`**
+* **`be.at.least(expectedValue: number): Predicate<number>`**
 
 Example [TAP][28] output: `ok 1 - window width should be at least 123 (attempt 1 of 5)`
 
@@ -1141,7 +1141,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`be.below(expectedValue: number): Predicate<number>`**
+* **`be.below(expectedValue: number): Predicate<number>`**
 
 Example [TAP][28] output: `ok 1 - window width should be below 123 (attempt 1 of 5)`
 
@@ -1159,7 +1159,7 @@ test('foo', async t => {
 
 Type definition:
 
-- **`be.at.most(expectedValue: number): Predicate<number>`**
+* **`be.at.most(expectedValue: number): Predicate<number>`**
 
 Example [TAP][28] output: `ok 1 - window width should be at most 123 (attempt 1 of 5)`
 
@@ -1175,8 +1175,8 @@ test('foo', async t => {
 
 ## [Related links](#contents)
 
-- [Google Testing Blog: Just Say No to More End-to-End Tests][31]
-- [Testing Strategies in a Microservice Architecture][32]
+* [Google Testing Blog: Just Say No to More End-to-End Tests][31]
+* [Testing Strategies in a Microservice Architecture][32]
 
 ## [Development](#contents)
 
