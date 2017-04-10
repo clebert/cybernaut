@@ -1,13 +1,6 @@
-FROM markadams/chromium-xvfb-js:7
+FROM clebert/cybernaut-chrome
 
-ADD . /opt/cybernaut-example
-
-WORKDIR /opt/cybernaut-example
+ADD . /opt/e2e-test
 
 RUN rm -rf node_modules
 RUN rm -rf screenshots
-
-RUN npm install
-RUN apt-get update && apt-get install -y libgconf-2-4
-
-CMD npm run chrome

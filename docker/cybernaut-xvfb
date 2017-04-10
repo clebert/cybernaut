@@ -1,0 +1,24 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+  echo 'Missing argument: screen size'
+  exit 1
+fi
+
+if [ -z "$2" ]; then
+  echo 'Missing argument: config filename'
+  exit 1
+fi
+
+if [ -z "$3" ]; then
+  echo 'Missing argument: reporter'
+  exit 1
+fi
+
+echo "Setting screen size to '$1'";
+
+Xvfb :99 -screen 0 $1x16 &
+
+export DISPLAY=:99
+
+cybernaut "$2" | tap-mocha-reporter "$3"
