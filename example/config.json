@@ -1,0 +1,18 @@
+{
+  "capabilities": {
+    "browserName": "chrome",
+    "chromeOptions": {
+      "args": [
+        "--disable-gpu",
+        "--no-sandbox",
+        "--test-type=ui"
+      ],
+      "mobileEmulation": {
+        "deviceName": "Apple iPhone 6 Plus"
+      }
+    }
+  },
+  "dependencies": []
+}
+
+

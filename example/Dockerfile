@@ -1,6 +1,9 @@
 FROM clebert/cybernaut-chrome
 
-ADD . /opt/e2e-test
+COPY . /opt/e2e-test
 
 RUN rm -rf node_modules
 RUN rm -rf screenshots
+
+# Optional:
+COPY config.json /opt/config.json

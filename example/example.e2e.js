@@ -7,11 +7,17 @@ test('Star the "clebert/cybernaut" repository on GitHub', async t => {
 
   await t.perform(browser.takeScreenshot());
 
-  // The "star" button leads to a login form.
-  // Thus, the project is not really starred ;)
+  const switchToDesktopButton = defineElement('button.switch-to-desktop');
+
+  // when on the mobile version, then switch to the desktop version
+  if (await t.verify(switchToDesktopButton.visibility, it.should.equal(true))) {
+    await t.perform(switchToDesktopButton.click());
+  }
+
   const starButton = defineElement(
     'ul.pagehead-actions > li:nth-child(2) > a:nth-child(1)'
   );
 
+  // the star button leads to a login form, so the project is not really starred
   await t.perform(starButton.click());
 });
