@@ -14,5 +14,5 @@ fi
 
 if [ "$TRAVIS_BRANCH" == "master" ] || [ -z "$TRAVIS_BRANCH" ]; then
   docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" && \
-  docker push clebert/cybernaut-example-chrome-iphone
+  docker push clebert/cybernaut-chrome-iphone-example
 fi
