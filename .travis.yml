@@ -9,6 +9,7 @@ before_script:
 script:
   - npm test
 after_success:
+  - './docker/docker-push.sh chrome && ./docker/docker-push.sh firefox'
   - npm run release
   - './node_modules/.bin/nyc report --reporter=text-lcov | ./node_modules/.bin/coveralls'
 branches:
