@@ -6,6 +6,7 @@ RUN sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc
 RUN apt-get update && apt-get install -y google-chrome-stable libgconf-2-4 xvfb
 
 WORKDIR /opt
+RUN echo '{}' > /opt/package.json
 RUN npm install chromedriver@2.29.0
 
 RUN npm install -g tap-mocha-reporter@3.0.3
