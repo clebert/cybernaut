@@ -28,7 +28,7 @@ test('Star the "clebert/cybernaut" repository on GitHub', async t => {
 });
 ```
 
-Run the above example in a [Docker][docker] container,
+The above example can be executed in a [Docker][docker] container,
 
 on Chrome:
 
