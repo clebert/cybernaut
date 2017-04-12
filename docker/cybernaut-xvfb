@@ -16,4 +16,9 @@ Xvfb :99 -screen 0 $1x16 &
 
 export DISPLAY=:99
 
+export DEBUG=cybernaut:*
+
 cybernaut /opt/config.json | tap-mocha-reporter "$2"
+
+# http://stackoverflow.com/a/90435
+exit ${PIPESTATUS[0]}
