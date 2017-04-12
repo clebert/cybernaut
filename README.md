@@ -53,7 +53,7 @@ git clone https://github.com/clebert/cybernaut.git && cd cybernaut && \
 ./example/docker-build.sh firefox && ./example/docker-run.sh firefox
 ```
 
-on iPhone 6 Plus using [Mobile Emulation][mobile-emulation]:
+on [iPhone 6 Plus][emulating-mobile-devices-in-chrome]:
 
 ```sh
 git clone https://github.com/clebert/cybernaut.git && cd cybernaut && \
@@ -66,6 +66,10 @@ The captured screenshot can be found in the following directory: `./example/scre
 
 * [Installation](#installation)
 * [Usage](#usage)
+  * [Starting Cybernaut](#starting-cybernaut)
+  * [Configuring Cybernaut](#configuring-cybernaut)
+  * [Emulating mobile devices in Chrome](#emulating-mobile-devices-in-chrome)
+  * [Writing tests](#writing-tests)
 * [API](#api)
 * [Related links](#related-links)
 * [Development](#development)
@@ -84,7 +88,7 @@ npm install --save-dev chromedriver
 
 ## [Usage](#contents)
 
-### Starting Cybernaut
+### [Starting Cybernaut](#usage)
 
 Cybernaut must be started from the command line:
 
@@ -104,7 +108,7 @@ npm install --save-dev tap-mocha-reporter
 $(npm bin)/cybernaut | $(npm bin)/tap-mocha-reporter spec
 ```
 
-### Configuring Cybernaut
+### [Configuring Cybernaut](#usage)
 
 The following configuration is active by default:
 
@@ -164,7 +168,57 @@ module.exports = {
 
 *Note: Cybernaut uses [`selenium-webdriver@3.3.0`][selenium], which is incompatible with [`geckodriver@1.5.0`][node-geckodriver]. Until these incompatibilities have been solved, [`geckodriver@1.4.0`][node-geckodriver] must be used.*
 
-### Writing tests
+### [Emulating mobile devices in Chrome](#usage)
+
+[ChromeDriver][chromedriver] allows developers to emulate Chrome on a mobile device, by enabling the [Mobile Emulation][mobile-emulation] feature via the `mobileEmulation` capability. This feature speeds up web development, allows developers to quickly test how a website will render on a mobile device, without requiring a real device.
+
+There are two ways in [ChromeDriver][chromedriver] to enable [Mobile Emulation][mobile-emulation]: by specifying a known device, or by specifying individual device attributes. The format of the `mobileEmulation` dictionary depends on which method is desired.
+
+#### Specifying a known mobile device
+
+To enable [Mobile Emulation][mobile-emulation] with a specific device name, the `mobileEmulation` dictionary must contain a `deviceName`. Use a valid device name from the DevTools Emulation panel as the value for `deviceName`:
+
+```json
+{
+  "capabilities": {
+    "browserName": "chrome",
+    "chromeOptions": {
+      "mobileEmulation": {
+        "deviceName": "Apple iPhone 6 Plus"
+      }
+    }
+  }
+}
+```
+
+#### Specifying individual device attributes
+
+It is also possible to enable [Mobile Emulation][mobile-emulation] by specifying individual attributes. To enable [Mobile Emulation][mobile-emulation] this way, the `mobileEmulation` dictionary can contain a `deviceMetrics` dictionary and a `userAgent` string. The following device metrics must be specified in the `deviceMetrics` dictionary:
+
+* `width` - the width in pixels of the device's screen
+* `height` - the height in pixels of the device's screen
+* `pixelRatio` - the device's pixel ratio
+* `touch` - whether to emulate touch events (defaults to true, usually does not need to be set)
+
+```json
+{
+  "capabilities": {
+    "browserName": "chrome",
+    "chromeOptions": {
+      "mobileEmulation": {
+        "deviceMetrics": {
+          "width": 360,
+          "height": 640,
+          "pixelRatio": 3.0
+        },
+        "userAgent": "Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 5 Build/JOP40D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19"
+      }
+    }
+  }
+}
+```
+
+### [Writing tests](#usage)
 
 It is recommended to write tests using [async functions][mdn-async], which are natively supported by [Node.js][nodejs] as of version 7. Alternatively, the tests must be transpiled using [TypeScript][typescript] or [Babel][babel].
 
@@ -1236,11 +1290,13 @@ npm run cz
 Built by (c) Clemens Akens. Released under the MIT license.
 
 [babel]: https://babeljs.io/
+[chromedriver]: https://sites.google.com/a/chromium.org/chromedriver/home
 [config-schema]: https://github.com/clebert/cybernaut/blob/master/config-schema.json
 [coveralls]: https://coveralls.io/github/clebert/cybernaut?branch=master
 [coveralls-badge]: https://coveralls.io/repos/github/clebert/cybernaut/badge.svg?branch=master
 [deep-strict-equal]: https://github.com/sindresorhus/deep-strict-equal
 [docker]: https://www.docker.com/
+[emulating-mobile-devices-in-chrome]: https://github.com/clebert/cybernaut#emulating-mobile-devices-in-chrome
 [example]: https://github.com/clebert/cybernaut/tree/master/example
 [example-png]: https://raw.githubusercontent.com/clebert/cybernaut/master/example/example.png
 [greenkeeper]: https://greenkeeper.io/

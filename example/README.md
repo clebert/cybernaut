@@ -44,7 +44,7 @@ git clone https://github.com/clebert/cybernaut.git && cd cybernaut && \
 ./example/docker-build.sh firefox && ./example/docker-run.sh firefox
 ```
 
-on iPhone 6 Plus using [Mobile Emulation][mobile-emulation]:
+on [iPhone 6 Plus][emulating-mobile-devices-in-chrome]:
 
 ```sh
 git clone https://github.com/clebert/cybernaut.git && cd cybernaut && \
@@ -54,5 +54,5 @@ git clone https://github.com/clebert/cybernaut.git && cd cybernaut && \
 The captured screenshot can be found in the following directory: `./example/screenshots/`
 
 [docker]: https://www.docker.com/
+[emulating-mobile-devices-in-chrome]: https://github.com/clebert/cybernaut#emulating-mobile-devices-in-chrome
 [example-png]: https://raw.githubusercontent.com/clebert/cybernaut/master/example/example.png
-[mobile-emulation]: https://sites.google.com/a/chromium.org/chromedriver/mobile-emulation
