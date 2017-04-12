@@ -2,5 +2,7 @@
   "capabilities": {
     "browserName": "firefox"
   },
-  "dependencies": []
+  "dependencies": [
+    "geckodriver"
+  ]
 }
