@@ -6,11 +6,6 @@ if [ -z "$1" ]; then
 fi
 
 if [ -z "$2" ]; then
-  echo 'Missing argument: config filename'
-  exit 1
-fi
-
-if [ -z "$3" ]; then
   echo 'Missing argument: reporter'
   exit 1
 fi
@@ -21,4 +16,4 @@ Xvfb :99 -screen 0 $1x16 &
 
 export DISPLAY=:99
 
-cybernaut "$2" | tap-mocha-reporter "$3"
+cybernaut /opt/config.json | tap-mocha-reporter "$2"

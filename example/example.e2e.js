@@ -9,7 +9,7 @@ test('Star the "clebert/cybernaut" repository on GitHub', async t => {
 
   const switchToDesktopButton = defineElement('button.switch-to-desktop');
 
-  // when on the mobile version, then switch to the desktop version
+  // When on the mobile version, then switch to the desktop version
   if (await t.verify(switchToDesktopButton.visibility, it.should.equal(true))) {
     await t.perform(switchToDesktopButton.click());
   }
@@ -18,6 +18,6 @@ test('Star the "clebert/cybernaut" repository on GitHub', async t => {
     'ul.pagehead-actions > li:nth-child(2) > a:nth-child(1)'
   );
 
-  // the star button leads to a login form, so the project is not really starred
+  // The star button leads to a login form, so the project is not really starred
   await t.perform(starButton.click());
 });
