@@ -17,5 +17,5 @@ for (const keyName of Object.keys(Key) as (keyof Key)[]) {
 }
 
 export function translate(char: string): string {
-  return KeyName[char] ? 'Key.' + KeyName[char] : char;
+  return KeyName[char] ? 'Key.' + String(KeyName[char]) : char;
 }
