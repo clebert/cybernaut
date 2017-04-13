@@ -69,6 +69,7 @@ The captured screenshot can be found in the following directory: `./example/scre
   * [Starting Cybernaut](#starting-cybernaut)
   * [Configuring Cybernaut](#configuring-cybernaut)
   * [Emulating mobile devices in Chrome](#emulating-mobile-devices-in-chrome)
+  * [Testing with Docker](#testing-with-docker)
   * [Writing tests](#writing-tests)
 * [API](#api)
 * [Related links](#related-links)
@@ -217,6 +218,80 @@ It is also possible to enable [Mobile Emulation][mobile-emulation] by specifying
   }
 }
 ```
+
+### [Testing with Docker](#usage)
+
+Tests written with Cybernaut can be run in a Docker container.
+This has the advantage of being able to run them independently of the environment and under reproducible conditions.
+
+Cybernaut brings two fully configured Docker containers, which can be found on [Docker Hub][docker-hub-clebert].
+One allows testing [on Chrome][docker-hub-chrome]:
+
+```dockerfile
+FROM clebert/cybernaut-chrome
+```
+
+ the other [on Firefox][docker-hub-firefox]:
+
+```dockerfile
+FROM clebert/cybernaut-firefox
+```
+
+The test files must be copied to the directory `/opt/e2e-test/`:
+
+```dockerfile
+COPY example.e2e.js /opt/e2e-test/example.e2e.js
+```
+
+The default configuration can be overridden with the following Docker instruction:
+
+```dockerfile
+COPY config.json /opt/config.json
+```
+
+Chrome default configuration:
+
+```json
+{
+  "capabilities": {
+    "browserName": "chrome",
+    "chromeOptions": {
+      "args": [
+        "--disable-gpu",
+        "--no-sandbox",
+        "--test-type=ui"
+      ]
+    }
+  }
+}
+```
+
+Firefox default configuration:
+
+```json
+{
+  "capabilities": {
+    "browserName": "firefox"
+  },
+  "dependencies": [
+    "geckodriver"
+  ]
+}
+```
+
+In addition, a default `CMD` instruction is configured to specify the virtual screen resolution and the reporter:
+
+```dockerfile
+CMD ["1280x720", "spec"]
+```
+
+You can override it with another `CMD` instruction or with CLI arguments for `docker run`:
+
+```sh
+docker run -ti --rm clebert/cybernaut-chrome-example 1920x1080 dot
+```
+
+*Note: The included [examples][example] can serve as a reference implementation.*
 
 ### [Writing tests](#usage)
 
@@ -1296,6 +1371,9 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [coveralls-badge]: https://coveralls.io/repos/github/clebert/cybernaut/badge.svg?branch=master
 [deep-strict-equal]: https://github.com/sindresorhus/deep-strict-equal
 [docker]: https://www.docker.com/
+[docker-hub-chrome]: https://hub.docker.com/r/clebert/cybernaut-chrome/
+[docker-hub-clebert]: https://hub.docker.com/r/clebert/
+[docker-hub-firefox]: https://hub.docker.com/r/clebert/cybernaut-firefox/
 [emulating-mobile-devices-in-chrome]: https://github.com/clebert/cybernaut#emulating-mobile-devices-in-chrome
 [example]: https://github.com/clebert/cybernaut/tree/master/example
 [example-png]: https://raw.githubusercontent.com/clebert/cybernaut/master/example/example.png
