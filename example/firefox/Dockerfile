@@ -1,4 +1,4 @@
-FROM clebert/cybernaut-firefox
+FROM clebert/cybernaut-firefox:latest
 
 # The following file is copied into the Docker build context
 # by the script `example/docker-build.sh`

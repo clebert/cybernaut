@@ -1,4 +1,4 @@
-FROM clebert/cybernaut-chrome
+FROM clebert/cybernaut-chrome:latest
 
 COPY config.json /opt/config.json
 

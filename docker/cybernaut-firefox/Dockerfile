@@ -1,4 +1,4 @@
-FROM node
+FROM node:7
 
 RUN wget -q -O - http://mozilla.debian.net/archive.asc | apt-key add -
 RUN sh -c 'echo "deb http://mozilla.debian.net/ jessie-backports firefox-release" >> /etc/apt/sources.list.d/mozilla-firefox.list'
