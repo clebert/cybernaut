@@ -240,13 +240,13 @@ In addition, a default `CMD` instruction is configured to specify the virtual sc
 CMD ["1280x720", "spec"]
 ```
 
-You can override it with an own `CMD` instruction or with CLI arguments for `docker run`:
+You can override it with your own `CMD` instruction or with CLI arguments for `docker run`:
 
 ```sh
 docker run -ti --rm -v /dev/shm:/dev/shm clebert/cybernaut-chrome-example 1920x1080 dot
 ```
 
-In order to get access to the captured screenshots, the local screenshots directory can be [mounted][docker-mount] into the `/opt/e2e-test/` directory inside the Docker container:
+In order to get access to the captured screenshots, a local screenshots directory can be [mounted][docker-mount] into the `/opt/e2e-test/` directory inside the Docker container:
 
 ```sh
 docker run -ti --rm -v $(cd example/screenshots; pwd):/opt/e2e-test/screenshots -v /dev/shm:/dev/shm clebert/cybernaut-chrome-example
