@@ -181,17 +181,19 @@ This has the advantage of being able to run them independently of the environmen
 *Note: The included [examples][example] can serve as a reference implementation.*
 
 Cybernaut brings two fully configured Docker containers, which can be found on [Docker Hub][docker-hub-clebert].
-One allows testing [on Chrome][docker-hub-chrome]:
+One allows testing on Chrome:
 
 ```dockerfile
 FROM clebert/cybernaut-chrome:2.4.5
 ```
 
- the other [on Firefox][docker-hub-firefox]:
+ the other on Firefox:
 
 ```dockerfile
 FROM clebert/cybernaut-firefox:2.4.5
 ```
+
+You can find a list of available tags for `cybernaut-chrome` [here][docker-hub-chrome-tags] and for `cybernaut-firefox` [here][docker-hub-firefox-tags].
 
 The test files must be copied into the `/opt/e2e-test/` directory inside the Docker container:
 
@@ -1383,9 +1385,9 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [coveralls-badge]: https://coveralls.io/repos/github/clebert/cybernaut/badge.svg?branch=master
 [deep-strict-equal]: https://github.com/sindresorhus/deep-strict-equal
 [docker]: https://www.docker.com/
-[docker-hub-chrome]: https://hub.docker.com/r/clebert/cybernaut-chrome/tags/
+[docker-hub-chrome-tags]: https://hub.docker.com/r/clebert/cybernaut-chrome/tags/
 [docker-hub-clebert]: https://hub.docker.com/r/clebert/
-[docker-hub-firefox]: https://hub.docker.com/r/clebert/cybernaut-firefox/tags/
+[docker-hub-firefox-tags]: https://hub.docker.com/r/clebert/cybernaut-firefox/tags/
 [docker-mount]: https://docs.docker.com/engine/tutorials/dockervolumes/#mount-a-host-directory-as-a-data-volume
 [emulating-mobile-devices-in-chrome]: https://github.com/clebert/cybernaut#emulating-mobile-devices-in-chrome
 [example]: https://github.com/clebert/cybernaut/tree/master/example
