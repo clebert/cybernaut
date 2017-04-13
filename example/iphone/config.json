@@ -4,8 +4,7 @@
     "chromeOptions": {
       "args": [
         "--disable-gpu",
-        "--no-sandbox",
-        "--test-type=ui"
+        "--no-sandbox"
       ],
       "mobileEmulation": {
         "deviceName": "Apple iPhone 6 Plus"

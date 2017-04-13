@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -z "$TRAVIS_BRANCH" ]; then
+if [ -z "$TRAVIS" ]; then
   EXITED_CONTAINERS=$(docker ps -a -q -f status=exited)
 
   if [ -n "$EXITED_CONTAINERS" ]; then

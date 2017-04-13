@@ -16,6 +16,9 @@ Xvfb :99 -screen 0 $1x16 &
 
 export DISPLAY=:99
 
+# https://github.com/SeleniumHQ/docker-selenium/issues/87#issuecomment-187580115
+export DBUS_SESSION_BUS_ADDRESS=/dev/null
+
 export DEBUG=cybernaut:*
 
 cybernaut /opt/config.json | tap-mocha-reporter "$2"

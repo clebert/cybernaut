@@ -70,7 +70,7 @@ The captured screenshot can be found in the following directory: `./example/scre
   * [Configuring Cybernaut](#configuring-cybernaut)
   * [Emulating mobile devices in Chrome](#emulating-mobile-devices-in-chrome)
   * [Testing with Docker](#testing-with-docker)
-  * [Writing tests](#writing-tests)
+  * [Writing end-to-end tests](#writing-end-to-end-tests)
 * [API](#api)
 * [Related links](#related-links)
 * [Development](#development)
@@ -130,7 +130,7 @@ The following configuration is active by default:
 Configuration options:
 
 * `capabilities`: Specifies the desired [WebDriver capabilities][selenium-desired-capabilities].
-* `concurrency`: Specifies the maximum number of tests running at the same time.
+* `concurrency`: Specifies the maximum number of end-to-end tests running at the same time.
 * `dependencies`: Specifies additional modules to be loaded.
 * `exclude`: Specifies the [glob patterns][node-glob], for which matching files will be removed from the set of test files.
 * `include`: Specifies the [glob pattern][node-glob], for which matching files will be added to the set of test files.
@@ -221,8 +221,10 @@ It is also possible to enable [Mobile Emulation][mobile-emulation] by specifying
 
 ### [Testing with Docker](#usage)
 
-Tests written with Cybernaut can be run in a Docker container.
+End-to-end tests written with Cybernaut can be run in a Docker container.
 This has the advantage of being able to run them independently of the environment and under reproducible conditions.
+
+*Note: The included [examples][example] can serve as a reference implementation.*
 
 Cybernaut brings two fully configured Docker containers, which can be found on [Docker Hub][docker-hub-clebert].
 One allows testing [on Chrome][docker-hub-chrome]:
@@ -258,8 +260,7 @@ Chrome default configuration:
     "chromeOptions": {
       "args": [
         "--disable-gpu",
-        "--no-sandbox",
-        "--test-type=ui"
+        "--no-sandbox"
       ]
     }
   }
@@ -288,16 +289,17 @@ CMD ["1280x720", "spec"]
 You can override it with another `CMD` instruction or with CLI arguments for `docker run`:
 
 ```sh
-docker run -ti --rm clebert/cybernaut-chrome-example 1920x1080 dot
+docker run -ti --rm -v /dev/shm:/dev/shm clebert/cybernaut-chrome-example 1920x1080 dot
 ```
 
-*Note: The included [examples][example] can serve as a reference implementation.*
+*Note: When executing docker run for an image with chrome browser please add volume mount `-v /dev/shm:/dev/shm` to use the host's shared memory.
+Since a Docker container is not meant to preserve state and spawning a new one takes less than 3 seconds you will likely want to remove containers after each end-to-end test with `--rm` command.*
 
-### [Writing tests](#usage)
+### [Writing end-to-end tests](#usage)
 
-It is recommended to write tests using [async functions][mdn-async], which are natively supported by [Node.js][nodejs] as of version 7. Alternatively, the tests must be transpiled using [TypeScript][typescript] or [Babel][babel].
+It is recommended to write end-to-end tests using [async functions][mdn-async], which are natively supported by [Node.js][nodejs] as of version 7. Alternatively, the test files must be transpiled using [TypeScript][typescript] or [Babel][babel].
 
-If you write your tests with [TypeScript][typescript], it is recommended to enable the [TSLint][tslint] rule [`no-floating-promises`][tslint-rule-no-floating-promises]. This can prevent the [`await`][mdn-await] operators from being forgotten.
+If you write your end-to-end tests with [TypeScript][typescript], it is recommended to enable the [TSLint][tslint] rule [`no-floating-promises`][tslint-rule-no-floating-promises]. This can prevent the [`await`][mdn-await] operators from being forgotten.
 
 ## [API](#contents)
 
@@ -372,9 +374,9 @@ Example usage:
 ```js
 const {test} = require('cybernaut');
 
-test('foo'); // This test will be marked as TODO
+test('foo'); // This end-to-end test will be marked as TODO
 
-test('foo', async t => { // This test will be executed
+test('foo', async t => { // This end-to-end test will be executed
   // ...
 });
 ```
@@ -392,7 +394,7 @@ Example usage:
 ```js
 const {skip} = require('cybernaut');
 
-skip('foo', async t => { // This test won't be executed (and marked as SKIP)
+skip('foo', async t => { // This end-to-end test won't be executed (and marked as SKIP)
   // ...
 });
 ```
