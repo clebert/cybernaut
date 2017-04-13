@@ -60,7 +60,7 @@ git clone https://github.com/clebert/cybernaut.git && cd cybernaut && \
 ./example/docker-build.sh iphone && ./example/docker-run.sh iphone
 ```
 
-The captured screenshot can be found in the following directory: `./example/screenshots/`
+The captured screenshots can be found in the `./example/screenshots/` directory.
 
 ## Contents
 
@@ -68,8 +68,8 @@ The captured screenshot can be found in the following directory: `./example/scre
 * [Usage](#usage)
   * [Starting Cybernaut](#starting-cybernaut)
   * [Configuring Cybernaut](#configuring-cybernaut)
-  * [Emulating mobile devices in Chrome](#emulating-mobile-devices-in-chrome)
   * [Testing with Docker](#testing-with-docker)
+  * [Emulating mobile devices in Chrome](#emulating-mobile-devices-in-chrome)
   * [Writing end-to-end tests](#writing-end-to-end-tests)
 * [API](#api)
 * [Related links](#related-links)
@@ -86,6 +86,8 @@ If the default configuration is used, Chrome and a matching version of [`chromed
 ```sh
 npm install --save-dev chromedriver
 ```
+
+*Note: It is recommended to [run your end-to-end tests with Docker](#testing-with-docker).*
 
 ## [Usage](#contents)
 
@@ -108,6 +110,8 @@ npm install --save-dev tap-mocha-reporter
 ```sh
 $(npm bin)/cybernaut | $(npm bin)/tap-mocha-reporter spec
 ```
+
+*Note: You can set the `DEBUG=cybernaut:*` environment variable to enable debug output.*
 
 ### [Configuring Cybernaut](#usage)
 
@@ -169,6 +173,88 @@ module.exports = {
 
 *Note: Cybernaut uses [`selenium-webdriver@3.3.0`][selenium], which is incompatible with [`geckodriver@1.5.0`][node-geckodriver]. Until these incompatibilities have been solved, [`geckodriver@1.4.0`][node-geckodriver] must be used.*
 
+### [Testing with Docker](#usage)
+
+End-to-end tests written with Cybernaut can be run in a Docker container.
+This has the advantage of being able to run them independently of the environment and under reproducible conditions.
+
+*Note: The included [examples][example] can serve as a reference implementation.*
+
+Cybernaut brings two fully configured Docker containers, which can be found on [Docker Hub][docker-hub-clebert].
+One allows testing [on Chrome][docker-hub-chrome]:
+
+```dockerfile
+FROM clebert/cybernaut-chrome
+```
+
+ the other [on Firefox][docker-hub-firefox]:
+
+```dockerfile
+FROM clebert/cybernaut-firefox
+```
+
+The test files must be copied into the `/opt/e2e-test/` directory inside the Docker container:
+
+```dockerfile
+COPY example.e2e.js /opt/e2e-test/example.e2e.js
+```
+
+The default configuration can be overridden with the following Docker instruction:
+
+```dockerfile
+COPY config.json /opt/config.json
+```
+
+Chrome default configuration:
+
+```json
+{
+  "capabilities": {
+    "browserName": "chrome",
+    "chromeOptions": {
+      "args": [
+        "--disable-gpu",
+        "--no-sandbox"
+      ]
+    }
+  }
+}
+```
+
+Firefox default configuration:
+
+```json
+{
+  "capabilities": {
+    "browserName": "firefox"
+  },
+  "dependencies": [
+    "geckodriver"
+  ]
+}
+```
+
+In addition, a default `CMD` instruction is configured to specify the virtual screen resolution and the reporter:
+
+```dockerfile
+CMD ["1280x720", "spec"]
+```
+
+You can override it with an own `CMD` instruction or with CLI arguments for `docker run`:
+
+```sh
+docker run -ti --rm -v /dev/shm:/dev/shm clebert/cybernaut-chrome-example 1920x1080 dot
+```
+
+In order to get access to the captured screenshots, the local screenshots directory can be [mounted][docker-mount] into the `/opt/e2e-test/` directory inside the Docker container:
+
+```sh
+docker run -ti --rm -v $(cd example/screenshots; pwd):/opt/e2e-test/screenshots -v /dev/shm:/dev/shm clebert/cybernaut-chrome-example
+```
+
+*Note: When executing docker run for an image with chrome browser please add `-v /dev/shm:/dev/shm` [volume mount][docker-mount] to use the host's shared memory.
+Since a Docker container is not meant to preserve state and spawning a new one takes less than 3 seconds you will likely want to remove containers after each end-to-end test with `--rm` command.*
+
 ### [Emulating mobile devices in Chrome](#usage)
 
 [ChromeDriver][chromedriver] allows developers to emulate Chrome on a mobile device, by enabling the [Mobile Emulation][mobile-emulation] feature via the `mobileEmulation` capability. This feature speeds up web development, allows developers to quickly test how a website will render on a mobile device, without requiring a real device.
@@ -219,87 +305,11 @@ It is also possible to enable [Mobile Emulation][mobile-emulation] by specifying
 }
 ```
 
-### [Testing with Docker](#usage)
-
-End-to-end tests written with Cybernaut can be run in a Docker container.
-This has the advantage of being able to run them independently of the environment and under reproducible conditions.
-
-*Note: The included [examples][example] can serve as a reference implementation.*
-
-Cybernaut brings two fully configured Docker containers, which can be found on [Docker Hub][docker-hub-clebert].
-One allows testing [on Chrome][docker-hub-chrome]:
-
-```dockerfile
-FROM clebert/cybernaut-chrome
-```
-
- the other [on Firefox][docker-hub-firefox]:
-
-```dockerfile
-FROM clebert/cybernaut-firefox
-```
-
-The test files must be copied to the directory `/opt/e2e-test/`:
-
-```dockerfile
-COPY example.e2e.js /opt/e2e-test/example.e2e.js
-```
-
-The default configuration can be overridden with the following Docker instruction:
-
-```dockerfile
-COPY config.json /opt/config.json
-```
-
-Chrome default configuration:
-
-```json
-{
-  "capabilities": {
-    "browserName": "chrome",
-    "chromeOptions": {
-      "args": [
-        "--disable-gpu",
-        "--no-sandbox"
-      ]
-    }
-  }
-}
-```
-
-Firefox default configuration:
-
-```json
-{
-  "capabilities": {
-    "browserName": "firefox"
-  },
-  "dependencies": [
-    "geckodriver"
-  ]
-}
-```
-
-In addition, a default `CMD` instruction is configured to specify the virtual screen resolution and the reporter:
-
-```dockerfile
-CMD ["1280x720", "spec"]
-```
-
-You can override it with another `CMD` instruction or with CLI arguments for `docker run`:
-
-```sh
-docker run -ti --rm -v /dev/shm:/dev/shm clebert/cybernaut-chrome-example 1920x1080 dot
-```
-
-*Note: When executing docker run for an image with chrome browser please add volume mount `-v /dev/shm:/dev/shm` to use the host's shared memory.
-Since a Docker container is not meant to preserve state and spawning a new one takes less than 3 seconds you will likely want to remove containers after each end-to-end test with `--rm` command.*
-
 ### [Writing end-to-end tests](#usage)
 
 It is recommended to write end-to-end tests using [async functions][mdn-async], which are natively supported by [Node.js][nodejs] as of version 7. Alternatively, the test files must be transpiled using [TypeScript][typescript] or [Babel][babel].
 
-If you write your end-to-end tests with [TypeScript][typescript], it is recommended to enable the [TSLint][tslint] rule [`no-floating-promises`][tslint-rule-no-floating-promises]. This can prevent the [`await`][mdn-await] operators from being forgotten.
+If you write your end-to-end tests with [TypeScript][typescript], it is recommended to enable the [`no-floating-promises`][tslint-rule-no-floating-promises] [TSLint][tslint] rule. This can prevent the [`await`][mdn-await] operators from being forgotten.
 
 ## [API](#contents)
 
@@ -470,7 +480,7 @@ test('foo', async t => {
 });
 ```
 
-*Note: An assertion is a single test step for which the globally configured options `retries` and `retryDelay` can be overwritten.*
+*Note: An assertion is a single test step for which the globally configured `retries` and `retryDelay` options can be overwritten.*
 
 #### [`perform`](#api)
 
@@ -488,7 +498,7 @@ test('foo', async t => {
 });
 ```
 
-*Note: A performance is a single test step for which the globally configured options `retries` and `retryDelay` can be overwritten.*
+*Note: A performance is a single test step for which the globally configured `retries` and `retryDelay` options can be overwritten.*
 
 #### [`verify`](#api)
 
@@ -508,7 +518,7 @@ test('foo', async t => {
 });
 ```
 
-*Note: A verification is a single test step for which the globally configured options `retries` and `retryDelay` can be overwritten.*
+*Note: A verification is a single test step for which the globally configured `retries` and `retryDelay` options can be overwritten.*
 
 #### [`fail`](#api)
 
@@ -1376,6 +1386,7 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [docker-hub-chrome]: https://hub.docker.com/r/clebert/cybernaut-chrome/
 [docker-hub-clebert]: https://hub.docker.com/r/clebert/
 [docker-hub-firefox]: https://hub.docker.com/r/clebert/cybernaut-firefox/
+[docker-mount]: https://docs.docker.com/engine/tutorials/dockervolumes/#mount-a-host-directory-as-a-data-volume
 [emulating-mobile-devices-in-chrome]: https://github.com/clebert/cybernaut#emulating-mobile-devices-in-chrome
 [example]: https://github.com/clebert/cybernaut/tree/master/example
 [example-png]: https://raw.githubusercontent.com/clebert/cybernaut/master/example/example.png
