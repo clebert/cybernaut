@@ -15,5 +15,9 @@ cp -f docker/cybernaut-xvfb "docker/cybernaut-$1/cybernaut-xvfb" && \
 
 docker build -t "clebert/cybernaut-$1" "docker/cybernaut-$1"
 
+STATUS=$?
+
 rm -rf "docker/cybernaut-$1/cybernaut"
 rm -f "docker/cybernaut-$1/cybernaut-xvfb"
+
+exit $STATUS
