@@ -9,6 +9,7 @@
     ".vscode",
     "coverage",
     "dist",
+    "docker",
     "example",
     "node_modules"
   ]
