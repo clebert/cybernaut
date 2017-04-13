@@ -1,0 +1,8 @@
+{
+  "capabilities": {
+    "browserName": "firefox"
+  },
+  "dependencies": [
+    "geckodriver"
+  ]
+}

@@ -1,17 +1,17 @@
 # Cybernaut
 
-[![npm][0]][1]
-[![build][2]][3]
-[![coverage][4]][5]
-[![semantic-release][6]][7]
-[![Greenkeeper][8]][9]
-[![TypeScript][17]][18]
+[![npm][npm-badge]][npm]
+[![build][travis-ci-badge]][travis-ci]
+[![coverage][coveralls-badge]][coveralls]
+[![semantic-release][semantic-release-badge]][semantic-release]
+[![Greenkeeper][greenkeeper-badge]][greenkeeper]
+[![TypeScript][typescript-badge]][typescript]
 
 Reliable, zero configuration end-to-end testing in BDD-style.
 
-[![Example][10]][13]
+[![Example][example-png]][example]
 
-```ts
+```js
 const {browser, defineElement, it, test} = require('cybernaut');
 
 test('Star the "clebert/cybernaut" repository on GitHub', async t => {
@@ -21,29 +21,56 @@ test('Star the "clebert/cybernaut" repository on GitHub', async t => {
 
   await t.perform(browser.takeScreenshot());
 
-  // The "star" button leads to a login form. Thus, the project is not really starred ;)
-  const starButton = defineElement('ul.pagehead-actions > li:nth-child(2) > a:nth-child(1)');
+  const switchToDesktopButton = defineElement('button.switch-to-desktop');
 
+  // When on the mobile version, then switch to the desktop version
+  if (await t.verify(switchToDesktopButton.visibility, it.should.equal(true))) {
+    await t.perform(switchToDesktopButton.click());
+  }
+
+  const starButton = defineElement(
+    'ul.pagehead-actions > li:nth-child(2) > a:nth-child(1)'
+  );
+
+  // The star button leads to a login form, so the project is not really starred
   await t.perform(starButton.click());
 });
 ```
 
-The above [example][13] can be executed without configuration or dependencies in a [Docker][21] container:
+The above [example][example] can be executed in a [Docker][docker] container,
+
+on Chrome:
 
 ```sh
-git clone https://github.com/clebert/cybernaut.git && \
-cd cybernaut/example/ && \
-mkdir -p screenshots && \
-docker build -t clebert/cybernaut-example . && \
-docker run -ti --rm -v $(cd screenshots; pwd):/opt/cybernaut-example/screenshots clebert/cybernaut-example
+git clone https://github.com/clebert/cybernaut.git && cd cybernaut && \
+./example/docker-build.sh chrome && ./example/docker-run.sh chrome
 ```
 
-*Note: A `screenshots` directory is created locally and shared with the [Docker][21] container.*
+on Firefox:
+
+```sh
+git clone https://github.com/clebert/cybernaut.git && cd cybernaut && \
+./example/docker-build.sh firefox && ./example/docker-run.sh firefox
+```
+
+on [iPhone 6 Plus][emulating-mobile-devices-in-chrome]:
+
+```sh
+git clone https://github.com/clebert/cybernaut.git && cd cybernaut && \
+./example/docker-build.sh iphone && ./example/docker-run.sh iphone
+```
+
+The captured screenshots can be found in the `./example/screenshots/` directory.
 
 ## Contents
 
 * [Installation](#installation)
 * [Usage](#usage)
+  * [Starting Cybernaut](#starting-cybernaut)
+  * [Configuring Cybernaut](#configuring-cybernaut)
+  * [Testing with Docker](#testing-with-docker)
+  * [Emulating mobile devices in Chrome](#emulating-mobile-devices-in-chrome)
+  * [Writing end-to-end tests](#writing-end-to-end-tests)
 * [API](#api)
 * [Related links](#related-links)
 * [Development](#development)
@@ -54,15 +81,17 @@ docker run -ti --rm -v $(cd screenshots; pwd):/opt/cybernaut-example/screenshots
 npm install --save-dev cybernaut
 ```
 
-If the default configuration is used, Chrome and a matching version of [`chromedriver`][11] must also be installed:
+If the default configuration is used, Chrome and a matching version of [`chromedriver`][node-chromedriver] must also be installed:
 
 ```sh
 npm install --save-dev chromedriver
 ```
 
+*Note: It is recommended to [run your end-to-end tests with Docker](#testing-with-docker).*
+
 ## [Usage](#contents)
 
-### Starting Cybernaut
+### [Starting Cybernaut](#usage)
 
 Cybernaut must be started from the command line:
 
@@ -72,7 +101,7 @@ $(npm bin)/cybernaut
 
 Directories are recursed, with all `**/*.e2e.js` files being treated as test files.
 
-Cybernaut produces output in [TAP][28] format, [`tap-mocha-reporter`][12] can be used to format it:
+Cybernaut produces output in [TAP][tap] format, [`tap-mocha-reporter`][tap-mocha-reporter] can be used to format it:
 
 ```sh
 npm install --save-dev tap-mocha-reporter
@@ -82,7 +111,9 @@ npm install --save-dev tap-mocha-reporter
 $(npm bin)/cybernaut | $(npm bin)/tap-mocha-reporter spec
 ```
 
-### Configuring Cybernaut
+*Note: You can set the `DEBUG=cybernaut:*` environment variable to enable debug output.*
+
+### [Configuring Cybernaut](#usage)
 
 The following configuration is active by default:
 
@@ -102,11 +133,11 @@ The following configuration is active by default:
 
 Configuration options:
 
-* `capabilities`: Specifies the desired [WebDriver capabilities][34].
-* `concurrency`: Specifies the maximum number of tests running at the same time.
-* `dependencies`: Specifies the required modules to be loaded.
-* `exclude`: Specifies the [glob patterns][33], for which matching files will be removed from the set of test files.
-* `include`: Specifies the [glob pattern][33], for which matching files will be added to the set of test files.
+* `capabilities`: Specifies the desired [WebDriver capabilities][selenium-desired-capabilities].
+* `concurrency`: Specifies the maximum number of end-to-end tests running at the same time.
+* `dependencies`: Specifies additional modules to be loaded.
+* `exclude`: Specifies the [glob patterns][node-glob], for which matching files will be removed from the set of test files.
+* `include`: Specifies the [glob pattern][node-glob], for which matching files will be added to the set of test files.
 * `retries`: Specifies the maximum number of retries of failed [test steps](#assert).
 * `retryDelay`: Specifies the time, in milliseconds, to wait between retries of failed [test steps](#assert).
 * `screenshotDirectory`: Specifies the relative or absolute path to the screenshot directory.
@@ -117,12 +148,12 @@ Configuration options:
 A separate configuration can be passed as a command line argument:
 
 ```sh
-$(npm bin)/cybernaut firefox-config.js
+$(npm bin)/cybernaut config.json
 ```
 
-Such a configuration can be validated with [this JSON schema][19] and written as a JSON file or JavaScript module:
+Such a configuration can be validated with [this JSON schema][config-schema] and written as a
 
-#### firefox-config.json
+JSON file:
 
 ```json
 {
@@ -131,7 +162,7 @@ Such a configuration can be validated with [this JSON schema][19] and written as
 }
 ```
 
-#### firefox-config.js
+or JavaScript module:
 
 ```js
 module.exports = {
@@ -140,13 +171,145 @@ module.exports = {
 };
 ```
 
-*Note: Cybernaut uses [`selenium-webdriver@3.3.0`][14], which is incompatible with [`geckodriver@1.5.0`][15]. Until these [incompatibilities][16] have been solved, [`geckodriver@1.4.0`][15] must be used.*
+*Note: Cybernaut uses [`selenium-webdriver@3.3.0`][selenium], which is incompatible with [`geckodriver@1.5.0`][node-geckodriver]. Until these incompatibilities have been solved, [`geckodriver@1.4.0`][node-geckodriver] must be used.*
 
-### Writing tests
+### [Testing with Docker](#usage)
 
-It is recommended to write tests using [async functions][26], which are natively supported by [Node.js][27] as of version 7. Alternatively, the tests must be transpiled using [TypeScript][18] or [Babel][22].
+End-to-end tests written with Cybernaut can be run in a Docker container.
+This has the advantage of being able to run them independently of the environment and under reproducible conditions.
 
-If you write your tests with [TypeScript][18], it is recommended to enable the [TSLint][23] rule [`no-floating-promises`][24]. This can prevent the [`await`][25] operators from being forgotten.
+*Note: The included [examples][example] can serve as a reference implementation.*
+
+Cybernaut brings two fully configured Docker containers, which can be found on [Docker Hub][docker-hub-clebert].
+One allows testing [on Chrome][docker-hub-chrome]:
+
+```dockerfile
+FROM clebert/cybernaut-chrome
+```
+
+ the other [on Firefox][docker-hub-firefox]:
+
+```dockerfile
+FROM clebert/cybernaut-firefox
+```
+
+The test files must be copied into the `/opt/e2e-test/` directory inside the Docker container:
+
+```dockerfile
+COPY example.e2e.js /opt/e2e-test/example.e2e.js
+```
+
+The default configuration can be overridden with the following Docker instruction:
+
+```dockerfile
+COPY config.json /opt/config.json
+```
+
+Chrome default configuration:
+
+```json
+{
+  "capabilities": {
+    "browserName": "chrome",
+    "chromeOptions": {
+      "args": [
+        "--disable-gpu",
+        "--no-sandbox"
+      ]
+    }
+  }
+}
+```
+
+Firefox default configuration:
+
+```json
+{
+  "capabilities": {
+    "browserName": "firefox"
+  },
+  "dependencies": [
+    "geckodriver"
+  ]
+}
+```
+
+In addition, a default `CMD` instruction is configured to specify the virtual screen resolution and the reporter:
+
+```dockerfile
+CMD ["1280x720", "spec"]
+```
+
+You can override it with an own `CMD` instruction or with CLI arguments for `docker run`:
+
+```sh
+docker run -ti --rm -v /dev/shm:/dev/shm clebert/cybernaut-chrome-example 1920x1080 dot
+```
+
+In order to get access to the captured screenshots, the local screenshots directory can be [mounted][docker-mount] into the `/opt/e2e-test/` directory inside the Docker container:
+
+```sh
+docker run -ti --rm -v $(cd example/screenshots; pwd):/opt/e2e-test/screenshots -v /dev/shm:/dev/shm clebert/cybernaut-chrome-example
+```
+
+*Note: When executing docker run for an image with chrome browser please add `-v /dev/shm:/dev/shm` [volume mount][docker-mount] to use the host's shared memory.
+Since a Docker container is not meant to preserve state and spawning a new one takes less than 3 seconds you will likely want to remove containers after each end-to-end test with `--rm` command.*
+
+### [Emulating mobile devices in Chrome](#usage)
+
+[ChromeDriver][chromedriver] allows developers to emulate Chrome on a mobile device, by enabling the [Mobile Emulation][mobile-emulation] feature via the `mobileEmulation` capability. This feature speeds up web development, allows developers to quickly test how a website will render on a mobile device, without requiring a real device.
+
+There are two ways in [ChromeDriver][chromedriver] to enable [Mobile Emulation][mobile-emulation]: by specifying a known device, or by specifying individual device attributes. The format of the `mobileEmulation` dictionary depends on which method is desired.
+
+#### Specifying a known mobile device
+
+To enable [Mobile Emulation][mobile-emulation] with a specific device name, the `mobileEmulation` dictionary must contain a `deviceName`. Use a valid device name from the DevTools Emulation panel as the value for `deviceName`:
+
+```json
+{
+  "capabilities": {
+    "browserName": "chrome",
+    "chromeOptions": {
+      "mobileEmulation": {
+        "deviceName": "Apple iPhone 6 Plus"
+      }
+    }
+  }
+}
+```
+
+#### Specifying individual device attributes
+
+It is also possible to enable [Mobile Emulation][mobile-emulation] by specifying individual attributes. To enable [Mobile Emulation][mobile-emulation] this way, the `mobileEmulation` dictionary can contain a `deviceMetrics` dictionary and a `userAgent` string. The following device metrics must be specified in the `deviceMetrics` dictionary:
+
+* `width` - the width in pixels of the device's screen
+* `height` - the height in pixels of the device's screen
+* `pixelRatio` - the device's pixel ratio
+* `touch` - whether to emulate touch events (defaults to true, usually does not need to be set)
+
+```json
+{
+  "capabilities": {
+    "browserName": "chrome",
+    "chromeOptions": {
+      "mobileEmulation": {
+        "deviceMetrics": {
+          "width": 360,
+          "height": 640,
+          "pixelRatio": 3.0
+        },
+        "userAgent": "Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 5 Build/JOP40D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19"
+      }
+    }
+  }
+}
+```
+
+### [Writing end-to-end tests](#usage)
+
+It is recommended to write end-to-end tests using [async functions][mdn-async], which are natively supported by [Node.js][nodejs] as of version 7. Alternatively, the test files must be transpiled using [TypeScript][typescript] or [Babel][babel].
+
+If you write your end-to-end tests with [TypeScript][typescript], it is recommended to enable the [`no-floating-promises`][tslint-rule-no-floating-promises] [TSLint][tslint] rule. This can prevent the [`await`][mdn-await] operators from being forgotten.
 
 ## [API](#contents)
 
@@ -218,12 +381,12 @@ Type definition:
 
 Example usage:
 
-```ts
+```js
 const {test} = require('cybernaut');
 
-test('foo'); // This test will be marked as TODO
+test('foo'); // This end-to-end test will be marked as TODO
 
-test('foo', async t => { // This test will be executed
+test('foo', async t => { // This end-to-end test will be executed
   // ...
 });
 ```
@@ -238,10 +401,10 @@ Type definition:
 
 Example usage:
 
-```ts
+```js
 const {skip} = require('cybernaut');
 
-skip('foo', async t => { // This test won't be executed (and marked as SKIP)
+skip('foo', async t => { // This end-to-end test won't be executed (and marked as SKIP)
   // ...
 });
 ```
@@ -255,7 +418,7 @@ Type definition:
 
 Example usage:
 
-```ts
+```js
 const {browser, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -272,7 +435,7 @@ Type definition:
 
 Example usage:
 
-```ts
+```js
 const {defineElement, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -291,7 +454,7 @@ Type definition:
 
 Example usage:
 
-```ts
+```js
 const {browser, it, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -309,7 +472,7 @@ Type definition:
 
 Example usage:
 
-```ts
+```js
 const {browser, it, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -317,7 +480,7 @@ test('foo', async t => {
 });
 ```
 
-*Note: An assertion is a single test step for which the globally configured options `retries` and `retryDelay` can be overwritten.*
+*Note: An assertion is a single test step for which the globally configured `retries` and `retryDelay` options can be overwritten.*
 
 #### [`perform`](#api)
 
@@ -327,7 +490,7 @@ Type definition:
 
 Example usage:
 
-```ts
+```js
 const {browser, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -335,7 +498,7 @@ test('foo', async t => {
 });
 ```
 
-*Note: A performance is a single test step for which the globally configured options `retries` and `retryDelay` can be overwritten.*
+*Note: A performance is a single test step for which the globally configured `retries` and `retryDelay` options can be overwritten.*
 
 #### [`verify`](#api)
 
@@ -345,7 +508,7 @@ Type definition:
 
 Example usage:
 
-```ts
+```js
 const {browser, it, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -355,7 +518,7 @@ test('foo', async t => {
 });
 ```
 
-*Note: A verification is a single test step for which the globally configured options `retries` and `retryDelay` can be overwritten.*
+*Note: A verification is a single test step for which the globally configured `retries` and `retryDelay` options can be overwritten.*
 
 #### [`fail`](#api)
 
@@ -363,11 +526,11 @@ Type definition:
 
 * **`fail(message: string, cause: Error): void`**
 
-Example [TAP][28] output: `not ok 1 - bar (cause: baz)`
+Example [TAP][tap] output: `not ok 1 - bar (cause: baz)`
 
 Example usage:
 
-```ts
+```js
 const {test} = require('cybernaut');
 
 test('foo', async t => {
@@ -381,11 +544,11 @@ Type definition:
 
 * **`pass(message: string): void`**
 
-Example [TAP][28] output: `ok 1 - bar`
+Example [TAP][tap] output: `ok 1 - bar`
 
 Example usage:
 
-```ts
+```js
 const {test} = require('cybernaut');
 
 test('foo', async t => {
@@ -401,11 +564,11 @@ Type definition:
 
 * **`pageTitle: Accessor<string>`**
 
-Example [TAP][28] output: `ok 1 - page title should contain 'bar' (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - page title should contain 'bar' (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {browser, it, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -419,11 +582,11 @@ Type definition:
 
 * **`pageUrl: Accessor<string>`**
 
-Example [TAP][28] output: `ok 1 - page url should contain 'http://bar.baz' (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - page url should contain 'http://bar.baz' (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {browser, it, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -437,11 +600,11 @@ Type definition:
 
 * **`windowX: Accessor<number>`**
 
-Example [TAP][28] output: `ok 1 - window x-position should equal 123 (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - window x-position should equal 123 (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {browser, it, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -455,11 +618,11 @@ Type definition:
 
 * **`windowY: Accessor<number>`**
 
-Example [TAP][28] output: `ok 1 - window y-position should equal 123 (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - window y-position should equal 123 (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {browser, it, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -473,11 +636,11 @@ Type definition:
 
 * **`windowWidth: Accessor<number>`**
 
-Example [TAP][28] output: `ok 1 - window width should equal 123 (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - window width should equal 123 (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {browser, it, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -491,11 +654,11 @@ Type definition:
 
 * **`windowHeight: Accessor<number>`**
 
-Example [TAP][28] output: `ok 1 - window height should equal 123 (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - window height should equal 123 (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {browser, it, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -510,11 +673,11 @@ Type definition:
 * **`scriptResult(scriptName: string, script: Script): Accessor<any>`**
 * `Script = (callback: (result?: any) => void) => void`
 
-Example [TAP][28] output: `ok 1 - result of script 'bar' should equal 'baz' (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - result of script 'bar' should equal 'baz' (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {browser, it, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -534,11 +697,11 @@ Type definition:
 * **`executeScript(scriptName: string, script: Script): Action`**
 * `Script = (callback: (result?: any) => void) => void`
 
-Example [TAP][28] output: `ok 1 - execute script 'bar' (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - execute script 'bar' (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {browser, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -557,11 +720,11 @@ Type definition:
 
 * **`loadPage(url: string): Action`**
 
-Example [TAP][28] output: `ok 1 - load page 'http://bar.baz' (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - load page 'http://bar.baz' (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {browser, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -575,11 +738,11 @@ Type definition:
 
 * **`maximizeWindow(): Action`**
 
-Example [TAP][28] output: `ok 1 - maximize window (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - maximize window (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {browser, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -593,11 +756,11 @@ Type definition:
 
 * **`navigateBack(): Action`**
 
-Example [TAP][28] output: `ok 1 - navigate back (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - navigate back (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {browser, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -611,11 +774,11 @@ Type definition:
 
 * **`navigateForward(): Action`**
 
-Example [TAP][28] output: `ok 1 - navigate forward (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - navigate forward (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {browser, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -629,11 +792,11 @@ Type definition:
 
 * **`reloadPage(): Action`**
 
-Example [TAP][28] output: `ok 1 - reload page (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - reload page (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {browser, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -647,11 +810,11 @@ Type definition:
 
 * **`setWindowPosition(x: number, y: number): Action`**
 
-Example [TAP][28] output: `ok 1 - set window position to 123,456 (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - set window position to 123,456 (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {browser, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -665,11 +828,11 @@ Type definition:
 
 * **`setWindowSize(width: number, height: number): Action`**
 
-Example [TAP][28] output: `ok 1 - set window size to 123x456 (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - set window size to 123x456 (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {browser, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -683,11 +846,11 @@ Type definition:
 
 * **`sleep(duration: number): Action`**
 
-Example [TAP][28] output: `ok 1 - sleep for 123 ms (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - sleep for 123 ms (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {browser, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -701,11 +864,11 @@ Type definition:
 
 * **`takeScreenshot(): Action`**
 
-Example [TAP][28] output: `ok 1 - take screenshot 'screenshots/07cc9369-ab10-4221-9bc9-18ad12b87c7c.png' (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - take screenshot 'screenshots/07cc9369-ab10-4221-9bc9-18ad12b87c7c.png' (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {browser, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -721,11 +884,11 @@ Type definition:
 
 * **`tagName: Accessor<string>`**
 
-Example [TAP][28] output: `ok 1 - tag name of element '#bar' should equal 'div' (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - tag name of element '#bar' should equal 'div' (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {defineElement, it, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -741,11 +904,11 @@ Type definition:
 
 * **`text: Accessor<string>`**
 
-Example [TAP][28] output: `ok 1 - text of element '#bar' should equal 'baz' (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - text of element '#bar' should equal 'baz' (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {defineElement, it, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -761,11 +924,11 @@ Type definition:
 
 * **`visibility: Accessor<boolean>`**
 
-Example [TAP][28] output: `ok 1 - visibility of element '#bar' should equal true (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - visibility of element '#bar' should equal true (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {defineElement, it, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -781,11 +944,11 @@ Type definition:
 
 * **`x: Accessor<number>`**
 
-Example [TAP][28] output: `ok 1 - x-position of element '#bar' should equal 123 (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - x-position of element '#bar' should equal 123 (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {defineElement, it, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -801,11 +964,11 @@ Type definition:
 
 * **`y: Accessor<number>`**
 
-Example [TAP][28] output: `ok 1 - y-position of element '#bar' should equal 123 (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - y-position of element '#bar' should equal 123 (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {defineElement, it, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -821,11 +984,11 @@ Type definition:
 
 * **`width: Accessor<number>`**
 
-Example [TAP][28] output: `ok 1 - width of element '#bar' should equal 123 (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - width of element '#bar' should equal 123 (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {defineElement, it, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -841,11 +1004,11 @@ Type definition:
 
 * **`height: Accessor<number>`**
 
-Example [TAP][28] output: `ok 1 - height of element '#bar' should equal 123 (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - height of element '#bar' should equal 123 (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {defineElement, it, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -861,11 +1024,11 @@ Type definition:
 
 * **`cssValue(cssName: string): Accessor<string>`**
 
-Example [TAP][28] output: `ok 1 - css value 'margin-left' of element '#bar' should equal '22px' (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - css value 'margin-left' of element '#bar' should equal '22px' (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {defineElement, it, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -881,11 +1044,11 @@ Type definition:
 
 * **`propertyValue(propertyName: string): Accessor<string | null>`**
 
-Example [TAP][28] output: `ok 1 - property value 'id' of element '#bar' should equal 'bar' (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - property value 'id' of element '#bar' should equal 'bar' (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {defineElement, it, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -901,11 +1064,11 @@ Type definition:
 
 * **`clearValue(): Action`**
 
-Example [TAP][28] output: `ok 1 - clear value of element '#bar' (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - clear value of element '#bar' (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {defineElement, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -921,11 +1084,11 @@ Type definition:
 
 * **`click(): Action`**
 
-Example [TAP][28] output: `ok 1 - click on element '#bar' (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - click on element '#bar' (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {defineElement, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -941,11 +1104,11 @@ Type definition:
 
 * **`sendKeys(...keys: string[]): Action`**
 
-Example [TAP][28] output: `ok 1 - send keys [ 'text was', 'Key.CONTROL', 'a', 'Key.NULL', 'now text is' ] to element '#bar' (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - send keys [ 'text was', 'Key.CONTROL', 'a', 'Key.NULL', 'now text is' ] to element '#bar' (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {Key, defineElement, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -955,15 +1118,15 @@ test('foo', async t => {
 });
 ```
 
-> Modifier keys ([Key.SHIFT][30], [Key.CONTROL][30], [Key.ALT][30], [Key.META][30]) are stateful; once a modifier is processed in the keysequence, that key state is toggled until one of the following occurs:
+> Modifier keys ([Key.SHIFT][selenium-webdriver-key], [Key.CONTROL][selenium-webdriver-key], [Key.ALT][selenium-webdriver-key], [Key.META][selenium-webdriver-key]) are stateful; once a modifier is processed in the keysequence, that key state is toggled until one of the following occurs:
 >
 > - The modifier key is encountered again in the sequence. At this point the state of the key is toggled (along with the appropriate keyup/down events).
 >
-> - The [Key.NULL][30] key is encountered in the sequence. When this key is encountered, all modifier keys current in the down state are released (with accompanying keyup events).
+> - The [Key.NULL][selenium-webdriver-key] key is encountered in the sequence. When this key is encountered, all modifier keys current in the down state are released (with accompanying keyup events).
 >
 > - The end of the keysequence is encountered. When there are no more keys to type, all depressed modifier keys are released (with accompanying keyup events).
 >
-> -- *[selenium-webdriver.WebElement][29]*
+> -- *[selenium-webdriver.WebElement][selenium-webdriver-webelement]*
 
 *Note: The `WebElement` of `selenium-webdriver` is used internally, but is not accessible from the outside.*
 
@@ -973,11 +1136,11 @@ Type definition:
 
 * **`submitForm(): Action`**
 
-Example [TAP][28] output: `ok 1 - submit form containing element '#bar' (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - submit form containing element '#bar' (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {defineElement, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -995,11 +1158,11 @@ Type definition:
 
 * **`contain(expectedValue: string): Predicate<string>`**
 
-Example [TAP][28] output: `ok 1 - page title should contain 'bar' (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - page title should contain 'bar' (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {browser, it, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -1013,11 +1176,11 @@ Type definition:
 
 * **`not.contain(expectedValue: string): Predicate<string>`**
 
-Example [TAP][28] output: `ok 1 - page title should not contain 'bar' (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - page title should not contain 'bar' (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {browser, it, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -1031,11 +1194,11 @@ Type definition:
 
 * **`equal<T>(expectedValue: T): Predicate<T>`**
 
-Example [TAP][28] output: `ok 1 - page title should equal 'bar' (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - page title should equal 'bar' (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {browser, it, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -1043,7 +1206,7 @@ test('foo', async t => {
 });
 ```
 
-*Note: The comparison is performed with [deep-strict-equal][20].*
+*Note: The comparison is performed with [deep-strict-equal][deep-strict-equal].*
 
 #### [`not.equal`](#api)
 
@@ -1051,11 +1214,11 @@ Type definition:
 
 * **`not.equal<T>(expectedValue: T): Predicate<T>`**
 
-Example [TAP][28] output: `ok 1 - page title should not equal 'bar' (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - page title should not equal 'bar' (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {browser, it, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -1063,7 +1226,7 @@ test('foo', async t => {
 });
 ```
 
-*Note: The comparison is performed with [deep-strict-equal][20].*
+*Note: The comparison is performed with [deep-strict-equal][deep-strict-equal].*
 
 #### [`match`](#api)
 
@@ -1071,11 +1234,11 @@ Type definition:
 
 * **`match(regex: RegExp): Predicate<string>`**
 
-Example [TAP][28] output: `ok 1 - page title should match /bar/ (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - page title should match /bar/ (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {browser, it, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -1089,11 +1252,11 @@ Type definition:
 
 * **`not.match(regex: RegExp): Predicate<string>`**
 
-Example [TAP][28] output: `ok 1 - page title should not match /bar/ (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - page title should not match /bar/ (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {browser, it, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -1107,11 +1270,11 @@ Type definition:
 
 * **`be.above(expectedValue: number): Predicate<number>`**
 
-Example [TAP][28] output: `ok 1 - window width should be above 123 (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - window width should be above 123 (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {browser, it, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -1125,11 +1288,11 @@ Type definition:
 
 * **`be.at.least(expectedValue: number): Predicate<number>`**
 
-Example [TAP][28] output: `ok 1 - window width should be at least 123 (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - window width should be at least 123 (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {browser, it, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -1143,11 +1306,11 @@ Type definition:
 
 * **`be.below(expectedValue: number): Predicate<number>`**
 
-Example [TAP][28] output: `ok 1 - window width should be below 123 (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - window width should be below 123 (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {browser, it, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -1161,11 +1324,11 @@ Type definition:
 
 * **`be.at.most(expectedValue: number): Predicate<number>`**
 
-Example [TAP][28] output: `ok 1 - window width should be at most 123 (attempt 1 of 5)`
+Example [TAP][tap] output: `ok 1 - window width should be at most 123 (attempt 1 of 5)`
 
 Example usage:
 
-```ts
+```js
 const {browser, it, test} = require('cybernaut');
 
 test('foo', async t => {
@@ -1175,8 +1338,8 @@ test('foo', async t => {
 
 ## [Related links](#contents)
 
-* [Google Testing Blog: Just Say No to More End-to-End Tests][31]
-* [Testing Strategies in a Microservice Architecture][32]
+* [Google Testing Blog: Just Say No to More End-to-End Tests][link1]
+* [Testing Strategies in a Microservice Architecture][link2]
 
 ## [Development](#contents)
 
@@ -1213,38 +1376,44 @@ npm run cz
 ---
 Built by (c) Clemens Akens. Released under the MIT license.
 
-[0]: https://img.shields.io/npm/v/cybernaut.svg?maxAge=3600
-[1]: https://www.npmjs.com/package/cybernaut
-[2]: https://travis-ci.org/clebert/cybernaut.svg?branch=master
-[3]: https://travis-ci.org/clebert/cybernaut
-[4]: https://coveralls.io/repos/github/clebert/cybernaut/badge.svg?branch=master
-[5]: https://coveralls.io/github/clebert/cybernaut?branch=master
-[6]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
-[7]: https://github.com/semantic-release/semantic-release
-[8]: https://badges.greenkeeper.io/clebert/cybernaut.svg
-[9]: https://greenkeeper.io/
-[10]: https://raw.githubusercontent.com/clebert/cybernaut/master/example/example.png
-[11]: https://github.com/giggio/node-chromedriver
-[12]: https://github.com/tapjs/tap-mocha-reporter
-[13]: https://github.com/clebert/cybernaut/tree/master/example
-[14]: https://github.com/SeleniumHQ/selenium
-[15]: https://github.com/vladikoff/node-geckodriver
-[16]: https://github.com/SeleniumHQ/selenium/issues/3625
-[17]: https://img.shields.io/badge/TypeScript-friendly-blue.svg
-[18]: http://www.typescriptlang.org/
-[19]: https://github.com/clebert/cybernaut/blob/master/config-schema.json
-[20]: https://github.com/sindresorhus/deep-strict-equal
-[21]: https://www.docker.com/
-[22]: https://babeljs.io/
-[23]: https://palantir.github.io/tslint/
-[24]: https://palantir.github.io/tslint/rules/no-floating-promises/
-[25]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await
-[26]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
-[27]: https://nodejs.org/en/
-[28]: https://testanything.org/
-[29]: https://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html
-[30]: https://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/lib/input_exports_Key.html
-[31]: https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html
-[32]: https://www.martinfowler.com/articles/microservice-testing/#testing-end-to-end-tips
-[33]: https://github.com/isaacs/node-glob
-[34]: https://github.com/SeleniumHQ/selenium/wiki/DesiredCapabilities
+[babel]: https://babeljs.io/
+[chromedriver]: https://sites.google.com/a/chromium.org/chromedriver/home
+[config-schema]: https://github.com/clebert/cybernaut/blob/master/config-schema.json
+[coveralls]: https://coveralls.io/github/clebert/cybernaut?branch=master
+[coveralls-badge]: https://coveralls.io/repos/github/clebert/cybernaut/badge.svg?branch=master
+[deep-strict-equal]: https://github.com/sindresorhus/deep-strict-equal
+[docker]: https://www.docker.com/
+[docker-hub-chrome]: https://hub.docker.com/r/clebert/cybernaut-chrome/
+[docker-hub-clebert]: https://hub.docker.com/r/clebert/
+[docker-hub-firefox]: https://hub.docker.com/r/clebert/cybernaut-firefox/
+[docker-mount]: https://docs.docker.com/engine/tutorials/dockervolumes/#mount-a-host-directory-as-a-data-volume
+[emulating-mobile-devices-in-chrome]: https://github.com/clebert/cybernaut#emulating-mobile-devices-in-chrome
+[example]: https://github.com/clebert/cybernaut/tree/master/example
+[example-png]: https://raw.githubusercontent.com/clebert/cybernaut/master/example/example.png
+[greenkeeper]: https://greenkeeper.io/
+[greenkeeper-badge]: https://badges.greenkeeper.io/clebert/cybernaut.svg
+[link1]: https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html
+[link2]: https://www.martinfowler.com/articles/microservice-testing/#testing-end-to-end-tips
+[mdn-async]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
+[mdn-await]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await
+[mobile-emulation]: https://sites.google.com/a/chromium.org/chromedriver/mobile-emulation
+[node-chromedriver]: https://github.com/giggio/node-chromedriver
+[node-geckodriver]: https://github.com/vladikoff/node-geckodriver
+[node-glob]: https://github.com/isaacs/node-glob
+[nodejs]: https://nodejs.org/en/
+[npm]: https://www.npmjs.com/package/cybernaut
+[npm-badge]: https://img.shields.io/npm/v/cybernaut.svg?maxAge=3600
+[selenium]: https://github.com/SeleniumHQ/selenium
+[selenium-desired-capabilities]: https://github.com/SeleniumHQ/selenium/wiki/DesiredCapabilities
+[selenium-webdriver-key]: https://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/lib/input_exports_Key.html
+[selenium-webdriver-webelement]: https://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html
+[semantic-release]: https://github.com/semantic-release/semantic-release
+[semantic-release-badge]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
+[tap]: https://testanything.org/
+[tap-mocha-reporter]: https://github.com/tapjs/tap-mocha-reporter
+[travis-ci]: https://travis-ci.org/clebert/cybernaut
+[travis-ci-badge]: https://travis-ci.org/clebert/cybernaut.svg?branch=master
+[tslint]: https://palantir.github.io/tslint/
+[tslint-rule-no-floating-promises]: https://palantir.github.io/tslint/rules/no-floating-promises/
+[typescript]: http://www.typescriptlang.org/
+[typescript-badge]: https://img.shields.io/badge/TypeScript-friendly-blue.svg

@@ -1,0 +1,11 @@
+{
+  "capabilities": {
+    "browserName": "chrome",
+    "chromeOptions": {
+      "args": [
+        "--disable-gpu",
+        "--no-sandbox"
+      ]
+    }
+  }
+}
