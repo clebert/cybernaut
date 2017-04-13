@@ -1,37 +1,58 @@
 # Cybernaut Example
 
-![Example][1]
+![Example][example-png]
 
-If you want to run the example **locally** then Node.js is required in version 7 or higher. A tool such as [avn][0] can be used to automatically select the appropriate Node.js version.
+```js
+const {browser, defineElement, it, test} = require('cybernaut');
 
-## Chrome
+test('Star the "clebert/cybernaut" repository on GitHub', async t => {
+  await t.perform(browser.loadPage('https://github.com/clebert/cybernaut'));
 
-Run the example with your locally installed Chrome:
+  await t.assert(browser.pageTitle, it.should.contain('clebert/cybernaut'));
 
-```sh
-npm install && npm update && \
-npm run chrome
+  await t.perform(browser.takeScreenshot());
+
+  const switchToDesktopButton = defineElement('button.switch-to-desktop');
+
+  // When on the mobile version, then switch to the desktop version
+  if (await t.verify(switchToDesktopButton.visibility, it.should.equal(true))) {
+    await t.perform(switchToDesktopButton.click());
+  }
+
+  const starButton = defineElement(
+    'ul.pagehead-actions > li:nth-child(2) > a:nth-child(1)'
+  );
+
+  // The star button leads to a login form, so the project is not really starred
+  await t.perform(starButton.click());
+});
 ```
 
-Alternatively, run the example in a [Docker][2] container:
+The above example can be executed in a [Docker][docker] container,
+
+on Chrome:
 
 ```sh
-mkdir -p screenshots && \
-docker build -t clebert/cybernaut-example . && \
-docker run -ti --rm -v $(cd screenshots; pwd):/opt/cybernaut-example/screenshots clebert/cybernaut-example
+git clone https://github.com/clebert/cybernaut.git && cd cybernaut && \
+./example/docker-build.sh chrome && ./example/docker-run.sh chrome
 ```
 
-*Note: A `screenshots` directory is created and shared with the [Docker][2] container.*
-
-## Firefox
-
-Run the example with your locally installed Firefox:
+on Firefox:
 
 ```sh
-npm install && npm update && \
-npm run firefox
+git clone https://github.com/clebert/cybernaut.git && cd cybernaut && \
+./example/docker-build.sh firefox && ./example/docker-run.sh firefox
 ```
 
-[0]: https://github.com/wbyoung/avn
-[1]: https://raw.githubusercontent.com/clebert/cybernaut/master/example/example.png
-[2]: https://www.docker.com/
+on [iPhone 6 Plus][emulating-mobile-devices-in-chrome]:
+
+```sh
+git clone https://github.com/clebert/cybernaut.git && cd cybernaut && \
+./example/docker-build.sh iphone && ./example/docker-run.sh iphone
+```
+
+The captured screenshot can be found in the following directory: `./example/screenshots/`
+
+[docker]: https://www.docker.com/
+[emulating-mobile-devices-in-chrome]: https://github.com/clebert/cybernaut#emulating-mobile-devices-in-chrome
+[example-png]: https://raw.githubusercontent.com/clebert/cybernaut/master/example/example.png
