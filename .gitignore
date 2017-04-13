@@ -2,6 +2,13 @@
 .nyc_output
 coverage
 dist
+docker/cybernaut-chrome/cybernaut
+docker/cybernaut-chrome/cybernaut-xvfb
+docker/cybernaut-firefox/cybernaut
+docker/cybernaut-firefox/cybernaut-xvfb
+example/chrome/example.e2e.js
+example/firefox/example.e2e.js
+example/iphone/example.e2e.js
 node_modules
 npm-debug.log*
 screenshots

@@ -184,13 +184,13 @@ Cybernaut brings two fully configured Docker containers, which can be found on [
 One allows testing [on Chrome][docker-hub-chrome]:
 
 ```dockerfile
-FROM clebert/cybernaut-chrome
+FROM clebert/cybernaut-chrome:2.4.5
 ```
 
  the other [on Firefox][docker-hub-firefox]:
 
 ```dockerfile
-FROM clebert/cybernaut-firefox
+FROM clebert/cybernaut-firefox:2.4.5
 ```
 
 The test files must be copied into the `/opt/e2e-test/` directory inside the Docker container:
@@ -1383,9 +1383,9 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [coveralls-badge]: https://coveralls.io/repos/github/clebert/cybernaut/badge.svg?branch=master
 [deep-strict-equal]: https://github.com/sindresorhus/deep-strict-equal
 [docker]: https://www.docker.com/
-[docker-hub-chrome]: https://hub.docker.com/r/clebert/cybernaut-chrome/
+[docker-hub-chrome]: https://hub.docker.com/r/clebert/cybernaut-chrome/tags/
 [docker-hub-clebert]: https://hub.docker.com/r/clebert/
-[docker-hub-firefox]: https://hub.docker.com/r/clebert/cybernaut-firefox/
+[docker-hub-firefox]: https://hub.docker.com/r/clebert/cybernaut-firefox/tags/
 [docker-mount]: https://docs.docker.com/engine/tutorials/dockervolumes/#mount-a-host-directory-as-a-data-volume
 [emulating-mobile-devices-in-chrome]: https://github.com/clebert/cybernaut#emulating-mobile-devices-in-chrome
 [example]: https://github.com/clebert/cybernaut/tree/master/example

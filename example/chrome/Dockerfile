@@ -1,4 +1,4 @@
-FROM clebert/cybernaut-chrome
+FROM clebert/cybernaut-chrome:latest
 
 # The following file is copied into the Docker build context
 # by the script `example/docker-build.sh`
