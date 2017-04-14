@@ -13,6 +13,7 @@ mkdir -p "docker/cybernaut-$1/cybernaut" && \
 cp -f config-schema.json "docker/cybernaut-$1/cybernaut/config-schema.json" && \
 cp -rf dist "docker/cybernaut-$1/cybernaut/dist" && \
 cp -f package.json "docker/cybernaut-$1/cybernaut/package.json" && \
+cp -rf types "docker/cybernaut-$1/cybernaut/types" && \
 
 cp -f docker/cybernaut-xvfb "docker/cybernaut-$1/cybernaut-xvfb" && \
 

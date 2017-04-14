@@ -30,7 +30,7 @@
     "verbose": true
   },
   "lint-staged": {
-    "*.ts": [
+    "{src,types}/**/*.ts": [
       "tslint --config tslint.json --project tsconfig.json --type-check",
       "tsfmt --replace",
       "git add"
