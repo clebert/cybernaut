@@ -194,6 +194,7 @@ FROM clebert/cybernaut-firefox:2.4.5
 ```
 
 You can find a list of available tags for `cybernaut-chrome` [here][docker-hub-chrome-tags] and for `cybernaut-firefox` [here][docker-hub-firefox-tags].
+Each Docker tag corresponds to the same tag/version of [Cybernaut on npm][npm].
 
 The test files must be copied into the `/opt/e2e-test/` directory inside the Docker container:
 
