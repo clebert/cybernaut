@@ -1,4 +1,4 @@
-const {browser, defineElement, it, test} = require('cybernaut');
+import {browser, defineElement, it, test} from 'cybernaut';
 
 test('Star the "clebert/cybernaut" repository on GitHub', async t => {
   await t.perform(browser.loadPage('https://github.com/clebert/cybernaut'));
