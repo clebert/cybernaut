@@ -31,8 +31,8 @@
   },
   "lint-staged": {
     "{src,types}/**/*.ts": [
-      "tslint --config tslint.json --project tsconfig.json --type-check",
       "tsfmt --replace",
+      "tslint --config tslint.json --project tsconfig.json --type-check",
       "git add"
     ]
   },
