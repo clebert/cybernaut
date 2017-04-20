@@ -85,7 +85,7 @@
   "dependencies": {
     "@types/fs-extra": "0.0.37",
     "@types/mz": "0.0.31",
-    "@types/node": "7.0.12",
+    "@types/node": "7.0.13",
     "@types/proxyquire": "1.3.27",
     "ajv": "4.11.6",
     "debug": "2.6.3",
