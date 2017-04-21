@@ -1,5 +1,5 @@
 <p align="center">
-  <object type="image/svg+xml" height="200" data="./images/logo.svg" />
+  <img src="./images/logo.svg" style="height: 200px;" />
 </p>
 
 # Cybernaut
