@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./images/logo.svg" style="height: 200px;" />
+  <img src="https://rawgit.com/clebert/cybernaut/svg/images/logo.svg" height="200px" />
 </p>
 
 # Cybernaut
