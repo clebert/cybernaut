@@ -55,4 +55,4 @@ The captured screenshot can be found in the following directory: `./example/scre
 
 [docker]: https://www.docker.com/
 [emulating-mobile-devices-in-chrome]: https://github.com/clebert/cybernaut#emulating-mobile-devices-in-chrome
-[example-png]: https://raw.githubusercontent.com/clebert/cybernaut/master/example/example.png
+[example-png]: https://raw.githubusercontent.com/clebert/cybernaut/master/images/example.png

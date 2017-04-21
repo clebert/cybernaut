@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./images/logo.png" height="200px" />
+</p>
+
 # Cybernaut
 
 [![npm][npm-badge]][npm]
@@ -1392,7 +1396,7 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [docker-mount]: https://docs.docker.com/engine/tutorials/dockervolumes/#mount-a-host-directory-as-a-data-volume
 [emulating-mobile-devices-in-chrome]: https://github.com/clebert/cybernaut#emulating-mobile-devices-in-chrome
 [example]: https://github.com/clebert/cybernaut/tree/master/example
-[example-png]: https://raw.githubusercontent.com/clebert/cybernaut/master/example/example.png
+[example-png]: https://raw.githubusercontent.com/clebert/cybernaut/master/images/example.png
 [greenkeeper]: https://greenkeeper.io/
 [greenkeeper-badge]: https://badges.greenkeeper.io/clebert/cybernaut.svg
 [link1]: https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html
