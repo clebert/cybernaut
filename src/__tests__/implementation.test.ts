@@ -24,13 +24,7 @@ test.beforeEach(() => {
   stubs.Builder.returns({withCapabilities: stubs.withCapabilities});
   stubs.withCapabilities.returns({build: stubs.build});
   stubs.build.returns(driver = {manage: stubs.manage, quit: stubs.quit});
-  stubs.manage.returns({timeouts: stubs.timeouts});
-
-  stubs.timeouts.returns({
-    implicitlyWait: stubs.implicitlyWait,
-    pageLoadTimeout: stubs.pageLoadTimeout,
-    setScriptTimeout: stubs.setScriptTimeout
-  });
+  stubs.manage.returns({setTimeouts: stubs.setTimeouts});
 
   options = {
     capabilities: {browserName: 'chrome'},
@@ -43,7 +37,7 @@ test.beforeEach(() => {
 });
 
 test('`execute` should create a WebDriver and set its timeouts', async t => {
-  t.plan(15);
+  t.plan(10);
 
   await t.notThrows(execute(stubs.implementation, tap, options));
 
@@ -55,17 +49,13 @@ test('`execute` should create a WebDriver and set its timeouts', async t => {
 
   t.is(stubs.build.callCount, 1);
 
-  t.is(stubs.implicitlyWait.callCount, 1);
-  t.is(stubs.implicitlyWait.args[0][0], 300);
+  t.is(stubs.setTimeouts.callCount, 1);
 
-  t.is(stubs.pageLoadTimeout.callCount, 1);
-  t.is(stubs.pageLoadTimeout.args[0][0], 400);
+  t.deepEqual(stubs.setTimeouts.args[0][0], {
+    implicit: 300, pageLoad: 400, script: 500
+  });
 
-  t.is(stubs.setScriptTimeout.callCount, 1);
-  t.is(stubs.setScriptTimeout.args[0][0], 500);
-
-  t.is(stubs.manage.callCount, 3);
-  t.is(stubs.timeouts.callCount, 3);
+  t.is(stubs.manage.callCount, 1);
 
   t.is(stubs.quit.callCount, 1);
 });
@@ -92,38 +82,14 @@ test('`execute` should create a Test and call `implementation`', async t => {
   t.is(stubs.pass.args[0][0], 'baz');
 });
 
-test('`execute` should await `implicitlyWait`', async t => {
+test('`execute` should await `setTimeouts`', async t => {
   t.plan(4);
 
-  stubs.implicitlyWait.rejects(new Error('foo'));
+  stubs.setTimeouts.rejects(new Error('foo'));
 
   await t.throws(execute(stubs.implementation, tap, options), 'foo');
 
-  t.is(stubs.implicitlyWait.callCount, 1);
-  t.is(stubs.implementation.callCount, 0);
-  t.is(stubs.quit.callCount, 1);
-});
-
-test('`execute` should await `pageLoadTimeout`', async t => {
-  t.plan(4);
-
-  stubs.pageLoadTimeout.rejects(new Error('foo'));
-
-  await t.throws(execute(stubs.implementation, tap, options), 'foo');
-
-  t.is(stubs.pageLoadTimeout.callCount, 1);
-  t.is(stubs.implementation.callCount, 0);
-  t.is(stubs.quit.callCount, 1);
-});
-
-test('`execute` should await `setScriptTimeout`', async t => {
-  t.plan(4);
-
-  stubs.setScriptTimeout.rejects(new Error('foo'));
-
-  await t.throws(execute(stubs.implementation, tap, options), 'foo');
-
-  t.is(stubs.setScriptTimeout.callCount, 1);
+  t.is(stubs.setTimeouts.callCount, 1);
   t.is(stubs.implementation.callCount, 0);
   t.is(stubs.quit.callCount, 1);
 });
