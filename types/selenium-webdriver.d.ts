@@ -64,7 +64,7 @@ declare module 'selenium-webdriver' {
     getCookie(name: string): Promise<Cookie | null>;
     getCookies(): Promise<Cookie[]>;
     logs(): Logs;
-    timeouts(): Timeouts;
+    setTimeouts(timeouts: Timeouts): Promise<void>;
     window(): Window;
   }
 
@@ -92,11 +92,10 @@ declare module 'selenium-webdriver' {
     window(nameOrHandle: string): Promise<void>;
   }
 
-  // https://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_Timeouts.html
   interface Timeouts {
-    implicitlyWait(ms: number): Promise<void>;
-    pageLoadTimeout(ms: number): Promise<void>;
-    setScriptTimeout(ms: number): Promise<void>;
+    implicit?: number;
+    pageLoad?: number;
+    script?: number;
   }
 
   // https://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_Window.html

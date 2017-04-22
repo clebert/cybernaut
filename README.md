@@ -85,13 +85,10 @@ The captured screenshots can be found in the `./example/screenshots/` directory.
 npm install --save-dev cybernaut
 ```
 
-If the default configuration is used, Chrome and a matching version of [`chromedriver`][node-chromedriver] must also be installed:
+*Note: It is recommended to [run your end-to-end tests with Docker](#testing-with-docker).
+Otherwise, if the default configuration is used, a current version of Chrome must be installed.*
 
-```sh
-npm install --save-dev chromedriver
-```
-
-*Note: It is recommended to [run your end-to-end tests with Docker](#testing-with-docker).*
+*Cybernaut is tested with Chrome and Firefox and provides the latest drivers for these two.*
 
 ## [Usage](#contents)
 
@@ -115,6 +112,8 @@ npm install --save-dev tap-mocha-reporter
 $(npm bin)/cybernaut | $(npm bin)/tap-mocha-reporter spec
 ```
 
+[Here][tap-reporters] is a list of all available reporters.
+
 *Note: You can set the `DEBUG=cybernaut:*` environment variable to enable debug output.*
 
 ### [Configuring Cybernaut](#usage)
@@ -125,7 +124,6 @@ The following configuration is active by default:
 {
   "capabilities": {"browserName": "chrome"},
   "concurrency": 1,
-  "dependencies": ["chromedriver"],
   "exclude": ["**/node_modules/**/*"],
   "include": "**/*.e2e.js",
   "retries": 4,
@@ -138,8 +136,8 @@ The following configuration is active by default:
 Configuration options:
 
 * `capabilities`: Specifies the desired [WebDriver capabilities][selenium-desired-capabilities].
+* `capabilities.browserName`: Specifies the browser to use. For example: `"chrome"` or `"firefox"`
 * `concurrency`: Specifies the maximum number of end-to-end tests running at the same time.
-* `dependencies`: Specifies additional modules to be loaded.
 * `exclude`: Specifies the [glob patterns][node-glob], for which matching files will be removed from the set of test files.
 * `include`: Specifies the [glob pattern][node-glob], for which matching files will be added to the set of test files.
 * `retries`: Specifies the maximum number of retries of failed [test steps](#assert).
@@ -161,8 +159,7 @@ JSON file:
 
 ```json
 {
-  "capabilities": {"browserName": "firefox"},
-  "dependencies": ["geckodriver"]
+  "capabilities": {"browserName": "firefox"}
 }
 ```
 
@@ -170,35 +167,32 @@ or JavaScript module:
 
 ```js
 module.exports = {
-  capabilities: {browserName: 'firefox'},
-  dependencies: ['geckodriver']
+  capabilities: {browserName: 'firefox'}
 };
 ```
-
-*Note: Cybernaut uses [`selenium-webdriver@3.3.0`][selenium], which is incompatible with [`geckodriver@1.5.0`][node-geckodriver]. Until these incompatibilities have been solved, [`geckodriver@1.4.0`][node-geckodriver] must be used.*
 
 ### [Testing with Docker](#usage)
 
 End-to-end tests written with Cybernaut can be run in a Docker container.
 This has the advantage of being able to run them independently of the environment and under reproducible conditions.
 
-*Note: The included [examples][example] can serve as a reference implementation.*
+*Note: The provided [examples][example] can serve as a reference implementation.*
 
 Cybernaut brings two fully configured Docker containers, which can be found on [Docker Hub][docker-hub-clebert].
 One allows testing on Chrome:
 
 ```dockerfile
-FROM clebert/cybernaut-chrome:2.4.5
+FROM clebert/cybernaut-chrome:3.0.0
 ```
 
  the other on Firefox:
 
 ```dockerfile
-FROM clebert/cybernaut-firefox:2.4.5
+FROM clebert/cybernaut-firefox:3.0.0
 ```
 
 You can find a list of available tags for `cybernaut-chrome` [here][docker-hub-chrome-tags] and for `cybernaut-firefox` [here][docker-hub-firefox-tags].
-Each Docker tag corresponds to the same tag/version of [Cybernaut on npm][npm].
+Each Docker tag corresponds to the same tag/version of `cybernaut` on [npm][npm].
 
 The test files must be copied into the `/opt/e2e-test/` directory inside the Docker container:
 
@@ -234,18 +228,18 @@ Firefox default configuration:
 {
   "capabilities": {
     "browserName": "firefox"
-  },
-  "dependencies": [
-    "geckodriver"
-  ]
+  }
 }
 ```
 
-In addition, a default `CMD` instruction is configured to specify the virtual screen resolution and the reporter:
+In addition, a default `CMD` instruction is configured to specify the virtual screen resolution and the [reporter][tap-reporters]:
 
 ```dockerfile
 CMD ["1280x720", "spec"]
 ```
+
+*Note: [`tap-mocha-reporter`][tap-mocha-reporter] is used to format the TAP output.
+[Here][tap-reporters] is a list of all available reporters.*
 
 You can override it with your own `CMD` instruction or with CLI arguments for `docker run`:
 
@@ -264,7 +258,7 @@ Since a Docker container is not meant to preserve state and spawning a new one t
 
 ### [Emulating mobile devices in Chrome](#usage)
 
-[ChromeDriver][chromedriver] allows developers to emulate Chrome on a mobile device, by enabling the [Mobile Emulation][mobile-emulation] feature via the `mobileEmulation` capability. This feature speeds up web development, allows developers to quickly test how a website will render on a mobile device, without requiring a real device.
+The provided [ChromeDriver][chromedriver] allows developers to emulate Chrome on a mobile device, by enabling the [Mobile Emulation][mobile-emulation] feature via the `mobileEmulation` capability. This feature speeds up web development, allows developers to quickly test how a website will render on a mobile device, without requiring a real device.
 
 There are two ways in [ChromeDriver][chromedriver] to enable [Mobile Emulation][mobile-emulation]: by specifying a known device, or by specifying individual device attributes. The format of the `mobileEmulation` dictionary depends on which method is desired.
 
@@ -314,7 +308,7 @@ It is also possible to enable [Mobile Emulation][mobile-emulation] by specifying
 
 ### [Writing end-to-end tests](#usage)
 
-It is recommended to write end-to-end tests using [async functions][mdn-async], which are natively supported by [Node.js][nodejs] as of version 7. Alternatively, the test files must be transpiled using [TypeScript][typescript] or [Babel][babel].
+It is recommended to write end-to-end tests using [async functions][mdn-async], which are natively supported by [Node.js][nodejs] as of version 7. Alternatively, the test files must be compiled using [TypeScript][typescript] or [Babel][babel].
 
 If you write your end-to-end tests with [TypeScript][typescript], it is recommended to enable the [`no-floating-promises`][tslint-rule-no-floating-promises] [TSLint][tslint] rule. This can prevent the [`await`][mdn-await] operators from being forgotten.
 
@@ -1404,13 +1398,10 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [mdn-async]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
 [mdn-await]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await
 [mobile-emulation]: https://sites.google.com/a/chromium.org/chromedriver/mobile-emulation
-[node-chromedriver]: https://github.com/giggio/node-chromedriver
-[node-geckodriver]: https://github.com/vladikoff/node-geckodriver
 [node-glob]: https://github.com/isaacs/node-glob
 [nodejs]: https://nodejs.org/en/
 [npm]: https://www.npmjs.com/package/cybernaut
 [npm-badge]: https://img.shields.io/npm/v/cybernaut.svg?maxAge=3600
-[selenium]: https://github.com/SeleniumHQ/selenium
 [selenium-desired-capabilities]: https://github.com/SeleniumHQ/selenium/wiki/DesiredCapabilities
 [selenium-webdriver-key]: https://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/lib/input_exports_Key.html
 [selenium-webdriver-webelement]: https://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html
@@ -1418,6 +1409,7 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [semantic-release-badge]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
 [tap]: https://testanything.org/
 [tap-mocha-reporter]: https://github.com/tapjs/tap-mocha-reporter
+[tap-reporters]: https://github.com/tapjs/tap-mocha-reporter/tree/master/lib/reporters
 [travis-ci]: https://travis-ci.org/clebert/cybernaut
 [travis-ci-badge]: https://travis-ci.org/clebert/cybernaut.svg?branch=master
 [tslint]: https://palantir.github.io/tslint/

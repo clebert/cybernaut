@@ -32,15 +32,6 @@
       "minimum": 1,
       "multipleOf": 1
     },
-    "dependencies": {
-      "type": "array",
-      "minItems": 0,
-      "uniqueItems": true,
-      "items": {
-        "type": "string",
-        "minLength": 1
-      }
-    },
     "exclude": {
       "type": "array",
       "minItems": 0,

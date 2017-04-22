@@ -108,8 +108,12 @@ if (require.main !== module) {
 }
 
 try {
-  for (const dependency of config.dependencies) {
-    require(dependency);
+  const {browserName} = config.capabilities;
+
+  if (browserName === 'chrome') {
+    require('chromedriver');
+  } else if (browserName === 'firefox') {
+    require('geckodriver');
   }
 
   const filenames = sync(config.include, {

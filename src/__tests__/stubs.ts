@@ -27,13 +27,10 @@ export class ImplementationStubs {
   public readonly Test: Stub = stub();
   public readonly build: Stub = stub();
   public readonly implementation: Stub = stub();
-  public readonly implicitlyWait: Stub = stub();
   public readonly manage: Stub = stub();
-  public readonly pageLoadTimeout: Stub = stub();
   public readonly pass: Stub = stub();
   public readonly quit: Stub = stub();
-  public readonly setScriptTimeout: Stub = stub();
-  public readonly timeouts: Stub = stub();
+  public readonly setTimeouts: Stub = stub();
   public readonly withCapabilities: Stub = stub();
 }
 

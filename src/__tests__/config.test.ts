@@ -16,7 +16,6 @@ import {Config, loadConfig, validate} from '../config';
 const customConfig: Config = {
   capabilities: {browserName: 'foo'},
   concurrency: 123,
-  dependencies: ['foo'],
   exclude: ['bar'],
   include: 'foo',
   retries: 456,
@@ -28,7 +27,6 @@ const customConfig: Config = {
 const defaultConfig: Config = {
   capabilities: {browserName: 'chrome'},
   concurrency: 1,
-  dependencies: ['chromedriver'],
   exclude: ['**/node_modules/**/*'],
   include: '**/*.e2e.js',
   retries: 4,
@@ -100,7 +98,7 @@ test('`loadConfig` should throw an error', t => {
 });
 
 test('`validate` should return no errors', t => {
-  t.plan(4);
+  t.plan(3);
 
   let config: any = defaultConfig;
 
@@ -113,11 +111,6 @@ test('`validate` should return no errors', t => {
 
   t.deepEqual(validate(config), []);
 
-  // schema.properties.dependencies.minItems
-  config = {...defaultConfig, dependencies: []};
-
-  t.deepEqual(validate(config), []);
-
   // schema.properties.exclude.minItems
   config = {...defaultConfig, exclude: []};
 
@@ -125,7 +118,7 @@ test('`validate` should return no errors', t => {
 });
 
 test('`validate` should return errors', t => {
-  t.plan(39);
+  t.plan(35);
 
   // schema.type
   let config: any = [];
@@ -138,7 +131,6 @@ test('`validate` should return errors', t => {
   t.deepEqual(validate(config), [
     'config should have required property \'capabilities\'',
     'config should have required property \'concurrency\'',
-    'config should have required property \'dependencies\'',
     'config should have required property \'exclude\'',
     'config should have required property \'include\'',
     'config should have required property \'retries\'',
@@ -194,35 +186,6 @@ test('`validate` should return errors', t => {
   config = {...defaultConfig, concurrency: 123.5};
 
   t.deepEqual(validate(config), ['config.concurrency should be multiple of 1']);
-
-  /****************************************************************************/
-
-  // schema.properties.dependencies.type
-  config = {...defaultConfig, dependencies: {}};
-
-  t.deepEqual(validate(config), ['config.dependencies should be array']);
-
-  // schema.properties.dependencies.uniqueItems
-  config = {...defaultConfig, dependencies: ['foo', 'foo']};
-
-  t.deepEqual(validate(config), [
-    'config.dependencies should NOT have duplicate items ' +
-    '(items ## 0 and 1 are identical)'
-  ]);
-
-  /****************************************************************************/
-
-  // schema.properties.dependencies.items.type
-  config = {...defaultConfig, dependencies: [123]};
-
-  t.deepEqual(validate(config), ['config.dependencies[0] should be string']);
-
-  // schema.properties.dependencies.items.minLength
-  config = {...defaultConfig, dependencies: ['']};
-
-  t.deepEqual(validate(config), [
-    'config.dependencies[0] should NOT be shorter than 1 characters'
-  ]);
 
   /****************************************************************************/
 

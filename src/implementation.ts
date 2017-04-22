@@ -41,9 +41,11 @@ export async function execute(
   try {
     debug('manage timeout behavior for the newly created WebDriver instance');
 
-    await driver.manage().timeouts().implicitlyWait(timeouts.element);
-    await driver.manage().timeouts().pageLoadTimeout(timeouts.page);
-    await driver.manage().timeouts().setScriptTimeout(timeouts.script);
+    await driver.manage().setTimeouts({
+      implicit: timeouts.element,
+      pageLoad: timeouts.page,
+      script: timeouts.script
+    });
 
     debug('execute test implementation');
 

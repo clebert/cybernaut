@@ -2,6 +2,10 @@ import Ajv = require('ajv');
 
 import {resolve} from 'path';
 
+export interface Capabilities {
+  readonly browserName: string;
+}
+
 export interface Timeouts {
   readonly element: number;
   readonly page: number;
@@ -9,9 +13,8 @@ export interface Timeouts {
 }
 
 export interface Config {
-  readonly capabilities: object;
+  readonly capabilities: Capabilities;
   readonly concurrency: number;
-  readonly dependencies: string[];
   readonly exclude: string[];
   readonly include: string;
   readonly retries: number;
@@ -23,7 +26,6 @@ export interface Config {
 const defaultConfig: Config = {
   capabilities: {browserName: 'chrome'},
   concurrency: 1,
-  dependencies: ['chromedriver'],
   exclude: ['**/node_modules/**/*'],
   include: '**/*.e2e.js',
   retries: 4,
