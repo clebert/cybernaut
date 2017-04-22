@@ -2,6 +2,7 @@
 
 /// <reference path="../types/index.d.ts" />
 
+import createDebug = require('debug');
 import tap = require('tap');
 
 import {sync} from 'glob';
@@ -29,6 +30,8 @@ export {
   Script,
   Test
 };
+
+const debug = createDebug('cybernaut:index');
 
 let config: Config = {} as any; // tslint:disable-line no-any
 
@@ -111,8 +114,12 @@ try {
   const {browserName} = config.capabilities;
 
   if (browserName === 'chrome') {
+    debug('load chromedriver');
+
     require('chromedriver');
   } else if (browserName === 'firefox') {
+    debug('load geckodriver');
+
     require('geckodriver');
   }
 
@@ -121,6 +128,8 @@ try {
   });
 
   for (const filename of filenames) {
+    debug('load test file:', filename);
+
     require(filename);
   }
 } catch (e) {

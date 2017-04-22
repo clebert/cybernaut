@@ -1,4 +1,5 @@
 import Ajv = require('ajv');
+import createDebug = require('debug');
 
 import {resolve} from 'path';
 
@@ -23,6 +24,8 @@ export interface Config {
   readonly timeouts: Timeouts;
 }
 
+const debug = createDebug('cybernaut:config');
+
 const defaultConfig: Config = {
   capabilities: {browserName: 'chrome'},
   concurrency: 1,
@@ -39,7 +42,15 @@ export function loadConfig(
   /* istanbul ignore next */
   _require: typeof require = require
 ): Config {
-  const customConfig = filename ? _require(resolve(filename)) : {};
+  filename = filename ? resolve(filename) : '';
+
+  if (filename) {
+    debug('load custom config:', filename);
+  } else {
+    debug('load default config');
+  }
+
+  const customConfig = filename ? _require(filename) : {};
 
   return {...defaultConfig, ...customConfig};
 }
