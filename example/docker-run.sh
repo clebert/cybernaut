@@ -7,4 +7,4 @@ fi
 
 mkdir -p example/screenshots && \
 
-docker run -ti --rm -v $(cd example/screenshots; pwd):/opt/e2e-test/screenshots -v /dev/shm:/dev/shm "clebert/cybernaut-$1-example"
+docker run -ti --rm -v $(cd example/screenshots; pwd):/opt/e2e-test/screenshots -v /dev/shm:/dev/shm -e DEBUG=$DEBUG "clebert/cybernaut-$1-example"

@@ -111,7 +111,11 @@ npm install --save-dev tap-mocha-reporter
 $(npm bin)/cybernaut | $(npm bin)/tap-mocha-reporter spec
 ```
 
-*Note: You can set the `DEBUG=cybernaut:*` environment variable to enable debug output.*
+To enable debug output, you can set the `DEBUG=cybernaut:*` environment variable:
+
+```sh
+DEBUG=cybernaut:* $(npm bin)/cybernaut
+```
 
 ### [Configuring Cybernaut](#usage)
 
@@ -248,6 +252,12 @@ In order to get access to the captured screenshots, a local screenshots director
 
 ```sh
 docker run -ti --rm -v $(cd example/screenshots; pwd):/opt/e2e-test/screenshots -v /dev/shm:/dev/shm clebert/cybernaut-chrome-example
+```
+
+To enable debug output, you can set the `DEBUG=cybernaut:*` environment variable:
+
+```sh
+docker run -ti --rm -v /dev/shm:/dev/shm -e DEBUG=cybernaut:* clebert/cybernaut-chrome-example
 ```
 
 *Note: When executing docker run for an image with chrome browser please add `-v /dev/shm:/dev/shm` [volume mount][docker-mount] to use the host's shared memory.

@@ -76,7 +76,7 @@
     "prerelease": "npm run build:sources",
     "release": "semantic-release pre && npm publish && semantic-release post",
     "pretest": "npm run build:example",
-    "test": "conventional-changelog-lint --from=HEAD~1 && npm run check && DEBUG=cybernaut:* nyc ava && ./example/docker-run.sh chrome && ./example/docker-run.sh firefox && ./example/docker-run.sh iphone",
+    "test": "conventional-changelog-lint --from=HEAD~1 && npm run check && export DEBUG=cybernaut:* && nyc ava && ./example/docker-run.sh chrome && ./example/docker-run.sh firefox && ./example/docker-run.sh iphone",
     "prewatch": "npm run build:sources",
     "watch": "run-p --continue-on-error watch:*",
     "watch:sources": "tsc --project . --watch",
