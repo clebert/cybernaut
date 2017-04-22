@@ -1,8 +1,8 @@
+# Cybernaut
+
 <p align="center">
   <img height="200px" src="https://clebert.github.io/cybernaut/logo.svg" />
 </p>
-
-# Cybernaut
 
 [![npm][npm-badge]][npm]
 [![build][travis-ci-badge]][travis-ci]
@@ -86,9 +86,8 @@ npm install --save-dev cybernaut
 ```
 
 *Note: It is recommended to [run your end-to-end tests with Docker](#testing-with-docker).
-Otherwise, if the default configuration is used, a current version of Chrome must be installed.*
-
-*Cybernaut is tested with Chrome and Firefox and provides the latest drivers for these two.*
+Otherwise, if the default configuration is used, a current version of Chrome must be installed.
+Cybernaut is tested with Chrome and Firefox and **provides** the latest drivers for these two.*
 
 ## [Usage](#contents)
 
@@ -111,8 +110,6 @@ npm install --save-dev tap-mocha-reporter
 ```sh
 $(npm bin)/cybernaut | $(npm bin)/tap-mocha-reporter spec
 ```
-
-[Here][tap-reporters] is a list of all available reporters.
 
 *Note: You can set the `DEBUG=cybernaut:*` environment variable to enable debug output.*
 
