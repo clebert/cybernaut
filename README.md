@@ -1,8 +1,8 @@
+# Cybernaut
+
 <p align="center">
   <img height="200px" src="https://clebert.github.io/cybernaut/logo.svg" />
 </p>
-
-# Cybernaut
 
 [![npm][npm-badge]][npm]
 [![build][travis-ci-badge]][travis-ci]
