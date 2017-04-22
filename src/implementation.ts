@@ -34,12 +34,12 @@ export async function execute(
 ): Promise<void> {
   const {capabilities, timeouts} = options;
 
-  debug('create a new WebDriver instance');
+  debug('create browser session');
 
   const driver = await new Builder().withCapabilities(capabilities).build();
 
   try {
-    debug('manage timeout behavior for the newly created WebDriver instance');
+    debug('manage timeout behavior');
 
     await driver.manage().setTimeouts({
       implicit: timeouts.element,
@@ -51,6 +51,8 @@ export async function execute(
 
     await implementation(new TapTest(driver, tap, options));
   } finally {
+    debug('terminate browser session');
+
     await driver.quit();
   }
 }
