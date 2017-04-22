@@ -85,7 +85,10 @@ The captured screenshots can be found in the `./example/screenshots/` directory.
 npm install --save-dev cybernaut
 ```
 
-*Note: It is recommended to [run your end-to-end tests with Docker](#testing-with-docker).*
+*Note: It is recommended to [run your end-to-end tests with Docker](#testing-with-docker).
+Otherwise, if the default configuration is used, a current version of Chrome must be installed.*
+
+*Cybernaut is tested with Chrome and Firefox and provides the latest drivers for these two.*
 
 ## [Usage](#contents)
 
@@ -134,9 +137,6 @@ Configuration options:
 
 * `capabilities`: Specifies the desired [WebDriver capabilities][selenium-desired-capabilities].
 * `capabilities.browserName`: Specifies the browser to use. For example: `"chrome"` or `"firefox"`
-
-*Note: Cybernaut is tested with Chrome and Firefox and provides the latest drivers for these two.*
-
 * `concurrency`: Specifies the maximum number of end-to-end tests running at the same time.
 * `exclude`: Specifies the [glob patterns][node-glob], for which matching files will be removed from the set of test files.
 * `include`: Specifies the [glob pattern][node-glob], for which matching files will be added to the set of test files.
@@ -192,7 +192,7 @@ FROM clebert/cybernaut-firefox:3.0.0
 ```
 
 You can find a list of available tags for `cybernaut-chrome` [here][docker-hub-chrome-tags] and for `cybernaut-firefox` [here][docker-hub-firefox-tags].
-Each Docker tag corresponds to the same tag/version of [Cybernaut on npm][npm].
+Each Docker tag corresponds to the same tag/version of `cybernaut` on [npm][npm].
 
 The test files must be copied into the `/opt/e2e-test/` directory inside the Docker container:
 
