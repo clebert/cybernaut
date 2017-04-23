@@ -20,15 +20,17 @@ function createTestName(method: string, result: string): string {
 }
 
 let element: Element;
+let namedElement: Element;
 
 test.beforeEach(() => {
   resetAll(stubs);
 
   element = new Element('selector');
+  namedElement = new Element('selector', 'name');
 });
 
 test(createTestName('tagName', 'accessor'), async t => {
-  t.plan(5);
+  t.plan(6);
 
   const accessor = element.tagName;
 
@@ -43,10 +45,14 @@ test(createTestName('tagName', 'accessor'), async t => {
   t.deepEqual(findElement.args[0][0], By.css('selector'));
 
   t.is(getTagName.callCount, 1);
+
+  t.is(
+    format(namedElement.tagName.description), 'tag name of name \'selector\''
+  );
 });
 
 test(createTestName('text', 'accessor'), async t => {
-  t.plan(5);
+  t.plan(6);
 
   const accessor = element.text;
 
@@ -61,10 +67,12 @@ test(createTestName('text', 'accessor'), async t => {
   t.deepEqual(findElement.args[0][0], By.css('selector'));
 
   t.is(getText.callCount, 1);
+
+  t.is(format(namedElement.text.description), 'text of name \'selector\'');
 });
 
 test(createTestName('visibility', 'accessor'), async t => {
-  t.plan(5);
+  t.plan(6);
 
   const accessor = element.visibility;
 
@@ -79,10 +87,15 @@ test(createTestName('visibility', 'accessor'), async t => {
   t.deepEqual(findElement.args[0][0], By.css('selector'));
 
   t.is(isDisplayed.callCount, 1);
+
+  t.is(
+    format(namedElement.visibility.description),
+    'visibility of name \'selector\''
+  );
 });
 
 test(createTestName('x', 'accessor'), async t => {
-  t.plan(5);
+  t.plan(6);
 
   const accessor = element.x;
 
@@ -97,10 +110,12 @@ test(createTestName('x', 'accessor'), async t => {
   t.deepEqual(findElement.args[0][0], By.css('selector'));
 
   t.is(getLocation.callCount, 1);
+
+  t.is(format(namedElement.x.description), 'x-position of name \'selector\'');
 });
 
 test(createTestName('y', 'accessor'), async t => {
-  t.plan(5);
+  t.plan(6);
 
   const accessor = element.y;
 
@@ -115,10 +130,12 @@ test(createTestName('y', 'accessor'), async t => {
   t.deepEqual(findElement.args[0][0], By.css('selector'));
 
   t.is(getLocation.callCount, 1);
+
+  t.is(format(namedElement.y.description), 'y-position of name \'selector\'');
 });
 
 test(createTestName('width', 'accessor'), async t => {
-  t.plan(5);
+  t.plan(6);
 
   const accessor = element.width;
 
@@ -133,10 +150,12 @@ test(createTestName('width', 'accessor'), async t => {
   t.deepEqual(findElement.args[0][0], By.css('selector'));
 
   t.is(getSize.callCount, 1);
+
+  t.is(format(namedElement.width.description), 'width of name \'selector\'');
 });
 
 test(createTestName('height', 'accessor'), async t => {
-  t.plan(5);
+  t.plan(6);
 
   const accessor = element.height;
 
@@ -151,10 +170,12 @@ test(createTestName('height', 'accessor'), async t => {
   t.deepEqual(findElement.args[0][0], By.css('selector'));
 
   t.is(getSize.callCount, 1);
+
+  t.is(format(namedElement.height.description), 'height of name \'selector\'');
 });
 
 test(createTestName('cssValue', 'accessor'), async t => {
-  t.plan(6);
+  t.plan(7);
 
   const accessor = element.cssValue('cssName');
 
@@ -173,10 +194,15 @@ test(createTestName('cssValue', 'accessor'), async t => {
 
   t.is(getCssValue.callCount, 1);
   t.is(getCssValue.args[0][0], 'cssName');
+
+  t.is(
+    format(namedElement.cssValue('cssName').description),
+    'css value \'cssName\' of name \'selector\''
+  );
 });
 
 test(createTestName('propertyValue', 'accessor'), async t => {
-  t.plan(6);
+  t.plan(7);
 
   const accessor = element.propertyValue('propertyName');
 
@@ -195,10 +221,15 @@ test(createTestName('propertyValue', 'accessor'), async t => {
 
   t.is(getAttribute.callCount, 1);
   t.is(getAttribute.args[0][0], 'propertyName');
+
+  t.is(
+    format(namedElement.propertyValue('propertyName').description),
+    'property value \'propertyName\' of name \'selector\''
+  );
 });
 
 test(createTestName('clearValue', 'action'), async t => {
-  t.plan(5);
+  t.plan(6);
 
   const action = element.clearValue();
 
@@ -213,10 +244,15 @@ test(createTestName('clearValue', 'action'), async t => {
   t.deepEqual(findElement.args[0][0], By.css('selector'));
 
   t.is(clear.callCount, 1);
+
+  t.is(
+    format(namedElement.clearValue().description),
+    'clear value of name \'selector\''
+  );
 });
 
 test(createTestName('click', 'action'), async t => {
-  t.plan(5);
+  t.plan(6);
 
   const action = element.click();
 
@@ -231,10 +267,12 @@ test(createTestName('click', 'action'), async t => {
   t.deepEqual(findElement.args[0][0], By.css('selector'));
 
   t.is(click.callCount, 1);
+
+  t.is(format(namedElement.click().description), 'click on name \'selector\'');
 });
 
 test(createTestName('sendKeys', 'action'), async t => {
-  t.plan(12);
+  t.plan(13);
 
   stubs.translate.onFirstCall().returns('Key.CONTROL');
   stubs.translate.onSecondCall().returns('a');
@@ -264,10 +302,21 @@ test(createTestName('sendKeys', 'action'), async t => {
   t.is(sendKeys.args[0][0], Key.CONTROL);
   t.is(sendKeys.args[0][1], 'a');
   t.is(sendKeys.args[0][2], Key.NULL);
+
+  stubs.translate.reset();
+
+  stubs.translate.onFirstCall().returns('Key.CONTROL');
+  stubs.translate.onSecondCall().returns('a');
+  stubs.translate.onThirdCall().returns('Key.NULL');
+
+  t.is(
+    format(namedElement.sendKeys(Key.CONTROL, 'a', Key.NULL).description),
+    'send keys [ \'Key.CONTROL\', \'a\', \'Key.NULL\' ] to name \'selector\''
+  );
 });
 
 test(createTestName('submitForm', 'action'), async t => {
-  t.plan(5);
+  t.plan(6);
 
   const action = element.submitForm();
 
@@ -284,4 +333,9 @@ test(createTestName('submitForm', 'action'), async t => {
   t.deepEqual(findElement.args[0][0], By.css('selector'));
 
   t.is(submit.callCount, 1);
+
+  t.is(
+    format(namedElement.submitForm().description),
+    'submit form containing name \'selector\''
+  );
 });
