@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 set -e
 
@@ -19,7 +19,7 @@ cp -rf types "docker/cybernaut-$1/cybernaut/types"
 
 cp -f scripts/lib/cybernaut-xvfb.sh "docker/cybernaut-$1/cybernaut-xvfb.sh"
 
-if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ -n "$VERSION" ]; then
+if [ -n "$VERSION" ]; then
   echo "Determined version $VERSION"
 
   docker build -t "clebert/cybernaut-$1:latest" -t "clebert/cybernaut-$1:$VERSION" "docker/cybernaut-$1"
