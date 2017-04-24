@@ -7,8 +7,8 @@ RUN apt-get update && apt-get install -y google-chrome-stable libgconf-2-4 xvfb
 
 RUN npm install -g tap-mocha-reporter
 
-COPY cybernaut-xvfb /opt/cybernaut-xvfb
-RUN ln -fs /opt/cybernaut-xvfb /usr/local/bin/cybernaut-xvfb
+COPY cybernaut-xvfb.sh /opt/cybernaut-xvfb.sh
+RUN ln -fs /opt/cybernaut-xvfb.sh /usr/local/bin/cybernaut-xvfb
 
 COPY config.json /opt/config.json
 

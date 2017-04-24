@@ -36,21 +36,21 @@ on Chrome:
 
 ```sh
 git clone https://github.com/clebert/cybernaut.git && cd cybernaut && \
-./example/docker-build.sh chrome && ./example/docker-run.sh chrome
+./scripts/docker/build-example.sh chrome && ./scripts/docker/run-example.sh chrome
 ```
 
 on Firefox:
 
 ```sh
 git clone https://github.com/clebert/cybernaut.git && cd cybernaut && \
-./example/docker-build.sh firefox && ./example/docker-run.sh firefox
+./scripts/docker/build-example.sh firefox && ./scripts/docker/run-example.sh firefox
 ```
 
 on [iPhone 6 Plus][emulating-mobile-devices-in-chrome]:
 
 ```sh
 git clone https://github.com/clebert/cybernaut.git && cd cybernaut && \
-./example/docker-build.sh iphone && ./example/docker-run.sh iphone
+./scripts/docker/build-example.sh iphone && ./scripts/docker/run-example.sh iphone
 ```
 
 The captured screenshot can be found in the following directory: `./example/screenshots/`

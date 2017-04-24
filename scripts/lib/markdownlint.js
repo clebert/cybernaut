@@ -1,10 +1,12 @@
+#!/usr/bin/env node
+
 'use strict';
 
 const markdownlint = require('markdownlint');
 
 const options = {
   files: ['README.md', 'example/README.md'],
-  config: require('./.markdownlint.json')
+  config: require('../../.markdownlint.json')
 };
 
 markdownlint(options, (error, result) => {
