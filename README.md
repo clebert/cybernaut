@@ -1359,6 +1359,8 @@ test('foo', async t => {
 npm install
 ```
 
+*Note: Please also install [Docker][docker].*
+
 ### Watching unit tests
 
 ```sh
