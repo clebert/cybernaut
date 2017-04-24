@@ -4,6 +4,15 @@
   "description": "Reliable, zero configuration end-to-end testing in BDD-style.",
   "license": "MIT",
   "author": "Clemens Akens <clebert@me.com>",
+  "keywords": [
+    "bdd",
+    "e2e",
+    "end-to-end",
+    "selenium",
+    "test",
+    "testing",
+    "webdriver"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/clebert/cybernaut.git"
