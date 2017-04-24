@@ -49,21 +49,21 @@ on Chrome:
 
 ```sh
 git clone https://github.com/clebert/cybernaut.git && cd cybernaut && \
-./example/docker-build.sh chrome && ./example/docker-run.sh chrome
+./scripts/docker/build-example.sh chrome && ./scripts/docker/run-example.sh chrome
 ```
 
 on Firefox:
 
 ```sh
 git clone https://github.com/clebert/cybernaut.git && cd cybernaut && \
-./example/docker-build.sh firefox && ./example/docker-run.sh firefox
+./scripts/docker/build-example.sh firefox && ./scripts/docker/run-example.sh firefox
 ```
 
 on [iPhone 6 Plus][emulating-mobile-devices-in-chrome]:
 
 ```sh
 git clone https://github.com/clebert/cybernaut.git && cd cybernaut && \
-./example/docker-build.sh iphone && ./example/docker-run.sh iphone
+./scripts/docker/build-example.sh iphone && ./scripts/docker/run-example.sh iphone
 ```
 
 The captured screenshots can be found in the `./example/screenshots/` directory.
@@ -247,19 +247,19 @@ CMD ["1280x720", "spec"]
 You can override it with your own `CMD` instruction or with CLI arguments for `docker run`:
 
 ```sh
-docker run -ti --rm -v /dev/shm:/dev/shm clebert/cybernaut-chrome-example 1920x1080 dot
+docker run -it --rm -v /dev/shm:/dev/shm clebert/cybernaut-chrome-example 1920x1080 dot
 ```
 
 In order to get access to the captured screenshots, a local screenshots directory can be [mounted][docker-mount] into the `/opt/e2e-test/` directory inside the Docker container:
 
 ```sh
-docker run -ti --rm -v $(cd example/screenshots; pwd):/opt/e2e-test/screenshots -v /dev/shm:/dev/shm clebert/cybernaut-chrome-example
+docker run -it --rm -v $(cd example/screenshots; pwd):/opt/e2e-test/screenshots -v /dev/shm:/dev/shm clebert/cybernaut-chrome-example
 ```
 
 To enable debug output, you can set the `DEBUG=cybernaut:*` environment variable:
 
 ```sh
-docker run -ti --rm -v /dev/shm:/dev/shm -e DEBUG=cybernaut:* clebert/cybernaut-chrome-example
+docker run -it --rm -v /dev/shm:/dev/shm -e DEBUG=cybernaut:* clebert/cybernaut-chrome-example
 ```
 
 *Note: When executing docker run for an image with chrome browser please add `-v /dev/shm:/dev/shm` [volume mount][docker-mount] to use the host's shared memory.
@@ -1359,10 +1359,22 @@ test('foo', async t => {
 npm install
 ```
 
-### Watching sources and unit tests
+### Watching unit tests
 
 ```sh
 npm run watch
+```
+
+### Running unit tests (w/o watching)
+
+```sh
+npm test
+```
+
+### Running examples with Docker
+
+```sh
+npm run examples
 ```
 
 ### Checking for formatting and linting errors

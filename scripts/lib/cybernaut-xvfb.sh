@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+set -e
 
 if [ -z "$1" ]; then
   echo 'Missing argument: screen size'
@@ -12,7 +14,7 @@ fi
 
 echo "Setting screen size to '$1'";
 
-Xvfb :99 -screen 0 $1x16 &
+Xvfb :99 -screen 0 "$1x16" &
 
 export DISPLAY=:99
 
@@ -22,4 +24,4 @@ export DBUS_SESSION_BUS_ADDRESS=/dev/null
 cybernaut /opt/config.json | tap-mocha-reporter "$2"
 
 # http://stackoverflow.com/a/90435
-exit ${PIPESTATUS[0]}
+exit "${PIPESTATUS[0]}"
