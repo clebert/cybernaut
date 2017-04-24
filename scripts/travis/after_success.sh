@@ -1,12 +1,6 @@
 #!/usr/bin/env sh
 
-set -e
-
-./scripts/check.sh
-./scripts/compile.sh
-./scripts/test.sh
-./scripts/build.sh
-./scripts/examples.sh
+set -e -x
 
 if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
   ./scripts/docker/push-cybernaut.sh chrome
