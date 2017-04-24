@@ -11,7 +11,7 @@
 [![Greenkeeper][greenkeeper-badge]][greenkeeper]
 [![TypeScript][typescript-badge]][typescript]
 
-Reliable, zero configuration end-to-end testing in BDD-style.
+> Reliable, zero configuration end-to-end testing in BDD-style.
 
 [![Example][example-png]][example]
 
@@ -1138,7 +1138,7 @@ test('foo', async t => {
 >
 > - The end of the keysequence is encountered. When there are no more keys to type, all depressed modifier keys are released (with accompanying keyup events).
 >
-> -- *[selenium-webdriver.WebElement][selenium-webdriver-webelement]*
+> — *[selenium-webdriver.WebElement][selenium-webdriver-webelement]*
 
 *Note: The `WebElement` of `selenium-webdriver` is used internally, but is not accessible from the outside.*
 
