@@ -11,9 +11,11 @@
 [![Greenkeeper][greenkeeper-badge]][greenkeeper]
 [![TypeScript][typescript-badge]][typescript]
 
-Reliable, zero configuration end-to-end testing in BDD-style.
+> Reliable, zero configuration end-to-end testing in BDD-style.
 
 [![Example][example-png]][example]
+
+[WYSIWYM][WYSIWYM]—the above **human-readable** test output corresponds to what is programmed:
 
 ```js
 const {browser, defineElement, it, test} = require('cybernaut');
@@ -43,7 +45,7 @@ test('Star the "clebert/cybernaut" repository on GitHub', async t => {
 });
 ```
 
-The above [example][example] can be executed in a [Docker][docker] container,
+This [example][example] can be easily executed in a [Docker][docker] container,
 
 on Chrome:
 
@@ -1136,7 +1138,7 @@ test('foo', async t => {
 >
 > - The end of the keysequence is encountered. When there are no more keys to type, all depressed modifier keys are released (with accompanying keyup events).
 >
-> -- *[selenium-webdriver.WebElement][selenium-webdriver-webelement]*
+> — *[selenium-webdriver.WebElement][selenium-webdriver-webelement]*
 
 *Note: The `WebElement` of `selenium-webdriver` is used internally, but is not accessible from the outside.*
 
@@ -1439,3 +1441,4 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [tslint-rule-no-floating-promises]: https://palantir.github.io/tslint/rules/no-floating-promises/
 [typescript]: http://www.typescriptlang.org/
 [typescript-badge]: https://img.shields.io/badge/TypeScript-friendly-blue.svg
+[WYSIWYM]: https://en.wikipedia.org/wiki/WYSIWYM
