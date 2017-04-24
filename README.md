@@ -15,6 +15,8 @@ Reliable, zero configuration end-to-end testing in BDD-style.
 
 [![Example][example-png]][example]
 
+[WYSIWYG][WYSIWYG]—the above **human-readable** test output corresponds to what is programmed:
+
 ```js
 const {browser, defineElement, it, test} = require('cybernaut');
 
@@ -1439,3 +1441,4 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [tslint-rule-no-floating-promises]: https://palantir.github.io/tslint/rules/no-floating-promises/
 [typescript]: http://www.typescriptlang.org/
 [typescript-badge]: https://img.shields.io/badge/TypeScript-friendly-blue.svg
+[WYSIWYG]: https://en.wikipedia.org/wiki/WYSIWYG
