@@ -1,7 +1,5 @@
-# Cybernaut
-
 <p align="center">
-  <img height="200px" src="https://clebert.github.io/cybernaut/logo.svg" />
+  <img height="300px" src="https://clebert.github.io/cybernaut/logo.svg" />
 </p>
 
 [![npm][npm-badge]][npm]
