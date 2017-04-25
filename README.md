@@ -1,4 +1,4 @@
-# <img height="300px" src="https://clebert.github.io/cybernaut/logo.svg" />
+# ![Cybernaut][logo-svg]
 
 [![npm][npm-badge]][npm]
 [![build][travis-ci-badge]][travis-ci]
@@ -1416,6 +1416,7 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [greenkeeper-badge]: https://badges.greenkeeper.io/clebert/cybernaut.svg
 [link1]: https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html
 [link2]: https://www.martinfowler.com/articles/microservice-testing/#testing-end-to-end-tips
+[logo-svg]: https://clebert.github.io/cybernaut/logo.svg
 [mdn-async]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
 [mdn-await]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await
 [mobile-emulation]: https://sites.google.com/a/chromium.org/chromedriver/mobile-emulation
