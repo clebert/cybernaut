@@ -1,6 +1,4 @@
-<p align="center">
-  <img height="300px" src="https://clebert.github.io/cybernaut/logo.svg" />
-</p>
+# <img height="300px" src="https://clebert.github.io/cybernaut/logo.svg" />
 
 [![npm][npm-badge]][npm]
 [![build][travis-ci-badge]][travis-ci]
