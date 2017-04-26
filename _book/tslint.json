@@ -1,7 +1,0 @@
-{
-  "extends": "./node_modules/ts-config/tslint.json",
-  "rules": {
-    "no-reference": false,
-    "no-var-requires": false
-  }
-}
