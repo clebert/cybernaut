@@ -1,0 +1,29 @@
+# Glossary
+
+## [Babel](https://babeljs.io/)
+
+## [ChromeDriver](https://sites.google.com/a/chromium.org/chromedriver/home)
+
+## [Chrome](https://www.google.com/chrome/browser/desktop/index.html)
+
+## [CLI](https://en.wikipedia.org/wiki/Command-line_interface)
+
+## [deep-strict-equal](https://github.com/sindresorhus/deep-strict-equal)
+
+## [Docker](https://www.docker.com/)
+
+## [Firefox](https://www.mozilla.org/en-US/firefox/products/)
+
+## [Mobile Emulation](https://sites.google.com/a/chromium.org/chromedriver/mobile-emulation)
+
+## [Node.js](https://nodejs.org/en/)
+
+## [tap-mocha-reporter](https://github.com/tapjs/tap-mocha-reporter)
+
+## [TAP](https://testanything.org/)
+
+## [TSLint](https://palantir.github.io/tslint/)
+
+## [TypeScript](http://www.typescriptlang.org/)
+
+## [WYSIWYM](https://en.wikipedia.org/wiki/WYSIWYM)

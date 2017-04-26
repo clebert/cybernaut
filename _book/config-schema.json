@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "capabilities": {
+      "type": "object",
+      "required": [
+        "browserName"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "browserName": {
+          "enum": [
+            "android",
+            "chrome",
+            "MicrosoftEdge",
+            "firefox",
+            "internet explorer",
+            "iPad",
+            "iPhone",
+            "opera",
+            "phantomjs",
+            "safari",
+            "htmlunit"
+          ]
+        }
+      }
+    },
+    "concurrency": {
+      "type": "number",
+      "minimum": 1,
+      "multipleOf": 1
+    },
+    "exclude": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "include": {
+      "type": "string",
+      "minLength": 1
+    },
+    "retries": {
+      "type": "number",
+      "minimum": 0,
+      "multipleOf": 1
+    },
+    "retryDelay": {
+      "type": "number",
+      "minimum": 0,
+      "multipleOf": 1
+    },
+    "screenshotDirectory": {
+      "type": "string",
+      "minLength": 1
+    },
+    "timeouts": {
+      "type": "object",
+      "required": [
+        "element",
+        "page",
+        "script"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "element": {
+          "type": "number",
+          "minimum": 0,
+          "multipleOf": 1
+        },
+        "page": {
+          "type": "number",
+          "minimum": 0,
+          "multipleOf": 1
+        },
+        "script": {
+          "type": "number",
+          "minimum": 0,
+          "multipleOf": 1
+        }
+      }
+    }
+  }
+}

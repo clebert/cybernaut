@@ -1,0 +1,14 @@
+{
+  "gitbook": "3.2.2",
+  "title": "Cybernaut",
+  "plugins": ["anchorjs", "edit-link", "github"],
+  "pluginsConfig": {
+    "edit-link": {
+      "base": "https://github.com/clebert/cybernaut/tree/master",
+      "label": "Edit This Page"
+    },
+    "github": {
+      "url": "https://github.com/clebert/cybernaut"
+    }
+  }
+}

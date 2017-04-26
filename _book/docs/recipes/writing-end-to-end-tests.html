@@ -1,0 +1,549 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Writing end-to-end tests · Cybernaut</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="emulating-mobile-devices-in-chrome.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <span>
+            
+                    
+                    Usage
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../usage/starting-cybernaut.html">
+            
+                <a href="../usage/starting-cybernaut.html">
+            
+                    
+                    Starting Cybernaut
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../usage/configuring-cybernaut.html">
+            
+                <a href="../usage/configuring-cybernaut.html">
+            
+                    
+                    Configuring Cybernaut
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <span>
+            
+                    
+                    Recipes
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="testing-with-docker.html">
+            
+                <a href="testing-with-docker.html">
+            
+                    
+                    Testing with Docker
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="emulating-mobile-devices-in-chrome.html">
+            
+                <a href="emulating-mobile-devices-in-chrome.html">
+            
+                    
+                    Emulating mobile devices in Chrome
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3.3" data-path="writing-end-to-end-tests.html">
+            
+                <a href="writing-end-to-end-tests.html">
+            
+                    
+                    Writing end-to-end tests
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" >
+            
+                <span>
+            
+                    
+                    API Reference
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" >
+            
+                <span>
+            
+                    
+                    Exports
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1.1" data-path="../api-reference/exports/test.html">
+            
+                <a href="../api-reference/exports/test.html">
+            
+                    
+                    test
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.2" data-path="../api-reference/exports/skip.html">
+            
+                <a href="../api-reference/exports/skip.html">
+            
+                    
+                    skip
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.3" data-path="../api-reference/exports/browser.html">
+            
+                <a href="../api-reference/exports/browser.html">
+            
+                    
+                    browser
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.4" data-path="../api-reference/exports/define-element.html">
+            
+                <a href="../api-reference/exports/define-element.html">
+            
+                    
+                    defineElement
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.5" data-path="../api-reference/exports/it.html">
+            
+                <a href="../api-reference/exports/it.html">
+            
+                    
+                    it
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" >
+            
+                <span>
+            
+                    
+                    Interfaces
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.2.1" data-path="../api-reference/interfaces/test.html">
+            
+                <a href="../api-reference/interfaces/test.html">
+            
+                    
+                    Test
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.2" data-path="../api-reference/interfaces/browser.html">
+            
+                <a href="../api-reference/interfaces/browser.html">
+            
+                    
+                    Browser
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.3" data-path="../api-reference/interfaces/element.html">
+            
+                <a href="../api-reference/interfaces/element.html">
+            
+                    
+                    Element
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.4" data-path="../api-reference/interfaces/predicate-builder.html">
+            
+                <a href="../api-reference/interfaces/predicate-builder.html">
+            
+                    
+                    PredicateBuilder
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../related-links.html">
+            
+                <a href="../related-links.html">
+            
+                    
+                    Related links
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../development.html">
+            
+                <a href="../development.html">
+            
+                    
+                    Development
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >Writing end-to-end tests</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="writing-end-to-end-tests">Writing end-to-end tests</h1>
+<p>It is recommended to write your end-to-end tests using <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function" target="_blank">async functions</a>, which are natively supported by <a href="../../GLOSSARY.html#nodejs" class="glossary-term" title="">Node.js</a> as of version 7. Alternatively, the test files must be compiled using <a href="../../GLOSSARY.html#typescript" class="glossary-term" title="">TypeScript</a> or <a href="../../GLOSSARY.html#babel" class="glossary-term" title="">Babel</a>.</p>
+<p>If you write your end-to-end tests with <a href="../../GLOSSARY.html#typescript" class="glossary-term" title="">TypeScript</a>, it is recommended to enable the <a href="https://palantir.github.io/tslint/rules/no-floating-promises/" target="_blank"><code>no-floating-promises</code></a> <a href="../../GLOSSARY.html#tslint" class="glossary-term" title="">TSLint</a> rule. This can prevent the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await" target="_blank"><code>await</code></a> operators from being forgotten.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="emulating-mobile-devices-in-chrome.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Emulating mobile devices in Chrome">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Writing end-to-end tests","level":"1.3.3","depth":2,"next":{"title":"API Reference","level":"1.4","depth":1,"ref":"","articles":[{"title":"Exports","level":"1.4.1","depth":2,"ref":"","articles":[{"title":"test","level":"1.4.1.1","depth":3,"path":"docs/api-reference/exports/test.md","ref":"docs/api-reference/exports/test.md","articles":[]},{"title":"skip","level":"1.4.1.2","depth":3,"path":"docs/api-reference/exports/skip.md","ref":"docs/api-reference/exports/skip.md","articles":[]},{"title":"browser","level":"1.4.1.3","depth":3,"path":"docs/api-reference/exports/browser.md","ref":"docs/api-reference/exports/browser.md","articles":[]},{"title":"defineElement","level":"1.4.1.4","depth":3,"path":"docs/api-reference/exports/define-element.md","ref":"docs/api-reference/exports/define-element.md","articles":[]},{"title":"it","level":"1.4.1.5","depth":3,"path":"docs/api-reference/exports/it.md","ref":"docs/api-reference/exports/it.md","articles":[]}]},{"title":"Interfaces","level":"1.4.2","depth":2,"ref":"","articles":[{"title":"Test","level":"1.4.2.1","depth":3,"path":"docs/api-reference/interfaces/test.md","ref":"docs/api-reference/interfaces/test.md","articles":[]},{"title":"Browser","level":"1.4.2.2","depth":3,"path":"docs/api-reference/interfaces/browser.md","ref":"docs/api-reference/interfaces/browser.md","articles":[]},{"title":"Element","level":"1.4.2.3","depth":3,"path":"docs/api-reference/interfaces/element.md","ref":"docs/api-reference/interfaces/element.md","articles":[]},{"title":"PredicateBuilder","level":"1.4.2.4","depth":3,"path":"docs/api-reference/interfaces/predicate-builder.md","ref":"docs/api-reference/interfaces/predicate-builder.md","articles":[]}]}]},"previous":{"title":"Emulating mobile devices in Chrome","level":"1.3.2","depth":2,"path":"docs/recipes/emulating-mobile-devices-in-chrome.md","ref":"docs/recipes/emulating-mobile-devices-in-chrome.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchorjs","edit-link","github","livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/clebert/cybernaut"},"livereload":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/clebert/cybernaut/tree/master"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Cybernaut","gitbook":"3.2.2"},"file":{"path":"docs/recipes/writing-end-to-end-tests.md","mtime":"2017-04-26T18:13:54.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-04-26T19:53:04.736Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/3.1.1/anchor.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-anchorjs/anchor-style.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
