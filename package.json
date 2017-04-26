@@ -47,6 +47,7 @@
     "cache": false,
     "check-coverage": true,
     "exclude": [
+      "_book/**/*.js",
       "coverage/**/*.js",
       "dist/**/*.test.js",
       "dist/index.js",
