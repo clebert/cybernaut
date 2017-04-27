@@ -89,7 +89,7 @@
     "debug": "2.6.4",
     "deep-strict-equal": "0.2.0",
     "fs-promise": "2.0.2",
-    "geckodriver": "1.6.0",
+    "geckodriver": "1.6.1",
     "glob": "7.1.1",
     "selenium-webdriver": "3.4.0",
     "tap": "10.3.2",
