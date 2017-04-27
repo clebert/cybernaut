@@ -8,7 +8,7 @@
 
 ## [CLI](https://en.wikipedia.org/wiki/Command-line_interface)
 
-## [deep-strict-equal](https://github.com/sindresorhus/deep-strict-equal)
+## [deep-strict-equal](https://www.npmjs.com/package/deep-strict-equal)
 
 ## [Docker](https://www.docker.com/)
 
@@ -18,7 +18,9 @@
 
 ## [Node.js](https://nodejs.org/en/)
 
-## [tap-mocha-reporter](https://github.com/tapjs/tap-mocha-reporter)
+## [selenium-webdriver](https://www.npmjs.com/package/selenium-webdriver)
+
+## [tap-mocha-reporter](https://www.npmjs.com/package/tap-mocha-reporter)
 
 ## [TAP](https://testanything.org/)
 
