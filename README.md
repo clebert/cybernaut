@@ -78,18 +78,18 @@ Cybernaut is tested with Chrome and Firefox and **provides** the latest drivers 
 
 ## Documentation
 
-You can find the documentation [here][documentation].
+You can find the documentation [here][homepage].
 
 ---
 Built by (c) Clemens Akens. Released under the MIT license.
 
 [coveralls]: https://coveralls.io/github/clebert/cybernaut?branch=master
 [coveralls-badge]: https://coveralls.io/repos/github/clebert/cybernaut/badge.svg?branch=master
-[documentation]: https://clebert.gitbooks.io/cybernaut/content/
 [example]: https://github.com/clebert/cybernaut/tree/master/example
 [example-png]: https://clebert.github.io/cybernaut/images/example.png
 [greenkeeper]: https://greenkeeper.io/
 [greenkeeper-badge]: https://badges.greenkeeper.io/clebert/cybernaut.svg
+[homepage]: https://cybernaut.js.org/
 [logo-svg]: https://clebert.github.io/cybernaut/images/logo.svg
 [npm-cybernaut]: https://www.npmjs.com/package/cybernaut
 [npm-cybernaut-badge]: https://img.shields.io/npm/v/cybernaut.svg?maxAge=3600
