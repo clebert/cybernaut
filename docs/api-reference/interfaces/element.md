@@ -266,7 +266,7 @@ test('foo', async t => {
 >
 > — *[selenium-webdriver.WebElement][webdriver-webelement]*
 
-*Note: The `WebElement` of `selenium-webdriver` is used internally, but is not accessible from the outside.*
+*Note: The `WebElement` of selenium-webdriver is used internally, but is not accessible from the outside.*
 
 ### Method `submitForm`
 
