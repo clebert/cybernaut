@@ -4,6 +4,7 @@
 
 * [Starting Cybernaut](docs/usage/starting-cybernaut.md)
 * [Configuring Cybernaut](docs/usage/configuring-cybernaut.md)
+* [GitHub Repository][github-cybernaut]
 * [Related links](docs/related-links.md)
 * [Development](docs/development.md)
 
@@ -27,3 +28,5 @@
   * [Browser](docs/api-reference/interfaces/browser.md)
   * [Element](docs/api-reference/interfaces/element.md)
   * [PredicateBuilder](docs/api-reference/interfaces/predicate-builder.md)
+
+[github-cybernaut]: https://github.com/clebert/cybernaut
