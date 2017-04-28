@@ -81,7 +81,7 @@
   },
   "dependencies": {
     "@types/node": "7.0.14",
-    "ajv": "5.0.0",
+    "ajv": "5.0.1",
     "chromedriver": "2.29.0",
     "debug": "2.6.6",
     "deep-strict-equal": "0.2.0",
