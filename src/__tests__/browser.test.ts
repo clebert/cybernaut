@@ -11,7 +11,7 @@ proxyquire.noPreserveCache();
 proxyquire.preserveCache();
 
 proxyquire('../browser', {
-  'fs-promise': {outputFile: stubs.outputFile},
+  'fs-extra': {outputFile: stubs.outputFile},
   'uuid/v4': stubs.uuidV4,
   './utils': {sleep: stubs.sleep}
 });
