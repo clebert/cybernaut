@@ -80,8 +80,6 @@
     "watch:tsc": "tsc --project . --watch"
   },
   "dependencies": {
-    "@types/node": "7.0.14",
-    "@types/proxyquire": "1.3.27",
     "ajv": "5.0.0",
     "chromedriver": "2.29.0",
     "debug": "2.6.5",
@@ -95,6 +93,8 @@
     "uuid": "3.0.1"
   },
   "devDependencies": {
+    "@types/node": "7.0.14",
+    "@types/proxyquire": "1.3.27",
     "ava": "0.19.1",
     "commitizen": "2.9.6",
     "conventional-changelog-lint": "1.1.9",
