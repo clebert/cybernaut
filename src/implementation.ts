@@ -20,8 +20,8 @@ class TapTest extends Test {
     this._tap = tap;
   }
 
-  public fail(message: string, cause: Error): void {
-    throw new Error(`${message} (cause: ${cause.message})`);
+  public fail(message: string): void {
+    throw new Error(message);
   }
 
   public pass(message: string): void {

@@ -1,6 +1,6 @@
 FROM clebert/cybernaut-firefox:latest
 
-RUN npm install -g typescript@2.2.2
+RUN npm install -g typescript@2.3.2
 
 # The following files are copied into the Docker build context
 # by the script `scripts/docker/build-example.sh`

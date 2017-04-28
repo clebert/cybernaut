@@ -58,12 +58,12 @@ test(createTestName('pageUrl', 'accessor'), async t => {
   t.is(getCurrentUrl.callCount, 1);
 });
 
-test(createTestName('windowX', 'accessor'), async t => {
+test(createTestName('windowXPosition', 'accessor'), async t => {
   t.plan(3);
 
-  const accessor = browser.windowX;
+  const accessor = browser.windowXPosition;
 
-  t.is(format(accessor.description), 'window x-position');
+  t.is(format(accessor.description), 'window X position');
 
   const getPosition = stub().resolves({x: 123, y: 456});
 
@@ -74,12 +74,12 @@ test(createTestName('windowX', 'accessor'), async t => {
   t.is(getPosition.callCount, 1);
 });
 
-test(createTestName('windowY', 'accessor'), async t => {
+test(createTestName('windowYPosition', 'accessor'), async t => {
   t.plan(3);
 
-  const accessor = browser.windowY;
+  const accessor = browser.windowYPosition;
 
-  t.is(format(accessor.description), 'window y-position');
+  t.is(format(accessor.description), 'window Y position');
 
   const getPosition = stub().resolves({x: 123, y: 456});
 
@@ -126,9 +126,11 @@ test(createTestName('scriptResult', 'accessor'), async t => {
   t.plan(4);
 
   const script = () => undefined;
-  const accessor = browser.scriptResult('scriptName', script);
+  const accessor = browser.scriptResult('name', script);
 
-  t.is(format(accessor.description), 'result of script \'scriptName\'');
+  t.is(
+    format(accessor.description), 'result of script with name \'name\''
+  );
 
   const executeAsyncScript = stub().resolves('scriptResult');
 
@@ -142,9 +144,9 @@ test(createTestName('executeScript', 'action'), async t => {
   t.plan(4);
 
   const script = () => undefined;
-  const action = browser.executeScript('scriptName', script);
+  const action = browser.executeScript('name', script);
 
-  t.is(format(action.description), 'execute script \'scriptName\'');
+  t.is(format(action.description), 'execute script with name \'name\'');
 
   const executeAsyncScript = stub().rejects(new Error('foo'));
 
@@ -159,7 +161,7 @@ test(createTestName('loadPage', 'action'), async t => {
 
   const action = browser.loadPage('pageUrl');
 
-  t.is(format(action.description), 'load page \'pageUrl\'');
+  t.is(format(action.description), 'load page with URL \'pageUrl\'');
 
   const to = stub().rejects(new Error('foo'));
 
@@ -227,6 +229,30 @@ test(createTestName('reloadPage', 'action'), async t => {
   t.is(refresh.callCount, 1);
 });
 
+test(createTestName('saveScreenshot', 'action'), async t => {
+  t.plan(6);
+
+  stubs.uuidV4.returns('uuid');
+
+  const action = browser.saveScreenshot();
+
+  t.is(
+    format(action.description),
+    'save screenshot to \'screenshotDirectory/uuid.png\''
+  );
+
+  const takeScreenshot = stub().resolves('screenshot');
+
+  stubs.outputFile.rejects(new Error('foo'));
+
+  await t.throws(action.perform({takeScreenshot} as any), 'foo');
+
+  t.is(stubs.outputFile.callCount, 1);
+  t.is(stubs.outputFile.args[0][0], 'screenshotDirectory/uuid.png');
+  t.is(stubs.outputFile.args[0][1], 'screenshot');
+  t.deepEqual(stubs.outputFile.args[0][2], {encoding: 'base64'});
+});
+
 test(createTestName('setWindowPosition', 'action'), async t => {
   t.plan(5);
 
@@ -264,40 +290,20 @@ test(createTestName('setWindowSize', 'action'), async t => {
 });
 
 test(createTestName('sleep', 'action'), async t => {
-  t.plan(4);
+  t.plan(5);
 
-  const action = browser.sleep(50);
+  const action1 = browser.sleep(50);
 
-  t.is(format(action.description), `sleep for 50 ms`);
+  t.is(format(action1.description), `sleep for 50 ms`);
 
   stubs.sleep.rejects(new Error('foo'));
 
-  await t.throws(action.perform({} as any), 'foo');
+  await t.throws(action1.perform({} as any), 'foo');
 
   t.is(stubs.sleep.callCount, 1);
   t.is(stubs.sleep.args[0][0], 50);
-});
 
-test(createTestName('takeScreenshot', 'action'), async t => {
-  t.plan(6);
+  const action2 = browser.sleep(50, 'foo');
 
-  stubs.uuidV4.returns('uuid');
-
-  const action = browser.takeScreenshot();
-
-  t.is(
-    format(action.description),
-    'take screenshot \'screenshotDirectory/uuid.png\''
-  );
-
-  const takeScreenshot = stub().resolves('screenshot');
-
-  stubs.outputFile.rejects(new Error('foo'));
-
-  await t.throws(action.perform({takeScreenshot} as any), 'foo');
-
-  t.is(stubs.outputFile.callCount, 1);
-  t.is(stubs.outputFile.args[0][0], 'screenshotDirectory/uuid.png');
-  t.is(stubs.outputFile.args[0][1], 'screenshot');
-  t.deepEqual(stubs.outputFile.args[0][2], {encoding: 'base64'});
+  t.is(format(action2.description), `sleep for 50 ms because foo`);
 });

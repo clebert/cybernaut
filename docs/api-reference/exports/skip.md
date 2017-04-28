@@ -11,7 +11,7 @@ Example usage:
 ```js
 const {skip} = require('cybernaut');
 
-// This end-to-end test won't be executed (and marked as SKIP)
+// The following end-to-end test won't be executed and marked as SKIP.
 skip('foo', async t => {
   // ...
 });

@@ -74,7 +74,7 @@ test('`execute` should create a Test and call `implementation`', async t => {
 
   const test = stubs.implementation.args[0][0];
 
-  t.throws(() => test.fail('foo', new Error('bar')), 'foo (cause: bar)');
+  t.throws(() => test.fail('foo'), 'foo');
 
   test.pass('baz');
 

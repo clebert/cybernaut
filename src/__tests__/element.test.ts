@@ -34,7 +34,10 @@ test(createTestName('tagName', 'accessor'), async t => {
 
   const accessor = element.tagName;
 
-  t.is(format(accessor.description), 'tag name of element \'selector\'');
+  t.is(
+    format(accessor.description),
+    'tag name of element with selector \'selector\''
+  );
 
   const getTagName = stub().resolves('tagName');
   const findElement = stub().resolves({getTagName});
@@ -47,7 +50,8 @@ test(createTestName('tagName', 'accessor'), async t => {
   t.is(getTagName.callCount, 1);
 
   t.is(
-    format(namedElement.tagName.description), 'tag name of name \'selector\''
+    format(namedElement.tagName.description),
+    'tag name of name (element with selector \'selector\')'
   );
 });
 
@@ -56,7 +60,9 @@ test(createTestName('text', 'accessor'), async t => {
 
   const accessor = element.text;
 
-  t.is(format(accessor.description), 'text of element \'selector\'');
+  t.is(
+    format(accessor.description), 'text of element with selector \'selector\''
+  );
 
   const getText = stub().resolves('text');
   const findElement = stub().resolves({getText});
@@ -68,7 +74,10 @@ test(createTestName('text', 'accessor'), async t => {
 
   t.is(getText.callCount, 1);
 
-  t.is(format(namedElement.text.description), 'text of name \'selector\'');
+  t.is(
+    format(namedElement.text.description),
+    'text of name (element with selector \'selector\')'
+  );
 });
 
 test(createTestName('visibility', 'accessor'), async t => {
@@ -76,7 +85,10 @@ test(createTestName('visibility', 'accessor'), async t => {
 
   const accessor = element.visibility;
 
-  t.is(format(accessor.description), 'visibility of element \'selector\'');
+  t.is(
+    format(accessor.description),
+    'visibility of element with selector \'selector\''
+  );
 
   const isDisplayed = stub().resolves(true);
   const findElement = stub().resolves({isDisplayed});
@@ -90,16 +102,19 @@ test(createTestName('visibility', 'accessor'), async t => {
 
   t.is(
     format(namedElement.visibility.description),
-    'visibility of name \'selector\''
+    'visibility of name (element with selector \'selector\')'
   );
 });
 
-test(createTestName('x', 'accessor'), async t => {
+test(createTestName('xPosition', 'accessor'), async t => {
   t.plan(6);
 
-  const accessor = element.x;
+  const accessor = element.xPosition;
 
-  t.is(format(accessor.description), 'x-position of element \'selector\'');
+  t.is(
+    format(accessor.description),
+    'X position of element with selector \'selector\''
+  );
 
   const getLocation = stub().resolves({x: 123, y: 456});
   const findElement = stub().resolves({getLocation});
@@ -111,15 +126,21 @@ test(createTestName('x', 'accessor'), async t => {
 
   t.is(getLocation.callCount, 1);
 
-  t.is(format(namedElement.x.description), 'x-position of name \'selector\'');
+  t.is(
+    format(namedElement.xPosition.description),
+    'X position of name (element with selector \'selector\')'
+  );
 });
 
-test(createTestName('y', 'accessor'), async t => {
+test(createTestName('yPosition', 'accessor'), async t => {
   t.plan(6);
 
-  const accessor = element.y;
+  const accessor = element.yPosition;
 
-  t.is(format(accessor.description), 'y-position of element \'selector\'');
+  t.is(
+    format(accessor.description),
+    'Y position of element with selector \'selector\''
+  );
 
   const getLocation = stub().resolves({x: 123, y: 456});
   const findElement = stub().resolves({getLocation});
@@ -131,7 +152,10 @@ test(createTestName('y', 'accessor'), async t => {
 
   t.is(getLocation.callCount, 1);
 
-  t.is(format(namedElement.y.description), 'y-position of name \'selector\'');
+  t.is(
+    format(namedElement.yPosition.description),
+    'Y position of name (element with selector \'selector\')'
+  );
 });
 
 test(createTestName('width', 'accessor'), async t => {
@@ -139,7 +163,9 @@ test(createTestName('width', 'accessor'), async t => {
 
   const accessor = element.width;
 
-  t.is(format(accessor.description), 'width of element \'selector\'');
+  t.is(
+    format(accessor.description), 'width of element with selector \'selector\''
+  );
 
   const getSize = stub().resolves({width: 123, height: 456});
   const findElement = stub().resolves({getSize});
@@ -151,7 +177,10 @@ test(createTestName('width', 'accessor'), async t => {
 
   t.is(getSize.callCount, 1);
 
-  t.is(format(namedElement.width.description), 'width of name \'selector\'');
+  t.is(
+    format(namedElement.width.description),
+    'width of name (element with selector \'selector\')'
+  );
 });
 
 test(createTestName('height', 'accessor'), async t => {
@@ -159,7 +188,9 @@ test(createTestName('height', 'accessor'), async t => {
 
   const accessor = element.height;
 
-  t.is(format(accessor.description), 'height of element \'selector\'');
+  t.is(
+    format(accessor.description), 'height of element with selector \'selector\''
+  );
 
   const getSize = stub().resolves({width: 123, height: 456});
   const findElement = stub().resolves({getSize});
@@ -171,7 +202,10 @@ test(createTestName('height', 'accessor'), async t => {
 
   t.is(getSize.callCount, 1);
 
-  t.is(format(namedElement.height.description), 'height of name \'selector\'');
+  t.is(
+    format(namedElement.height.description),
+    'height of name (element with selector \'selector\')'
+  );
 });
 
 test(createTestName('cssValue', 'accessor'), async t => {
@@ -181,7 +215,7 @@ test(createTestName('cssValue', 'accessor'), async t => {
 
   t.is(
     format(accessor.description),
-    'css value \'cssName\' of element \'selector\''
+    'css value with name \'cssName\' of element with selector \'selector\''
   );
 
   const getCssValue = stub().resolves('cssValue');
@@ -197,7 +231,8 @@ test(createTestName('cssValue', 'accessor'), async t => {
 
   t.is(
     format(namedElement.cssValue('cssName').description),
-    'css value \'cssName\' of name \'selector\''
+    'css value with name \'cssName\' of name ' +
+    '(element with selector \'selector\')'
   );
 });
 
@@ -208,7 +243,8 @@ test(createTestName('propertyValue', 'accessor'), async t => {
 
   t.is(
     format(accessor.description),
-    'property value \'propertyName\' of element \'selector\''
+    'property value with name \'propertyName\' of ' +
+    'element with selector \'selector\''
   );
 
   const getAttribute = stub().resolves('attribute');
@@ -224,7 +260,8 @@ test(createTestName('propertyValue', 'accessor'), async t => {
 
   t.is(
     format(namedElement.propertyValue('propertyName').description),
-    'property value \'propertyName\' of name \'selector\''
+    'property value with name \'propertyName\' of name ' +
+    '(element with selector \'selector\')'
   );
 });
 
@@ -233,7 +270,10 @@ test(createTestName('clearValue', 'action'), async t => {
 
   const action = element.clearValue();
 
-  t.is(format(action.description), 'clear value of element \'selector\'');
+  t.is(
+    format(action.description),
+    'clear value of element with selector \'selector\''
+  );
 
   const clear = stub().rejects(new Error('foo'));
   const findElement = stub().resolves({clear});
@@ -247,7 +287,7 @@ test(createTestName('clearValue', 'action'), async t => {
 
   t.is(
     format(namedElement.clearValue().description),
-    'clear value of name \'selector\''
+    'clear value of name (element with selector \'selector\')'
   );
 });
 
@@ -256,7 +296,9 @@ test(createTestName('click', 'action'), async t => {
 
   const action = element.click();
 
-  t.is(format(action.description), 'click on element \'selector\'');
+  t.is(
+    format(action.description), 'click on element with selector \'selector\''
+  );
 
   const click = stub().rejects(new Error('foo'));
   const findElement = stub().resolves({click});
@@ -268,7 +310,10 @@ test(createTestName('click', 'action'), async t => {
 
   t.is(click.callCount, 1);
 
-  t.is(format(namedElement.click().description), 'click on name \'selector\'');
+  t.is(
+    format(namedElement.click().description),
+    'click on name (element with selector \'selector\')'
+  );
 });
 
 test(createTestName('sendKeys', 'action'), async t => {
@@ -282,7 +327,8 @@ test(createTestName('sendKeys', 'action'), async t => {
 
   t.is(
     format(action.description),
-    'send keys [ \'Key.CONTROL\', \'a\', \'Key.NULL\' ] to element \'selector\''
+    'send keys [ \'Key.CONTROL\', \'a\', \'Key.NULL\' ] to ' +
+    'element with selector \'selector\''
   );
 
   t.is(stubs.translate.callCount, 3);
@@ -311,7 +357,8 @@ test(createTestName('sendKeys', 'action'), async t => {
 
   t.is(
     format(namedElement.sendKeys(Key.CONTROL, 'a', Key.NULL).description),
-    'send keys [ \'Key.CONTROL\', \'a\', \'Key.NULL\' ] to name \'selector\''
+    'send keys [ \'Key.CONTROL\', \'a\', \'Key.NULL\' ] to name ' +
+    '(element with selector \'selector\')'
   );
 });
 
@@ -321,7 +368,8 @@ test(createTestName('submitForm', 'action'), async t => {
   const action = element.submitForm();
 
   t.is(
-    format(action.description), 'submit form containing element \'selector\''
+    format(action.description),
+    'submit form containing element with selector \'selector\''
   );
 
   const submit = stub().rejects(new Error('foo'));
@@ -336,6 +384,6 @@ test(createTestName('submitForm', 'action'), async t => {
 
   t.is(
     format(namedElement.submitForm().description),
-    'submit form containing name \'selector\''
+    'submit form containing name (element with selector \'selector\')'
   );
 });

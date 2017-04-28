@@ -30,16 +30,16 @@ export class Browser {
     };
   }
 
-  public get windowX(): Accessor<number> {
+  public get windowXPosition(): Accessor<number> {
     return {
-      description: {template: 'window x-position'},
+      description: {template: 'window X position'},
       get: async driver => (await driver.manage().window().getPosition()).x
     };
   }
 
-  public get windowY(): Accessor<number> {
+  public get windowYPosition(): Accessor<number> {
     return {
-      description: {template: 'window y-position'},
+      description: {template: 'window Y position'},
       get: async driver => (await driver.manage().window().getPosition()).y
     };
   }
@@ -59,23 +59,27 @@ export class Browser {
   }
 
   // tslint:disable-next-line no-any
-  public scriptResult(scriptName: string, script: Script): Accessor<any> {
+  public scriptResult(name: string, script: Script): Accessor<any> {
     return {
-      description: {template: 'result of script {}', args: [scriptName]},
+      description: {
+        template: 'result of script with name {}', args: [name]
+      },
       get: async driver => driver.executeAsyncScript(script)
     };
   }
 
-  public executeScript(scriptName: string, script: Script): Action {
+  public executeScript(name: string, script: Script): Action {
     return {
-      description: {template: 'execute script {}', args: [scriptName]},
+      description: {
+        template: 'execute script with name {}', args: [name]
+      },
       perform: async driver => void await driver.executeAsyncScript(script)
     };
   }
 
   public loadPage(url: string): Action {
     return {
-      description: {template: 'load page {}', args: [url]},
+      description: {template: 'load page with URL {}', args: [url]},
       perform: async driver => driver.navigate().to(url)
     };
   }
@@ -108,9 +112,27 @@ export class Browser {
     };
   }
 
+  public saveScreenshot(): Action {
+    const filename = join(this._screenshotDirectory, uuidV4() + '.png');
+
+    return {
+      description: {
+        template: 'save screenshot to {}', args: [filename]
+      },
+      perform: async driver => {
+        const screenshot = await driver.takeScreenshot();
+
+        await outputFile(filename, screenshot, {encoding: 'base64'});
+      }
+    };
+  }
+
   public setWindowPosition(x: number, y: number): Action {
     return {
-      description: {template: 'set window position to {},{}', args: [x, y]},
+      description: {
+        template: 'set window position to {},{}',
+        args: [x, y]
+      },
       perform: async driver => driver.manage().window().setPosition(x, y)
     };
   }
@@ -118,29 +140,20 @@ export class Browser {
   public setWindowSize(width: number, height: number): Action {
     return {
       description: {
-        template: 'set window size to {}x{}', args: [width, height]
+        template: 'set window size to {}x{}',
+        args: [width, height]
       },
       perform: async driver => driver.manage().window().setSize(width, height)
     };
   }
 
-  public sleep(duration: number): Action {
+  public sleep(durationInMillis: number, reason?: string): Action {
     return {
-      description: {template: 'sleep for {} ms', args: [duration]},
-      perform: async () => sleep(duration)
-    };
-  }
-
-  public takeScreenshot(): Action {
-    const filename = join(this._screenshotDirectory, uuidV4() + '.png');
-
-    return {
-      description: {template: 'take screenshot {}', args: [filename]},
-      perform: async driver => {
-        const screenshot = await driver.takeScreenshot();
-
-        await outputFile(filename, screenshot, {encoding: 'base64'});
-      }
+      description: {
+        template: `sleep for {} ms${reason ? ` because ${reason}` : ''}`,
+        args: [durationInMillis]
+      },
+      perform: async () => sleep(durationInMillis)
     };
   }
 }

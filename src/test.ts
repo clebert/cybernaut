@@ -16,7 +16,7 @@ export abstract class Test {
     this._retryDelay = retryDelay;
   }
 
-  public abstract fail(message: string, cause: Error): void;
+  public abstract fail(message: string): void;
   public abstract pass(message: string): void;
 
   public async assert<T>(
@@ -25,19 +25,20 @@ export abstract class Test {
     retries: number = this._retries,
     retryDelay: number = this._retryDelay
   ): Promise<void> {
-    const message =
-      `${format(accessor.description)} ${format(predicate.description)}`;
+    const accessorString = format(accessor.description);
+    const predicateString = format(predicate.description);
+    const message = `Assert: ${accessorString} ${predicateString}`;
 
     try {
       const attempts = await run(async () => {
-        if (!predicate.test(await accessor.get(this._driver))) {
-          throw new Error('Predicate evaluates to false');
-        }
+        await this._test(accessor, predicate);
       }, retries, retryDelay);
 
-      this.pass(`${message} (attempt ${attempts} of ${retries + 1})`);
+      this.pass(
+        `${message} (succeeded at attempt ${attempts} of ${retries + 1})`
+      );
     } catch (e) {
-      this.fail(message, e);
+      this.fail(`${message} (failed because ${e.message})`);
     }
   }
 
@@ -46,16 +47,18 @@ export abstract class Test {
     retries: number = this._retries,
     retryDelay: number = this._retryDelay
   ): Promise<void> {
-    const message = format(action.description);
+    const message = 'Perform: ' + format(action.description);
 
     try {
       const attempts = await run(async () => {
         await action.perform(this._driver);
       }, retries, retryDelay);
 
-      this.pass(`${message} (attempt ${attempts} of ${retries + 1})`);
+      this.pass(
+        `${message} (succeeded at attempt ${attempts} of ${retries + 1})`
+      );
     } catch (e) {
-      this.fail(message, e);
+      this.fail(`${message} (failed because ${e.message})`);
     }
   }
 
@@ -65,16 +68,37 @@ export abstract class Test {
     retries: number = this._retries,
     retryDelay: number = this._retryDelay
   ): Promise<boolean> {
+    const accessorString = format(accessor.description);
+    const predicateString = format(predicate.description);
+    const message = `Verify: ${accessorString} ${predicateString}`;
+
     try {
-      await run(async () => {
-        if (!predicate.test(await accessor.get(this._driver))) {
-          throw new Error('Predicate evaluates to false');
-        }
+      const attempts = await run(async () => {
+        await this._test(accessor, predicate);
       }, retries, retryDelay);
+
+      this.pass(
+        `${message} (succeeded at attempt ${attempts} of ${retries + 1})`
+      );
 
       return true;
     } catch (e) {
+      this.pass(`${message} (failed because ${e.message})`);
+
       return false;
+    }
+  }
+
+  private async _test<T>(
+    accessor: Accessor<T>, predicate: Predicate<T>
+  ): Promise<void> {
+    const actualValue = await accessor.get(this._driver);
+
+    if (!predicate.test(actualValue)) {
+      throw new Error(format({
+        template: 'the predicate evaluates to false, the actual value is {}',
+        args: [actualValue]
+      }));
     }
   }
 }
