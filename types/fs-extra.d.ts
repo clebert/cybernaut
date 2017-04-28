@@ -1,4 +1,4 @@
-// tslint:disable max-line-length
+// tslint:disable max-line-length promise-function-async
 
 declare module 'fs-extra' {
   export interface Options {
