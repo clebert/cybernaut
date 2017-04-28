@@ -1,6 +1,6 @@
 import uuidV4 = require('uuid/v4');
 
-import {outputFile} from 'fs-promise';
+import {outputFile} from 'fs-extra';
 import {join} from 'path';
 import {Accessor} from './accessor';
 import {Action} from './action';
