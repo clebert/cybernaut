@@ -28,8 +28,8 @@ const defaultConfig: Config = {
   concurrency: 1,
   exclude: ['**/node_modules/**/*'],
   include: '**/*.e2e.js',
-  retries: 4,
-  retryDelay: 500,
+  retries: 9,
+  retryDelay: 1000,
   timeouts: {element: 0, page: 30000, script: 30000}
 };
 
