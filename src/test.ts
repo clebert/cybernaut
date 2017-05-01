@@ -5,6 +5,18 @@ import {format} from './description';
 import {Predicate} from './predicate';
 import {run} from './step';
 
+function describe<T>(accessor: Accessor<T>, predicate: Predicate<T>): string {
+  return `${format(accessor.description)} ${format(predicate.description)}`;
+}
+
+function ok(message: string, attempts: number, retries: number): string {
+  return `${message} (succeeded at attempt ${attempts} of ${retries + 1})`;
+}
+
+function notOk(message: string, error: Error): string {
+  return `${message} (failed because ${error.message})`;
+}
+
 export abstract class Test {
   private readonly _driver: WebDriver;
   private readonly _retries: number;
@@ -25,20 +37,16 @@ export abstract class Test {
     retries: number = this._retries,
     retryDelay: number = this._retryDelay
   ): Promise<void> {
-    const accessorString = format(accessor.description);
-    const predicateString = format(predicate.description);
-    const message = `Assert: ${accessorString} ${predicateString}`;
+    const message = 'Assert: ' + describe(accessor, predicate);
 
     try {
       const attempts = await run(async () => {
         await this._test(accessor, predicate);
       }, retries, retryDelay);
 
-      this.pass(
-        `${message} (succeeded at attempt ${attempts} of ${retries + 1})`
-      );
+      this.pass(ok(message, attempts, retries));
     } catch (e) {
-      this.fail(`${message} (failed because ${e.message})`);
+      this.fail(notOk(message, e));
     }
   }
 
@@ -54,11 +62,9 @@ export abstract class Test {
         await action.perform(this._driver);
       }, retries, retryDelay);
 
-      this.pass(
-        `${message} (succeeded at attempt ${attempts} of ${retries + 1})`
-      );
+      this.pass(ok(message, attempts, retries));
     } catch (e) {
-      this.fail(`${message} (failed because ${e.message})`);
+      this.fail(notOk(message, e));
     }
   }
 
@@ -68,22 +74,18 @@ export abstract class Test {
     retries: number = this._retries,
     retryDelay: number = this._retryDelay
   ): Promise<boolean> {
-    const accessorString = format(accessor.description);
-    const predicateString = format(predicate.description);
-    const message = `Verify: ${accessorString} ${predicateString}`;
+    const message = 'Verify: ' + describe(accessor, predicate);
 
     try {
       const attempts = await run(async () => {
         await this._test(accessor, predicate);
       }, retries, retryDelay);
 
-      this.pass(
-        `${message} (succeeded at attempt ${attempts} of ${retries + 1})`
-      );
+      this.pass(ok(message, attempts, retries));
 
       return true;
     } catch (e) {
-      this.pass(`${message} (failed because ${e.message})`);
+      this.pass(notOk(message, e));
 
       return false;
     }
