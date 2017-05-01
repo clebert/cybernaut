@@ -2,11 +2,11 @@
 
 ## Overview
 
-* [Starting Cybernaut](docs/usage/starting-cybernaut.md)
-* [Configuring Cybernaut](docs/usage/configuring-cybernaut.md)
+* [Starting Cybernaut](docs/overview/starting-cybernaut.md)
+* [Configuring Cybernaut](docs/overview/configuring-cybernaut.md)
 * [GitHub Repository][github-cybernaut]
-* [Related links](docs/related-links.md)
-* [Development](docs/development.md)
+* [Related links](docs/overview/related-links.md)
+* [Development](docs/overview/development.md)
 
 ## Recipes
 
