@@ -2,8 +2,8 @@
 
 declare module 'imgur' {
   export interface Response {
-    readonly data: {
-      readonly link: string;
+    readonly data?: {
+      readonly link?: string;
     };
   }
 
