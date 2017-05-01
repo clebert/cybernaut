@@ -1,6 +1,8 @@
+import createDebug = require('debug');
 import uuidV4 = require('uuid/v4');
 
 import {outputFile} from 'fs-extra';
+import {uploadBase64} from 'imgur';
 import {join} from 'path';
 import {Accessor} from './accessor';
 import {Action} from './action';
@@ -8,6 +10,8 @@ import {sleep} from './utils';
 
 // tslint:disable-next-line no-any
 export type Script = (callback: (result?: any) => void) => void;
+
+const debug = createDebug('cybernaut:browser');
 
 export class Browser {
   private readonly _screenshotDirectory: string;
@@ -123,6 +127,10 @@ export class Browser {
         const screenshot = await driver.takeScreenshot();
 
         await outputFile(filename, screenshot, {encoding: 'base64'});
+
+        const response = await uploadBase64(screenshot);
+
+        debug(`uploaded screenshot to imgur: ${response.data.link}`);
       }
     };
   }
