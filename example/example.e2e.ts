@@ -7,12 +7,12 @@ test('The gitbook should include the chapter "Starting Cybernaut"', async t => {
 
   const summary = defineElement('div.book-summary', 'summary');
 
-  const toggleSummaryButton = defineElement(
-    'div.book-header > a:nth-child(1).js-toolbar-action',
-    'toggle-summary-button'
-  );
-
   if (await t.verify(summary.visibility, it.should.equal(false))) {
+    const toggleSummaryButton = defineElement(
+      'div.book-header > a:nth-child(1).js-toolbar-action',
+      'toggle-summary-button'
+    );
+
     await t.perform(toggleSummaryButton.click());
 
     await t.perform(browser.sleep(1000, 'an animation is running'));

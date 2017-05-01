@@ -9,7 +9,7 @@
 
 > Reliable, zero configuration end-to-end testing in BDD-style.
 
-[![Example][example-png]][example]
+[![Example][example-png]][example-png]
 
 WYSIWYM—the above **human-readable** test output corresponds to what is programmed:
 
@@ -22,12 +22,12 @@ test('The gitbook should include the chapter "Starting Cybernaut"', async t => {
 
   const summary = defineElement('div.book-summary', 'summary');
 
-  const toggleSummaryButton = defineElement(
-    'div.book-header > a:nth-child(1).js-toolbar-action',
-    'toggle-summary-button'
-  );
-
   if (await t.verify(summary.visibility, it.should.equal(false))) {
+    const toggleSummaryButton = defineElement(
+      'div.book-header > a:nth-child(1).js-toolbar-action',
+      'toggle-summary-button'
+    );
+
     await t.perform(toggleSummaryButton.click());
 
     await t.perform(browser.sleep(1000, 'an animation is running'));
@@ -47,7 +47,7 @@ test('The gitbook should include the chapter "Starting Cybernaut"', async t => {
 });
 ```
 
-This example can be easily executed in a Docker container,
+This [example][example] can be easily executed in a Docker container,
 
 on Chrome:
 
