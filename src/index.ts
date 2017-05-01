@@ -40,7 +40,7 @@ const configFilename = process.argv[2];
 try {
   config = loadConfig(configFilename);
 } catch (e) {
-  console.error(`\nError: Unable to load config file '${configFilename}'`);
+  console.error(`\nError: unable to load config file '${configFilename}'`);
 
   process.exit(1);
 }
@@ -57,7 +57,7 @@ for (const key of Object.keys(config) as (keyof Config)[]) {
 const configErrors = validate(config);
 
 if (configErrors.length > 0) {
-  console.error(`\nError: Unable to validate config file '${configFilename}'`);
+  console.error(`\nError: unable to validate config file '${configFilename}'`);
 
   for (const configError of configErrors) {
     console.error('  ' + configError);
@@ -105,7 +105,7 @@ export function skip(name: string, implementation: Implementation): void {
 if (require.main !== module) {
   const packageName = require('../package.json').name;
 
-  console.error(`\nError: Please run your tests only via ${packageName} CLI`);
+  console.error(`\nError: please run your tests only via ${packageName} CLI`);
 
   process.exit(1);
 }

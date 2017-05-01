@@ -5,7 +5,7 @@ import {Description} from './description';
 export interface Predicate<T> {
   readonly description: Description;
 
-  test(value: T): boolean;
+  test(actualValue: T): boolean;
 }
 
 export class PredicateBuilder {

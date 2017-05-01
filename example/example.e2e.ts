@@ -1,26 +1,32 @@
-// import {browser, defineElement, it, test} from '../src';
-import {browser, defineElement, it, test} from 'cybernaut';
+// import {Element, browser, defineElement, it, test} from '../src';
+import {Element, browser, defineElement, it, test} from 'cybernaut';
 
-test('Star the "clebert/cybernaut" repository on GitHub', async t => {
-  await t.perform(browser.loadPage('https://github.com/clebert/cybernaut'));
+test('The gitbook should include the chapter "Starting Cybernaut"', async t => {
+  await t.perform(browser.loadPage('https://cybernaut.js.org/'));
+  await t.perform(browser.saveScreenshot());
 
-  await t.assert(browser.pageTitle, it.should.contain('clebert/cybernaut'));
+  const summary = defineElement('div.book-summary', 'summary');
 
-  await t.perform(browser.takeScreenshot());
-
-  const switchToDesktopButton = defineElement(
-    'button.switch-to-desktop', 'switch-to-desktop button'
+  const toggleSummaryButton = defineElement(
+    'div.book-header > a:nth-child(1).js-toolbar-action',
+    'toggle-summary-button'
   );
 
-  // When on the mobile version, then switch to the desktop version
-  if (await t.verify(switchToDesktopButton.visibility, it.should.equal(true))) {
-    await t.perform(switchToDesktopButton.click());
+  if (await t.verify(summary.visibility, it.should.equal(false))) {
+    await t.perform(toggleSummaryButton.click());
+
+    await t.perform(browser.sleep(1000, 'an animation is running'));
+    await t.perform(browser.saveScreenshot());
   }
 
-  const starButton = defineElement(
-    'ul.pagehead-actions > li:nth-child(2)', 'star button'
+  const chapterLink = defineElement(
+    'div.book-summary > nav > ul > li[data-level="1.2"].chapter',
+    'chapter-link-1-2'
   );
 
-  // The star button leads to a login form, so the project is not really starred
-  await t.perform(starButton.click());
+  await t.perform(chapterLink.click());
+
+  const textHeadline = defineElement('section > h1', 'headline');
+
+  await t.assert(textHeadline.text, it.should.equal('Starting Cybernaut'));
 });

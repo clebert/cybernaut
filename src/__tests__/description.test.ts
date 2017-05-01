@@ -8,8 +8,8 @@ test('`format` should return a formatted string', async t => {
   t.is(format({template: '', args: []}), '');
 
   t.is(format({
-    template: '{} {} {} {} {}', args: [true, 1, '', null, undefined]
-  }), 'true 1 \'\' null undefined');
+    template: '{} {} {} {} {} {}', args: [true, 1, '', null, undefined, /foo/]
+  }), 'true 1 \'\' null undefined /foo/');
 
   t.is(format({
     template: '{}', args: [[null, undefined]]
@@ -25,17 +25,17 @@ test('`format` should throw an error', async t => {
 
   t.throws(() => {
     format({template: '{}'});
-  }, 'Missing format argument');
+  }, 'missing format argument');
 
   t.throws(() => {
     format({template: '{}', args: []});
-  }, 'Missing format argument');
+  }, 'missing format argument');
 
   t.throws(() => {
     format({template: '', args: [null]});
-  }, 'Superfluous format argument');
+  }, 'superfluous format argument');
 
   t.throws(() => {
     format({template: '{}', args: [null, undefined]});
-  }, 'Superfluous format argument');
+  }, 'superfluous format argument');
 });

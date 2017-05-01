@@ -19,8 +19,6 @@ Type definition:
 
 * **`contain(expectedValue: string): Predicate<string>`**
 
-Example TAP output: `ok 1 - page title should contain 'bar' (attempt 1 of 5)`
-
 Example usage:
 
 ```js
@@ -37,8 +35,6 @@ Type definition:
 
 * **`not.contain(expectedValue: string): Predicate<string>`**
 
-Example TAP output: `ok 1 - page title should not contain 'bar' (attempt 1 of 5)`
-
 Example usage:
 
 ```js
@@ -54,8 +50,6 @@ test('foo', async t => {
 Type definition:
 
 * **`equal<T>(expectedValue: T): Predicate<T>`**
-
-Example TAP output: `ok 1 - page title should equal 'bar' (attempt 1 of 5)`
 
 Example usage:
 
@@ -75,8 +69,6 @@ Type definition:
 
 * **`not.equal<T>(expectedValue: T): Predicate<T>`**
 
-Example TAP output: `ok 1 - page title should not equal 'bar' (attempt 1 of 5)`
-
 Example usage:
 
 ```js
@@ -95,8 +87,6 @@ Type definition:
 
 * **`match(regex: RegExp): Predicate<string>`**
 
-Example TAP output: `ok 1 - page title should match /bar/ (attempt 1 of 5)`
-
 Example usage:
 
 ```js
@@ -113,8 +103,6 @@ Type definition:
 
 * **`not.match(regex: RegExp): Predicate<string>`**
 
-Example TAP output: `ok 1 - page title should not match /bar/ (attempt 1 of 5)`
-
 Example usage:
 
 ```js
@@ -130,8 +118,6 @@ test('foo', async t => {
 Type definition:
 
 * **`be.above(expectedValue: number): Predicate<number>`**
-
-Example TAP output: `ok 1 - window width should be above 123 (attempt 1 of 5)`
 
 Example usage:
 
@@ -150,8 +136,6 @@ Type definition:
 
 * **`be.at.least(expectedValue: number): Predicate<number>`**
 
-Example TAP output: `ok 1 - window width should be at least 123 (attempt 1 of 5)`
-
 Example usage:
 
 ```js
@@ -169,8 +153,6 @@ Type definition:
 
 * **`be.below(expectedValue: number): Predicate<number>`**
 
-Example TAP output: `ok 1 - window width should be below 123 (attempt 1 of 5)`
-
 Example usage:
 
 ```js
@@ -187,8 +169,6 @@ test('foo', async t => {
 Type definition:
 
 * **`be.at.most(expectedValue: number): Predicate<number>`**
-
-Example TAP output: `ok 1 - window width should be at most 123 (attempt 1 of 5)`
 
 Example usage:
 

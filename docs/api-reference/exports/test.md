@@ -11,10 +11,10 @@ Example usage:
 ```js
 const {test} = require('cybernaut');
 
-// This end-to-end test will be marked as TODO
+// The following end-to-end test will be marked as TODO.
 test('foo');
 
-// This end-to-end test will be executed
+// The following end-to-end test will be executed.
 test('foo', async t => {
   // ...
 });

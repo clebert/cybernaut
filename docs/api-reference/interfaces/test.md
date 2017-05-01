@@ -20,7 +20,7 @@ Example usage:
 const {browser, it, test} = require('cybernaut');
 
 test('foo', async t => {
-  // Throws an error if the condition isn't met
+  // The following expression throws an error if the condition isn't met.
   await t.assert(browser.pageTitle, it.should.contain('bar'));
 });
 ```
@@ -39,7 +39,7 @@ Example usage:
 const {browser, test} = require('cybernaut');
 
 test('foo', async t => {
-  // Throws an error if the action fails
+  // The following expression throws an error if the action fails.
   await t.perform(browser.loadPage('http://bar.baz'));
 });
 ```
@@ -58,7 +58,7 @@ Example usage:
 const {browser, it, test} = require('cybernaut');
 
 test('foo', async t => {
-  // Evaluates to false if the condition isn't met
+  // The following expression evaluates to false if the condition isn't met.
   if (await t.verify(browser.pageTitle, it.should.contain('bar'))) {
     // ...
   }
@@ -71,9 +71,7 @@ test('foo', async t => {
 
 Type definition:
 
-* **`fail(message: string, cause: Error): void`**
-
-Example TAP output: `not ok 1 - bar (cause: baz)`
+* **`fail(message: string): void`**
 
 Example usage:
 
@@ -81,8 +79,8 @@ Example usage:
 const {test} = require('cybernaut');
 
 test('foo', async t => {
-  // Throws a new error
-  t.fail('bar', new Error('baz'));
+  // The following expression throws a new error.
+  t.fail('bar');
 });
 ```
 
@@ -92,15 +90,13 @@ Type definition:
 
 * **`pass(message: string): void`**
 
-Example TAP output: `ok 1 - bar`
-
 Example usage:
 
 ```js
 const {test} = require('cybernaut');
 
 test('foo', async t => {
-  // Prints a successful-test line in TAP format on standard output
+  // The following expression prints a successful-test line on standard output.
   t.pass('bar');
 });
 ```

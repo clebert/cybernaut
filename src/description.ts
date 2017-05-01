@@ -12,14 +12,14 @@ export function format(description: Description): string {
 
   const formattedString = description.template.replace(/\{\}/g, () => {
     if (args.length === 0) {
-      throw new Error('Missing format argument');
+      throw new Error('missing format argument');
     }
 
     return args.shift() as string;
   });
 
   if (args.length > 0) {
-    throw new Error('Superfluous format argument');
+    throw new Error('superfluous format argument');
   }
 
   return formattedString;

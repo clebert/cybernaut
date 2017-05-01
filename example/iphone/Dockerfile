@@ -1,6 +1,6 @@
 FROM clebert/cybernaut-chrome:latest
 
-RUN npm install -g typescript@2.2.2
+RUN npm install -g typescript@2.3.2
 
 COPY config.json /opt/config.json
 
