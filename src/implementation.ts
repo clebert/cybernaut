@@ -1,6 +1,5 @@
 import createDebug = require('debug');
 
-import {uploadBase64} from 'imgur';
 import {Builder, WebDriver} from 'selenium-webdriver';
 import {Config} from './config';
 import {Test} from './test';
@@ -30,26 +29,6 @@ class TapTest extends Test {
   }
 }
 
-async function takeScreenshot(driver: WebDriver, error: Error): Promise<Error> {
-  try {
-    const screenshot = await driver.takeScreenshot();
-
-    // TODO: setClientId
-
-    const response = await uploadBase64(screenshot);
-
-    if (response.data && response.data.link) {
-      return new Error(error.message + ` (screenshot: ${response.data.link})`);
-    } else {
-      // TODO: debug
-    }
-  } catch (e) {
-    // TODO: debug
-  }
-
-  return error;
-}
-
 export async function execute(
   implementation: Implementation, tap: Tap.Test, options: Options
 ): Promise<void> {
@@ -71,8 +50,6 @@ export async function execute(
     debug('execute test implementation');
 
     await implementation(new TapTest(driver, tap, options));
-  } catch (e) {
-    throw await takeScreenshot(driver, e); // TODO: await muss getestet werden
   } finally {
     debug('terminate browser session');
 
