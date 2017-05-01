@@ -15,5 +15,4 @@ example/firefox/tsconfig.json
 example/iphone/tsconfig.json
 node_modules
 npm-debug.log*
-screenshots
 todo.tasks

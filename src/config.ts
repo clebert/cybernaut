@@ -20,7 +20,6 @@ export interface Config {
   readonly include: string;
   readonly retries: number;
   readonly retryDelay: number;
-  readonly screenshotDirectory: string;
   readonly timeouts: Timeouts;
 }
 
@@ -33,7 +32,6 @@ const defaultConfig: Config = {
   include: '**/*.e2e.js',
   retries: 4,
   retryDelay: 500,
-  screenshotDirectory: 'screenshots',
   timeouts: {element: 0, page: 30000, script: 30000}
 };
 

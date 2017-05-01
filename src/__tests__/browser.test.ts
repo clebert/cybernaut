@@ -11,9 +11,7 @@ proxyquire.noPreserveCache();
 proxyquire.preserveCache();
 
 proxyquire('../browser', {
-  'fs-extra': {outputFile: stubs.outputFile},
-  'uuid/v4': stubs.uuidV4,
-  './utils': {sleep: stubs.sleep}
+  'uuid/v4': stubs.uuidV4, './utils': {sleep: stubs.sleep}
 });
 
 import {Browser} from '../browser';
@@ -27,7 +25,7 @@ let browser: Browser;
 test.beforeEach(() => {
   resetAll(stubs);
 
-  browser = new Browser('screenshotDirectory');
+  browser = new Browser();
 });
 
 test(createTestName('pageTitle', 'accessor'), async t => {
@@ -227,30 +225,6 @@ test(createTestName('reloadPage', 'action'), async t => {
   await t.throws(action.perform({navigate: () => ({refresh})} as any), 'foo');
 
   t.is(refresh.callCount, 1);
-});
-
-test(createTestName('saveScreenshot', 'action'), async t => {
-  t.plan(6);
-
-  stubs.uuidV4.returns('uuid');
-
-  const action = browser.saveScreenshot();
-
-  t.is(
-    format(action.description),
-    'save screenshot to \'screenshotDirectory/uuid.png\''
-  );
-
-  const takeScreenshot = stub().resolves('screenshot');
-
-  stubs.outputFile.rejects(new Error('foo'));
-
-  await t.throws(action.perform({takeScreenshot} as any), 'foo');
-
-  t.is(stubs.outputFile.callCount, 1);
-  t.is(stubs.outputFile.args[0][0], 'screenshotDirectory/uuid.png');
-  t.is(stubs.outputFile.args[0][1], 'screenshot');
-  t.deepEqual(stubs.outputFile.args[0][2], {encoding: 'base64'});
 });
 
 test(createTestName('setWindowPosition', 'action'), async t => {

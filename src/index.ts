@@ -77,7 +77,7 @@ export class It {
 }
 
 export const it = new It();
-export const browser = new Browser(config.screenshotDirectory);
+export const browser = new Browser();
 
 const tasks: (() => void)[] = [];
 

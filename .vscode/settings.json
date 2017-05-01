@@ -7,8 +7,7 @@
     "**/coverage": true,
     "**/dist": true,
     "**/node_modules": true,
-    "**/npm-debug.log*": true,
-    "**/screenshots": true
+    "**/npm-debug.log*": true
   },
   "search.exclude": {
     "**/.DS_Store": true,
@@ -18,8 +17,7 @@
     "**/coverage": true,
     "**/dist": true,
     "**/node_modules": true,
-    "**/npm-debug.log*": true,
-    "**/screenshots": true
+    "**/npm-debug.log*": true
   },
   "tslint.configFile": "./tslint.json",
   "tslint.enable": true,

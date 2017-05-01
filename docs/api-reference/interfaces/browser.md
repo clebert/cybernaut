@@ -15,7 +15,6 @@
 * [`navigateBack`](#method-navigateback)
 * [`navigateForward`](#method-navigateforward)
 * [`reloadPage`](#method-reloadpage)
-* [`saveScreenshot`](#method-savescreenshot)
 * [`setWindowPosition`](#method-setwindowposition)
 * [`setWindowSize`](#method-setwindowsize)
 * [`sleep`](#method-sleep)
@@ -241,22 +240,6 @@ const {browser, test} = require('cybernaut');
 
 test('foo', async t => {
   await t.perform(browser.reloadPage());
-});
-```
-
-### Method `saveScreenshot`
-
-Type definition:
-
-* **`saveScreenshot(): Action`**
-
-Example usage:
-
-```js
-const {browser, test} = require('cybernaut');
-
-test('foo', async t => {
-  await t.perform(browser.saveScreenshot());
 });
 ```
 

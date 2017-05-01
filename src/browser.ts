@@ -1,9 +1,3 @@
-import createDebug = require('debug');
-import uuidV4 = require('uuid/v4');
-
-import {outputFile} from 'fs-extra';
-import {uploadBase64} from 'imgur';
-import {join} from 'path';
 import {Accessor} from './accessor';
 import {Action} from './action';
 import {sleep} from './utils';
@@ -11,15 +5,7 @@ import {sleep} from './utils';
 // tslint:disable-next-line no-any
 export type Script = (callback: (result?: any) => void) => void;
 
-const debug = createDebug('cybernaut:browser');
-
 export class Browser {
-  private readonly _screenshotDirectory: string;
-
-  public constructor(screenshotDirectory: string) {
-    this._screenshotDirectory = screenshotDirectory;
-  }
-
   public get pageTitle(): Accessor<string> {
     return {
       description: {template: 'page title'},
@@ -113,25 +99,6 @@ export class Browser {
     return {
       description: {template: 'reload page'},
       perform: async driver => driver.navigate().refresh()
-    };
-  }
-
-  public saveScreenshot(): Action {
-    const filename = join(this._screenshotDirectory, uuidV4() + '.png');
-
-    return {
-      description: {
-        template: 'save screenshot to {}', args: [filename]
-      },
-      perform: async driver => {
-        const screenshot = await driver.takeScreenshot();
-
-        await outputFile(filename, screenshot, {encoding: 'base64'});
-
-        const response = await uploadBase64(screenshot);
-
-        debug(`uploaded screenshot to imgur: ${response.data.link}`);
-      }
     };
   }
 

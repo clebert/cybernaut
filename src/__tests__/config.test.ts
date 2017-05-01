@@ -20,7 +20,6 @@ const customConfig: Config = {
   include: 'foo',
   retries: 456,
   retryDelay: 789,
-  screenshotDirectory: 'bar',
   timeouts: {element: 123, page: 456, script: 789}
 };
 
@@ -31,7 +30,6 @@ const defaultConfig: Config = {
   include: '**/*.e2e.js',
   retries: 4,
   retryDelay: 500,
-  screenshotDirectory: 'screenshots',
   timeouts: {element: 0, page: 30000, script: 30000}
 };
 
@@ -118,7 +116,7 @@ test('`validate` should return no errors', t => {
 });
 
 test('`validate` should return errors', t => {
-  t.plan(35);
+  t.plan(33);
 
   // schema.type
   let config: any = [];
@@ -135,7 +133,6 @@ test('`validate` should return errors', t => {
     'config should have required property \'include\'',
     'config should have required property \'retries\'',
     'config should have required property \'retryDelay\'',
-    'config should have required property \'screenshotDirectory\'',
     'config should have required property \'timeouts\''
   ]);
 
@@ -263,22 +260,6 @@ test('`validate` should return errors', t => {
   config = {...defaultConfig, retryDelay: 123.5};
 
   t.deepEqual(validate(config), ['config.retryDelay should be multiple of 1']);
-
-  /****************************************************************************/
-
-  // schema.properties.screenshotDirectory.type
-  config = {...defaultConfig, screenshotDirectory: 123};
-
-  t.deepEqual(validate(config), [
-    'config.screenshotDirectory should be string'
-  ]);
-
-  // schema.properties.screenshotDirectory.minLength
-  config = {...defaultConfig, screenshotDirectory: ''};
-
-  t.deepEqual(validate(config), [
-    'config.screenshotDirectory should NOT be shorter than 1 characters'
-  ]);
 
   /****************************************************************************/
 
