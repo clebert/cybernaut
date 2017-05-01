@@ -339,8 +339,9 @@ test('`Test.verify` should pass a returning step to `run`', async t => {
 });
 
 test('`Test.verify` should pass a throwing step to `run`', async t => {
-  t.plan(6);
+  t.plan(8);
 
+  stubs.format.onThirdCall().returns('error');
   stubs.get.returns('value');
   stubs.test.returns(false);
 
@@ -350,7 +351,14 @@ test('`Test.verify` should pass a throwing step to `run`', async t => {
 
   const step = stubs.run.args[0][0] as Step;
 
-  await t.throws(step());
+  await t.throws(step(), 'error');
+
+  t.is(stubs.format.callCount, 3);
+
+  t.deepEqual(stubs.format.args[2][0], {
+    template: 'the predicate evaluates to false, the actual value is {}',
+    args: ['value']
+  });
 
   t.is(stubs.get.callCount, 1);
   t.is(stubs.get.args[0][0], driver);
