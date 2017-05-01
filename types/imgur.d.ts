@@ -1,4 +1,4 @@
-// tslint:disable no-any
+// tslint:disable promise-function-async
 
 declare module 'imgur' {
   export interface Response {
