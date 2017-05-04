@@ -90,7 +90,7 @@
     "glob": "7.1.1",
     "selenium-webdriver": "3.4.0",
     "tap": "10.3.2",
-    "tslib": "1.6.1",
+    "tslib": "1.7.0",
     "uuid": "3.0.1"
   },
   "devDependencies": {
