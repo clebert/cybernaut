@@ -85,7 +85,7 @@
     "chromedriver": "2.29.0",
     "debug": "2.6.6",
     "deep-strict-equal": "0.2.0",
-    "fs-extra": "3.0.0",
+    "fs-extra": "3.0.1",
     "geckodriver": "1.6.1",
     "glob": "7.1.1",
     "selenium-webdriver": "3.4.0",
