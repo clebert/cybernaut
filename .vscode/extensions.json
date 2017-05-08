@@ -2,6 +2,7 @@
   "recommendations": [
     "DavidAnson.vscode-markdownlint",
     "EditorConfig.EditorConfig",
+    "KnisterPeter.vscode-commitizen",
     "eg2.tslint"
   ]
 }
