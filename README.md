@@ -82,6 +82,18 @@ npm install --save-dev cybernaut
 Otherwise, if the default configuration is used, a current version of Chrome must be installed.
 Cybernaut is tested with Chrome and Firefox and **provides** the latest drivers for these two.*
 
+## Introduction
+
+Cybernaut is build on top of selenium-webdriver and lets you control a browser with just a few lines of code.
+Your end-to-end test code will look simple, concise and easy to read and is automatically output line by line in a human-readable form.
+It provides a [`Promise`][mdn-promise]-based API and allows the use of [`async`][mdn-async]/[`await`][mdn-await] to write code without nesting and with the possibility of using control-flow primitives such as `if...else`.
+
+There are pre-built Docker containers to run your end-to-end tests effortlessly in any environment such as Travis CI.
+
+The integrated test runner executes all steps of your end-to-end tests in an atomic way.
+This means that if one part of a test step fails, the entire test step fails and can then be repeated.
+By this mechanism, a high reliability and thus stability of your end-to-end tests can be ensured.
+
 ## Documentation
 
 You can find the documentation [here][homepage].
@@ -97,6 +109,9 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [greenkeeper-badge]: https://badges.greenkeeper.io/clebert/cybernaut.svg
 [homepage]: https://cybernaut.js.org/
 [logo-svg]: https://clebert.github.io/cybernaut/images/logo.svg
+[mdn-async]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
+[mdn-await]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await
+[mdn-promise]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
 [npm-cybernaut]: https://www.npmjs.com/package/cybernaut
 [npm-cybernaut-badge]: https://img.shields.io/npm/v/cybernaut.svg?maxAge=3600
 [semantic-release]: https://github.com/semantic-release/semantic-release

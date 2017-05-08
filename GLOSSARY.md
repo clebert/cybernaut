@@ -24,6 +24,8 @@
 
 ## [TAP](https://testanything.org/)
 
+## [Travis CI](https://travis-ci.org/)
+
 ## [TSLint](https://palantir.github.io/tslint/)
 
 ## [TypeScript](http://www.typescriptlang.org/)
