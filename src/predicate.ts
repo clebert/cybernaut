@@ -87,6 +87,14 @@ export class PredicateBuilder {
     );
   }
 
+  public between(from: number, to: number): Predicate<number> {
+    const description = {template: 'between {} and {}', args: [from, to]};
+
+    return this._build<number>(
+      description, actualValue => from <= actualValue && actualValue <= to
+    );
+  }
+
   private _build<T>(
     {args, template}: Description, test: (value: T) => boolean
   ): Predicate<T> {

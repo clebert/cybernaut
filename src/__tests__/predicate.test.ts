@@ -210,3 +210,33 @@ test(createTestName('not.be.at.most'), async t => {
   t.false(predicate.test(1));
   t.false(predicate.test(0));
 });
+
+test(createTestName('be.between'), async t => {
+  t.plan(6);
+
+  const predicate = new PredicateBuilder().be.between(3,8);
+
+  t.is(format(predicate.description), 'should be between 3 and 8');
+
+  t.true(predicate.test(3));
+  t.true(predicate.test(5));
+  t.true(predicate.test(8));
+
+  t.false(predicate.test(1));
+  t.false(predicate.test(9));
+});
+
+test(createTestName('not.be.between'), async t => {
+  t.plan(6);
+
+  const predicate = new PredicateBuilder().not.be.between(3,8);
+
+  t.is(format(predicate.description), 'should not be between 3 and 8');
+
+  t.false(predicate.test(3));
+  t.false(predicate.test(5));
+  t.false(predicate.test(8));
+
+  t.true(predicate.test(1));
+  t.true(predicate.test(9));
+});
