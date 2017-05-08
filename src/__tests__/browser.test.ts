@@ -67,9 +67,12 @@ test(createTestName('windowXPosition', 'accessor'), async t => {
 
   const getPosition = stub().resolves({x: 123, y: 456});
 
-  t.is(await accessor.get({
-    manage: () => ({window: () => ({getPosition})})
-  } as any), 123);
+  t.is(
+    await accessor.get({
+      manage: () => ({window: () => ({getPosition})})
+    } as any),
+    123
+  );
 
   t.is(getPosition.callCount, 1);
 });
@@ -83,9 +86,12 @@ test(createTestName('windowYPosition', 'accessor'), async t => {
 
   const getPosition = stub().resolves({x: 123, y: 456});
 
-  t.is(await accessor.get({
-    manage: () => ({window: () => ({getPosition})})
-  } as any), 456);
+  t.is(
+    await accessor.get({
+      manage: () => ({window: () => ({getPosition})})
+    } as any),
+    456
+  );
 
   t.is(getPosition.callCount, 1);
 });
@@ -99,9 +105,10 @@ test(createTestName('windowWidth', 'accessor'), async t => {
 
   const getSize = stub().resolves({width: 123, height: 456});
 
-  t.is(await accessor.get({
-    manage: () => ({window: () => ({getSize})})
-  } as any), 123);
+  t.is(
+    await accessor.get({manage: () => ({window: () => ({getSize})})} as any),
+    123
+  );
 
   t.is(getSize.callCount, 1);
 });
@@ -115,9 +122,10 @@ test(createTestName('windowHeight', 'accessor'), async t => {
 
   const getSize = stub().resolves({width: 123, height: 456});
 
-  t.is(await accessor.get({
-    manage: () => ({window: () => ({getSize})})
-  } as any), 456);
+  t.is(
+    await accessor.get({manage: () => ({window: () => ({getSize})})} as any),
+    456
+  );
 
   t.is(getSize.callCount, 1);
 });
@@ -262,9 +270,10 @@ test(createTestName('setWindowPosition', 'action'), async t => {
 
   const setPosition = stub().rejects(new Error('foo'));
 
-  await t.throws(action.perform({
-    manage: () => ({window: () => ({setPosition})})
-  } as any), 'foo');
+  await t.throws(
+    action.perform({manage: () => ({window: () => ({setPosition})})} as any),
+    'foo'
+  );
 
   t.is(setPosition.callCount, 1);
   t.is(setPosition.args[0][0], 123);

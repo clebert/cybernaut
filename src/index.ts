@@ -84,13 +84,15 @@ const tasks: (() => void)[] = [];
 export function test(name: string, implementation?: Implementation): void {
   tasks.push(() => {
     // tslint:disable-next-line no-floating-promises
-    tap.test(name, {
-      diagnostic: false, timeout: 0, todo: !implementation
-    }, async t => {
-      if (implementation) {
-        await execute(implementation, t, config);
+    tap.test(
+      name,
+      {diagnostic: false, timeout: 0, todo: !implementation},
+      async t => {
+        if (implementation) {
+          await execute(implementation, t, config);
+        }
       }
-    }).catch((error: Error) => {
+    ).catch((error: Error) => {
       tap.fail(error.message);
     });
   });

@@ -1,6 +1,7 @@
 {
   "extends": "./node_modules/ts-config/tslint.json",
   "rules": {
+    "no-object-literal-type-assertion": false,
     "no-reference": false,
     "no-var-requires": false
   }
