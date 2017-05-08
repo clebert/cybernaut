@@ -3,32 +3,33 @@ import {Key} from 'selenium-webdriver';
 import {stub} from 'sinon';
 import {sleep, translate} from '../utils';
 
-test('`sleep` should return a promise ' +
-  'that resolves after the specified amount of time', async t => {
-    t.plan(4);
+const name = '`sleep` should return a promise ' +
+  'that resolves after the specified amount of time';
 
-    const _setTimeout = stub();
+test(name, async t => {
+  t.plan(4);
 
-    let resolved = false;
+  const _setTimeout = stub();
 
-    const promise = sleep(50, _setTimeout).then(() => resolved = true);
+  let resolved = false;
 
-    t.is(_setTimeout.callCount, 1);
-    t.is(_setTimeout.args[0][1], 50);
+  const promise = sleep(50, _setTimeout).then(() => resolved = true);
 
-    await new Promise<void>(resolve => {
-      setImmediate(resolve);
-    });
+  t.is(_setTimeout.callCount, 1);
+  t.is(_setTimeout.args[0][1], 50);
 
-    t.false(resolved);
+  await new Promise<void>(resolve => {
+    setImmediate(resolve);
+  });
 
-    _setTimeout.args[0][0]();
+  t.false(resolved);
 
-    await promise;
+  _setTimeout.args[0][0]();
 
-    t.true(resolved);
-  }
-);
+  await promise;
+
+  t.true(resolved);
+});
 
 test('`translate` should return the name for pressable keys', t => {
   t.plan(189);

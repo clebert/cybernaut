@@ -40,9 +40,13 @@ export abstract class Test {
     const message = 'Assert: ' + describe(accessor, predicate);
 
     try {
-      const attempts = await run(async () => {
-        await this._test(accessor, predicate);
-      }, retries, retryDelay);
+      const attempts = await run(
+        async () => {
+          await this._test(accessor, predicate);
+        },
+        retries,
+        retryDelay
+      );
 
       this.pass(ok(message, attempts, retries));
     } catch (e) {
@@ -58,9 +62,13 @@ export abstract class Test {
     const message = 'Perform: ' + format(action.description);
 
     try {
-      const attempts = await run(async () => {
-        await action.perform(this._driver);
-      }, retries, retryDelay);
+      const attempts = await run(
+        async () => {
+          await action.perform(this._driver);
+        },
+        retries,
+        retryDelay
+      );
 
       this.pass(ok(message, attempts, retries));
     } catch (e) {
@@ -77,9 +85,13 @@ export abstract class Test {
     const message = 'Verify: ' + describe(accessor, predicate);
 
     try {
-      const attempts = await run(async () => {
-        await this._test(accessor, predicate);
-      }, retries, retryDelay);
+      const attempts = await run(
+        async () => {
+          await this._test(accessor, predicate);
+        },
+        retries,
+        retryDelay
+      );
 
       this.pass(ok(message, attempts, retries));
 
