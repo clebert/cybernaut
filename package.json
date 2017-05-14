@@ -32,6 +32,14 @@
     }
   },
   "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.ts"
+    ],
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/_book/",
+      "<rootDir>/node_modules/",
+      "<rootDir>/src/index.ts"
+    ],
     "moduleFileExtensions": [
       "js",
       "ts"
