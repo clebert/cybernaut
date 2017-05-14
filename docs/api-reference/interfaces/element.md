@@ -28,7 +28,7 @@ Example usage:
 const {defineElement, it, test} = require('cybernaut');
 
 test('foo', async t => {
-  const bar = defineElement('#bar');
+  const bar = defineElement('bar', '#bar');
 
   await t.assert(bar.tagName, it.should.equal('div'));
 });
@@ -46,7 +46,7 @@ Example usage:
 const {defineElement, it, test} = require('cybernaut');
 
 test('foo', async t => {
-  const bar = defineElement('#bar');
+  const bar = defineElement('bar', '#bar');
 
   await t.assert(bar.text, it.should.equal('baz'));
 });
@@ -64,7 +64,7 @@ Example usage:
 const {defineElement, it, test} = require('cybernaut');
 
 test('foo', async t => {
-  const bar = defineElement('#bar');
+  const bar = defineElement('bar', '#bar');
 
   await t.assert(bar.visibility, it.should.equal(true));
 });
@@ -82,7 +82,7 @@ Example usage:
 const {defineElement, it, test} = require('cybernaut');
 
 test('foo', async t => {
-  const bar = defineElement('#bar');
+  const bar = defineElement('bar', '#bar');
 
   await t.assert(bar.xPosition, it.should.equal(123));
 });
@@ -100,7 +100,7 @@ Example usage:
 const {defineElement, it, test} = require('cybernaut');
 
 test('foo', async t => {
-  const bar = defineElement('#bar');
+  const bar = defineElement('bar', '#bar');
 
   await t.assert(bar.yPosition, it.should.equal(123));
 });
@@ -118,7 +118,7 @@ Example usage:
 const {defineElement, it, test} = require('cybernaut');
 
 test('foo', async t => {
-  const bar = defineElement('#bar');
+  const bar = defineElement('bar', '#bar');
 
   await t.assert(bar.width, it.should.equal(123));
 });
@@ -136,7 +136,7 @@ Example usage:
 const {defineElement, it, test} = require('cybernaut');
 
 test('foo', async t => {
-  const bar = defineElement('#bar');
+  const bar = defineElement('bar', '#bar');
 
   await t.assert(bar.height, it.should.equal(123));
 });
@@ -154,7 +154,7 @@ Example usage:
 const {defineElement, it, test} = require('cybernaut');
 
 test('foo', async t => {
-  const bar = defineElement('#bar');
+  const bar = defineElement('bar', '#bar');
 
   await t.assert(bar.attributeValue('id'), it.should.equal('bar'));
 });
@@ -172,7 +172,7 @@ Example usage:
 const {defineElement, it, test} = require('cybernaut');
 
 test('foo', async t => {
-  const bar = defineElement('#bar');
+  const bar = defineElement('bar', '#bar');
 
   await t.assert(bar.cssValue('margin-left'), it.should.equal('22px'));
 });
@@ -190,7 +190,7 @@ Example usage:
 const {defineElement, test} = require('cybernaut');
 
 test('foo', async t => {
-  const bar = defineElement('#bar');
+  const bar = defineElement('bar', '#bar');
 
   await t.perform(bar.clearValue());
 });
@@ -208,7 +208,7 @@ Example usage:
 const {defineElement, test} = require('cybernaut');
 
 test('foo', async t => {
-  const bar = defineElement('#bar');
+  const bar = defineElement('bar', '#bar');
 
   await t.perform(bar.click());
 });
@@ -226,7 +226,7 @@ Example usage:
 const {Key, defineElement, test} = require('cybernaut');
 
 test('foo', async t => {
-  const bar = defineElement('#bar');
+  const bar = defineElement('bar', '#bar');
 
   await t.perform(bar.sendKeys('text was', Key.CONTROL, 'a', Key.NULL, 'now text is'));
 });
@@ -256,7 +256,7 @@ Example usage:
 const {defineElement, test} = require('cybernaut');
 
 test('foo', async t => {
-  const bar = defineElement('#bar');
+  const bar = defineElement('bar', '#bar');
 
   await t.perform(bar.submitForm());
 });

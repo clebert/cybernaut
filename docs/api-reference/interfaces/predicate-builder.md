@@ -8,16 +8,16 @@
 * [`not.equal`](#method-notequal)
 * [`match`](#method-match)
 * [`not.match`](#method-notmatch)
-* [`be.above`](#method-beabove)
-* [`be.at.least`](#method-beatleast)
-* [`be.below`](#method-bebelow)
-* [`be.at.most`](#method-beatmost)
+* [`beAbove`](#method-beabove)
+* [`beAtLeast`](#method-beatleast)
+* [`beAtMost`](#method-beatmost)
+* [`beBelow`](#method-bebelow)
 
 ### Method `contain`
 
 Type definition:
 
-* **`contain(expectedValue: string): Predicate<string>`**
+* **`contain(value: string): Predicate<string>`**
 
 Example usage:
 
@@ -33,7 +33,7 @@ test('foo', async t => {
 
 Type definition:
 
-* **`not.contain(expectedValue: string): Predicate<string>`**
+* **`not.contain(value: string): Predicate<string>`**
 
 Example usage:
 
@@ -49,7 +49,7 @@ test('foo', async t => {
 
 Type definition:
 
-* **`equal<T>(expectedValue: T): Predicate<T>`**
+* **`equal<T>(value: T): Predicate<T>`**
 
 Example usage:
 
@@ -67,7 +67,7 @@ test('foo', async t => {
 
 Type definition:
 
-* **`not.equal<T>(expectedValue: T): Predicate<T>`**
+* **`not.equal<T>(value: T): Predicate<T>`**
 
 Example usage:
 
@@ -85,7 +85,7 @@ test('foo', async t => {
 
 Type definition:
 
-* **`match(regex: RegExp): Predicate<string>`**
+* **`match(value: RegExp): Predicate<string>`**
 
 Example usage:
 
@@ -101,7 +101,7 @@ test('foo', async t => {
 
 Type definition:
 
-* **`not.match(regex: RegExp): Predicate<string>`**
+* **`not.match(value: RegExp): Predicate<string>`**
 
 Example usage:
 
@@ -113,11 +113,11 @@ test('foo', async t => {
 });
 ```
 
-### Method `be.above`
+### Method `beAbove`
 
 Type definition:
 
-* **`be.above(expectedValue: number): Predicate<number>`**
+* **`beAbove(value: number): Predicate<number>`**
 
 Example usage:
 
@@ -126,15 +126,15 @@ const {browser, it, test} = require('cybernaut');
 
 test('foo', async t => {
   // windowWidth > 123
-  await t.assert(browser.windowWidth, it.should.be.above(123));
+  await t.assert(browser.windowWidth, it.should.beAbove(123));
 });
 ```
 
-### Method `be.at.least`
+### Method `beAtLeast`
 
 Type definition:
 
-* **`be.at.least(expectedValue: number): Predicate<number>`**
+* **`beAtLeast(value: number): Predicate<number>`**
 
 Example usage:
 
@@ -143,32 +143,15 @@ const {browser, it, test} = require('cybernaut');
 
 test('foo', async t => {
   // windowWidth >= 123
-  await t.assert(browser.windowWidth, it.should.be.at.least(123));
+  await t.assert(browser.windowWidth, it.should.beAtLeast(123));
 });
 ```
 
-### Method `be.below`
+### Method `beAtMost`
 
 Type definition:
 
-* **`be.below(expectedValue: number): Predicate<number>`**
-
-Example usage:
-
-```js
-const {browser, it, test} = require('cybernaut');
-
-test('foo', async t => {
-  // windowWidth < 123
-  await t.assert(browser.windowWidth, it.should.be.below(123));
-});
-```
-
-### Method `be.at.most`
-
-Type definition:
-
-* **`be.at.most(expectedValue: number): Predicate<number>`**
+* **`beAtMost(value: number): Predicate<number>`**
 
 Example usage:
 
@@ -177,6 +160,23 @@ const {browser, it, test} = require('cybernaut');
 
 test('foo', async t => {
   // windowWidth <= 123
-  await t.assert(browser.windowWidth, it.should.be.at.most(123));
+  await t.assert(browser.windowWidth, it.should.beAtMost(123));
+});
+```
+
+### Method `beBelow`
+
+Type definition:
+
+* **`beBelow(value: number): Predicate<number>`**
+
+Example usage:
+
+```js
+const {browser, it, test} = require('cybernaut');
+
+test('foo', async t => {
+  // windowWidth < 123
+  await t.assert(browser.windowWidth, it.should.beBelow(123));
 });
 ```

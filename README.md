@@ -14,17 +14,16 @@
 WYSIWYM—the above **human-readable** test output corresponds to what is programmed:
 
 ```js
-const {browser, defineElement, it, test} = require('cybernaut');
+import {Element, browser, defineElement, it, test} from 'cybernaut';
 
 test('The gitbook should include the chapter "Starting Cybernaut"', async t => {
-  await t.perform(browser.loadPage('https://cybernaut.js.org/'));
+  await t.perform(browser.loadPage('https://cybernaut.js.org/'), {retries: 0});
 
-  const summary = defineElement('div.book-summary', 'summary');
+  const summary = defineElement('summary', 'div.book-summary');
 
   if (await t.verify(summary.visibility, it.should.equal(false))) {
     const toggleSummaryButton = defineElement(
-      'div.book-header > a:nth-child(1).js-toolbar-action',
-      'toggle-summary-button'
+      'toggle-summary-button', 'a:nth-child(1).js-toolbar-action'
     );
 
     await t.perform(toggleSummaryButton.click());
@@ -33,15 +32,14 @@ test('The gitbook should include the chapter "Starting Cybernaut"', async t => {
   }
 
   const chapterLink = defineElement(
-    'div.book-summary > nav > ul > li[data-level="1.2"].chapter',
-    'chapter-link-1-2'
+    'chapter-link-1-2', 'li[data-level="1.2"].chapter'
   );
 
   await t.perform(chapterLink.click());
 
-  const textHeadline = defineElement('section > h1', 'headline');
+  const headline = defineElement('headline', 'section > h1');
 
-  await t.assert(textHeadline.text, it.should.equal('Starting Cybernaut'));
+  await t.assert(headline.text, it.should.equal('Starting Cybernaut'));
 });
 ```
 
