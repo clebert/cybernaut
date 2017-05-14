@@ -1,5 +1,5 @@
-// import {Element, browser, defineElement, it, test} from '../src';
-import {Element, browser, defineElement, it, test} from 'cybernaut';
+// import {browser, defineElement, it, test} from '../src';
+import {browser, defineElement, it, test} from 'cybernaut';
 
 test('The gitbook should include the chapter "Starting Cybernaut"', async t => {
   await t.perform(browser.loadPage('https://cybernaut.js.org/'), {retries: 0});
