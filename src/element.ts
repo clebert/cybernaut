@@ -4,12 +4,12 @@ import {Action} from './action';
 
 const KeyName = Object.create(null);
 
-for (const keyName of Object.keys(Key) as (keyof Key)[]) {
+for (const keyName of Object.keys(Key).sort() as (keyof Key)[]) {
   KeyName[Key[keyName]] = keyName;
 }
 
-function translate(char: string): string {
-  return KeyName[char] ? 'Key.' + String(KeyName[char]) : char;
+function serialize(char: string): string {
+  return KeyName[char] ? 'Key.' + String(KeyName[char]) : `'${char}'`;
 }
 
 export class Element {
@@ -151,13 +151,14 @@ export class Element {
 
   public sendKeys(...keys: string[]): Action {
     if (keys.length === 0) {
-      throw new Error('Missing keys');
+      throw new Error('At least one key must be specified');
     }
 
-    const translatedKeys = keys.map(translate).join(', ');
+    const serializedKeys = keys.map(serialize).join(', ');
 
     const description =
-      `Send the keys ${translatedKeys} to the ${this._name} element`;
+      `Send the key${keys.length > 1 ? 's' : ''} ` +
+      `${serializedKeys} to the ${this._name} element`;
 
     return {
       description,

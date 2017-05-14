@@ -1,6 +1,6 @@
 // tslint:disable no-any
 
-import {By} from 'selenium-webdriver';
+import {By, Key} from 'selenium-webdriver';
 import {Accessor} from '../accessor';
 import {Action} from '../action';
 import {Element} from '../element';
@@ -713,7 +713,308 @@ describe('given an element is created', () => {
   });
 
   describe('when element.sendKeys() is called', () => {
-    // TODO
+    let action: Action;
+
+    beforeEach(() => {
+      action = element.sendKeys('a', 'toString', Key.NULL);
+    });
+
+    test('then it should return an action', () => {
+      expect(action.description).toBe(
+        "Send the keys 'a', 'toString', Key.NULL to the <elementName> element"
+      );
+
+      expect(element.sendKeys(Key.NULL).description).toBe(
+        'Send the key Key.NULL to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.CANCEL).description).toBe(
+        'Send the key Key.CANCEL to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.HELP).description).toBe(
+        'Send the key Key.HELP to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.BACK_SPACE).description).toBe(
+        'Send the key Key.BACK_SPACE to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.TAB).description).toBe(
+        'Send the key Key.TAB to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.CLEAR).description).toBe(
+        'Send the key Key.CLEAR to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.RETURN).description).toBe(
+        'Send the key Key.RETURN to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.ENTER).description).toBe(
+        'Send the key Key.ENTER to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.SHIFT).description).toBe(
+        'Send the key Key.SHIFT to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.CONTROL).description).toBe(
+        'Send the key Key.CONTROL to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.ALT).description).toBe(
+        'Send the key Key.ALT to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.PAUSE).description).toBe(
+        'Send the key Key.PAUSE to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.ESCAPE).description).toBe(
+        'Send the key Key.ESCAPE to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.SPACE).description).toBe(
+        'Send the key Key.SPACE to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.PAGE_UP).description).toBe(
+        'Send the key Key.PAGE_UP to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.PAGE_DOWN).description).toBe(
+        'Send the key Key.PAGE_DOWN to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.END).description).toBe(
+        'Send the key Key.END to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.HOME).description).toBe(
+        'Send the key Key.HOME to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.ARROW_LEFT).description).toBe(
+        'Send the key Key.LEFT to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.LEFT).description).toBe(
+        'Send the key Key.LEFT to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.ARROW_UP).description).toBe(
+        'Send the key Key.UP to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.UP).description).toBe(
+        'Send the key Key.UP to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.ARROW_RIGHT).description).toBe(
+        'Send the key Key.RIGHT to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.RIGHT).description).toBe(
+        'Send the key Key.RIGHT to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.ARROW_DOWN).description).toBe(
+        'Send the key Key.DOWN to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.DOWN).description).toBe(
+        'Send the key Key.DOWN to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.INSERT).description).toBe(
+        'Send the key Key.INSERT to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.DELETE).description).toBe(
+        'Send the key Key.DELETE to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.SEMICOLON).description).toBe(
+        'Send the key Key.SEMICOLON to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.EQUALS).description).toBe(
+        'Send the key Key.EQUALS to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.NUMPAD0).description).toBe(
+        'Send the key Key.NUMPAD0 to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.NUMPAD1).description).toBe(
+        'Send the key Key.NUMPAD1 to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.NUMPAD2).description).toBe(
+        'Send the key Key.NUMPAD2 to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.NUMPAD3).description).toBe(
+        'Send the key Key.NUMPAD3 to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.NUMPAD4).description).toBe(
+        'Send the key Key.NUMPAD4 to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.NUMPAD5).description).toBe(
+        'Send the key Key.NUMPAD5 to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.NUMPAD6).description).toBe(
+        'Send the key Key.NUMPAD6 to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.NUMPAD7).description).toBe(
+        'Send the key Key.NUMPAD7 to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.NUMPAD8).description).toBe(
+        'Send the key Key.NUMPAD8 to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.NUMPAD9).description).toBe(
+        'Send the key Key.NUMPAD9 to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.MULTIPLY).description).toBe(
+        'Send the key Key.MULTIPLY to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.ADD).description).toBe(
+        'Send the key Key.ADD to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.SEPARATOR).description).toBe(
+        'Send the key Key.SEPARATOR to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.SUBTRACT).description).toBe(
+        'Send the key Key.SUBTRACT to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.DECIMAL).description).toBe(
+        'Send the key Key.DECIMAL to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.DIVIDE).description).toBe(
+        'Send the key Key.DIVIDE to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.F1).description).toBe(
+        'Send the key Key.F1 to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.F2).description).toBe(
+        'Send the key Key.F2 to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.F3).description).toBe(
+        'Send the key Key.F3 to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.F4).description).toBe(
+        'Send the key Key.F4 to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.F5).description).toBe(
+        'Send the key Key.F5 to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.F6).description).toBe(
+        'Send the key Key.F6 to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.F7).description).toBe(
+        'Send the key Key.F7 to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.F8).description).toBe(
+        'Send the key Key.F8 to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.F9).description).toBe(
+        'Send the key Key.F9 to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.F10).description).toBe(
+        'Send the key Key.F10 to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.F11).description).toBe(
+        'Send the key Key.F11 to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.F12).description).toBe(
+        'Send the key Key.F12 to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.COMMAND).description).toBe(
+        'Send the key Key.META to the <elementName> element'
+      );
+
+      expect(element.sendKeys(Key.META).description).toBe(
+        'Send the key Key.META to the <elementName> element'
+      );
+    });
+
+    test('then it should throw an error', async () => {
+      expect(() => element.sendKeys()).toThrowError(
+        'At least one key must be specified'
+      );
+    });
+
+    describe('when action.perform() is called', () => {
+      test('then it should call driver.findElement() once', async () => {
+        const driver = {
+          findElement: jest.fn().mockImplementation(async () => ({
+            sendKeys: jest.fn()
+          }))
+        };
+
+        await action.perform(driver as any);
+
+        expect(driver.findElement.mock.calls.length).toBe(1);
+
+        expect(driver.findElement.mock.calls[0][0]).toEqual(
+          By.css('<elementSelector>')
+        );
+      });
+
+      test('then it should call element.sendKeys() once', async () => {
+        const sendKeys = jest.fn();
+
+        const driver = {
+          findElement: jest.fn().mockImplementation(async () => ({sendKeys}))
+        };
+
+        await action.perform(driver as any);
+
+        expect(sendKeys.mock.calls.length).toBe(1);
+        expect(sendKeys.mock.calls[0][0]).toBe('a');
+        expect(sendKeys.mock.calls[0][1]).toBe('toString');
+        expect(sendKeys.mock.calls[0][2]).toBe(Key.NULL);
+      });
+
+      test('then it should throw an error', async () => {
+        const error = new Error('<message>');
+
+        const driver = {
+          findElement: jest.fn().mockImplementation(async () => {
+            throw error;
+          })
+        };
+
+        await expect(action.perform(driver as any)).rejects.toEqual(error);
+      });
+    });
   });
 
   describe('when element.submitForm() is called', () => {

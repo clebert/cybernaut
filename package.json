@@ -38,6 +38,8 @@
     "coveragePathIgnorePatterns": [
       "<rootDir>/_book/",
       "<rootDir>/node_modules/",
+      "<rootDir>/src/accessor.ts",
+      "<rootDir>/src/action.ts",
       "<rootDir>/src/index.ts"
     ],
     "moduleFileExtensions": [
