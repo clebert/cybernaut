@@ -14,12 +14,10 @@ module.exports = function () {
     debug: true,
     env: {type: 'node', runner: 'node'},
     files: [
-      'config-schema.json',
-      'node_modules/ts-config/tsconfig.json',
       'src/**/*.ts',
-      'tsconfig.json',
       '!src/**/*.test.ts',
-      '!src/index.ts'
+      'node_modules/ts-config/tsconfig.json',
+      'tsconfig.json'
     ],
     setup,
     testFramework: 'jest',
