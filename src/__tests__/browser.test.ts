@@ -1,318 +1,695 @@
 // tslint:disable no-any
 
-import proxyquire = require('proxyquire');
+import {Accessor} from '../accessor';
+import {Action} from '../action';
+import {Browser, Script} from '../browser';
 
-import test from 'ava';
-import {stub} from 'sinon';
-import {format} from '../description';
-import {browserStubs as stubs, resetAll} from './stubs';
+describe('given a browser is created', () => {
+  let browser: Browser;
 
-proxyquire.noPreserveCache();
-proxyquire.preserveCache();
+  beforeEach(() => {
+    browser = new Browser();
+  });
 
-proxyquire('../browser', {
-  'fs-extra': {outputFile: stubs.outputFile},
-  'uuid/v4': stubs.uuidV4,
-  './utils': {sleep: stubs.sleep}
-});
+  describe('when browser.pageTitle is accessed', () => {
+    let accessor: Accessor<string>;
 
-import {Browser} from '../browser';
+    beforeEach(() => {
+      accessor = browser.pageTitle;
+    });
 
-function createTestName(method: string, result: string): string {
-  return `\`Browser.${method}\` should return an ${result}`;
-}
+    test('then it should evaluate to an accessor', () => {
+      expect(accessor.name).toBe('the title of the page');
+    });
 
-let browser: Browser;
+    describe('when accessor.get() is called', () => {
+      test('then it should call driver.getTitle() once', async () => {
+        const driver = {getTitle: jest.fn()};
 
-test.beforeEach(() => {
-  resetAll(stubs);
+        await accessor.get(driver as any);
 
-  browser = new Browser('screenshotDirectory');
-});
+        expect(driver.getTitle.mock.calls.length).toBe(1);
+      });
 
-test(createTestName('pageTitle', 'accessor'), async t => {
-  t.plan(3);
+      test('then it should return the title of the page', async () => {
+        const driver = {
+          getTitle: jest.fn().mockImplementationOnce(async () => '<pageTitle>')
+        };
 
-  const accessor = browser.pageTitle;
+        expect(await accessor.get(driver as any)).toBe('<pageTitle>');
+      });
 
-  t.is(format(accessor.description), 'page title');
+      test('then it should throw an error', async () => {
+        const error = new Error('<message>');
 
-  const getTitle = stub().resolves('pageTitle');
+        const driver = {
+          getTitle: jest.fn().mockImplementationOnce(async () => {
+            throw error;
+          })
+        };
 
-  t.is(await accessor.get({getTitle} as any), 'pageTitle');
+        await expect(accessor.get(driver as any)).rejects.toEqual(error);
+      });
+    });
+  });
 
-  t.is(getTitle.callCount, 1);
-});
+  describe('when browser.pageUrl is accessed', () => {
+    let accessor: Accessor<string>;
 
-test(createTestName('pageUrl', 'accessor'), async t => {
-  t.plan(3);
+    beforeEach(() => {
+      accessor = browser.pageUrl;
+    });
 
-  const accessor = browser.pageUrl;
+    test('then it should evaluate to an accessor', () => {
+      expect(accessor.name).toBe('the URL of the page');
+    });
 
-  t.is(format(accessor.description), 'page url');
+    describe('when accessor.get() is called', () => {
+      test('then it should call driver.getCurrentUrl() once', async () => {
+        const driver = {getCurrentUrl: jest.fn()};
 
-  const getCurrentUrl = stub().resolves('pageUrl');
+        await accessor.get(driver as any);
 
-  t.is(await accessor.get({getCurrentUrl} as any), 'pageUrl');
+        expect(driver.getCurrentUrl.mock.calls.length).toBe(1);
+      });
 
-  t.is(getCurrentUrl.callCount, 1);
-});
+      test('then it should return the URL of the page', async () => {
+        const driver = {
+          getCurrentUrl: jest.fn().mockImplementationOnce(
+            async () => '<pageUrl>'
+          )
+        };
 
-test(createTestName('windowXPosition', 'accessor'), async t => {
-  t.plan(3);
+        expect(await accessor.get(driver as any)).toBe('<pageUrl>');
+      });
 
-  const accessor = browser.windowXPosition;
+      test('then it should throw an error', async () => {
+        const error = new Error('<message>');
 
-  t.is(format(accessor.description), 'window X position');
+        const driver = {
+          getCurrentUrl: jest.fn().mockImplementationOnce(async () => {
+            throw error;
+          })
+        };
 
-  const getPosition = stub().resolves({x: 123, y: 456});
+        await expect(accessor.get(driver as any)).rejects.toEqual(error);
+      });
+    });
+  });
 
-  t.is(
-    await accessor.get({
-      manage: () => ({window: () => ({getPosition})})
-    } as any),
-    123
-  );
+  describe('when browser.windowXPosition is accessed', () => {
+    let accessor: Accessor<number>;
 
-  t.is(getPosition.callCount, 1);
-});
+    beforeEach(() => {
+      accessor = browser.windowXPosition;
+    });
 
-test(createTestName('windowYPosition', 'accessor'), async t => {
-  t.plan(3);
+    test('then it should evaluate to an accessor', () => {
+      expect(accessor.name).toBe('the X position of the window');
+    });
 
-  const accessor = browser.windowYPosition;
+    describe('when accessor.get() is called', () => {
+      const name =
+        'then it should call driver.manage().window().getPosition() once';
 
-  t.is(format(accessor.description), 'window Y position');
+      test(name, async () => {
+        const getPosition = jest.fn().mockImplementationOnce(async () => ({}));
+        const driver = {manage: () => ({window: () => ({getPosition})})};
 
-  const getPosition = stub().resolves({x: 123, y: 456});
+        await accessor.get(driver as any);
 
-  t.is(
-    await accessor.get({
-      manage: () => ({window: () => ({getPosition})})
-    } as any),
-    456
-  );
+        expect(getPosition.mock.calls.length).toBe(1);
+      });
 
-  t.is(getPosition.callCount, 1);
-});
+      test('then it should return the X position of the window', async () => {
+        const getPosition = jest.fn().mockImplementationOnce(async () => ({
+          x: 123
+        }));
 
-test(createTestName('windowWidth', 'accessor'), async t => {
-  t.plan(3);
+        const driver = {manage: () => ({window: () => ({getPosition})})};
 
-  const accessor = browser.windowWidth;
+        expect(await accessor.get(driver as any)).toBe(123);
+      });
 
-  t.is(format(accessor.description), 'window width');
+      test('then it should throw an error', async () => {
+        const error = new Error('<message>');
 
-  const getSize = stub().resolves({width: 123, height: 456});
+        const getPosition = jest.fn().mockImplementationOnce(async () => {
+          throw error;
+        });
 
-  t.is(
-    await accessor.get({manage: () => ({window: () => ({getSize})})} as any),
-    123
-  );
+        const driver = {manage: () => ({window: () => ({getPosition})})};
 
-  t.is(getSize.callCount, 1);
-});
+        await expect(accessor.get(driver as any)).rejects.toEqual(error);
+      });
+    });
+  });
 
-test(createTestName('windowHeight', 'accessor'), async t => {
-  t.plan(3);
+  describe('when browser.windowYPosition is accessed', () => {
+    let accessor: Accessor<number>;
 
-  const accessor = browser.windowHeight;
+    beforeEach(() => {
+      accessor = browser.windowYPosition;
+    });
 
-  t.is(format(accessor.description), 'window height');
+    test('then it should evaluate to an accessor', () => {
+      expect(accessor.name).toBe('the Y position of the window');
+    });
 
-  const getSize = stub().resolves({width: 123, height: 456});
+    describe('when accessor.get() is called', () => {
+      const name =
+        'then it should call driver.manage().window().getPosition() once';
 
-  t.is(
-    await accessor.get({manage: () => ({window: () => ({getSize})})} as any),
-    456
-  );
+      test(name, async () => {
+        const getPosition = jest.fn().mockImplementationOnce(async () => ({}));
+        const driver = {manage: () => ({window: () => ({getPosition})})};
 
-  t.is(getSize.callCount, 1);
-});
+        await accessor.get(driver as any);
 
-test(createTestName('scriptResult', 'accessor'), async t => {
-  t.plan(4);
+        expect(getPosition.mock.calls.length).toBe(1);
+      });
 
-  const script = () => undefined;
-  const accessor = browser.scriptResult('name', script);
+      test('then it should return the Y position of the window', async () => {
+        const getPosition = jest.fn().mockImplementationOnce(async () => ({
+          y: 123
+        }));
 
-  t.is(
-    format(accessor.description), 'result of script with name \'name\''
-  );
+        const driver = {manage: () => ({window: () => ({getPosition})})};
 
-  const executeAsyncScript = stub().resolves('scriptResult');
+        expect(await accessor.get(driver as any)).toBe(123);
+      });
 
-  t.is(await accessor.get({executeAsyncScript} as any), 'scriptResult');
+      test('then it should throw an error', async () => {
+        const error = new Error('<message>');
 
-  t.is(executeAsyncScript.callCount, 1);
-  t.is(executeAsyncScript.args[0][0], script);
-});
+        const getPosition = jest.fn().mockImplementationOnce(async () => {
+          throw error;
+        });
 
-test(createTestName('executeScript', 'action'), async t => {
-  t.plan(4);
+        const driver = {manage: () => ({window: () => ({getPosition})})};
 
-  const script = () => undefined;
-  const action = browser.executeScript('name', script);
+        await expect(accessor.get(driver as any)).rejects.toEqual(error);
+      });
+    });
+  });
 
-  t.is(format(action.description), 'execute script with name \'name\'');
+  describe('when browser.windowWidth is accessed', () => {
+    let accessor: Accessor<number>;
 
-  const executeAsyncScript = stub().rejects(new Error('foo'));
+    beforeEach(() => {
+      accessor = browser.windowWidth;
+    });
 
-  await t.throws(action.perform({executeAsyncScript} as any), 'foo');
+    test('then it should evaluate to an accessor', () => {
+      expect(accessor.name).toBe('the width of the window');
+    });
 
-  t.is(executeAsyncScript.callCount, 1);
-  t.is(executeAsyncScript.args[0][0], script);
-});
+    describe('when accessor.get() is called', () => {
+      const name =
+        'then it should call driver.manage().window().getSize() once';
 
-test(createTestName('loadPage', 'action'), async t => {
-  t.plan(4);
+      test(name, async () => {
+        const getSize = jest.fn().mockImplementationOnce(async () => ({}));
+        const driver = {manage: () => ({window: () => ({getSize})})};
 
-  const action = browser.loadPage('pageUrl');
+        await accessor.get(driver as any);
 
-  t.is(format(action.description), 'load page with URL \'pageUrl\'');
+        expect(getSize.mock.calls.length).toBe(1);
+      });
 
-  const to = stub().rejects(new Error('foo'));
+      test('then it should return the width of the window', async () => {
+        const getSize = jest.fn().mockImplementationOnce(async () => ({
+          width: 123
+        }));
 
-  await t.throws(action.perform({navigate: () => ({to})} as any), 'foo');
+        const driver = {manage: () => ({window: () => ({getSize})})};
 
-  t.is(to.callCount, 1);
-  t.is(to.args[0][0], 'pageUrl');
-});
+        expect(await accessor.get(driver as any)).toBe(123);
+      });
 
-test(createTestName('maximizeWindow', 'action'), async t => {
-  t.plan(3);
+      test('then it should throw an error', async () => {
+        const error = new Error('<message>');
 
-  const action = browser.maximizeWindow();
+        const getSize = jest.fn().mockImplementationOnce(async () => {
+          throw error;
+        });
 
-  t.is(format(action.description), 'maximize window');
+        const driver = {manage: () => ({window: () => ({getSize})})};
 
-  const maximize = stub().rejects(new Error('foo'));
+        await expect(accessor.get(driver as any)).rejects.toEqual(error);
+      });
+    });
+  });
 
-  await t.throws(
-    action.perform({manage: () => ({window: () => ({maximize})})} as any), 'foo'
-  );
+  describe('when browser.windowHeight is accessed', () => {
+    let accessor: Accessor<number>;
 
-  t.is(maximize.callCount, 1);
-});
+    beforeEach(() => {
+      accessor = browser.windowHeight;
+    });
 
-test(createTestName('navigateBack', 'action'), async t => {
-  t.plan(3);
+    test('then it should evaluate to an accessor', () => {
+      expect(accessor.name).toBe('the height of the window');
+    });
 
-  const action = browser.navigateBack();
+    describe('when accessor.get() is called', () => {
+      const name =
+        'then it should call driver.manage().window().getSize() once';
 
-  t.is(format(action.description), 'navigate back');
+      test(name, async () => {
+        const getSize = jest.fn().mockImplementationOnce(async () => ({}));
+        const driver = {manage: () => ({window: () => ({getSize})})};
 
-  const back = stub().rejects(new Error('foo'));
+        await accessor.get(driver as any);
 
-  await t.throws(action.perform({navigate: () => ({back})} as any), 'foo');
+        expect(getSize.mock.calls.length).toBe(1);
+      });
 
-  t.is(back.callCount, 1);
-});
+      test('then it should return the height of the window', async () => {
+        const getSize = jest.fn().mockImplementationOnce(async () => ({
+          height: 123
+        }));
 
-test(createTestName('navigateForward', 'action'), async t => {
-  t.plan(3);
+        const driver = {manage: () => ({window: () => ({getSize})})};
 
-  const action = browser.navigateForward();
+        expect(await accessor.get(driver as any)).toBe(123);
+      });
 
-  t.is(format(action.description), 'navigate forward');
+      test('then it should throw an error', async () => {
+        const error = new Error('<message>');
 
-  const forward = stub().rejects(new Error('foo'));
+        const getSize = jest.fn().mockImplementationOnce(async () => {
+          throw error;
+        });
 
-  await t.throws(action.perform({navigate: () => ({forward})} as any), 'foo');
+        const driver = {manage: () => ({window: () => ({getSize})})};
 
-  t.is(forward.callCount, 1);
-});
+        await expect(accessor.get(driver as any)).rejects.toEqual(error);
+      });
+    });
+  });
 
-test(createTestName('reloadPage', 'action'), async t => {
-  t.plan(3);
+  describe('when browser.scriptResult() is called', () => {
+    const script: Script = () => undefined;
 
-  const action = browser.reloadPage();
+    let accessor: Accessor<number>;
 
-  t.is(format(action.description), 'reload page');
+    beforeEach(() => {
+      accessor = browser.scriptResult('<scriptName>', script);
+    });
 
-  const refresh = stub().rejects(new Error('foo'));
+    test('then it should return an accessor', () => {
+      expect(accessor.name).toBe('the result of the script <scriptName>');
+    });
 
-  await t.throws(action.perform({navigate: () => ({refresh})} as any), 'foo');
+    describe('when accessor.get() is called', () => {
+      test('then it should call driver.executeAsyncScript() once', async () => {
+        const driver = {executeAsyncScript: jest.fn()};
 
-  t.is(refresh.callCount, 1);
-});
+        await accessor.get(driver as any);
 
-test(createTestName('saveScreenshot', 'action'), async t => {
-  t.plan(6);
+        expect(driver.executeAsyncScript.mock.calls.length).toBe(1);
+        expect(driver.executeAsyncScript.mock.calls[0][0]).toBe(script);
+      });
 
-  stubs.uuidV4.returns('uuid');
+      test('then it should return the result of the script', async () => {
+        const driver = {
+          executeAsyncScript: jest.fn().mockImplementationOnce(
+            async () => '<scriptResult>'
+          )
+        };
 
-  const action = browser.saveScreenshot();
+        expect(await accessor.get(driver as any)).toBe('<scriptResult>');
+      });
 
-  t.is(
-    format(action.description),
-    'save screenshot to \'screenshotDirectory/uuid.png\''
-  );
+      test('then it should throw an error', async () => {
+        const error = new Error('<message>');
 
-  const takeScreenshot = stub().resolves('screenshot');
+        const driver = {
+          executeAsyncScript: jest.fn().mockImplementationOnce(async () => {
+            throw error;
+          })
+        };
 
-  stubs.outputFile.rejects(new Error('foo'));
+        await expect(accessor.get(driver as any)).rejects.toEqual(error);
+      });
+    });
+  });
 
-  await t.throws(action.perform({takeScreenshot} as any), 'foo');
+  describe('when browser.executeScript() is called', () => {
+    const script: Script = () => undefined;
 
-  t.is(stubs.outputFile.callCount, 1);
-  t.is(stubs.outputFile.args[0][0], 'screenshotDirectory/uuid.png');
-  t.is(stubs.outputFile.args[0][1], 'screenshot');
-  t.deepEqual(stubs.outputFile.args[0][2], {encoding: 'base64'});
-});
+    let action: Action;
 
-test(createTestName('setWindowPosition', 'action'), async t => {
-  t.plan(5);
+    beforeEach(() => {
+      action = browser.executeScript('<scriptName>', script);
+    });
 
-  const action = browser.setWindowPosition(123, 456);
+    test('then it should return an action', () => {
+      expect(action.description).toBe('execute the script <scriptName>');
+    });
 
-  t.is(format(action.description), 'set window position to 123,456');
+    describe('when action.perform() is called', () => {
+      test('then it should call driver.executeAsyncScript() once', async () => {
+        const driver = {executeAsyncScript: jest.fn()};
 
-  const setPosition = stub().rejects(new Error('foo'));
+        await action.perform(driver as any);
 
-  await t.throws(
-    action.perform({manage: () => ({window: () => ({setPosition})})} as any),
-    'foo'
-  );
+        expect(driver.executeAsyncScript.mock.calls.length).toBe(1);
+        expect(driver.executeAsyncScript.mock.calls[0][0]).toBe(script);
+      });
 
-  t.is(setPosition.callCount, 1);
-  t.is(setPosition.args[0][0], 123);
-  t.is(setPosition.args[0][1], 456);
-});
+      test('then it should return undefined', async () => {
+        const driver = {
+          executeAsyncScript: jest.fn().mockImplementationOnce(
+            async () => '<scriptResult>'
+          )
+        };
 
-test(createTestName('setWindowSize', 'action'), async t => {
-  t.plan(5);
+        expect(await action.perform(driver as any)).toBe(undefined);
+      });
 
-  const action = browser.setWindowSize(123, 456);
+      test('then it should throw an error', async () => {
+        const error = new Error('<message>');
 
-  t.is(format(action.description), 'set window size to 123x456');
+        const driver = {
+          executeAsyncScript: jest.fn().mockImplementationOnce(async () => {
+            throw error;
+          })
+        };
 
-  const setSize = stub().rejects(new Error('foo'));
+        await expect(action.perform(driver as any)).rejects.toEqual(error);
+      });
+    });
+  });
 
-  await t.throws(
-    action.perform({manage: () => ({window: () => ({setSize})})} as any), 'foo'
-  );
+  describe('when browser.loadPage() is called', () => {
+    let action: Action;
 
-  t.is(setSize.callCount, 1);
-  t.is(setSize.args[0][0], 123);
-  t.is(setSize.args[0][1], 456);
-});
+    beforeEach(() => {
+      action = browser.loadPage('<url>');
+    });
 
-test(createTestName('sleep', 'action'), async t => {
-  t.plan(5);
+    test('then it should return an action', () => {
+      expect(action.description).toBe('load the page <url>');
+    });
 
-  const action1 = browser.sleep(50);
+    describe('when action.perform() is called', () => {
+      test('then it should call driver.navigate().to() once', async () => {
+        const to = jest.fn();
+        const driver = {navigate: () => ({to})};
 
-  t.is(format(action1.description), `sleep for 50 ms`);
+        await action.perform(driver as any);
 
-  stubs.sleep.rejects(new Error('foo'));
+        expect(to.mock.calls.length).toBe(1);
+        expect(to.mock.calls[0][0]).toBe('<url>');
+      });
 
-  await t.throws(action1.perform({} as any), 'foo');
+      test('then it should throw an error', async () => {
+        const error = new Error('<message>');
 
-  t.is(stubs.sleep.callCount, 1);
-  t.is(stubs.sleep.args[0][0], 50);
+        const to = jest.fn().mockImplementationOnce(async () => {
+          throw error;
+        });
 
-  const action2 = browser.sleep(50, 'foo');
+        const driver = {navigate: () => ({to})};
 
-  t.is(format(action2.description), `sleep for 50 ms because foo`);
+        await expect(action.perform(driver as any)).rejects.toEqual(error);
+      });
+    });
+  });
+
+  describe('when browser.maximizeWindow() is called', () => {
+    let action: Action;
+
+    beforeEach(() => {
+      action = browser.maximizeWindow();
+    });
+
+    test('then it should return an action', () => {
+      expect(action.description).toBe('maximize the window');
+    });
+
+    describe('when action.perform() is called', () => {
+      const name =
+        'then it should call driver.manage().window().maximize() once';
+
+      test(name, async () => {
+        const maximize = jest.fn();
+        const driver = {manage: () => ({window: () => ({maximize})})};
+
+        await action.perform(driver as any);
+
+        expect(maximize.mock.calls.length).toBe(1);
+        expect(maximize.mock.calls[0][0]).toBe(undefined);
+      });
+
+      test('then it should throw an error', async () => {
+        const error = new Error('<message>');
+
+        const maximize = jest.fn().mockImplementationOnce(async () => {
+          throw error;
+        });
+
+        const driver = {manage: () => ({window: () => ({maximize})})};
+
+        await expect(action.perform(driver as any)).rejects.toEqual(error);
+      });
+    });
+  });
+
+  describe('when browser.navigateBack() is called', () => {
+    let action: Action;
+
+    beforeEach(() => {
+      action = browser.navigateBack();
+    });
+
+    test('then it should return an action', () => {
+      expect(action.description).toBe('navigate back');
+    });
+
+    describe('when action.perform() is called', () => {
+      test('then it should call driver.navigate().back() once', async () => {
+        const back = jest.fn();
+        const driver = {navigate: () => ({back})};
+
+        await action.perform(driver as any);
+
+        expect(back.mock.calls.length).toBe(1);
+      });
+
+      test('then it should throw an error', async () => {
+        const error = new Error('<message>');
+
+        const back = jest.fn().mockImplementationOnce(async () => {
+          throw error;
+        });
+
+        const driver = {navigate: () => ({back})};
+
+        await expect(action.perform(driver as any)).rejects.toEqual(error);
+      });
+    });
+  });
+
+  describe('when browser.navigateForward() is called', () => {
+    let action: Action;
+
+    beforeEach(() => {
+      action = browser.navigateForward();
+    });
+
+    test('then it should return an action', () => {
+      expect(action.description).toBe('navigate forward');
+    });
+
+    describe('when action.perform() is called', () => {
+      test('then it should call driver.navigate().forward() once', async () => {
+        const forward = jest.fn();
+        const driver = {navigate: () => ({forward})};
+
+        await action.perform(driver as any);
+
+        expect(forward.mock.calls.length).toBe(1);
+      });
+
+      test('then it should throw an error', async () => {
+        const error = new Error('<message>');
+
+        const forward = jest.fn().mockImplementationOnce(async () => {
+          throw error;
+        });
+
+        const driver = {navigate: () => ({forward})};
+
+        await expect(action.perform(driver as any)).rejects.toEqual(error);
+      });
+    });
+  });
+
+  describe('when browser.reloadPage() is called', () => {
+    let action: Action;
+
+    beforeEach(() => {
+      action = browser.reloadPage();
+    });
+
+    test('then it should return an action', () => {
+      expect(action.description).toBe('reload the page');
+    });
+
+    describe('when action.perform() is called', () => {
+      test('then it should call driver.navigate().refresh() once', async () => {
+        const refresh = jest.fn();
+        const driver = {navigate: () => ({refresh})};
+
+        await action.perform(driver as any);
+
+        expect(refresh.mock.calls.length).toBe(1);
+      });
+
+      test('then it should throw an error', async () => {
+        const error = new Error('<message>');
+
+        const refresh = jest.fn().mockImplementationOnce(async () => {
+          throw error;
+        });
+
+        const driver = {navigate: () => ({refresh})};
+
+        await expect(action.perform(driver as any)).rejects.toEqual(error);
+      });
+    });
+  });
+
+  describe('when browser.setWindowPosition() is called', () => {
+    let action: Action;
+
+    beforeEach(() => {
+      action = browser.setWindowPosition(123, 456);
+    });
+
+    test('then it should return an action', () => {
+      expect(action.description).toBe('set the window position to 123,456');
+    });
+
+    describe('when action.perform() is called', () => {
+      const name =
+        'then it should call driver.manage().window().setPosition() once';
+
+      test(name, async () => {
+        const setPosition = jest.fn();
+        const driver = {manage: () => ({window: () => ({setPosition})})};
+
+        await action.perform(driver as any);
+
+        expect(setPosition.mock.calls.length).toBe(1);
+        expect(setPosition.mock.calls[0][0]).toBe(123);
+        expect(setPosition.mock.calls[0][1]).toBe(456);
+      });
+
+      test('then it should throw an error', async () => {
+        const error = new Error('<message>');
+
+        const setPosition = jest.fn().mockImplementationOnce(async () => {
+          throw error;
+        });
+
+        const driver = {manage: () => ({window: () => ({setPosition})})};
+
+        await expect(action.perform(driver as any)).rejects.toEqual(error);
+      });
+    });
+  });
+
+  describe('when browser.setWindowSize() is called', () => {
+    let action: Action;
+
+    beforeEach(() => {
+      action = browser.setWindowSize(123, 456);
+    });
+
+    test('then it should return an action', () => {
+      expect(action.description).toBe('set the window size to 123x456');
+    });
+
+    describe('when action.perform() is called', () => {
+      const name =
+        'then it should call driver.manage().window().setSize() once';
+
+      test(name, async () => {
+        const setSize = jest.fn();
+        const driver = {manage: () => ({window: () => ({setSize})})};
+
+        await action.perform(driver as any);
+
+        expect(setSize.mock.calls.length).toBe(1);
+        expect(setSize.mock.calls[0][0]).toBe(123);
+        expect(setSize.mock.calls[0][1]).toBe(456);
+      });
+
+      test('then it should throw an error', async () => {
+        const error = new Error('<message>');
+
+        const setSize = jest.fn().mockImplementationOnce(async () => {
+          throw error;
+        });
+
+        const driver = {manage: () => ({window: () => ({setSize})})};
+
+        await expect(action.perform(driver as any)).rejects.toEqual(error);
+      });
+    });
+  });
+
+  describe('when browser.sleep() is called', () => {
+    test('then it should return an action', () => {
+      expect(browser.sleep(1).description).toBe('sleep for 1 ms');
+
+      expect(browser.sleep(2, '<reason>').description).toBe(
+        'sleep for 2 ms because <reason>'
+      );
+    });
+
+    describe('when action.perform() is called', () => {
+      const name = 'then it should return a promise ' +
+        'that resolves after the specified amount of time';
+
+      test(name, async () => {
+        try {
+          jest.useFakeTimers();
+
+          const durationInMillis = 123;
+
+          let resolved = false;
+
+          browser.sleep(durationInMillis).perform({} as any).then(() => {
+            resolved = true;
+          });
+
+          await Promise.resolve();
+          await Promise.resolve();
+
+          expect(resolved).toBe(false);
+
+          jest.runTimersToTime(durationInMillis - 1);
+
+          await Promise.resolve();
+          await Promise.resolve();
+
+          expect(resolved).toBe(false);
+
+          jest.runTimersToTime(1);
+
+          await Promise.resolve();
+          await Promise.resolve();
+
+          expect(resolved).toBe(true);
+        } finally {
+          jest.useRealTimers();
+        }
+      });
+    });
+  });
 });

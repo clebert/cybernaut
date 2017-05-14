@@ -1,8 +1,7 @@
 import {WebDriver} from 'selenium-webdriver';
-import {Description} from './description';
 
 export interface Action {
-  readonly description: Description;
+  readonly description: string;
 
   perform(driver: WebDriver): Promise<void>;
 }

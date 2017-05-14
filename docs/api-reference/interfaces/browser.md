@@ -15,7 +15,6 @@
 * [`navigateBack`](#method-navigateback)
 * [`navigateForward`](#method-navigateforward)
 * [`reloadPage`](#method-reloadpage)
-* [`saveScreenshot`](#method-savescreenshot)
 * [`setWindowPosition`](#method-setwindowposition)
 * [`setWindowSize`](#method-setwindowsize)
 * [`sleep`](#method-sleep)
@@ -120,7 +119,7 @@ test('foo', async t => {
 
 Type definition:
 
-* **`scriptResult(name: string, script: Script): Accessor<any>`**
+* **`scriptResult(scriptName: string, script: Script): Accessor<any>`**
 * `Script = (callback: (result?: any) => void) => void`
 
 Example usage:
@@ -144,7 +143,7 @@ test('foo', async t => {
 
 Type definition:
 
-* **`executeScript(name: string, script: Script): Action`**
+* **`executeScript(scriptName: string, script: Script): Action`**
 * `Script = (callback: (result?: any) => void) => void`
 
 Example usage:
@@ -241,22 +240,6 @@ const {browser, test} = require('cybernaut');
 
 test('foo', async t => {
   await t.perform(browser.reloadPage());
-});
-```
-
-### Method `saveScreenshot`
-
-Type definition:
-
-* **`saveScreenshot(): Action`**
-
-Example usage:
-
-```js
-const {browser, test} = require('cybernaut');
-
-test('foo', async t => {
-  await t.perform(browser.saveScreenshot());
 });
 ```
 

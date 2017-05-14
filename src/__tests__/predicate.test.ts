@@ -1,212 +1,623 @@
-import proxyquire = require('proxyquire');
+import {Predicate, PredicateBuilder} from '../predicate';
 
-import test from 'ava';
-import {format} from '../description';
-import {predicateStubs as stubs, resetAll} from './stubs';
-
-proxyquire.noPreserveCache();
-proxyquire.preserveCache();
-
-proxyquire('../predicate', {'deep-strict-equal': stubs.deepStrictEqual});
-
-import {PredicateBuilder} from '../predicate';
-
-function createTestName(method: string): string {
-  return `\`PredicateBuilder.${method}\` should return a predicate`;
+interface MockSerializer {
+  serialize: jest.Mock<string>;
 }
 
-test.beforeEach(() => {
-  resetAll(stubs);
+let serializer: MockSerializer;
+let should: PredicateBuilder;
+
+beforeEach(() => {
+  serializer = {serialize: jest.fn<string>()};
+  should = new PredicateBuilder(serializer);
 });
 
-test(createTestName('contain'), async t => {
-  t.plan(5);
+describe('given a predicate is created via should.beAbove()', () => {
+  let predicate: Predicate<number>;
 
-  const predicate = new PredicateBuilder().contain('foo');
+  beforeEach(() => {
+    predicate = should.beAbove(10);
+  });
 
-  t.is(format(predicate.description), 'should contain \'foo\'');
+  describe('when predicate.compare() is called', () => {
+    let comparison: string;
 
-  t.true(predicate.test('foo'));
-  t.true(predicate.test('foobar'));
-  t.true(predicate.test('barfoo'));
+    beforeEach(() => {
+      serializer.serialize.mockReturnValueOnce('<actualValue>');
+      serializer.serialize.mockReturnValueOnce('<value>');
 
-  t.false(predicate.test('bar'));
+      comparison = predicate.compare(11);
+    });
+
+    test('then it should return a comparison', () => {
+      expect(comparison).toBe(
+        'expected <actualValue> to be greater than <value>'
+      );
+    });
+
+    test('then it should call serializer.serialize() twice', () => {
+      expect(serializer.serialize.mock.calls.length).toBe(2);
+      expect(serializer.serialize.mock.calls[0][0]).toBe(11);
+      expect(serializer.serialize.mock.calls[1][0]).toBe(10);
+    });
+  });
+
+  describe('when predicate.description is accessed', () => {
+    let description: string;
+
+    beforeEach(() => {
+      serializer.serialize.mockReturnValueOnce('<value>');
+
+      description = predicate.description;
+    });
+
+    test('then it should evaluate to a description', () => {
+      expect(description).toBe('should be above <value>');
+    });
+
+    test('then it should call serializer.serialize() once', () => {
+      expect(serializer.serialize.mock.calls.length).toBe(1);
+      expect(serializer.serialize.mock.calls[0][0]).toBe(10);
+    });
+  });
+
+  describe('when predicate.test() is called', () => {
+    test('then it should return true', () => {
+      expect(predicate.test(11)).toBe(true);
+    });
+
+    test('then it should return false', () => {
+      expect(predicate.test(9)).toBe(false);
+      expect(predicate.test(10)).toBe(false);
+      expect(predicate.test(NaN)).toBe(false);
+    });
+  });
 });
 
-test(createTestName('not.contain'), async t => {
-  t.plan(5);
+describe('given a predicate is created via should.beAtLeast()', () => {
+  let predicate: Predicate<number>;
 
-  const predicate = new PredicateBuilder().not.contain('foo');
+  beforeEach(() => {
+    predicate = should.beAtLeast(10);
+  });
 
-  t.is(format(predicate.description), 'should not contain \'foo\'');
+  describe('when predicate.compare() is called', () => {
+    let comparison: string;
 
-  t.true(predicate.test('bar'));
+    beforeEach(() => {
+      serializer.serialize.mockReturnValueOnce('<actualValue>');
+      serializer.serialize.mockReturnValueOnce('<value>');
 
-  t.false(predicate.test('foo'));
-  t.false(predicate.test('foobar'));
-  t.false(predicate.test('barfoo'));
+      comparison = predicate.compare(11);
+    });
+
+    test('then it should return a comparison', () => {
+      expect(comparison).toBe(
+        'expected <actualValue> to be greater than or equal <value>'
+      );
+    });
+
+    test('then it should call serializer.serialize() twice', () => {
+      expect(serializer.serialize.mock.calls.length).toBe(2);
+      expect(serializer.serialize.mock.calls[0][0]).toBe(11);
+      expect(serializer.serialize.mock.calls[1][0]).toBe(10);
+    });
+  });
+
+  describe('when predicate.description is accessed', () => {
+    let description: string;
+
+    beforeEach(() => {
+      serializer.serialize.mockReturnValueOnce('<value>');
+
+      description = predicate.description;
+    });
+
+    test('then it should evaluate to a description', () => {
+      expect(description).toBe('should be at least <value>');
+    });
+
+    test('then it should call serializer.serialize() once', () => {
+      expect(serializer.serialize.mock.calls.length).toBe(1);
+      expect(serializer.serialize.mock.calls[0][0]).toBe(10);
+    });
+  });
+
+  describe('when predicate.test() is called', () => {
+    test('then it should return true', () => {
+      expect(predicate.test(10)).toBe(true);
+      expect(predicate.test(11)).toBe(true);
+    });
+
+    test('then it should return false', () => {
+      expect(predicate.test(9)).toBe(false);
+      expect(predicate.test(NaN)).toBe(false);
+    });
+  });
 });
 
-test(createTestName('equal'), async t => {
-  t.plan(5);
+describe('given a predicate is created via should.beAtMost()', () => {
+  let predicate: Predicate<number>;
 
-  const predicate = new PredicateBuilder().equal('foo');
+  beforeEach(() => {
+    predicate = should.beAtMost(10);
+  });
 
-  t.is(format(predicate.description), 'should equal \'foo\'');
+  describe('when predicate.compare() is called', () => {
+    let comparison: string;
 
-  stubs.deepStrictEqual.returns(true);
+    beforeEach(() => {
+      serializer.serialize.mockReturnValueOnce('<actualValue>');
+      serializer.serialize.mockReturnValueOnce('<value>');
 
-  t.true(predicate.test('bar'));
+      comparison = predicate.compare(11);
+    });
 
-  t.is(stubs.deepStrictEqual.callCount, 1);
-  t.is(stubs.deepStrictEqual.args[0][0], 'bar');
-  t.is(stubs.deepStrictEqual.args[0][1], 'foo');
+    test('then it should return a comparison', () => {
+      expect(comparison).toBe(
+        'expected <actualValue> to be less than or equal <value>'
+      );
+    });
+
+    test('then it should call serializer.serialize() twice', () => {
+      expect(serializer.serialize.mock.calls.length).toBe(2);
+      expect(serializer.serialize.mock.calls[0][0]).toBe(11);
+      expect(serializer.serialize.mock.calls[1][0]).toBe(10);
+    });
+  });
+
+  describe('when predicate.description is accessed', () => {
+    let description: string;
+
+    beforeEach(() => {
+      serializer.serialize.mockReturnValueOnce('<value>');
+
+      description = predicate.description;
+    });
+
+    test('then it should evaluate to a description', () => {
+      expect(description).toBe('should be at most <value>');
+    });
+
+    test('then it should call serializer.serialize() once', () => {
+      expect(serializer.serialize.mock.calls.length).toBe(1);
+      expect(serializer.serialize.mock.calls[0][0]).toBe(10);
+    });
+  });
+
+  describe('when predicate.test() is called', () => {
+    test('then it should return true', () => {
+      expect(predicate.test(9)).toBe(true);
+      expect(predicate.test(10)).toBe(true);
+    });
+
+    test('then it should return false', () => {
+      expect(predicate.test(11)).toBe(false);
+      expect(predicate.test(NaN)).toBe(false);
+    });
+  });
 });
 
-test(createTestName('not.equal'), async t => {
-  t.plan(5);
+describe('given a predicate is created via should.beBelow()', () => {
+  let predicate: Predicate<number>;
 
-  const predicate = new PredicateBuilder().not.equal('foo');
+  beforeEach(() => {
+    predicate = should.beBelow(10);
+  });
 
-  t.is(format(predicate.description), 'should not equal \'foo\'');
+  describe('when predicate.compare() is called', () => {
+    let comparison: string;
 
-  stubs.deepStrictEqual.returns(true);
+    beforeEach(() => {
+      serializer.serialize.mockReturnValueOnce('<actualValue>');
+      serializer.serialize.mockReturnValueOnce('<value>');
 
-  t.false(predicate.test('bar'));
+      comparison = predicate.compare(11);
+    });
 
-  t.is(stubs.deepStrictEqual.callCount, 1);
-  t.is(stubs.deepStrictEqual.args[0][0], 'bar');
-  t.is(stubs.deepStrictEqual.args[0][1], 'foo');
+    test('then it should return a comparison', () => {
+      expect(comparison).toBe('expected <actualValue> to be less than <value>');
+    });
+
+    test('then it should call serializer.serialize() twice', () => {
+      expect(serializer.serialize.mock.calls.length).toBe(2);
+      expect(serializer.serialize.mock.calls[0][0]).toBe(11);
+      expect(serializer.serialize.mock.calls[1][0]).toBe(10);
+    });
+  });
+
+  describe('when predicate.description is accessed', () => {
+    let description: string;
+
+    beforeEach(() => {
+      serializer.serialize.mockReturnValueOnce('<value>');
+
+      description = predicate.description;
+    });
+
+    test('then it should evaluate to a description', () => {
+      expect(description).toBe('should be below <value>');
+    });
+
+    test('then it should call serializer.serialize() once', () => {
+      expect(serializer.serialize.mock.calls.length).toBe(1);
+      expect(serializer.serialize.mock.calls[0][0]).toBe(10);
+    });
+  });
+
+  describe('when predicate.test() is called', () => {
+    test('then it should return true', () => {
+      expect(predicate.test(9)).toBe(true);
+    });
+
+    test('then it should return false', () => {
+      expect(predicate.test(10)).toBe(false);
+      expect(predicate.test(11)).toBe(false);
+      expect(predicate.test(NaN)).toBe(false);
+    });
+  });
 });
 
-test(createTestName('match'), async t => {
-  t.plan(5);
+describe('given a predicate is created via should.contain()', () => {
+  let predicate: Predicate<string>;
 
-  const predicate = new PredicateBuilder().match(/foo/);
+  beforeEach(() => {
+    predicate = should.contain('foo');
+  });
 
-  t.is(format(predicate.description), 'should match /foo/');
+  describe('when predicate.compare() is called', () => {
+    let comparison: string;
 
-  t.true(predicate.test('foo'));
-  t.true(predicate.test('foobar'));
-  t.true(predicate.test('barfoo'));
+    beforeEach(() => {
+      serializer.serialize.mockReturnValueOnce('<actualValue>');
+      serializer.serialize.mockReturnValueOnce('<value>');
 
-  t.false(predicate.test('bar'));
+      comparison = predicate.compare('bar');
+    });
+
+    test('then it should return a comparison', () => {
+      expect(comparison).toBe('expected <actualValue> to contain <value>');
+    });
+
+    test('then it should call serializer.serialize() twice', () => {
+      expect(serializer.serialize.mock.calls.length).toBe(2);
+      expect(serializer.serialize.mock.calls[0][0]).toBe('bar');
+      expect(serializer.serialize.mock.calls[1][0]).toBe('foo');
+    });
+  });
+
+  describe('when predicate.description is accessed', () => {
+    let description: string;
+
+    beforeEach(() => {
+      serializer.serialize.mockReturnValueOnce('<value>');
+
+      description = predicate.description;
+    });
+
+    test('then it should evaluate to a description', () => {
+      expect(description).toBe('should contain <value>');
+    });
+
+    test('then it should call serializer.serialize() once', () => {
+      expect(serializer.serialize.mock.calls.length).toBe(1);
+      expect(serializer.serialize.mock.calls[0][0]).toBe('foo');
+    });
+  });
+
+  describe('when predicate.test() is called', () => {
+    test('then it should return true', () => {
+      expect(predicate.test('foo')).toBe(true);
+      expect(predicate.test('foobar')).toBe(true);
+    });
+
+    test('then it should return false', () => {
+      expect(predicate.test('bar')).toBe(false);
+      expect(predicate.test('')).toBe(false);
+    });
+  });
 });
 
-test(createTestName('not.match'), async t => {
-  t.plan(5);
+describe('given a predicate is created via should.not.contain()', () => {
+  let predicate: Predicate<string>;
 
-  const predicate = new PredicateBuilder().not.match(/foo/);
+  beforeEach(() => {
+    predicate = should.not.contain('foo');
+  });
 
-  t.is(format(predicate.description), 'should not match /foo/');
+  describe('when predicate.compare() is called', () => {
+    let comparison: string;
 
-  t.true(predicate.test('bar'));
+    beforeEach(() => {
+      serializer.serialize.mockReturnValueOnce('<actualValue>');
+      serializer.serialize.mockReturnValueOnce('<value>');
 
-  t.false(predicate.test('foo'));
-  t.false(predicate.test('foobar'));
-  t.false(predicate.test('barfoo'));
+      comparison = predicate.compare('bar');
+    });
+
+    test('then it should return a comparison', () => {
+      expect(comparison).toBe('expected <actualValue> not to contain <value>');
+    });
+
+    test('then it should call serializer.serialize() twice', () => {
+      expect(serializer.serialize.mock.calls.length).toBe(2);
+      expect(serializer.serialize.mock.calls[0][0]).toBe('bar');
+      expect(serializer.serialize.mock.calls[1][0]).toBe('foo');
+    });
+  });
+
+  describe('when predicate.description is accessed', () => {
+    let description: string;
+
+    beforeEach(() => {
+      serializer.serialize.mockReturnValueOnce('<value>');
+
+      description = predicate.description;
+    });
+
+    test('then it should evaluate to a description', () => {
+      expect(description).toBe('should not contain <value>');
+    });
+
+    test('then it should call serializer.serialize() once', () => {
+      expect(serializer.serialize.mock.calls.length).toBe(1);
+      expect(serializer.serialize.mock.calls[0][0]).toBe('foo');
+    });
+  });
+
+  describe('when predicate.test() is called', () => {
+    test('then it should return true', () => {
+      expect(predicate.test('bar')).toBe(true);
+      expect(predicate.test('')).toBe(true);
+    });
+
+    test('then it should return false', () => {
+      expect(predicate.test('foo')).toBe(false);
+      expect(predicate.test('foobar')).toBe(false);
+    });
+  });
 });
 
-test(createTestName('be.above'), async t => {
-  t.plan(4);
+describe('given a predicate is created via should.equal()', () => {
+  let predicate: Predicate<string>;
 
-  const predicate = new PredicateBuilder().be.above(1);
+  beforeEach(() => {
+    predicate = should.equal('foo');
+  });
 
-  t.is(format(predicate.description), 'should be above 1');
+  describe('when predicate.compare() is called', () => {
+    let comparison: string;
 
-  t.true(predicate.test(2));
+    beforeEach(() => {
+      serializer.serialize.mockReturnValueOnce('<actualValue>');
+      serializer.serialize.mockReturnValueOnce('<value>');
 
-  t.false(predicate.test(1));
-  t.false(predicate.test(0));
+      comparison = predicate.compare('bar');
+    });
+
+    test('then it should return a comparison', () => {
+      expect(comparison).toBe('expected <actualValue> to equal <value>');
+    });
+
+    test('then it should call serializer.serialize() twice', () => {
+      expect(serializer.serialize.mock.calls.length).toBe(2);
+      expect(serializer.serialize.mock.calls[0][0]).toBe('bar');
+      expect(serializer.serialize.mock.calls[1][0]).toBe('foo');
+    });
+  });
+
+  describe('when predicate.description is accessed', () => {
+    let description: string;
+
+    beforeEach(() => {
+      serializer.serialize.mockReturnValueOnce('<value>');
+
+      description = predicate.description;
+    });
+
+    test('then it should evaluate to a description', () => {
+      expect(description).toBe('should equal <value>');
+    });
+
+    test('then it should call serializer.serialize() once', () => {
+      expect(serializer.serialize.mock.calls.length).toBe(1);
+      expect(serializer.serialize.mock.calls[0][0]).toBe('foo');
+    });
+  });
+
+  describe('when predicate.test() is called', () => {
+    test('then it should return true', () => {
+      expect(predicate.test('foo')).toBe(true);
+      expect(should.equal(NaN).test(NaN)).toBe(true);
+      expect(should.equal({foo: 'foo'}).test({foo: 'foo'})).toBe(true);
+    });
+
+    test('then it should return false', () => {
+      expect(predicate.test('bar')).toBe(false);
+      expect(should.equal(NaN).test(0)).toBe(false);
+      expect(should.equal({foo: 'foo'}).test({foo: 'bar'})).toBe(false);
+    });
+  });
 });
 
-test(createTestName('not.be.above'), async t => {
-  t.plan(4);
+describe('given a predicate is created via should.not.equal()', () => {
+  let predicate: Predicate<string>;
 
-  const predicate = new PredicateBuilder().not.be.above(1);
+  beforeEach(() => {
+    predicate = should.not.equal('foo');
+  });
 
-  t.is(format(predicate.description), 'should not be above 1');
+  describe('when predicate.compare() is called', () => {
+    let comparison: string;
 
-  t.true(predicate.test(0));
-  t.true(predicate.test(1));
+    beforeEach(() => {
+      serializer.serialize.mockReturnValueOnce('<actualValue>');
+      serializer.serialize.mockReturnValueOnce('<value>');
 
-  t.false(predicate.test(2));
+      comparison = predicate.compare('bar');
+    });
+
+    test('then it should return a comparison', () => {
+      expect(comparison).toBe('expected <actualValue> not to equal <value>');
+    });
+
+    test('then it should call serializer.serialize() twice', () => {
+      expect(serializer.serialize.mock.calls.length).toBe(2);
+      expect(serializer.serialize.mock.calls[0][0]).toBe('bar');
+      expect(serializer.serialize.mock.calls[1][0]).toBe('foo');
+    });
+  });
+
+  describe('when predicate.description is accessed', () => {
+    let description: string;
+
+    beforeEach(() => {
+      serializer.serialize.mockReturnValueOnce('<value>');
+
+      description = predicate.description;
+    });
+
+    test('then it should evaluate to a description', () => {
+      expect(description).toBe('should not equal <value>');
+    });
+
+    test('then it should call serializer.serialize() once', () => {
+      expect(serializer.serialize.mock.calls.length).toBe(1);
+      expect(serializer.serialize.mock.calls[0][0]).toBe('foo');
+    });
+  });
+
+  describe('when predicate.test() is called', () => {
+    test('then it should return true', () => {
+      expect(predicate.test('bar')).toBe(true);
+      expect(should.not.equal(NaN).test(0)).toBe(true);
+      expect(should.not.equal({foo: 'foo'}).test({foo: 'bar'})).toBe(true);
+    });
+
+    test('then it should return false', () => {
+      expect(predicate.test('foo')).toBe(false);
+      expect(should.not.equal(NaN).test(NaN)).toBe(false);
+      expect(should.not.equal({foo: 'foo'}).test({foo: 'foo'})).toBe(false);
+    });
+  });
 });
 
-test(createTestName('be.at.least'), async t => {
-  t.plan(4);
+describe('given a predicate is created via should.match()', () => {
+  let predicate: Predicate<string>;
 
-  const predicate = new PredicateBuilder().be.at.least(1);
+  beforeEach(() => {
+    predicate = should.match(/foo/);
+  });
 
-  t.is(format(predicate.description), 'should be at least 1');
+  describe('when predicate.compare() is called', () => {
+    let comparison: string;
 
-  t.true(predicate.test(2));
-  t.true(predicate.test(1));
+    beforeEach(() => {
+      serializer.serialize.mockReturnValueOnce('<actualValue>');
+      serializer.serialize.mockReturnValueOnce('<value>');
 
-  t.false(predicate.test(0));
+      comparison = predicate.compare('bar');
+    });
+
+    test('then it should return a comparison', () => {
+      expect(comparison).toBe('expected <actualValue> to match <value>');
+    });
+
+    test('then it should call serializer.serialize() twice', () => {
+      expect(serializer.serialize.mock.calls.length).toBe(2);
+      expect(serializer.serialize.mock.calls[0][0]).toBe('bar');
+      expect(serializer.serialize.mock.calls[1][0]).toEqual(/foo/);
+    });
+  });
+
+  describe('when predicate.description is accessed', () => {
+    let description: string;
+
+    beforeEach(() => {
+      serializer.serialize.mockReturnValueOnce('<value>');
+
+      description = predicate.description;
+    });
+
+    test('then it should evaluate to a description', () => {
+      expect(description).toBe('should match <value>');
+    });
+
+    test('then it should call serializer.serialize() once', () => {
+      expect(serializer.serialize.mock.calls.length).toBe(1);
+      expect(serializer.serialize.mock.calls[0][0]).toEqual(/foo/);
+    });
+  });
+
+  describe('when predicate.test() is called', () => {
+    test('then it should return true', () => {
+      expect(predicate.test('foo')).toBe(true);
+      expect(predicate.test('foobar')).toBe(true);
+    });
+
+    test('then it should return false', () => {
+      expect(predicate.test('bar')).toBe(false);
+      expect(predicate.test('')).toBe(false);
+    });
+  });
 });
 
-test(createTestName('not.be.at.least'), async t => {
-  t.plan(4);
+describe('given a predicate is created via should.not.match()', () => {
+  let predicate: Predicate<string>;
 
-  const predicate = new PredicateBuilder().not.be.at.least(1);
+  beforeEach(() => {
+    predicate = should.not.match(/foo/);
+  });
 
-  t.is(format(predicate.description), 'should not be at least 1');
+  describe('when predicate.compare() is called', () => {
+    let comparison: string;
 
-  t.true(predicate.test(0));
+    beforeEach(() => {
+      serializer.serialize.mockReturnValueOnce('<actualValue>');
+      serializer.serialize.mockReturnValueOnce('<value>');
 
-  t.false(predicate.test(1));
-  t.false(predicate.test(2));
-});
+      comparison = predicate.compare('bar');
+    });
 
-test(createTestName('be.below'), async t => {
-  t.plan(4);
+    test('then it should return a comparison', () => {
+      expect(comparison).toBe('expected <actualValue> not to match <value>');
+    });
 
-  const predicate = new PredicateBuilder().be.below(1);
+    test('then it should call serializer.serialize() twice', () => {
+      expect(serializer.serialize.mock.calls.length).toBe(2);
+      expect(serializer.serialize.mock.calls[0][0]).toBe('bar');
+      expect(serializer.serialize.mock.calls[1][0]).toEqual(/foo/);
+    });
+  });
 
-  t.is(format(predicate.description), 'should be below 1');
+  describe('when predicate.description is accessed', () => {
+    let description: string;
 
-  t.true(predicate.test(0));
+    beforeEach(() => {
+      serializer.serialize.mockReturnValueOnce('<value>');
 
-  t.false(predicate.test(1));
-  t.false(predicate.test(2));
-});
+      description = predicate.description;
+    });
 
-test(createTestName('not.be.below'), async t => {
-  t.plan(4);
+    test('then it should evaluate to a description', () => {
+      expect(description).toBe('should not match <value>');
+    });
 
-  const predicate = new PredicateBuilder().not.be.below(1);
+    test('then it should call serializer.serialize() once', () => {
+      expect(serializer.serialize.mock.calls.length).toBe(1);
+      expect(serializer.serialize.mock.calls[0][0]).toEqual(/foo/);
+    });
+  });
 
-  t.is(format(predicate.description), 'should not be below 1');
+  describe('when predicate.test() is called', () => {
+    test('then it should return true', () => {
+      expect(predicate.test('bar')).toBe(true);
+      expect(predicate.test('')).toBe(true);
+    });
 
-  t.true(predicate.test(2));
-  t.true(predicate.test(1));
-
-  t.false(predicate.test(0));
-});
-
-test(createTestName('be.at.most'), async t => {
-  t.plan(4);
-
-  const predicate = new PredicateBuilder().be.at.most(1);
-
-  t.is(format(predicate.description), 'should be at most 1');
-
-  t.true(predicate.test(0));
-  t.true(predicate.test(1));
-
-  t.false(predicate.test(2));
-});
-
-test(createTestName('not.be.at.most'), async t => {
-  t.plan(4);
-
-  const predicate = new PredicateBuilder().not.be.at.most(1);
-
-  t.is(format(predicate.description), 'should not be at most 1');
-
-  t.true(predicate.test(2));
-
-  t.false(predicate.test(1));
-  t.false(predicate.test(0));
+    test('then it should return false', () => {
+      expect(predicate.test('foo')).toBe(false);
+      expect(predicate.test('foobar')).toBe(false);
+    });
+  });
 });

@@ -1,8 +1,8 @@
 import createDebug = require('debug');
 
-import {Builder, WebDriver} from 'selenium-webdriver';
+import {Builder} from 'selenium-webdriver';
 import {Config} from './config';
-import {Test} from './test';
+import {Logger, Test} from './test';
 
 export type Implementation = (t: Test) => Promise<void>;
 
@@ -11,26 +11,8 @@ export type Options =
 
 const debug = createDebug('cybernaut:implementation');
 
-class TapTest extends Test {
-  private readonly _tap: Tap.Test;
-
-  public constructor(driver: WebDriver, tap: Tap.Test, options: Options) {
-    super(driver, options.retries, options.retryDelay);
-
-    this._tap = tap;
-  }
-
-  public fail(message: string): void {
-    throw new Error(message);
-  }
-
-  public pass(message: string): void {
-    this._tap.pass(message);
-  }
-}
-
-export async function execute(
-  implementation: Implementation, tap: Tap.Test, options: Options
+export async function run(
+  implementation: Implementation, logger: Logger, options: Options
 ): Promise<void> {
   const {capabilities, timeouts} = options;
 
@@ -49,7 +31,7 @@ export async function execute(
 
     debug('execute test implementation');
 
-    await implementation(new TapTest(driver, tap, options));
+    await implementation(new Test(driver, logger, options));
   } finally {
     debug('terminate browser session');
 

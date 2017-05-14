@@ -1,100 +1,195 @@
 import deepStrictEqual = require('deep-strict-equal');
 
-import {Description} from './description';
-
 export interface Predicate<T> {
-  readonly description: Description;
+  readonly description: string;
 
+  compare(actualValue: T): string;
   test(actualValue: T): boolean;
 }
 
-export class PredicateBuilder {
-  private _at: string = '';
-  private _be: string = '';
-  private _not: string = '';
+export interface Serializer {
+  serialize(value: any): string; // tslint:disable-line no-any
+}
 
-  public get at(): this {
-    this._at = ' at';
+abstract class AbstractPredicate<T, S> implements Predicate<T> {
+  protected readonly _not: string;
+  protected readonly _serializer: Serializer;
+  protected readonly _value: S;
 
-    return this;
+  public constructor(serializer: Serializer, negated: boolean, value: S) {
+    this._not = negated ? ' not' : '';
+    this._serializer = serializer;
+    this._value = value;
   }
 
-  public get be(): this {
-    this._be = ' be';
+  public abstract get description(): string;
 
-    return this;
+  public abstract compare(actualValue: T): string;
+
+  public test(actualValue: T): boolean {
+    return this._not ? !this._test(actualValue) : this._test(actualValue);
   }
 
-  public get not(): this {
-    this._not = ' not';
+  protected abstract _test(actualValue: T): boolean;
 
-    return this;
+  protected _serialize(value: any): string { // tslint:disable-line no-any
+    return this._serializer.serialize(value);
+  }
+}
+
+class ContainPredicate extends AbstractPredicate<string, string> {
+  public get description(): string {
+    return `should${this._not} contain ${this._serialize(this._value)}`;
   }
 
-  public contain(expectedValue: string): Predicate<string> {
-    const description = {template: 'contain {}', args: [expectedValue]};
-
-    return this._build<string>(
-      description, actualValue => actualValue.indexOf(expectedValue) > -1
-    );
+  public compare(actualValue: string): string {
+    return `expected ${this._serialize(actualValue)}${this._not} ` +
+      `to contain ${this._serialize(this._value)}`;
   }
 
-  public equal<T>(expectedValue: T): Predicate<T> {
-    const description = {template: 'equal {}', args: [expectedValue]};
+  protected _test(actualValue: string): boolean {
+    return actualValue.indexOf(this._value) > -1;
+  }
+}
 
-    return this._build<T>(
-      description, actualValue => deepStrictEqual(actualValue, expectedValue)
-    );
+class EqualPredicate<T> extends AbstractPredicate<T, T> {
+  public get description(): string {
+    return `should${this._not} equal ${this._serialize(this._value)}`;
   }
 
-  public match(regex: RegExp): Predicate<string> {
-    const description = {template: 'match {}', args: [regex]};
-
-    return this._build<string>(
-      description, actualValue => regex.test(actualValue)
-    );
+  public compare(actualValue: T): string {
+    return `expected ${this._serialize(actualValue)}${this._not} ` +
+      `to equal ${this._serialize(this._value)}`;
   }
 
-  public above(expectedValue: number): Predicate<number> {
-    const description = {template: 'above {}', args: [expectedValue]};
+  protected _test(actualValue: T): boolean {
+    if (actualValue !== actualValue && this._value !== this._value) {
+      return true;
+    }
 
-    return this._build<number>(
-      description, actualValue => actualValue > expectedValue
-    );
+    return deepStrictEqual(actualValue, this._value);
+  }
+}
+
+class MatchPredicate extends AbstractPredicate<string, RegExp> {
+  public get description(): string {
+    return `should${this._not} match ${this._serialize(this._value)}`;
   }
 
-  public least(expectedValue: number): Predicate<number> {
-    const description = {template: 'least {}', args: [expectedValue]};
-
-    return this._build<number>(
-      description, actualValue => actualValue >= expectedValue
-    );
+  public compare(actualValue: string): string {
+    return `expected ${this._serialize(actualValue)}${this._not} ` +
+      `to match ${this._serialize(this._value)}`;
   }
 
-  public below(expectedValue: number): Predicate<number> {
-    const description = {template: 'below {}', args: [expectedValue]};
+  protected _test(actualValue: string): boolean {
+    return this._value.test(actualValue);
+  }
+}
 
-    return this._build<number>(
-      description, actualValue => actualValue < expectedValue
-    );
+export class NegatablePredicateBuilder {
+  protected readonly _negated: boolean;
+  protected readonly _serializer: Serializer;
+
+  public constructor(serializer: Serializer, negated: boolean) {
+    this._negated = negated;
+    this._serializer = serializer;
   }
 
-  public most(expectedValue: number): Predicate<number> {
-    const description = {template: 'most {}', args: [expectedValue]};
-
-    return this._build<number>(
-      description, actualValue => actualValue <= expectedValue
-    );
+  public contain(value: string): Predicate<string> {
+    return new ContainPredicate(this._serializer, this._negated, value);
   }
 
-  private _build<T>(
-    {args, template}: Description, test: (value: T) => boolean
-  ): Predicate<T> {
-    return {
-      description: {
-        template: `should${this._not}${this._be}${this._at} ${template}`, args
-      },
-      test: this._not ? value => !test(value) : test
-    };
+  public equal<T>(value: T): Predicate<T> {
+    return new EqualPredicate(this._serializer, this._negated, value);
+  }
+
+  public match(value: RegExp): Predicate<string> {
+    return new MatchPredicate(this._serializer, this._negated, value);
+  }
+}
+
+class BeAbovePredicate extends AbstractPredicate<number, number> {
+  public get description(): string {
+    return `should be above ${this._serialize(this._value)}`;
+  }
+
+  public compare(actualValue: number): string {
+    return `expected ${this._serialize(actualValue)} ` +
+      `to be greater than ${this._serialize(this._value)}`;
+  }
+
+  protected _test(actualValue: number): boolean {
+    return actualValue > this._value;
+  }
+}
+
+class BeAtLeastPredicate extends AbstractPredicate<number, number> {
+  public get description(): string {
+    return `should be at least ${this._serialize(this._value)}`;
+  }
+
+  public compare(actualValue: number): string {
+    return `expected ${this._serialize(actualValue)} ` +
+      `to be greater than or equal ${this._serialize(this._value)}`;
+  }
+
+  protected _test(actualValue: number): boolean {
+    return actualValue >= this._value;
+  }
+}
+
+class BeAtMostPredicate extends AbstractPredicate<number, number> {
+  public get description(): string {
+    return `should be at most ${this._serialize(this._value)}`;
+  }
+
+  public compare(actualValue: number): string {
+    return `expected ${this._serialize(actualValue)} ` +
+      `to be less than or equal ${this._serialize(this._value)}`;
+  }
+
+  protected _test(actualValue: number): boolean {
+    return actualValue <= this._value;
+  }
+}
+
+class BeBelow extends AbstractPredicate<number, number> {
+  public get description(): string {
+    return `should be below ${this._serialize(this._value)}`;
+  }
+
+  public compare(actualValue: number): string {
+    return `expected ${this._serialize(actualValue)} ` +
+      `to be less than ${this._serialize(this._value)}`;
+  }
+
+  protected _test(actualValue: number): boolean {
+    return actualValue < this._value;
+  }
+}
+
+export class PredicateBuilder extends NegatablePredicateBuilder {
+  public constructor(serializer: Serializer) {
+    super(serializer, false);
+  }
+
+  public get not(): NegatablePredicateBuilder {
+    return new NegatablePredicateBuilder(this._serializer, true);
+  }
+
+  public beAbove(value: number): Predicate<number> {
+    return new BeAbovePredicate(this._serializer, this._negated, value);
+  }
+
+  public beAtLeast(value: number): Predicate<number> {
+    return new BeAtLeastPredicate(this._serializer, this._negated, value);
+  }
+
+  public beAtMost(value: number): Predicate<number> {
+    return new BeAtMostPredicate(this._serializer, this._negated, value);
+  }
+
+  public beBelow(value: number): Predicate<number> {
+    return new BeBelow(this._serializer, this._negated, value);
   }
 }

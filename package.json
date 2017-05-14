@@ -31,35 +31,19 @@
       "config": ".cz-config.js"
     }
   },
-  "ava": {
-    "files": [
-      "dist/**/*.test.js"
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "ts"
     ],
-    "serial": true,
-    "verbose": true
-  },
-  "nyc": {
-    "lines": 100,
-    "statements": 100,
-    "functions": 100,
-    "branches": 100,
-    "all": true,
-    "cache": false,
-    "check-coverage": true,
-    "exclude": [
-      "_book/**/*.js",
-      "coverage/**/*.js",
-      "dist/**/*.test.js",
-      "dist/index.js",
-      "docker/**/*.js",
-      "example/**/*.js",
-      "scripts/**/*.js",
-      "wallaby.js"
+    "testPathIgnorePatterns": [
+      "<rootDir>/_book/",
+      "<rootDir>/node_modules/"
     ],
-    "reporter": [
-      "html",
-      "text"
-    ]
+    "testRegex": "\\.test\\.ts$",
+    "transform": {
+      ".ts": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    }
   },
   "scripts": {
     "prebuild": "npm run compile",
@@ -72,43 +56,34 @@
     "preexamples": "npm run build",
     "examples": "./scripts/examples.sh",
     "format": "tsfmt --replace",
-    "pretest": "npm run compile",
     "test": "./scripts/test.sh",
-    "prewatch": "npm run compile",
-    "watch": "run-p --continue-on-error 'watch:*'",
-    "watch:ava": "ava --fail-fast --watch",
-    "watch:tsc": "tsc --project . --watch"
+    "watch": "jest --verbose --watch"
   },
   "dependencies": {
-    "@types/node": "7.0.18",
     "ajv": "5.0.1",
     "chromedriver": "2.29.0",
     "debug": "2.6.6",
     "deep-strict-equal": "0.2.0",
-    "fs-extra": "3.0.1",
     "geckodriver": "1.6.1",
     "glob": "7.1.1",
     "selenium-webdriver": "3.4.0",
     "tap": "10.3.2",
-    "tslib": "1.7.0",
-    "uuid": "3.0.1"
+    "tslib": "1.7.0"
   },
   "devDependencies": {
-    "@types/proxyquire": "1.3.27",
-    "ava": "0.19.1",
+    "@types/jest": "19.2.3",
+    "@types/node": "7.0.18",
     "commitizen": "2.9.6",
     "conventional-changelog-lint": "1.1.9",
     "coveralls": "2.13.1",
     "custom-tslint-formatters": "2.1.0",
     "cz-customizable": "5.0.0",
     "gitbook-cli": "2.3.0",
+    "jest": "20.0.0",
     "markdownlint": "0.4.1",
-    "npm-run-all": "4.0.2",
-    "nyc": "10.3.2",
-    "proxyquire": "1.7.11",
     "semantic-release": "6.3.6",
-    "sinon": "2.2.0",
     "ts-config": "7.0.0",
+    "ts-jest": "20.0.2",
     "tslint": "5.2.0",
     "typescript": "2.3.2",
     "typescript-formatter": "5.1.3"

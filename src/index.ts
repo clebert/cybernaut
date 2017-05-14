@@ -12,9 +12,8 @@ import {Accessor} from './accessor';
 import {Action} from './action';
 import {Browser, Script} from './browser';
 import {Config, loadConfig, validate} from './config';
-import {Description} from './description';
 import {Element} from './element';
-import {Implementation, execute} from './implementation';
+import {Implementation, run} from './implementation';
 import {PredicateBuilder} from './predicate';
 import {Test} from './test';
 
@@ -22,7 +21,6 @@ export {
   Accessor,
   Action,
   Browser,
-  Description,
   Element,
   Implementation,
   Key,
@@ -66,18 +64,18 @@ if (configErrors.length > 0) {
   process.exit(1);
 }
 
-export function defineElement(selector: string, name?: string): Element {
-  return new Element(selector, name);
+export function defineElement(name: string, selector: string): Element {
+  return new Element(name, selector);
 }
 
 export class It {
   public get should(): PredicateBuilder {
-    return new PredicateBuilder();
+    return new PredicateBuilder({serialize: inspect});
   }
 }
 
 export const it = new It();
-export const browser = new Browser(config.screenshotDirectory);
+export const browser = new Browser();
 
 const tasks: (() => void)[] = [];
 
@@ -87,9 +85,9 @@ export function test(name: string, implementation?: Implementation): void {
     tap.test(
       name,
       {diagnostic: false, timeout: 0, todo: !implementation},
-      async t => {
+      async logger => {
         if (implementation) {
-          await execute(implementation, t, config);
+          await run(implementation, logger, config);
         }
       }
     ).catch((error: Error) => {

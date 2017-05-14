@@ -3,7 +3,6 @@ import {Element, browser, defineElement, it, test} from 'cybernaut';
 
 test('The gitbook should include the chapter "Starting Cybernaut"', async t => {
   await t.perform(browser.loadPage('https://cybernaut.js.org/'));
-  await t.perform(browser.saveScreenshot());
 
   const summary = defineElement('div.book-summary', 'summary');
 
@@ -16,7 +15,6 @@ test('The gitbook should include the chapter "Starting Cybernaut"', async t => {
     await t.perform(toggleSummaryButton.click());
 
     await t.perform(browser.sleep(1000, 'an animation is running'));
-    await t.perform(browser.saveScreenshot());
   }
 
   const chapterLink = defineElement(

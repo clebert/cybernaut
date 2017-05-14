@@ -18,7 +18,6 @@ const {browser, defineElement, it, test} = require('cybernaut');
 
 test('The gitbook should include the chapter "Starting Cybernaut"', async t => {
   await t.perform(browser.loadPage('https://cybernaut.js.org/'));
-  await t.perform(browser.saveScreenshot());
 
   const summary = defineElement('div.book-summary', 'summary');
 
@@ -31,7 +30,6 @@ test('The gitbook should include the chapter "Starting Cybernaut"', async t => {
     await t.perform(toggleSummaryButton.click());
 
     await t.perform(browser.sleep(1000, 'an animation is running'));
-    await t.perform(browser.saveScreenshot());
   }
 
   const chapterLink = defineElement(
@@ -69,8 +67,6 @@ on iPhone 6 Plus (via Mobile Emulation):
 git clone https://github.com/clebert/cybernaut.git && cd cybernaut && \
 ./scripts/docker/build-example.sh iphone && ./scripts/docker/run-example.sh iphone
 ```
-
-The captured screenshots can be found in the `./example/screenshots/` directory.
 
 ## Installation
 

@@ -2,7 +2,7 @@
 
 Type definition:
 
-* **`defineElement(selector: string, name: string = 'element'): Element`**
+* **`defineElement(name: string, selector: string): Element`**
 * [`Element`](../interfaces/element.md)
 
 Example usage:
@@ -11,8 +11,8 @@ Example usage:
 const {defineElement, test} = require('cybernaut');
 
 test('foo', async t => {
-  const bar = defineElement('#bar');
+  const barButton = defineElement('bar-button', '#bar');
 
-  await t.perform(bar.click());
+  await t.perform(barButton.click());
 });
 ```
