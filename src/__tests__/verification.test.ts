@@ -25,7 +25,7 @@ describe('given a newly created verifier() is called', () => {
 
     predicate = {
       description: '<predicateDescription>',
-      compare: jest.fn<string>().mockReturnValueOnce('<predicateComparison>'),
+      compare: jest.fn<string>().mockReturnValue('<predicateComparison>'),
       test: jest.fn<boolean>()
     };
 
@@ -42,7 +42,7 @@ describe('given a newly created verifier() is called', () => {
 
   describe('when the call to accessor.get() returns an actual value', () => {
     beforeEach(() => {
-      accessor.get.mockImplementationOnce(async () => '<actualValue>');
+      accessor.get.mockImplementation(async () => '<actualValue>');
     });
 
     test('then it should call predicate.test() once', async () => {
@@ -54,7 +54,7 @@ describe('given a newly created verifier() is called', () => {
 
     describe('when the call to predicate.test() returns true', () => {
       test('then it should return a valid verification', async () => {
-        predicate.test.mockReturnValueOnce(true);
+        predicate.test.mockReturnValue(true);
 
         const verification = await verifier(driver, 1, 0);
 
@@ -76,7 +76,7 @@ describe('given a newly created verifier() is called', () => {
 
     describe('when the call to predicate.test() returns false', () => {
       beforeEach(() => {
-        predicate.test.mockReturnValueOnce(false);
+        predicate.test.mockReturnValue(false);
       });
 
       test('then it should call predicate.compare() once', async () => {
@@ -99,15 +99,15 @@ describe('given a newly created verifier() is called', () => {
 
     describe('when the call to predicate.test() throws an error', () => {
       test('then it should return an error verification', async () => {
-        predicate.test.mockImplementationOnce(async () => {
+        predicate.test.mockImplementationOnce(() => {
           throw new Error('<message>');
         });
 
-        predicate.test.mockImplementationOnce(async () => {
+        predicate.test.mockImplementationOnce(() => {
           throw new Error();
         });
 
-        predicate.test.mockImplementationOnce(async () => {
+        predicate.test.mockImplementationOnce(() => {
           throw undefined;
         });
 
@@ -156,7 +156,7 @@ describe('given verify() is called with a retries-option of 1', () => {
 
   describe('when any call to verifier() returns a valid verification', () => {
     beforeEach(() => {
-      verifier.mockImplementationOnce(async () => ({
+      verifier.mockImplementation(async () => ({
         description: 'attempt 1', result: 'valid'
       }));
     });

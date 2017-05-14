@@ -24,13 +24,15 @@ export class Test {
   }
 
   public async assert<T>(
-    accessor: Accessor<T>,
-    predicate: Predicate<T>,
-    options: Options = this._options
+    accessor: Accessor<T>, predicate: Predicate<T>, options?: Partial<Options>
   ): Promise<void> {
     const verifier = createVerifier(accessor, predicate);
-    const verification = await verify(verifier, this._driver, options);
-    const message = 'Assert ' + verification.description;
+
+    const verification = await verify(
+      verifier, this._driver, {...this._options, options}
+    );
+
+    const message = 'assert that ' + verification.description;
 
     if (verification.result === 'error' || verification.result === 'invalid') {
       throw new Error(message);
@@ -40,11 +42,15 @@ export class Test {
   }
 
   public async perform(
-    action: Action, options: Options = this._options
+    action: Action, options?: Partial<Options>
   ): Promise<void> {
     const executor = createExecutor(action);
-    const execution = await execute(executor, this._driver, options);
-    const message = 'Perform ' + execution.description;
+
+    const execution = await execute(
+      executor, this._driver, {...this._options, options}
+    );
+
+    const message = execution.description;
 
     if (execution.error) {
       throw new Error(message);
@@ -54,13 +60,15 @@ export class Test {
   }
 
   public async verify<T>(
-    accessor: Accessor<T>,
-    predicate: Predicate<T>,
-    options: Options = this._options
+    accessor: Accessor<T>, predicate: Predicate<T>, options?: Partial<Options>
   ): Promise<boolean> {
     const verifier = createVerifier(accessor, predicate);
-    const verification = await verify(verifier, this._driver, options);
-    const message = 'Verify ' + verification.description;
+
+    const verification = await verify(
+      verifier, this._driver, {...this._options, options}
+    );
+
+    const message = 'verify that ' + verification.description;
 
     if (verification.result === 'error') {
       throw new Error(message);

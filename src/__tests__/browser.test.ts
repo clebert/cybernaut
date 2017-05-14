@@ -33,7 +33,7 @@ describe('given a browser is created', () => {
 
       test('then it should return the title of the page', async () => {
         const driver = {
-          getTitle: jest.fn().mockImplementationOnce(async () => '<pageTitle>')
+          getTitle: jest.fn().mockImplementation(async () => '<pageTitle>')
         };
 
         expect(await accessor.get(driver as any)).toBe('<pageTitle>');
@@ -43,7 +43,7 @@ describe('given a browser is created', () => {
         const error = new Error('<message>');
 
         const driver = {
-          getTitle: jest.fn().mockImplementationOnce(async () => {
+          getTitle: jest.fn().mockImplementation(async () => {
             throw error;
           })
         };
@@ -75,9 +75,7 @@ describe('given a browser is created', () => {
 
       test('then it should return the URL of the page', async () => {
         const driver = {
-          getCurrentUrl: jest.fn().mockImplementationOnce(
-            async () => '<pageUrl>'
-          )
+          getCurrentUrl: jest.fn().mockImplementation(async () => '<pageUrl>')
         };
 
         expect(await accessor.get(driver as any)).toBe('<pageUrl>');
@@ -87,7 +85,7 @@ describe('given a browser is created', () => {
         const error = new Error('<message>');
 
         const driver = {
-          getCurrentUrl: jest.fn().mockImplementationOnce(async () => {
+          getCurrentUrl: jest.fn().mockImplementation(async () => {
             throw error;
           })
         };
@@ -113,7 +111,7 @@ describe('given a browser is created', () => {
         'then it should call driver.manage().window().getPosition() once';
 
       test(name, async () => {
-        const getPosition = jest.fn().mockImplementationOnce(async () => ({}));
+        const getPosition = jest.fn().mockImplementation(async () => ({}));
         const driver = {manage: () => ({window: () => ({getPosition})})};
 
         await accessor.get(driver as any);
@@ -122,7 +120,7 @@ describe('given a browser is created', () => {
       });
 
       test('then it should return the X position of the window', async () => {
-        const getPosition = jest.fn().mockImplementationOnce(async () => ({
+        const getPosition = jest.fn().mockImplementation(async () => ({
           x: 123
         }));
 
@@ -134,7 +132,7 @@ describe('given a browser is created', () => {
       test('then it should throw an error', async () => {
         const error = new Error('<message>');
 
-        const getPosition = jest.fn().mockImplementationOnce(async () => {
+        const getPosition = jest.fn().mockImplementation(async () => {
           throw error;
         });
 
@@ -161,7 +159,7 @@ describe('given a browser is created', () => {
         'then it should call driver.manage().window().getPosition() once';
 
       test(name, async () => {
-        const getPosition = jest.fn().mockImplementationOnce(async () => ({}));
+        const getPosition = jest.fn().mockImplementation(async () => ({}));
         const driver = {manage: () => ({window: () => ({getPosition})})};
 
         await accessor.get(driver as any);
@@ -170,7 +168,7 @@ describe('given a browser is created', () => {
       });
 
       test('then it should return the Y position of the window', async () => {
-        const getPosition = jest.fn().mockImplementationOnce(async () => ({
+        const getPosition = jest.fn().mockImplementation(async () => ({
           y: 123
         }));
 
@@ -182,7 +180,7 @@ describe('given a browser is created', () => {
       test('then it should throw an error', async () => {
         const error = new Error('<message>');
 
-        const getPosition = jest.fn().mockImplementationOnce(async () => {
+        const getPosition = jest.fn().mockImplementation(async () => {
           throw error;
         });
 
@@ -209,7 +207,7 @@ describe('given a browser is created', () => {
         'then it should call driver.manage().window().getSize() once';
 
       test(name, async () => {
-        const getSize = jest.fn().mockImplementationOnce(async () => ({}));
+        const getSize = jest.fn().mockImplementation(async () => ({}));
         const driver = {manage: () => ({window: () => ({getSize})})};
 
         await accessor.get(driver as any);
@@ -218,7 +216,7 @@ describe('given a browser is created', () => {
       });
 
       test('then it should return the width of the window', async () => {
-        const getSize = jest.fn().mockImplementationOnce(async () => ({
+        const getSize = jest.fn().mockImplementation(async () => ({
           width: 123
         }));
 
@@ -230,7 +228,7 @@ describe('given a browser is created', () => {
       test('then it should throw an error', async () => {
         const error = new Error('<message>');
 
-        const getSize = jest.fn().mockImplementationOnce(async () => {
+        const getSize = jest.fn().mockImplementation(async () => {
           throw error;
         });
 
@@ -257,7 +255,7 @@ describe('given a browser is created', () => {
         'then it should call driver.manage().window().getSize() once';
 
       test(name, async () => {
-        const getSize = jest.fn().mockImplementationOnce(async () => ({}));
+        const getSize = jest.fn().mockImplementation(async () => ({}));
         const driver = {manage: () => ({window: () => ({getSize})})};
 
         await accessor.get(driver as any);
@@ -266,7 +264,7 @@ describe('given a browser is created', () => {
       });
 
       test('then it should return the height of the window', async () => {
-        const getSize = jest.fn().mockImplementationOnce(async () => ({
+        const getSize = jest.fn().mockImplementation(async () => ({
           height: 123
         }));
 
@@ -278,7 +276,7 @@ describe('given a browser is created', () => {
       test('then it should throw an error', async () => {
         const error = new Error('<message>');
 
-        const getSize = jest.fn().mockImplementationOnce(async () => {
+        const getSize = jest.fn().mockImplementation(async () => {
           throw error;
         });
 
@@ -299,7 +297,7 @@ describe('given a browser is created', () => {
     });
 
     test('then it should return an accessor', () => {
-      expect(accessor.name).toBe('the result of the script <scriptName>');
+      expect(accessor.name).toBe('the result of the <scriptName> script');
     });
 
     describe('when accessor.get() is called', () => {
@@ -314,7 +312,7 @@ describe('given a browser is created', () => {
 
       test('then it should return the result of the script', async () => {
         const driver = {
-          executeAsyncScript: jest.fn().mockImplementationOnce(
+          executeAsyncScript: jest.fn().mockImplementation(
             async () => '<scriptResult>'
           )
         };
@@ -326,7 +324,7 @@ describe('given a browser is created', () => {
         const error = new Error('<message>');
 
         const driver = {
-          executeAsyncScript: jest.fn().mockImplementationOnce(async () => {
+          executeAsyncScript: jest.fn().mockImplementation(async () => {
             throw error;
           })
         };
@@ -346,7 +344,7 @@ describe('given a browser is created', () => {
     });
 
     test('then it should return an action', () => {
-      expect(action.description).toBe('execute the script <scriptName>');
+      expect(action.description).toBe('execute the <scriptName> script');
     });
 
     describe('when action.perform() is called', () => {
@@ -359,21 +357,11 @@ describe('given a browser is created', () => {
         expect(driver.executeAsyncScript.mock.calls[0][0]).toBe(script);
       });
 
-      test('then it should return undefined', async () => {
-        const driver = {
-          executeAsyncScript: jest.fn().mockImplementationOnce(
-            async () => '<scriptResult>'
-          )
-        };
-
-        expect(await action.perform(driver as any)).toBe(undefined);
-      });
-
       test('then it should throw an error', async () => {
         const error = new Error('<message>');
 
         const driver = {
-          executeAsyncScript: jest.fn().mockImplementationOnce(async () => {
+          executeAsyncScript: jest.fn().mockImplementation(async () => {
             throw error;
           })
         };
@@ -408,7 +396,7 @@ describe('given a browser is created', () => {
       test('then it should throw an error', async () => {
         const error = new Error('<message>');
 
-        const to = jest.fn().mockImplementationOnce(async () => {
+        const to = jest.fn().mockImplementation(async () => {
           throw error;
         });
 
@@ -447,7 +435,7 @@ describe('given a browser is created', () => {
       test('then it should throw an error', async () => {
         const error = new Error('<message>');
 
-        const maximize = jest.fn().mockImplementationOnce(async () => {
+        const maximize = jest.fn().mockImplementation(async () => {
           throw error;
         });
 
@@ -482,7 +470,7 @@ describe('given a browser is created', () => {
       test('then it should throw an error', async () => {
         const error = new Error('<message>');
 
-        const back = jest.fn().mockImplementationOnce(async () => {
+        const back = jest.fn().mockImplementation(async () => {
           throw error;
         });
 
@@ -517,7 +505,7 @@ describe('given a browser is created', () => {
       test('then it should throw an error', async () => {
         const error = new Error('<message>');
 
-        const forward = jest.fn().mockImplementationOnce(async () => {
+        const forward = jest.fn().mockImplementation(async () => {
           throw error;
         });
 
@@ -552,7 +540,7 @@ describe('given a browser is created', () => {
       test('then it should throw an error', async () => {
         const error = new Error('<message>');
 
-        const refresh = jest.fn().mockImplementationOnce(async () => {
+        const refresh = jest.fn().mockImplementation(async () => {
           throw error;
         });
 
@@ -592,7 +580,7 @@ describe('given a browser is created', () => {
       test('then it should throw an error', async () => {
         const error = new Error('<message>');
 
-        const setPosition = jest.fn().mockImplementationOnce(async () => {
+        const setPosition = jest.fn().mockImplementation(async () => {
           throw error;
         });
 
@@ -632,7 +620,7 @@ describe('given a browser is created', () => {
       test('then it should throw an error', async () => {
         const error = new Error('<message>');
 
-        const setSize = jest.fn().mockImplementationOnce(async () => {
+        const setSize = jest.fn().mockImplementation(async () => {
           throw error;
         });
 
@@ -664,9 +652,9 @@ describe('given a browser is created', () => {
 
           let resolved = false;
 
-          browser.sleep(durationInMillis).perform({} as any).then(() => {
-            resolved = true;
-          });
+          const promise = browser.sleep(durationInMillis).perform(
+            {} as any
+          ).then(() => resolved = true);
 
           await Promise.resolve();
           await Promise.resolve();
@@ -686,6 +674,8 @@ describe('given a browser is created', () => {
           await Promise.resolve();
 
           expect(resolved).toBe(true);
+
+          await promise;
         } finally {
           jest.useRealTimers();
         }

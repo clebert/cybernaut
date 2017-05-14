@@ -51,14 +51,14 @@ export class Browser {
   // tslint:disable-next-line no-any
   public scriptResult(scriptName: string, script: Script): Accessor<any> {
     return {
-      name: 'the result of the script ' + scriptName,
+      name: `the result of the ${scriptName} script`,
       get: async driver => driver.executeAsyncScript(script)
     };
   }
 
   public executeScript(scriptName: string, script: Script): Action {
     return {
-      description: 'execute the script ' + scriptName,
+      description: `execute the ${scriptName} script`,
       perform: async driver => void await driver.executeAsyncScript(script)
     };
   }

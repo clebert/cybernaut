@@ -23,7 +23,7 @@ export class Element {
 
   public get tagName(): Accessor<string> {
     return {
-      name: 'the tag name of the ' + this._name,
+      name: `the tag name of the ${this._name} element`,
       get: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 
@@ -34,7 +34,7 @@ export class Element {
 
   public get text(): Accessor<string> {
     return {
-      name: 'the text of the ' + this._name,
+      name: `the text of the ${this._name} element`,
       get: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 
@@ -45,7 +45,7 @@ export class Element {
 
   public get visibility(): Accessor<boolean> {
     return {
-      name: 'the visibility of the ' + this._name,
+      name: `the visibility of the ${this._name} element`,
       get: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 
@@ -56,7 +56,7 @@ export class Element {
 
   public get xPosition(): Accessor<number> {
     return {
-      name: 'the X position of the ' + this._name,
+      name: `the X position of the ${this._name} element`,
       get: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 
@@ -67,7 +67,7 @@ export class Element {
 
   public get yPosition(): Accessor<number> {
     return {
-      name: 'the Y position of the ' + this._name,
+      name: `the Y position of the ${this._name} element`,
       get: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 
@@ -78,7 +78,7 @@ export class Element {
 
   public get width(): Accessor<number> {
     return {
-      name: 'the width of the ' + this._name,
+      name: `the width of the ${this._name} element`,
       get: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 
@@ -89,7 +89,7 @@ export class Element {
 
   public get height(): Accessor<number> {
     return {
-      name: 'the height of the ' + this._name,
+      name: `the height of the ${this._name} element`,
       get: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 
@@ -99,8 +99,11 @@ export class Element {
   }
 
   public cssValue(cssName: string): Accessor<string> {
+    const name =
+      `the value of the ${cssName} css of the ${this._name} element`;
+
     return {
-      name: `the css value ${cssName} of the ${this._name}`,
+      name,
       get: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 
@@ -110,8 +113,11 @@ export class Element {
   }
 
   public propertyValue(propertyName: string): Accessor<string | null> {
+    const name =
+      `the value of the ${propertyName} property of the ${this._name} element`;
+
     return {
-      name: `the property value ${propertyName} of the ${this._name}`,
+      name,
       get: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 
@@ -122,7 +128,7 @@ export class Element {
 
   public clearValue(): Action {
     return {
-      description: 'clear the value of the ' + this._name,
+      description: `clear the value of the ${this._name} element`,
       perform: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 
@@ -133,7 +139,7 @@ export class Element {
 
   public click(): Action {
     return {
-      description: 'click on the ' + this._name,
+      description: `click on the ${this._name} element`,
       perform: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 
@@ -143,8 +149,13 @@ export class Element {
   }
 
   public sendKeys(...keys: string[]): Action {
+    const translatedKeys = keys.map(translate).join(', ');
+
+    const description =
+      `send the keys ${translatedKeys} to the ${this._name} element`;
+
     return {
-      description: `send the keys ${keys.map(translate)} to the ${this._name}`,
+      description,
       perform: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 
@@ -155,7 +166,7 @@ export class Element {
 
   public submitForm(): Action {
     return {
-      description: 'submit the form containing the ' + this._name,
+      description: `submit the form containing the ${this._name} element`,
       perform: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 

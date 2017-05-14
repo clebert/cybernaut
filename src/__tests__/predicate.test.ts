@@ -46,7 +46,7 @@ describe('given a predicate is created via should.beAbove()', () => {
     let description: string;
 
     beforeEach(() => {
-      serializer.serialize.mockReturnValueOnce('<value>');
+      serializer.serialize.mockReturnValue('<value>');
 
       description = predicate.description;
     });
@@ -108,7 +108,7 @@ describe('given a predicate is created via should.beAtLeast()', () => {
     let description: string;
 
     beforeEach(() => {
-      serializer.serialize.mockReturnValueOnce('<value>');
+      serializer.serialize.mockReturnValue('<value>');
 
       description = predicate.description;
     });
@@ -170,7 +170,7 @@ describe('given a predicate is created via should.beAtMost()', () => {
     let description: string;
 
     beforeEach(() => {
-      serializer.serialize.mockReturnValueOnce('<value>');
+      serializer.serialize.mockReturnValue('<value>');
 
       description = predicate.description;
     });
@@ -230,7 +230,7 @@ describe('given a predicate is created via should.beBelow()', () => {
     let description: string;
 
     beforeEach(() => {
-      serializer.serialize.mockReturnValueOnce('<value>');
+      serializer.serialize.mockReturnValue('<value>');
 
       description = predicate.description;
     });
@@ -290,7 +290,7 @@ describe('given a predicate is created via should.contain()', () => {
     let description: string;
 
     beforeEach(() => {
-      serializer.serialize.mockReturnValueOnce('<value>');
+      serializer.serialize.mockReturnValue('<value>');
 
       description = predicate.description;
     });
@@ -350,7 +350,7 @@ describe('given a predicate is created via should.not.contain()', () => {
     let description: string;
 
     beforeEach(() => {
-      serializer.serialize.mockReturnValueOnce('<value>');
+      serializer.serialize.mockReturnValue('<value>');
 
       description = predicate.description;
     });
@@ -410,7 +410,7 @@ describe('given a predicate is created via should.equal()', () => {
     let description: string;
 
     beforeEach(() => {
-      serializer.serialize.mockReturnValueOnce('<value>');
+      serializer.serialize.mockReturnValue('<value>');
 
       description = predicate.description;
     });
@@ -472,7 +472,7 @@ describe('given a predicate is created via should.not.equal()', () => {
     let description: string;
 
     beforeEach(() => {
-      serializer.serialize.mockReturnValueOnce('<value>');
+      serializer.serialize.mockReturnValue('<value>');
 
       description = predicate.description;
     });
@@ -534,7 +534,7 @@ describe('given a predicate is created via should.match()', () => {
     let description: string;
 
     beforeEach(() => {
-      serializer.serialize.mockReturnValueOnce('<value>');
+      serializer.serialize.mockReturnValue('<value>');
 
       description = predicate.description;
     });
@@ -594,7 +594,7 @@ describe('given a predicate is created via should.not.match()', () => {
     let description: string;
 
     beforeEach(() => {
-      serializer.serialize.mockReturnValueOnce('<value>');
+      serializer.serialize.mockReturnValue('<value>');
 
       description = predicate.description;
     });

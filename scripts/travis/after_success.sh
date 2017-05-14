@@ -10,5 +10,5 @@ if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
   npm publish
   semantic-release post
 
-  cat coverage/lcov.info | "$(npm bin)"/coveralls
+  < coverage/lcov.info "$(npm bin)"/coveralls
 fi

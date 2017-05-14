@@ -27,7 +27,7 @@ describe('given a newly created executor() is called', () => {
     expect(action.perform.mock.calls[0][0]).toBe(driver);
   });
 
-  describe('when the call to action.perform() returns undefined', () => {
+  describe('when the call to action.perform() does not throw an error', () => {
     test('then it should return a non-error execution', async () => {
       const execution = await executor(driver, 1, 0);
 
@@ -90,7 +90,7 @@ describe('given execute() is called with a retries-option of 1', () => {
 
   describe('when any call to executor() returns a non-error execution', () => {
     beforeEach(() => {
-      executor.mockImplementationOnce(async () => ({
+      executor.mockImplementation(async () => ({
         description: 'attempt 1', error: false
       }));
     });

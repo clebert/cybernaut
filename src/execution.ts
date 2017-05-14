@@ -42,7 +42,7 @@ export async function execute(
 
   const execution = await executor(driver, _attempt, retries);
 
-  if (execution.error === false || retries < _attempt) {
+  if (!execution.error || retries < _attempt) {
     return execution;
   }
 

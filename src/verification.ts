@@ -24,9 +24,9 @@ export function createVerifier<T>(
   return async (driver: WebDriver, attempt: number, retries: number) => {
     try {
       const actualValue = await accessor.get(driver);
-      const result = await predicate.test(actualValue);
+      const result = predicate.test(actualValue);
 
-      if (result === false) {
+      if (!result) {
         return {
           description: `${description} (${predicate.compare(actualValue)})`,
           result: 'invalid'
