@@ -38,7 +38,7 @@ const configFilename = process.argv[2];
 try {
   config = loadConfig(configFilename);
 } catch (e) {
-  console.error(`\nError: unable to load config file '${configFilename}'`);
+  console.error(`\nError: Unable to load the config file: '${configFilename}'`);
 
   process.exit(1);
 }
@@ -55,7 +55,9 @@ for (const key of Object.keys(config) as (keyof Config)[]) {
 const configErrors = validate(config);
 
 if (configErrors.length > 0) {
-  console.error(`\nError: unable to validate config file '${configFilename}'`);
+  console.error(
+    `\nError: Unable to validate the config file: '${configFilename}'`
+  );
 
   for (const configError of configErrors) {
     console.error('  ' + configError);
@@ -110,7 +112,7 @@ export function skip(name: string, implementation: Implementation): void {
 if (require.main !== module) {
   const packageName = require('../package.json').name;
 
-  console.error(`\nError: please run your tests only via ${packageName} CLI`);
+  console.error(`\nError: Please run your tests only via ${packageName} CLI`);
 
   process.exit(1);
 }
@@ -119,11 +121,11 @@ try {
   const {browserName} = config.capabilities;
 
   if (browserName === 'chrome') {
-    debug('load chromedriver');
+    debug('Load the chromedriver');
 
     require('chromedriver');
   } else if (browserName === 'firefox') {
-    debug('load geckodriver');
+    debug('Load the geckodriver');
 
     require('geckodriver');
   }
@@ -133,7 +135,7 @@ try {
   });
 
   for (const filename of filenames) {
-    debug('load test file:', filename);
+    debug('Load the test file:', filename);
 
     require(filename);
   }

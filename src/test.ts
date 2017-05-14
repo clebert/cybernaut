@@ -32,7 +32,7 @@ export class Test {
       verifier, this._driver, {...this._options, options}
     );
 
-    const message = 'assert that ' + verification.description;
+    const message = 'Assert that ' + verification.description;
 
     if (verification.result === 'error' || verification.result === 'invalid') {
       throw new Error(message);
@@ -68,7 +68,7 @@ export class Test {
       verifier, this._driver, {...this._options, options}
     );
 
-    const message = 'verify that ' + verification.description;
+    const message = 'Verify that ' + verification.description;
 
     if (verification.result === 'error') {
       throw new Error(message);

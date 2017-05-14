@@ -16,12 +16,12 @@ export async function run(
 ): Promise<void> {
   const {capabilities, timeouts} = options;
 
-  debug('create browser session');
+  debug('Create the browser session');
 
   const driver = await new Builder().withCapabilities(capabilities).build();
 
   try {
-    debug('manage timeout behavior');
+    debug('Manage the timeout behavior');
 
     await driver.manage().setTimeouts({
       implicit: timeouts.element,
@@ -29,11 +29,11 @@ export async function run(
       script: timeouts.script
     });
 
-    debug('execute test implementation');
+    debug('Run the test implementation');
 
     await implementation(new Test(driver, logger, options));
   } finally {
-    debug('terminate browser session');
+    debug('Terminate the browser session');
 
     await driver.quit();
   }

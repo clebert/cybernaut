@@ -58,63 +58,63 @@ export class Browser {
 
   public executeScript(scriptName: string, script: Script): Action {
     return {
-      description: `execute the ${scriptName} script`,
+      description: `Execute the ${scriptName} script`,
       perform: async driver => void await driver.executeAsyncScript(script)
     };
   }
 
   public loadPage(url: string): Action {
     return {
-      description: 'load the page ' + url,
+      description: 'Load the page ' + url,
       perform: async driver => driver.navigate().to(url)
     };
   }
 
   public maximizeWindow(): Action {
     return {
-      description: 'maximize the window',
+      description: 'Maximize the window',
       perform: async driver => driver.manage().window().maximize()
     };
   }
 
   public navigateBack(): Action {
     return {
-      description: 'navigate back',
+      description: 'Navigate back',
       perform: async driver => driver.navigate().back()
     };
   }
 
   public navigateForward(): Action {
     return {
-      description: 'navigate forward',
+      description: 'Navigate forward',
       perform: async driver => driver.navigate().forward()
     };
   }
 
   public reloadPage(): Action {
     return {
-      description: 'reload the page',
+      description: 'Reload the page',
       perform: async driver => driver.navigate().refresh()
     };
   }
 
   public setWindowPosition(x: number, y: number): Action {
     return {
-      description: `set the window position to ${x},${y}`,
+      description: `Set the window position to ${x},${y}`,
       perform: async driver => driver.manage().window().setPosition(x, y)
     };
   }
 
   public setWindowSize(width: number, height: number): Action {
     return {
-      description: `set the window size to ${width}x${height}`,
+      description: `Set the window size to ${width}x${height}`,
       perform: async driver => driver.manage().window().setSize(width, height)
     };
   }
 
   public sleep(durationInMillis: number, reason?: string): Action {
     const description =
-      `sleep for ${durationInMillis} ms${reason ? ` because ${reason}` : ''}`;
+      `Sleep for ${durationInMillis} ms${reason ? ` because ${reason}` : ''}`;
 
     return {description, perform: async () => sleep(durationInMillis)};
   }

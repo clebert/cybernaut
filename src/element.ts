@@ -98,6 +98,21 @@ export class Element {
     };
   }
 
+  public attributeValue(attributeName: string): Accessor<string | null> {
+    const name =
+      `the value of the ${attributeName} attribute ` +
+      `of the ${this._name} element`;
+
+    return {
+      name,
+      get: async driver => {
+        const element = await driver.findElement(By.css(this._selector));
+
+        return element.getAttribute(attributeName);
+      }
+    };
+  }
+
   public cssValue(cssName: string): Accessor<string> {
     const name =
       `the value of the ${cssName} css of the ${this._name} element`;
@@ -112,23 +127,9 @@ export class Element {
     };
   }
 
-  public propertyValue(propertyName: string): Accessor<string | null> {
-    const name =
-      `the value of the ${propertyName} property of the ${this._name} element`;
-
-    return {
-      name,
-      get: async driver => {
-        const element = await driver.findElement(By.css(this._selector));
-
-        return element.getAttribute(propertyName);
-      }
-    };
-  }
-
   public clearValue(): Action {
     return {
-      description: `clear the value of the ${this._name} element`,
+      description: `Clear the value of the ${this._name} element`,
       perform: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 
@@ -139,7 +140,7 @@ export class Element {
 
   public click(): Action {
     return {
-      description: `click on the ${this._name} element`,
+      description: `Click on the ${this._name} element`,
       perform: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 
@@ -149,10 +150,14 @@ export class Element {
   }
 
   public sendKeys(...keys: string[]): Action {
+    if (keys.length === 0) {
+      throw new Error('Missing keys');
+    }
+
     const translatedKeys = keys.map(translate).join(', ');
 
     const description =
-      `send the keys ${translatedKeys} to the ${this._name} element`;
+      `Send the keys ${translatedKeys} to the ${this._name} element`;
 
     return {
       description,
@@ -166,7 +171,7 @@ export class Element {
 
   public submitForm(): Action {
     return {
-      description: `submit the form containing the ${this._name} element`,
+      description: `Submit the form containing the ${this._name} element`,
       perform: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 

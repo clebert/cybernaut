@@ -344,7 +344,7 @@ describe('given a browser is created', () => {
     });
 
     test('then it should return an action', () => {
-      expect(action.description).toBe('execute the <scriptName> script');
+      expect(action.description).toBe('Execute the <scriptName> script');
     });
 
     describe('when action.perform() is called', () => {
@@ -379,7 +379,7 @@ describe('given a browser is created', () => {
     });
 
     test('then it should return an action', () => {
-      expect(action.description).toBe('load the page <url>');
+      expect(action.description).toBe('Load the page <url>');
     });
 
     describe('when action.perform() is called', () => {
@@ -415,7 +415,7 @@ describe('given a browser is created', () => {
     });
 
     test('then it should return an action', () => {
-      expect(action.description).toBe('maximize the window');
+      expect(action.description).toBe('Maximize the window');
     });
 
     describe('when action.perform() is called', () => {
@@ -454,7 +454,7 @@ describe('given a browser is created', () => {
     });
 
     test('then it should return an action', () => {
-      expect(action.description).toBe('navigate back');
+      expect(action.description).toBe('Navigate back');
     });
 
     describe('when action.perform() is called', () => {
@@ -489,7 +489,7 @@ describe('given a browser is created', () => {
     });
 
     test('then it should return an action', () => {
-      expect(action.description).toBe('navigate forward');
+      expect(action.description).toBe('Navigate forward');
     });
 
     describe('when action.perform() is called', () => {
@@ -524,7 +524,7 @@ describe('given a browser is created', () => {
     });
 
     test('then it should return an action', () => {
-      expect(action.description).toBe('reload the page');
+      expect(action.description).toBe('Reload the page');
     });
 
     describe('when action.perform() is called', () => {
@@ -559,7 +559,7 @@ describe('given a browser is created', () => {
     });
 
     test('then it should return an action', () => {
-      expect(action.description).toBe('set the window position to 123,456');
+      expect(action.description).toBe('Set the window position to 123,456');
     });
 
     describe('when action.perform() is called', () => {
@@ -599,7 +599,7 @@ describe('given a browser is created', () => {
     });
 
     test('then it should return an action', () => {
-      expect(action.description).toBe('set the window size to 123x456');
+      expect(action.description).toBe('Set the window size to 123x456');
     });
 
     describe('when action.perform() is called', () => {
@@ -633,10 +633,10 @@ describe('given a browser is created', () => {
 
   describe('when browser.sleep() is called', () => {
     test('then it should return an action', () => {
-      expect(browser.sleep(1).description).toBe('sleep for 1 ms');
+      expect(browser.sleep(1).description).toBe('Sleep for 1 ms');
 
       expect(browser.sleep(2, '<reason>').description).toBe(
-        'sleep for 2 ms because <reason>'
+        'Sleep for 2 ms because <reason>'
       );
     });
 

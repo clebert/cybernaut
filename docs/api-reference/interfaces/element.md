@@ -9,8 +9,8 @@
 * [`yPosition`](#method-yposition)
 * [`width`](#method-width)
 * [`height`](#method-height)
+* [`attributeValue`](#method-attributevalue)
 * [`cssValue`](#method-cssvalue)
-* [`propertyValue`](#method-propertyvalue)
 * [`clearValue`](#method-clearvalue)
 * [`click`](#method-click)
 * [`sendKeys`](#method-sendkeys)
@@ -142,6 +142,24 @@ test('foo', async t => {
 });
 ```
 
+### Method `attributeValue`
+
+Type definition:
+
+* **`attributeValue(attributeName: string): Accessor<string | null>`**
+
+Example usage:
+
+```js
+const {defineElement, it, test} = require('cybernaut');
+
+test('foo', async t => {
+  const bar = defineElement('#bar');
+
+  await t.assert(bar.attributeValue('id'), it.should.equal('bar'));
+});
+```
+
 ### Method `cssValue`
 
 Type definition:
@@ -157,24 +175,6 @@ test('foo', async t => {
   const bar = defineElement('#bar');
 
   await t.assert(bar.cssValue('margin-left'), it.should.equal('22px'));
-});
-```
-
-### Method `propertyValue`
-
-Type definition:
-
-* **`propertyValue(propertyName: string): Accessor<string | null>`**
-
-Example usage:
-
-```js
-const {defineElement, it, test} = require('cybernaut');
-
-test('foo', async t => {
-  const bar = defineElement('#bar');
-
-  await t.assert(bar.propertyValue('id'), it.should.equal('bar'));
 });
 ```
 

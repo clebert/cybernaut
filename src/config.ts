@@ -39,9 +39,9 @@ export function loadConfig(filename?: string): Config {
   filename = filename ? resolve(filename) : '';
 
   if (filename) {
-    debug('load custom config:', filename);
+    debug('Load the custom config file:', filename);
   } else {
-    debug('load default config');
+    debug('Load the default config');
   }
 
   const customConfig = filename ? require(filename) : {};
