@@ -1,6 +1,5 @@
 import {WebDriver} from 'selenium-webdriver';
 import {Action} from './action';
-import {Config} from './config';
 import {sleep} from './utils';
 
 export interface Execution {
@@ -12,7 +11,10 @@ export type Executor = (
   driver: WebDriver, attempt: number, retries: number
 ) => Promise<Execution>;
 
-export type Options = Pick<Config, 'retries' | 'retryDelay'>;
+export interface Options {
+  readonly retries: number;
+  readonly retryDelay: number;
+}
 
 export function createExecutor(action: Action): Executor {
   const {description} = action;

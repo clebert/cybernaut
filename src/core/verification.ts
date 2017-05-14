@@ -1,10 +1,13 @@
 import {WebDriver} from 'selenium-webdriver';
 import {Accessor} from './accessor';
-import {Config} from './config';
 import {Predicate} from './predicate';
 import {sleep} from './utils';
 
-export type Options = Pick<Config, 'retries' | 'retryDelay'>;
+export interface Options {
+  readonly retries: number;
+  readonly retryDelay: number;
+}
+
 export type VerificationResult = 'error' | 'invalid' | 'valid';
 
 export interface Verification {

@@ -8,13 +8,13 @@ import tap = require('tap');
 import {sync} from 'glob';
 import {Key} from 'selenium-webdriver';
 import {inspect} from 'util';
-import {Accessor} from './accessor';
-import {Action} from './action';
-import {Browser, Script} from './browser';
 import {Config, loadConfig, validate} from './config';
-import {Element} from './element';
+import {Accessor} from './core/accessor';
+import {Action} from './core/action';
+import {Browser, Script} from './core/browser';
+import {Element} from './core/element';
+import {PredicateBuilder} from './core/predicate';
 import {Implementation, run} from './implementation';
-import {PredicateBuilder} from './predicate';
 import {Test} from './test';
 
 export {

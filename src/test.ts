@@ -1,10 +1,10 @@
 import {WebDriver} from 'selenium-webdriver';
-import {Accessor} from './accessor';
-import {Action} from './action';
 import {Config} from './config';
-import {createExecutor, execute} from './execution';
-import {Predicate} from './predicate';
-import {createVerifier, verify} from './verification';
+import {Accessor} from './core/accessor';
+import {Action} from './core/action';
+import {createExecutor, execute} from './core/execution';
+import {Predicate} from './core/predicate';
+import {createVerifier, verify} from './core/verification';
 
 export interface Logger {
   pass(message: string): void;
