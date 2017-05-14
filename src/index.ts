@@ -87,8 +87,7 @@ const tasks: (() => void)[] = [];
 
 export function test(name: string, implementation?: Implementation): void {
   tasks.push(() => {
-    // tslint:disable-next-line no-floating-promises
-    tap.test(
+    tap.test( // tslint:disable-line no-floating-promises
       name,
       {diagnostic: false, timeout: 0, todo: !implementation},
       async logger => {

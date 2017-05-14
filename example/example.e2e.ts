@@ -8,8 +8,7 @@ test('The gitbook should include the chapter "Starting Cybernaut"', async t => {
 
   if (await t.verify(summary.visibility, it.should.equal(false))) {
     const toggleSummaryButton = defineElement(
-      'toggle-summary-button',
-      'div.book-header > a:nth-child(1).js-toolbar-action'
+      'toggle-summary-button', 'a:nth-child(1).js-toolbar-action'
     );
 
     await t.perform(toggleSummaryButton.click());
@@ -18,13 +17,12 @@ test('The gitbook should include the chapter "Starting Cybernaut"', async t => {
   }
 
   const chapterLink = defineElement(
-    'chapter-link-1-2',
-    'div.book-summary > nav > ul > li[data-level="1.2"].chapter'
+    'chapter-link-1-2', 'li[data-level="1.2"].chapter'
   );
 
   await t.perform(chapterLink.click());
 
-  const textHeadline = defineElement('headline', 'section > h1');
+  const headline = defineElement('headline', 'section > h1');
 
-  await t.assert(textHeadline.text, it.should.equal('Starting Cybernaut'));
+  await t.assert(headline.text, it.should.equal('Starting Cybernaut'));
 });
