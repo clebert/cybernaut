@@ -41,24 +41,6 @@ export class Test {
     this._logger.pass(message);
   }
 
-  public async assertNot<T>(
-    accessor: Accessor<T>, predicate: Predicate<T>, options?: Partial<Options>
-  ): Promise<void> {
-    const verifier = createVerifier(accessor, predicate);
-
-    const verification = await verify(
-      verifier, this._driver, {...this._options, options}
-    );
-
-    const message = 'Assert not: ' + verification.description;
-
-    if (verification.result === 'error' || verification.result === 'valid') {
-      throw new Error(message);
-    }
-
-    this._logger.pass(message);
-  }
-
   public async perform(
     action: Action, options?: Partial<Options>
   ): Promise<void> {
@@ -95,25 +77,5 @@ export class Test {
     this._logger.pass(message);
 
     return verification.result === 'valid';
-  }
-
-  public async verifyNot<T>(
-    accessor: Accessor<T>, predicate: Predicate<T>, options?: Partial<Options>
-  ): Promise<boolean> {
-    const verifier = createVerifier(accessor, predicate);
-
-    const verification = await verify(
-      verifier, this._driver, {...this._options, options}
-    );
-
-    const message = 'Verify not: ' + verification.description;
-
-    if (verification.result === 'error') {
-      throw new Error(message);
-    }
-
-    this._logger.pass(message);
-
-    return verification.result === 'invalid';
   }
 }

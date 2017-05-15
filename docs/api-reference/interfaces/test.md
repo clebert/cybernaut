@@ -3,10 +3,8 @@
 ## Methods
 
 * [`assert`](#method-assert)
-* [`assertNot`](#method-assertnot)
 * [`perform`](#method-perform)
 * [`verify`](#method-verify)
-* [`verifyNot`](#method-verifynot)
 
 ### Method `assert`
 
@@ -23,26 +21,6 @@ const {browser, it, test} = require('cybernaut');
 test('Example', async t => {
   // The following expression throws an error if the condition isn't met.
   await t.assert(browser.pageTitle, it.should.contain('pageTitle'));
-});
-```
-
-*Note: An assertion is a single test step for which the globally configured `retries` and `retryDelay` options can be overwritten.*
-
-### Method `assertNot`
-
-Type definition:
-
-* **`assertNot<T>(accessor: Accessor<T>, predicate: Predicate<T>, options?: Partial<Options>): Promise<void>`**
-* `Options = {retries: number, retryDelay: number}`
-
-Example usage:
-
-```js
-const {browser, it, test} = require('cybernaut');
-
-test('Example', async t => {
-  // The following expression throws an error if the condition is met.
-  await t.assertNot(browser.pageTitle, it.should.contain('pageTitle'));
 });
 ```
 
@@ -83,28 +61,6 @@ const {browser, it, test} = require('cybernaut');
 test('Example', async t => {
   // The following expression evaluates to false if the condition isn't met.
   if (await t.verify(browser.pageTitle, it.should.contain('pageTitle'))) {
-    // ...
-  }
-});
-```
-
-*Note: A verification is a single test step for which the globally configured `retries` and `retryDelay` options can be overwritten.*
-
-### Method `verifyNot`
-
-Type definition:
-
-* **`verifyNot<T>(accessor: Accessor<T>, predicate: Predicate<T>, options?: Partial<Options>): Promise<boolean>`**
-* `Options = {retries: number, retryDelay: number}`
-
-Example usage:
-
-```js
-const {browser, it, test} = require('cybernaut');
-
-test('Example', async t => {
-  // The following expression evaluates to false if the condition is met.
-  if (await t.verifyNot(browser.pageTitle, it.should.contain('pageTitle'))) {
     // ...
   }
 });
