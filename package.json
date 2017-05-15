@@ -105,7 +105,7 @@
     "markdownlint": "0.4.1",
     "npm-run-all": "4.0.2",
     "nyc": "10.3.2",
-    "proxyquire": "1.7.11",
+    "proxyquire": "1.8.0",
     "semantic-release": "6.3.6",
     "sinon": "2.2.0",
     "ts-config": "7.0.0",
