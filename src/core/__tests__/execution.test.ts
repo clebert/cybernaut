@@ -1,10 +1,10 @@
 import {WebDriver} from 'selenium-webdriver';
-import {Action} from '../action';
 import {Executor, createExecutor, execute} from '../execution';
 
-type ActionMock = Pick<Action, 'description'> & {
-  readonly perform: jest.Mock<Promise<void>>
-};
+interface ActionMock {
+  readonly description: string;
+  readonly perform: jest.Mock<Promise<void>>;
+}
 
 const driver = {} as WebDriver;
 

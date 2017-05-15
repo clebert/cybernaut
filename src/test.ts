@@ -50,7 +50,7 @@ export class Test {
       verifier, this._driver, {...this._options, options}
     );
 
-    const message = 'Assert the opposite of: ' + verification.description;
+    const message = 'Assert: ' + verification.description;
 
     if (verification.result === 'error' || verification.result === 'valid') {
       throw new Error(message);
@@ -106,7 +106,7 @@ export class Test {
       verifier, this._driver, {...this._options, options}
     );
 
-    const message = 'Verify the opposite of: ' + verification.description;
+    const message = 'Verify: ' + verification.description;
 
     if (verification.result === 'error') {
       throw new Error(message);

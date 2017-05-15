@@ -5,10 +5,11 @@
 * [`contain`](#method-contain)
 * [`equal`](#method-equal)
 * [`match`](#method-match)
-* [`beAbove`](#method-beabove)
-* [`beAtLeast`](#method-beatleast)
-* [`beAtMost`](#method-beatmost)
-* [`beBelow`](#method-bebelow)
+* [`beGreaterThan`](#method-begreaterthan)
+* [`beGreaterThanOrEqual`](#method-begreaterthanorequal)
+* [`beLessThan`](#method-belessthan)
+* [`beLessThanOrEqual`](#method-belessthanorequal)
+* [`beBetween`](#method-bebetween)
 
 ### Method `contain`
 
@@ -60,11 +61,11 @@ test('foo', async t => {
 });
 ```
 
-### Method `beAbove`
+### Method `beGreaterThan`
 
 Type definition:
 
-* **`beAbove(value: number): Predicate<number>`**
+* **`beGreaterThan(value: number): Predicate<number>`**
 
 Example usage:
 
@@ -73,15 +74,15 @@ const {browser, it, test} = require('cybernaut');
 
 test('foo', async t => {
   // windowWidth > 123
-  await t.assert(browser.windowWidth, it.should.beAbove(123));
+  await t.assert(browser.windowWidth, it.should.beGreaterThan(123));
 });
 ```
 
-### Method `beAtLeast`
+### Method `beGreaterThanOrEqual`
 
 Type definition:
 
-* **`beAtLeast(value: number): Predicate<number>`**
+* **`beGreaterThanOrEqual(value: number): Predicate<number>`**
 
 Example usage:
 
@@ -90,32 +91,15 @@ const {browser, it, test} = require('cybernaut');
 
 test('foo', async t => {
   // windowWidth >= 123
-  await t.assert(browser.windowWidth, it.should.beAtLeast(123));
+  await t.assert(browser.windowWidth, it.should.beGreaterThanOrEqual(123));
 });
 ```
 
-### Method `beAtMost`
+### Method `beLessThan`
 
 Type definition:
 
-* **`beAtMost(value: number): Predicate<number>`**
-
-Example usage:
-
-```js
-const {browser, it, test} = require('cybernaut');
-
-test('foo', async t => {
-  // windowWidth <= 123
-  await t.assert(browser.windowWidth, it.should.beAtMost(123));
-});
-```
-
-### Method `beBelow`
-
-Type definition:
-
-* **`beBelow(value: number): Predicate<number>`**
+* **`beLessThan(value: number): Predicate<number>`**
 
 Example usage:
 
@@ -124,6 +108,42 @@ const {browser, it, test} = require('cybernaut');
 
 test('foo', async t => {
   // windowWidth < 123
-  await t.assert(browser.windowWidth, it.should.beBelow(123));
+  await t.assert(browser.windowWidth, it.should.beLessThan(123));
 });
 ```
+
+### Method `beLessThanOrEqual`
+
+Type definition:
+
+* **`beLessThanOrEqual(value: number): Predicate<number>`**
+
+Example usage:
+
+```js
+const {browser, it, test} = require('cybernaut');
+
+test('foo', async t => {
+  // windowWidth <= 123
+  await t.assert(browser.windowWidth, it.should.beLessThanOrEqual(123));
+});
+```
+
+### Method `beBetween`
+
+Type definition:
+
+* **`beBetween(minValue: number, maxValue: number): Predicate<number>`**
+
+Example usage:
+
+```js
+const {browser, it, test} = require('cybernaut');
+
+test('foo', async t => {
+  // windowWidth >= 123 && windowWidth <= 456
+  await t.assert(browser.windowWidth, it.should.beBetween(123, 456));
+});
+```
+
+*Note: Both values `minValue` and `maxValue` are inclusive.*

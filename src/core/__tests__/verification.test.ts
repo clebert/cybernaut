@@ -1,31 +1,31 @@
 import {WebDriver} from 'selenium-webdriver';
-import {Accessor} from '../accessor';
-import {Predicate} from '../predicate';
 import {Verifier, createVerifier, verify} from '../verification';
 
-type AccessorMock<T> = Pick<Accessor<T>, 'name'> & {
-  readonly get: jest.Mock<Promise<T>>
-};
+interface AccessorMock<T> {
+  readonly get: jest.Mock<Promise<T>>;
+  readonly name: string;
+}
 
-type PredicateMock<T> = Pick<Predicate<T>, 'description'> & {
+interface PredicateMock {
   readonly compare: jest.Mock<string>;
+  readonly description: string;
   readonly test: jest.Mock<boolean>;
-};
+}
 
 const driver = {} as WebDriver;
 
 describe('given a newly created verifier() is called', () => {
   let accessor: AccessorMock<string>;
   let description: string;
-  let predicate: PredicateMock<string>;
+  let predicate: PredicateMock;
   let verifier: Verifier;
 
   beforeEach(() => {
     accessor = {name: '<accessorName>', get: jest.fn<Promise<string>>()};
 
     predicate = {
-      description: '<predicateDescription>',
       compare: jest.fn<string>().mockReturnValue('<predicateComparison>'),
+      description: '<predicateDescription>',
       test: jest.fn<boolean>()
     };
 

@@ -104,11 +104,11 @@ describe('given a predicate is created via should.match()', () => {
   });
 });
 
-describe('given a predicate is created via should.beAbove()', () => {
+describe('given a predicate is created via should.beGreaterThan()', () => {
   let predicate: Predicate<number>;
 
   beforeEach(() => {
-    predicate = should.beAbove(10);
+    predicate = should.beGreaterThan(10);
   });
 
   describe('when predicate.compare() is called', () => {
@@ -119,7 +119,7 @@ describe('given a predicate is created via should.beAbove()', () => {
 
   describe('when predicate.description is accessed', () => {
     test('then it should evaluate to a description', () => {
-      expect(predicate.description).toBe('should be above 10');
+      expect(predicate.description).toBe('should be greater than 10');
     });
   });
 
@@ -136,11 +136,13 @@ describe('given a predicate is created via should.beAbove()', () => {
   });
 });
 
-describe('given a predicate is created via should.beAtLeast()', () => {
+const name = 'given a predicate is created via should.beGreaterThanOrEqual()';
+
+describe(name, () => {
   let predicate: Predicate<number>;
 
   beforeEach(() => {
-    predicate = should.beAtLeast(10);
+    predicate = should.beGreaterThanOrEqual(10);
   });
 
   describe('when predicate.compare() is called', () => {
@@ -153,7 +155,7 @@ describe('given a predicate is created via should.beAtLeast()', () => {
 
   describe('when predicate.description is accessed', () => {
     test('then it should evaluate to a description', () => {
-      expect(predicate.description).toBe('should be at least 10');
+      expect(predicate.description).toBe('should be greater than or equal 10');
     });
   });
 
@@ -170,11 +172,43 @@ describe('given a predicate is created via should.beAtLeast()', () => {
   });
 });
 
-describe('given a predicate is created via should.beAtMost()', () => {
+describe('given a predicate is created via should.beLessThan()', () => {
   let predicate: Predicate<number>;
 
   beforeEach(() => {
-    predicate = should.beAtMost(10);
+    predicate = should.beLessThan(10);
+  });
+
+  describe('when predicate.compare() is called', () => {
+    test('then it should return a comparison', () => {
+      expect(predicate.compare(11)).toBe('expected 11 to be less than 10');
+    });
+  });
+
+  describe('when predicate.description is accessed', () => {
+    test('then it should evaluate to a description', () => {
+      expect(predicate.description).toBe('should be less than 10');
+    });
+  });
+
+  describe('when predicate.test() is called', () => {
+    test('then it should return true', () => {
+      expect(predicate.test(9)).toBe(true);
+    });
+
+    test('then it should return false', () => {
+      expect(predicate.test(10)).toBe(false);
+      expect(predicate.test(11)).toBe(false);
+      expect(predicate.test(NaN)).toBe(false);
+    });
+  });
+});
+
+describe('given a predicate is created via should.beLessThanOrEqual()', () => {
+  let predicate: Predicate<number>;
+
+  beforeEach(() => {
+    predicate = should.beLessThanOrEqual(10);
   });
 
   describe('when predicate.compare() is called', () => {
@@ -187,7 +221,7 @@ describe('given a predicate is created via should.beAtMost()', () => {
 
   describe('when predicate.description is accessed', () => {
     test('then it should evaluate to a description', () => {
-      expect(predicate.description).toBe('should be at most 10');
+      expect(predicate.description).toBe('should be less than or equal 10');
     });
   });
 
@@ -204,33 +238,39 @@ describe('given a predicate is created via should.beAtMost()', () => {
   });
 });
 
-describe('given a predicate is created via should.beBelow()', () => {
+describe('given a predicate is created via should.beBetween()', () => {
   let predicate: Predicate<number>;
 
   beforeEach(() => {
-    predicate = should.beBelow(10);
+    predicate = should.beBetween(9, 11);
   });
 
   describe('when predicate.compare() is called', () => {
     test('then it should return a comparison', () => {
-      expect(predicate.compare(11)).toBe('expected 11 to be less than 10');
+      expect(predicate.compare(10)).toBe(
+        'expected 10 to be between 9 and 11, inclusive'
+      );
     });
   });
 
   describe('when predicate.description is accessed', () => {
     test('then it should evaluate to a description', () => {
-      expect(predicate.description).toBe('should be below 10');
+      expect(predicate.description).toBe(
+        'should be between 9 and 11, inclusive'
+      );
     });
   });
 
   describe('when predicate.test() is called', () => {
     test('then it should return true', () => {
       expect(predicate.test(9)).toBe(true);
+      expect(predicate.test(10)).toBe(true);
+      expect(predicate.test(11)).toBe(true);
     });
 
     test('then it should return false', () => {
-      expect(predicate.test(10)).toBe(false);
-      expect(predicate.test(11)).toBe(false);
+      expect(predicate.test(8)).toBe(false);
+      expect(predicate.test(12)).toBe(false);
       expect(predicate.test(NaN)).toBe(false);
     });
   });
