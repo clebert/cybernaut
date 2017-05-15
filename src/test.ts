@@ -50,7 +50,7 @@ export class Test {
       verifier, this._driver, {...this._options, options}
     );
 
-    const message = 'Assert: ' + verification.description;
+    const message = 'Assert not: ' + verification.description;
 
     if (verification.result === 'error' || verification.result === 'valid') {
       throw new Error(message);
@@ -106,7 +106,7 @@ export class Test {
       verifier, this._driver, {...this._options, options}
     );
 
-    const message = 'Verify: ' + verification.description;
+    const message = 'Verify not: ' + verification.description;
 
     if (verification.result === 'error') {
       throw new Error(message);
