@@ -4,6 +4,7 @@
 
 * [`tagName`](#method-tagname)
 * [`text`](#method-text)
+* [`existence`](#method-existence)
 * [`visibility`](#method-visibility)
 * [`xPosition`](#method-xposition)
 * [`yPosition`](#method-yposition)
@@ -49,6 +50,24 @@ test('foo', async t => {
   const bar = defineElement('bar', '#bar');
 
   await t.assert(bar.text, it.should.equal('baz'));
+});
+```
+
+### Method `existence`
+
+Type definition:
+
+* **`existence: Accessor<boolean>`**
+
+Example usage:
+
+```js
+const {defineElement, it, test} = require('cybernaut');
+
+test('foo', async t => {
+  const bar = defineElement('bar', '#bar');
+
+  await t.assert(bar.existence, it.should.equal(true));
 });
 ```
 

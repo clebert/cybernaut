@@ -140,6 +140,62 @@ describe('given an element is created', () => {
     });
   });
 
+  describe('when element.existence is accessed', () => {
+    let accessor: Accessor<boolean>;
+
+    beforeEach(() => {
+      accessor = element.existence;
+    });
+
+    test('then it should evaluate to an accessor', () => {
+      expect(accessor.name).toBe('The existence of the <elementName> element');
+    });
+
+    describe('when accessor.get() is called', () => {
+      test('then it should call driver.findElements() once', async () => {
+        const driver = {
+          findElements: jest.fn().mockImplementation(async () => [])
+        };
+
+        await accessor.get(driver as any);
+
+        expect(driver.findElements.mock.calls.length).toBe(1);
+
+        expect(driver.findElements.mock.calls[0][0]).toEqual(
+          By.css('<elementSelector>')
+        );
+      });
+
+      test('then it should return true', async () => {
+        const driver = {
+          findElements: jest.fn().mockImplementation(async () => [{}])
+        };
+
+        expect(await accessor.get(driver as any)).toBe(true);
+      });
+
+      test('then it should return false', async () => {
+        const driver = {
+          findElements: jest.fn().mockImplementation(async () => [])
+        };
+
+        expect(await accessor.get(driver as any)).toBe(false);
+      });
+
+      test('then it should throw an error', async () => {
+        const error = new Error('<message>');
+
+        const driver = {
+          findElements: jest.fn().mockImplementation(async () => {
+            throw error;
+          })
+        };
+
+        await expect(accessor.get(driver as any)).rejects.toEqual(error);
+      });
+    });
+  });
+
   describe('when element.visibility is accessed', () => {
     let accessor: Accessor<boolean>;
 

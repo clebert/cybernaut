@@ -43,6 +43,17 @@ export class Element {
     };
   }
 
+  public get existence(): Accessor<boolean> {
+    return {
+      name: `The existence of the ${this._name} element`,
+      get: async driver => {
+        const elements = await driver.findElements(By.css(this._selector));
+
+        return elements.length > 0;
+      }
+    };
+  }
+
   public get visibility(): Accessor<boolean> {
     return {
       name: `The visibility of the ${this._name} element`,
