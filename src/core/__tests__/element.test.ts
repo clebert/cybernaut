@@ -20,7 +20,7 @@ describe('given an element is created', () => {
     });
 
     test('then it should evaluate to an accessor', () => {
-      expect(accessor.name).toBe('the tag name of the <elementName> element');
+      expect(accessor.name).toBe('The tag name of the <elementName> element');
     });
 
     describe('when accessor.get() is called', () => {
@@ -84,7 +84,7 @@ describe('given an element is created', () => {
     });
 
     test('then it should evaluate to an accessor', () => {
-      expect(accessor.name).toBe('the text of the <elementName> element');
+      expect(accessor.name).toBe('The text of the <elementName> element');
     });
 
     describe('when accessor.get() is called', () => {
@@ -148,7 +148,7 @@ describe('given an element is created', () => {
     });
 
     test('then it should evaluate to an accessor', () => {
-      expect(accessor.name).toBe('the visibility of the <elementName> element');
+      expect(accessor.name).toBe('The visibility of the <elementName> element');
     });
 
     describe('when accessor.get() is called', () => {
@@ -212,7 +212,7 @@ describe('given an element is created', () => {
     });
 
     test('then it should evaluate to an accessor', () => {
-      expect(accessor.name).toBe('the X position of the <elementName> element');
+      expect(accessor.name).toBe('The X position of the <elementName> element');
     });
 
     describe('when accessor.get() is called', () => {
@@ -276,7 +276,7 @@ describe('given an element is created', () => {
     });
 
     test('then it should evaluate to an accessor', () => {
-      expect(accessor.name).toBe('the Y position of the <elementName> element');
+      expect(accessor.name).toBe('The Y position of the <elementName> element');
     });
 
     describe('when accessor.get() is called', () => {
@@ -340,7 +340,7 @@ describe('given an element is created', () => {
     });
 
     test('then it should evaluate to an accessor', () => {
-      expect(accessor.name).toBe('the width of the <elementName> element');
+      expect(accessor.name).toBe('The width of the <elementName> element');
     });
 
     describe('when accessor.get() is called', () => {
@@ -404,7 +404,7 @@ describe('given an element is created', () => {
     });
 
     test('then it should evaluate to an accessor', () => {
-      expect(accessor.name).toBe('the height of the <elementName> element');
+      expect(accessor.name).toBe('The height of the <elementName> element');
     });
 
     describe('when accessor.get() is called', () => {
@@ -469,7 +469,7 @@ describe('given an element is created', () => {
 
     test('then it should return an accessor', () => {
       expect(accessor.name).toBe(
-        'the value of the <attributeName> attribute ' +
+        'The value of the <attributeName> attribute ' +
         'of the <elementName> element'
       );
     });
@@ -542,7 +542,7 @@ describe('given an element is created', () => {
 
     test('then it should return an accessor', () => {
       expect(accessor.name).toBe(
-        'the value of the <cssName> css of the <elementName> element'
+        'The value of the <cssName> css of the <elementName> element'
       );
     });
 

@@ -19,7 +19,7 @@ describe('given a browser is created', () => {
     });
 
     test('then it should evaluate to an accessor', () => {
-      expect(accessor.name).toBe('the title of the page');
+      expect(accessor.name).toBe('The title of the page');
     });
 
     describe('when accessor.get() is called', () => {
@@ -61,7 +61,7 @@ describe('given a browser is created', () => {
     });
 
     test('then it should evaluate to an accessor', () => {
-      expect(accessor.name).toBe('the URL of the page');
+      expect(accessor.name).toBe('The URL of the page');
     });
 
     describe('when accessor.get() is called', () => {
@@ -103,7 +103,7 @@ describe('given a browser is created', () => {
     });
 
     test('then it should evaluate to an accessor', () => {
-      expect(accessor.name).toBe('the X position of the window');
+      expect(accessor.name).toBe('The X position of the window');
     });
 
     describe('when accessor.get() is called', () => {
@@ -151,7 +151,7 @@ describe('given a browser is created', () => {
     });
 
     test('then it should evaluate to an accessor', () => {
-      expect(accessor.name).toBe('the Y position of the window');
+      expect(accessor.name).toBe('The Y position of the window');
     });
 
     describe('when accessor.get() is called', () => {
@@ -199,7 +199,7 @@ describe('given a browser is created', () => {
     });
 
     test('then it should evaluate to an accessor', () => {
-      expect(accessor.name).toBe('the width of the window');
+      expect(accessor.name).toBe('The width of the window');
     });
 
     describe('when accessor.get() is called', () => {
@@ -247,7 +247,7 @@ describe('given a browser is created', () => {
     });
 
     test('then it should evaluate to an accessor', () => {
-      expect(accessor.name).toBe('the height of the window');
+      expect(accessor.name).toBe('The height of the window');
     });
 
     describe('when accessor.get() is called', () => {
@@ -297,7 +297,7 @@ describe('given a browser is created', () => {
     });
 
     test('then it should return an accessor', () => {
-      expect(accessor.name).toBe('the result of the <scriptName> script');
+      expect(accessor.name).toBe('The result of the <scriptName> script');
     });
 
     describe('when accessor.get() is called', () => {
