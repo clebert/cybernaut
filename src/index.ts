@@ -72,13 +72,7 @@ export function defineElement(name: string, selector: string): Element {
 
 export class It {
   public get should(): PredicateBuilder {
-    return new PredicateBuilder({
-      // tslint:disable no-any
-      serialize(value: any): string {
-        return inspect(value, {breakLength: Infinity} as any);
-      }
-      // tslint:enable no-any
-    });
+    return new PredicateBuilder();
   }
 }
 

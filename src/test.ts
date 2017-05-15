@@ -32,9 +32,27 @@ export class Test {
       verifier, this._driver, {...this._options, options}
     );
 
-    const message = 'Assert that ' + verification.description;
+    const message = 'Assert: ' + verification.description;
 
     if (verification.result === 'error' || verification.result === 'invalid') {
+      throw new Error(message);
+    }
+
+    this._logger.pass(message);
+  }
+
+  public async assertNot<T>(
+    accessor: Accessor<T>, predicate: Predicate<T>, options?: Partial<Options>
+  ): Promise<void> {
+    const verifier = createVerifier(accessor, predicate);
+
+    const verification = await verify(
+      verifier, this._driver, {...this._options, options}
+    );
+
+    const message = 'Assert the opposite of: ' + verification.description;
+
+    if (verification.result === 'error' || verification.result === 'valid') {
       throw new Error(message);
     }
 
@@ -50,7 +68,7 @@ export class Test {
       executor, this._driver, {...this._options, options}
     );
 
-    const message = execution.description;
+    const message = 'Perform: ' + execution.description;
 
     if (execution.error) {
       throw new Error(message);
@@ -68,7 +86,7 @@ export class Test {
       verifier, this._driver, {...this._options, options}
     );
 
-    const message = 'Verify that ' + verification.description;
+    const message = 'Verify: ' + verification.description;
 
     if (verification.result === 'error') {
       throw new Error(message);
@@ -77,5 +95,25 @@ export class Test {
     this._logger.pass(message);
 
     return verification.result === 'valid';
+  }
+
+  public async verifyNot<T>(
+    accessor: Accessor<T>, predicate: Predicate<T>, options?: Partial<Options>
+  ): Promise<boolean> {
+    const verifier = createVerifier(accessor, predicate);
+
+    const verification = await verify(
+      verifier, this._driver, {...this._options, options}
+    );
+
+    const message = 'Verify the opposite of: ' + verification.description;
+
+    if (verification.result === 'error') {
+      throw new Error(message);
+    }
+
+    this._logger.pass(message);
+
+    return verification.result === 'invalid';
   }
 }

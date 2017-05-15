@@ -23,7 +23,7 @@ export class Element {
 
   public get tagName(): Accessor<string> {
     return {
-      name: `the tag name of the ${this._name} element`,
+      name: `The tag name of the ${this._name} element`,
       get: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 
@@ -34,7 +34,7 @@ export class Element {
 
   public get text(): Accessor<string> {
     return {
-      name: `the text of the ${this._name} element`,
+      name: `The text of the ${this._name} element`,
       get: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 
@@ -45,7 +45,7 @@ export class Element {
 
   public get visibility(): Accessor<boolean> {
     return {
-      name: `the visibility of the ${this._name} element`,
+      name: `The visibility of the ${this._name} element`,
       get: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 
@@ -56,7 +56,7 @@ export class Element {
 
   public get xPosition(): Accessor<number> {
     return {
-      name: `the X position of the ${this._name} element`,
+      name: `The X position of the ${this._name} element`,
       get: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 
@@ -67,7 +67,7 @@ export class Element {
 
   public get yPosition(): Accessor<number> {
     return {
-      name: `the Y position of the ${this._name} element`,
+      name: `The Y position of the ${this._name} element`,
       get: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 
@@ -78,7 +78,7 @@ export class Element {
 
   public get width(): Accessor<number> {
     return {
-      name: `the width of the ${this._name} element`,
+      name: `The width of the ${this._name} element`,
       get: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 
@@ -89,7 +89,7 @@ export class Element {
 
   public get height(): Accessor<number> {
     return {
-      name: `the height of the ${this._name} element`,
+      name: `The height of the ${this._name} element`,
       get: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 
@@ -100,7 +100,7 @@ export class Element {
 
   public attributeValue(attributeName: string): Accessor<string | null> {
     const name =
-      `the value of the ${attributeName} attribute ` +
+      `The value of the ${attributeName} attribute ` +
       `of the ${this._name} element`;
 
     return {
@@ -115,7 +115,7 @@ export class Element {
 
   public cssValue(cssName: string): Accessor<string> {
     const name =
-      `the value of the ${cssName} css of the ${this._name} element`;
+      `The value of the ${cssName} css of the ${this._name} element`;
 
     return {
       name,

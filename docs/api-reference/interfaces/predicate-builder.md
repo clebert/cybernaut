@@ -3,11 +3,8 @@
 ## Methods
 
 * [`contain`](#method-contain)
-* [`not.contain`](#method-notcontain)
 * [`equal`](#method-equal)
-* [`not.equal`](#method-notequal)
 * [`match`](#method-match)
-* [`not.match`](#method-notmatch)
 * [`beAbove`](#method-beabove)
 * [`beAtLeast`](#method-beatleast)
 * [`beAtMost`](#method-beatmost)
@@ -29,22 +26,6 @@ test('foo', async t => {
 });
 ```
 
-### Method `not.contain`
-
-Type definition:
-
-* **`not.contain(value: string): Predicate<string>`**
-
-Example usage:
-
-```js
-const {browser, it, test} = require('cybernaut');
-
-test('foo', async t => {
-  await t.assert(browser.pageTitle, it.should.not.contain('bar'));
-});
-```
-
 ### Method `equal`
 
 Type definition:
@@ -63,24 +44,6 @@ test('foo', async t => {
 
 *Note: The comparison is performed with deep-strict-equal.*
 
-### Method `not.equal`
-
-Type definition:
-
-* **`not.equal<T>(value: T): Predicate<T>`**
-
-Example usage:
-
-```js
-const {browser, it, test} = require('cybernaut');
-
-test('foo', async t => {
-  await t.assert(browser.pageTitle, it.should.not.equal('bar'));
-});
-```
-
-*Note: The comparison is performed with deep-strict-equal.*
-
 ### Method `match`
 
 Type definition:
@@ -94,22 +57,6 @@ const {browser, it, test} = require('cybernaut');
 
 test('foo', async t => {
   await t.assert(browser.pageTitle, it.should.match(/bar/));
-});
-```
-
-### Method `not.match`
-
-Type definition:
-
-* **`not.match(value: RegExp): Predicate<string>`**
-
-Example usage:
-
-```js
-const {browser, it, test} = require('cybernaut');
-
-test('foo', async t => {
-  await t.assert(browser.pageTitle, it.should.not.match(/bar/));
 });
 ```
 
