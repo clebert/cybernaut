@@ -20,9 +20,9 @@ Example usage:
 ```js
 const {browser, it, test} = require('cybernaut');
 
-test('foo', async t => {
+test('Example', async t => {
   // The following expression throws an error if the condition isn't met.
-  await t.assert(browser.pageTitle, it.should.contain('bar'));
+  await t.assert(browser.pageTitle, it.should.contain('pageTitle'));
 });
 ```
 
@@ -40,9 +40,9 @@ Example usage:
 ```js
 const {browser, it, test} = require('cybernaut');
 
-test('foo', async t => {
+test('Example', async t => {
   // The following expression throws an error if the condition is met.
-  await t.assertNot(browser.pageTitle, it.should.contain('bar'));
+  await t.assertNot(browser.pageTitle, it.should.contain('pageTitle'));
 });
 ```
 
@@ -60,9 +60,9 @@ Example usage:
 ```js
 const {browser, test} = require('cybernaut');
 
-test('foo', async t => {
+test('Example', async t => {
   // The following expression throws an error if the action fails.
-  await t.perform(browser.loadPage('http://bar.baz'));
+  await t.perform(browser.loadPage('url'));
 });
 ```
 
@@ -80,9 +80,9 @@ Example usage:
 ```js
 const {browser, it, test} = require('cybernaut');
 
-test('foo', async t => {
+test('Example', async t => {
   // The following expression evaluates to false if the condition isn't met.
-  if (await t.verify(browser.pageTitle, it.should.contain('bar'))) {
+  if (await t.verify(browser.pageTitle, it.should.contain('pageTitle'))) {
     // ...
   }
 });
@@ -102,9 +102,9 @@ Example usage:
 ```js
 const {browser, it, test} = require('cybernaut');
 
-test('foo', async t => {
+test('Example', async t => {
   // The following expression evaluates to false if the condition is met.
-  if (await t.verifyNot(browser.pageTitle, it.should.contain('bar'))) {
+  if (await t.verifyNot(browser.pageTitle, it.should.contain('pageTitle'))) {
     // ...
   }
 });

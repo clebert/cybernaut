@@ -22,8 +22,8 @@ Example usage:
 ```js
 const {browser, it, test} = require('cybernaut');
 
-test('foo', async t => {
-  await t.assert(browser.pageTitle, it.should.contain('bar'));
+test('Example', async t => {
+  await t.assert(browser.pageTitle, it.should.contain('pageTitle'));
 });
 ```
 
@@ -38,8 +38,8 @@ Example usage:
 ```js
 const {browser, it, test} = require('cybernaut');
 
-test('foo', async t => {
-  await t.assert(browser.pageTitle, it.should.equal('bar'));
+test('Example', async t => {
+  await t.assert(browser.pageTitle, it.should.equal('pageTitle'));
 });
 ```
 
@@ -56,8 +56,8 @@ Example usage:
 ```js
 const {browser, it, test} = require('cybernaut');
 
-test('foo', async t => {
-  await t.assert(browser.pageTitle, it.should.match(/bar/));
+test('Example', async t => {
+  await t.assert(browser.pageTitle, it.should.match(/pageTitle/));
 });
 ```
 
@@ -72,7 +72,7 @@ Example usage:
 ```js
 const {browser, it, test} = require('cybernaut');
 
-test('foo', async t => {
+test('Example', async t => {
   // windowWidth > 123
   await t.assert(browser.windowWidth, it.should.beGreaterThan(123));
 });
@@ -89,7 +89,7 @@ Example usage:
 ```js
 const {browser, it, test} = require('cybernaut');
 
-test('foo', async t => {
+test('Example', async t => {
   // windowWidth >= 123
   await t.assert(browser.windowWidth, it.should.beGreaterThanOrEqual(123));
 });
@@ -106,7 +106,7 @@ Example usage:
 ```js
 const {browser, it, test} = require('cybernaut');
 
-test('foo', async t => {
+test('Example', async t => {
   // windowWidth < 123
   await t.assert(browser.windowWidth, it.should.beLessThan(123));
 });
@@ -123,7 +123,7 @@ Example usage:
 ```js
 const {browser, it, test} = require('cybernaut');
 
-test('foo', async t => {
+test('Example', async t => {
   // windowWidth <= 123
   await t.assert(browser.windowWidth, it.should.beLessThanOrEqual(123));
 });
@@ -140,7 +140,7 @@ Example usage:
 ```js
 const {browser, it, test} = require('cybernaut');
 
-test('foo', async t => {
+test('Example', async t => {
   // windowWidth >= 123 && windowWidth <= 456
   await t.assert(browser.windowWidth, it.should.beBetween(123, 456));
 });

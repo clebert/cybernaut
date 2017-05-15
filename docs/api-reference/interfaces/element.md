@@ -28,10 +28,10 @@ Example usage:
 ```js
 const {defineElement, it, test} = require('cybernaut');
 
-test('foo', async t => {
-  const bar = defineElement('bar', '#bar');
+test('Example', async t => {
+  const element = defineElement('elementName', 'selector');
 
-  await t.assert(bar.tagName, it.should.equal('div'));
+  await t.assert(element.tagName, it.should.equal('tagName'));
 });
 ```
 
@@ -46,10 +46,10 @@ Example usage:
 ```js
 const {defineElement, it, test} = require('cybernaut');
 
-test('foo', async t => {
-  const bar = defineElement('bar', '#bar');
+test('Example', async t => {
+  const element = defineElement('elementName', 'selector');
 
-  await t.assert(bar.text, it.should.equal('baz'));
+  await t.assert(element.text, it.should.equal('text'));
 });
 ```
 
@@ -64,10 +64,10 @@ Example usage:
 ```js
 const {defineElement, it, test} = require('cybernaut');
 
-test('foo', async t => {
-  const bar = defineElement('bar', '#bar');
+test('Example', async t => {
+  const element = defineElement('elementName', 'selector');
 
-  await t.assert(bar.existence, it.should.equal(true));
+  await t.assert(element.existence, it.should.equal(true));
 });
 ```
 
@@ -82,10 +82,10 @@ Example usage:
 ```js
 const {defineElement, it, test} = require('cybernaut');
 
-test('foo', async t => {
-  const bar = defineElement('bar', '#bar');
+test('Example', async t => {
+  const element = defineElement('elementName', 'selector');
 
-  await t.assert(bar.visibility, it.should.equal(true));
+  await t.assert(element.visibility, it.should.equal(true));
 });
 ```
 
@@ -100,10 +100,10 @@ Example usage:
 ```js
 const {defineElement, it, test} = require('cybernaut');
 
-test('foo', async t => {
-  const bar = defineElement('bar', '#bar');
+test('Example', async t => {
+  const element = defineElement('elementName', 'selector');
 
-  await t.assert(bar.xPosition, it.should.equal(123));
+  await t.assert(element.xPosition, it.should.equal(123));
 });
 ```
 
@@ -118,10 +118,10 @@ Example usage:
 ```js
 const {defineElement, it, test} = require('cybernaut');
 
-test('foo', async t => {
-  const bar = defineElement('bar', '#bar');
+test('Example', async t => {
+  const element = defineElement('elementName', 'selector');
 
-  await t.assert(bar.yPosition, it.should.equal(123));
+  await t.assert(element.yPosition, it.should.equal(123));
 });
 ```
 
@@ -136,10 +136,10 @@ Example usage:
 ```js
 const {defineElement, it, test} = require('cybernaut');
 
-test('foo', async t => {
-  const bar = defineElement('bar', '#bar');
+test('Example', async t => {
+  const element = defineElement('elementName', 'selector');
 
-  await t.assert(bar.width, it.should.equal(123));
+  await t.assert(element.width, it.should.equal(123));
 });
 ```
 
@@ -154,10 +154,10 @@ Example usage:
 ```js
 const {defineElement, it, test} = require('cybernaut');
 
-test('foo', async t => {
-  const bar = defineElement('bar', '#bar');
+test('Example', async t => {
+  const element = defineElement('elementName', 'selector');
 
-  await t.assert(bar.height, it.should.equal(123));
+  await t.assert(element.height, it.should.equal(123));
 });
 ```
 
@@ -172,10 +172,10 @@ Example usage:
 ```js
 const {defineElement, it, test} = require('cybernaut');
 
-test('foo', async t => {
-  const bar = defineElement('bar', '#bar');
+test('Example', async t => {
+  const element = defineElement('elementName', 'selector');
 
-  await t.assert(bar.attributeValue('id'), it.should.equal('bar'));
+  await t.assert(element.attributeValue('id'), it.should.equal('id'));
 });
 ```
 
@@ -190,10 +190,10 @@ Example usage:
 ```js
 const {defineElement, it, test} = require('cybernaut');
 
-test('foo', async t => {
-  const bar = defineElement('bar', '#bar');
+test('Example', async t => {
+  const element = defineElement('elementName', 'selector');
 
-  await t.assert(bar.cssValue('margin-left'), it.should.equal('22px'));
+  await t.assert(element.cssValue('margin-left'), it.should.equal('22px'));
 });
 ```
 
@@ -208,10 +208,10 @@ Example usage:
 ```js
 const {defineElement, test} = require('cybernaut');
 
-test('foo', async t => {
-  const bar = defineElement('bar', '#bar');
+test('Example', async t => {
+  const element = defineElement('elementName', 'selector');
 
-  await t.perform(bar.clearValue());
+  await t.perform(element.clearValue());
 });
 ```
 
@@ -226,10 +226,10 @@ Example usage:
 ```js
 const {defineElement, test} = require('cybernaut');
 
-test('foo', async t => {
-  const bar = defineElement('bar', '#bar');
+test('Example', async t => {
+  const element = defineElement('elementName', 'selector');
 
-  await t.perform(bar.click());
+  await t.perform(element.click());
 });
 ```
 
@@ -244,10 +244,10 @@ Example usage:
 ```js
 const {Key, defineElement, test} = require('cybernaut');
 
-test('foo', async t => {
-  const bar = defineElement('bar', '#bar');
+test('Example', async t => {
+  const element = defineElement('elementName', 'selector');
 
-  await t.perform(bar.sendKeys('text was', Key.CONTROL, 'a', Key.NULL, 'now text is'));
+  await t.perform(element.sendKeys('text was', Key.CONTROL, 'a', Key.NULL, 'now text is'));
 });
 ```
 
@@ -274,10 +274,10 @@ Example usage:
 ```js
 const {defineElement, test} = require('cybernaut');
 
-test('foo', async t => {
-  const bar = defineElement('bar', '#bar');
+test('Example', async t => {
+  const element = defineElement('elementName', 'selector');
 
-  await t.perform(bar.submitForm());
+  await t.perform(element.submitForm());
 });
 ```
 

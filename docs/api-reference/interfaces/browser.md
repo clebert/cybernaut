@@ -30,8 +30,8 @@ Example usage:
 ```js
 const {browser, it, test} = require('cybernaut');
 
-test('foo', async t => {
-  await t.assert(browser.pageTitle, it.should.contain('bar'));
+test('Example', async t => {
+  await t.assert(browser.pageTitle, it.should.contain('pageTitle'));
 });
 ```
 
@@ -46,8 +46,8 @@ Example usage:
 ```js
 const {browser, it, test} = require('cybernaut');
 
-test('foo', async t => {
-  await t.assert(browser.pageUrl, it.should.contain('http://bar.baz'));
+test('Example', async t => {
+  await t.assert(browser.pageUrl, it.should.contain('pageUrl'));
 });
 ```
 
@@ -62,7 +62,7 @@ Example usage:
 ```js
 const {browser, it, test} = require('cybernaut');
 
-test('foo', async t => {
+test('Example', async t => {
   await t.assert(browser.windowXPosition, it.should.equal(123));
 });
 ```
@@ -78,7 +78,7 @@ Example usage:
 ```js
 const {browser, it, test} = require('cybernaut');
 
-test('foo', async t => {
+test('Example', async t => {
   await t.assert(browser.windowYPosition, it.should.equal(123));
 });
 ```
@@ -94,7 +94,7 @@ Example usage:
 ```js
 const {browser, it, test} = require('cybernaut');
 
-test('foo', async t => {
+test('Example', async t => {
   await t.assert(browser.windowWidth, it.should.equal(123));
 });
 ```
@@ -110,7 +110,7 @@ Example usage:
 ```js
 const {browser, it, test} = require('cybernaut');
 
-test('foo', async t => {
+test('Example', async t => {
   await t.assert(browser.windowHeight, it.should.equal(123));
 });
 ```
@@ -127,15 +127,15 @@ Example usage:
 ```js
 const {browser, it, test} = require('cybernaut');
 
-test('foo', async t => {
-  await t.assert(browser.scriptResult('bar', callback => {
+test('Example', async t => {
+  await t.assert(browser.scriptResult('scriptName', callback => {
     // This function will be executed in browser context,
     // so any references to outer scope won't work.
 
     // ...
 
-    callback('baz');
-  }), it.should.equal('baz'));
+    callback('scriptResult');
+  }), it.should.equal('scriptResult'));
 });
 ```
 
@@ -151,8 +151,8 @@ Example usage:
 ```js
 const {browser, test} = require('cybernaut');
 
-test('foo', async t => {
-  await t.perform(browser.executeScript('bar', callback => {
+test('Example', async t => {
+  await t.perform(browser.executeScript('scriptName', callback => {
     // This function will be executed in browser context,
     // so any references to outer scope won't work.
 
@@ -174,8 +174,8 @@ Example usage:
 ```js
 const {browser, test} = require('cybernaut');
 
-test('foo', async t => {
-  await t.perform(browser.loadPage('http://bar.baz'));
+test('Example', async t => {
+  await t.perform(browser.loadPage('url'));
 });
 ```
 
@@ -190,7 +190,7 @@ Example usage:
 ```js
 const {browser, test} = require('cybernaut');
 
-test('foo', async t => {
+test('Example', async t => {
   await t.perform(browser.maximizeWindow());
 });
 ```
@@ -206,7 +206,7 @@ Example usage:
 ```js
 const {browser, test} = require('cybernaut');
 
-test('foo', async t => {
+test('Example', async t => {
   await t.perform(browser.navigateBack());
 });
 ```
@@ -222,7 +222,7 @@ Example usage:
 ```js
 const {browser, test} = require('cybernaut');
 
-test('foo', async t => {
+test('Example', async t => {
   await t.perform(browser.navigateForward());
 });
 ```
@@ -238,7 +238,7 @@ Example usage:
 ```js
 const {browser, test} = require('cybernaut');
 
-test('foo', async t => {
+test('Example', async t => {
   await t.perform(browser.reloadPage());
 });
 ```
@@ -254,7 +254,7 @@ Example usage:
 ```js
 const {browser, test} = require('cybernaut');
 
-test('foo', async t => {
+test('Example', async t => {
   await t.perform(browser.setWindowPosition(123, 456));
 });
 ```
@@ -270,7 +270,7 @@ Example usage:
 ```js
 const {browser, test} = require('cybernaut');
 
-test('foo', async t => {
+test('Example', async t => {
   await t.perform(browser.setWindowSize(123, 456));
 });
 ```
@@ -286,7 +286,7 @@ Example usage:
 ```js
 const {browser, test} = require('cybernaut');
 
-test('foo', async t => {
+test('Example', async t => {
   await t.perform(browser.sleep(123));
 });
 ```

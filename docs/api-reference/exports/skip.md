@@ -12,7 +12,7 @@ Example usage:
 const {skip} = require('cybernaut');
 
 // The following end-to-end test won't be executed and marked as SKIP.
-skip('foo', async t => {
+skip('Example', async t => {
   // ...
 });
 ```

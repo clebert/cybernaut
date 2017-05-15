@@ -10,7 +10,7 @@ Example usage:
 ```js
 const {browser, it, test} = require('cybernaut');
 
-test('foo', async t => {
-  await t.assert(browser.pageTitle, it.should.contain('bar'));
+test('Example', async t => {
+  await t.assert(browser.pageTitle, it.should.contain('pageTitle'));
 });
 ```

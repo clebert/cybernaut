@@ -10,9 +10,9 @@ Example usage:
 ```js
 const {defineElement, test} = require('cybernaut');
 
-test('foo', async t => {
-  const barButton = defineElement('bar-button', '#bar');
+test('Example', async t => {
+  const element = defineElement('elementName', 'selector');
 
-  await t.perform(barButton.click());
+  await t.perform(element.click());
 });
 ```
