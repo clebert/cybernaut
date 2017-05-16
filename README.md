@@ -71,7 +71,7 @@ It provides a [`Promise`][mdn-promise]-based API and allows the use of [`async`]
 There are pre-built Docker containers to run your end-to-end tests effortlessly in any environment such as Travis CI.
 
 The integrated test runner executes all steps of your end-to-end tests in an atomic way.
-This means that if one part of a test step fails, the entire test step fails and can then be repeated.
+This means that if one part of a test step fails, the entire test step fails and can then be repeated as a whole by the test runner.
 By this mechanism, a high reliability and thus stability of your end-to-end tests can be ensured.
 
 ## Documentation

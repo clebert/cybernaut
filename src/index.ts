@@ -5,7 +5,7 @@
 import createDebug = require('debug');
 import tap = require('tap');
 
-import {sync} from 'glob';
+import {sync} from 'globby';
 import {Key} from 'selenium-webdriver';
 import {Config, loadConfig, validate} from './config';
 import {Accessor} from './core/accessor';
@@ -122,14 +122,10 @@ try {
     require('geckodriver');
   }
 
-  const filenames = sync(config.include, {
-    ignore: config.exclude, nodir: true, realpath: true
-  });
+  for (const file of sync(config.files, {nodir: true, realpath: true})) {
+    debug('Load the test file:', file);
 
-  for (const filename of filenames) {
-    debug('Load the test file:', filename);
-
-    require(filename);
+    require(file);
   }
 } catch (e) {
   console.error(`\nError: ${e.message}`);

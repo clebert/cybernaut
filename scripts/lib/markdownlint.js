@@ -2,12 +2,12 @@
 
 'use strict';
 
-const {sync} = require('glob');
+const {sync} = require('globby');
 const markdownlint = require('markdownlint');
 
 const options = {
-  files: sync('**/*.md', {
-    ignore: '**/node_modules/**/*', nodir: true, realpath: true
+  files: sync(['**/*.md', '!**/node_modules/**/*'], {
+    nodir: true, realpath: true
   }),
   config: require('../../.markdownlint.json')
 };
