@@ -1,16 +1,26 @@
 'use strict';
 
-const {join} = require('path');
+function setup(wallaby) {
+  const jestConfig = require('./package.json').jest;
 
-module.exports = function (wallaby) {
-  process.env.NODE_PATH += ':' + join(wallaby.localProjectDir, 'node_modules');
+  // https://github.com/wallabyjs/public/issues/1152#issuecomment-300151646
+  delete jestConfig.transform;
 
+  wallaby.testFramework.configure(jestConfig);
+}
+
+module.exports = function () {
   return {
-    files: [
-      'config-schema.json', 'src/**/*.ts', '!src/**/*.test.ts', '!src/index.ts'
-    ],
-    tests: ['src/**/*.test.ts'],
+    debug: true,
     env: {type: 'node', runner: 'node'},
-    testFramework: 'ava'
+    files: [
+      'src/**/*.ts',
+      '!src/**/*.test.ts',
+      'node_modules/ts-config/tsconfig.json',
+      'tsconfig.json'
+    ],
+    setup,
+    testFramework: 'jest',
+    tests: ['src/**/*.test.ts']
   };
 };

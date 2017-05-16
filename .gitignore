@@ -1,5 +1,4 @@
 .DS_Store
-.nyc_output
 _book
 coverage
 dist
@@ -15,5 +14,4 @@ example/firefox/tsconfig.json
 example/iphone/tsconfig.json
 node_modules
 npm-debug.log*
-screenshots
 todo.tasks

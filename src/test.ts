@@ -1,118 +1,81 @@
 import {WebDriver} from 'selenium-webdriver';
-import {Accessor} from './accessor';
-import {Action} from './action';
-import {format} from './description';
-import {Predicate} from './predicate';
-import {run} from './step';
+import {Config} from './config';
+import {Accessor} from './core/accessor';
+import {Action} from './core/action';
+import {createExecutor, execute} from './core/execution';
+import {Predicate} from './core/predicate';
+import {createVerifier, verify} from './core/verification';
 
-function describe<T>(accessor: Accessor<T>, predicate: Predicate<T>): string {
-  return `${format(accessor.description)} ${format(predicate.description)}`;
+export interface Logger {
+  pass(message: string): void;
 }
 
-function ok(message: string, attempts: number, retries: number): string {
-  return `${message} (succeeded at attempt ${attempts} of ${retries + 1})`;
-}
+export type Options = Pick<Config, 'retries' | 'retryDelay'>;
 
-function notOk(message: string, error: Error): string {
-  return `${message} (failed because ${error.message})`;
-}
-
-export abstract class Test {
+export class Test {
   private readonly _driver: WebDriver;
-  private readonly _retries: number;
-  private readonly _retryDelay: number;
+  private readonly _logger: Logger;
+  private readonly _options: Options;
 
-  public constructor(driver: WebDriver, retries: number, retryDelay: number) {
+  public constructor(driver: WebDriver, logger: Logger, options: Options) {
     this._driver = driver;
-    this._retries = retries;
-    this._retryDelay = retryDelay;
+    this._logger = logger;
+    this._options = options;
   }
 
-  public abstract fail(message: string): void;
-  public abstract pass(message: string): void;
-
   public async assert<T>(
-    accessor: Accessor<T>,
-    predicate: Predicate<T>,
-    retries: number = this._retries,
-    retryDelay: number = this._retryDelay
+    accessor: Accessor<T>, predicate: Predicate<T>, options?: Partial<Options>
   ): Promise<void> {
-    const message = 'Assert: ' + describe(accessor, predicate);
+    const verifier = createVerifier(accessor, predicate);
 
-    try {
-      const attempts = await run(
-        async () => {
-          await this._test(accessor, predicate);
-        },
-        retries,
-        retryDelay
-      );
+    const verification = await verify(
+      verifier, this._driver, {...this._options, options}
+    );
 
-      this.pass(ok(message, attempts, retries));
-    } catch (e) {
-      this.fail(notOk(message, e));
+    const message = 'Assert: ' + verification.description;
+
+    if (verification.result === 'error' || verification.result === 'invalid') {
+      throw new Error(message);
     }
+
+    this._logger.pass(message);
   }
 
   public async perform(
-    action: Action,
-    retries: number = this._retries,
-    retryDelay: number = this._retryDelay
+    action: Action, options?: Partial<Options>
   ): Promise<void> {
-    const message = 'Perform: ' + format(action.description);
+    const executor = createExecutor(action);
 
-    try {
-      const attempts = await run(
-        async () => {
-          await action.perform(this._driver);
-        },
-        retries,
-        retryDelay
-      );
+    const execution = await execute(
+      executor, this._driver, {...this._options, options}
+    );
 
-      this.pass(ok(message, attempts, retries));
-    } catch (e) {
-      this.fail(notOk(message, e));
+    const message = 'Perform: ' + execution.description;
+
+    if (execution.error) {
+      throw new Error(message);
     }
+
+    this._logger.pass(message);
   }
 
   public async verify<T>(
-    accessor: Accessor<T>,
-    predicate: Predicate<T>,
-    retries: number = this._retries,
-    retryDelay: number = this._retryDelay
+    accessor: Accessor<T>, predicate: Predicate<T>, options?: Partial<Options>
   ): Promise<boolean> {
-    const message = 'Verify: ' + describe(accessor, predicate);
+    const verifier = createVerifier(accessor, predicate);
 
-    try {
-      const attempts = await run(
-        async () => {
-          await this._test(accessor, predicate);
-        },
-        retries,
-        retryDelay
-      );
+    const verification = await verify(
+      verifier, this._driver, {...this._options, options}
+    );
 
-      this.pass(ok(message, attempts, retries));
+    const message = 'Verify: ' + verification.description;
 
-      return true;
-    } catch (e) {
-      this.pass(notOk(message, e));
-
-      return false;
+    if (verification.result === 'error') {
+      throw new Error(message);
     }
-  }
 
-  private async _test<T>(
-    accessor: Accessor<T>, predicate: Predicate<T>
-  ): Promise<void> {
-    const actualValue = await accessor.get(this._driver);
+    this._logger.pass(message);
 
-    if (!predicate.test(actualValue)) {
-      throw new Error(format({
-        template: 'the predicate evaluates to false, the actual value is {}',
-        args: [actualValue]
-      }));
-    }
+    return verification.result === 'valid';
   }
 }

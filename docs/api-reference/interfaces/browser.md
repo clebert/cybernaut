@@ -1,13 +1,16 @@
 # Interface `Browser`
 
+## Properties
+
+* [`pageTitle`](#property-pagetitle)
+* [`pageUrl`](#property-pageurl)
+* [`windowXPosition`](#property-windowxposition)
+* [`windowYPosition`](#property-windowyposition)
+* [`windowWidth`](#property-windowwidth)
+* [`windowHeight`](#property-windowheight)
+
 ## Methods
 
-* [`pageTitle`](#method-pagetitle)
-* [`pageUrl`](#method-pageurl)
-* [`windowXPosition`](#method-windowxposition)
-* [`windowYPosition`](#method-windowyposition)
-* [`windowWidth`](#method-windowwidth)
-* [`windowHeight`](#method-windowheight)
 * [`scriptResult`](#method-scriptresult)
 * [`executeScript`](#method-executescript)
 * [`loadPage`](#method-loadpage)
@@ -15,12 +18,11 @@
 * [`navigateBack`](#method-navigateback)
 * [`navigateForward`](#method-navigateforward)
 * [`reloadPage`](#method-reloadpage)
-* [`saveScreenshot`](#method-savescreenshot)
 * [`setWindowPosition`](#method-setwindowposition)
 * [`setWindowSize`](#method-setwindowsize)
 * [`sleep`](#method-sleep)
 
-### Method `pageTitle`
+### Property `pageTitle`
 
 Type definition:
 
@@ -31,12 +33,12 @@ Example usage:
 ```js
 const {browser, it, test} = require('cybernaut');
 
-test('foo', async t => {
-  await t.assert(browser.pageTitle, it.should.contain('bar'));
+test('Example', async t => {
+  await t.assert(browser.pageTitle, it.should.contain('pageTitle'));
 });
 ```
 
-### Method `pageUrl`
+### Property `pageUrl`
 
 Type definition:
 
@@ -47,12 +49,12 @@ Example usage:
 ```js
 const {browser, it, test} = require('cybernaut');
 
-test('foo', async t => {
-  await t.assert(browser.pageUrl, it.should.contain('http://bar.baz'));
+test('Example', async t => {
+  await t.assert(browser.pageUrl, it.should.contain('pageUrl'));
 });
 ```
 
-### Method `windowXPosition`
+### Property `windowXPosition`
 
 Type definition:
 
@@ -63,12 +65,12 @@ Example usage:
 ```js
 const {browser, it, test} = require('cybernaut');
 
-test('foo', async t => {
+test('Example', async t => {
   await t.assert(browser.windowXPosition, it.should.equal(123));
 });
 ```
 
-### Method `windowYPosition`
+### Property `windowYPosition`
 
 Type definition:
 
@@ -79,12 +81,12 @@ Example usage:
 ```js
 const {browser, it, test} = require('cybernaut');
 
-test('foo', async t => {
+test('Example', async t => {
   await t.assert(browser.windowYPosition, it.should.equal(123));
 });
 ```
 
-### Method `windowWidth`
+### Property `windowWidth`
 
 Type definition:
 
@@ -95,12 +97,12 @@ Example usage:
 ```js
 const {browser, it, test} = require('cybernaut');
 
-test('foo', async t => {
+test('Example', async t => {
   await t.assert(browser.windowWidth, it.should.equal(123));
 });
 ```
 
-### Method `windowHeight`
+### Property `windowHeight`
 
 Type definition:
 
@@ -111,7 +113,7 @@ Example usage:
 ```js
 const {browser, it, test} = require('cybernaut');
 
-test('foo', async t => {
+test('Example', async t => {
   await t.assert(browser.windowHeight, it.should.equal(123));
 });
 ```
@@ -120,7 +122,7 @@ test('foo', async t => {
 
 Type definition:
 
-* **`scriptResult(name: string, script: Script): Accessor<any>`**
+* **`scriptResult(scriptName: string, script: Script): Accessor<any>`**
 * `Script = (callback: (result?: any) => void) => void`
 
 Example usage:
@@ -128,15 +130,15 @@ Example usage:
 ```js
 const {browser, it, test} = require('cybernaut');
 
-test('foo', async t => {
-  await t.assert(browser.scriptResult('bar', callback => {
+test('Example', async t => {
+  await t.assert(browser.scriptResult('scriptName', callback => {
     // This function will be executed in browser context,
     // so any references to outer scope won't work.
 
     // ...
 
-    callback('baz');
-  }), it.should.equal('baz'));
+    callback('scriptResult');
+  }), it.should.equal('scriptResult'));
 });
 ```
 
@@ -144,7 +146,7 @@ test('foo', async t => {
 
 Type definition:
 
-* **`executeScript(name: string, script: Script): Action`**
+* **`executeScript(scriptName: string, script: Script): Action`**
 * `Script = (callback: (result?: any) => void) => void`
 
 Example usage:
@@ -152,8 +154,8 @@ Example usage:
 ```js
 const {browser, test} = require('cybernaut');
 
-test('foo', async t => {
-  await t.perform(browser.executeScript('bar', callback => {
+test('Example', async t => {
+  await t.perform(browser.executeScript('scriptName', callback => {
     // This function will be executed in browser context,
     // so any references to outer scope won't work.
 
@@ -175,8 +177,8 @@ Example usage:
 ```js
 const {browser, test} = require('cybernaut');
 
-test('foo', async t => {
-  await t.perform(browser.loadPage('http://bar.baz'));
+test('Example', async t => {
+  await t.perform(browser.loadPage('url'));
 });
 ```
 
@@ -191,7 +193,7 @@ Example usage:
 ```js
 const {browser, test} = require('cybernaut');
 
-test('foo', async t => {
+test('Example', async t => {
   await t.perform(browser.maximizeWindow());
 });
 ```
@@ -207,7 +209,7 @@ Example usage:
 ```js
 const {browser, test} = require('cybernaut');
 
-test('foo', async t => {
+test('Example', async t => {
   await t.perform(browser.navigateBack());
 });
 ```
@@ -223,7 +225,7 @@ Example usage:
 ```js
 const {browser, test} = require('cybernaut');
 
-test('foo', async t => {
+test('Example', async t => {
   await t.perform(browser.navigateForward());
 });
 ```
@@ -239,24 +241,8 @@ Example usage:
 ```js
 const {browser, test} = require('cybernaut');
 
-test('foo', async t => {
+test('Example', async t => {
   await t.perform(browser.reloadPage());
-});
-```
-
-### Method `saveScreenshot`
-
-Type definition:
-
-* **`saveScreenshot(): Action`**
-
-Example usage:
-
-```js
-const {browser, test} = require('cybernaut');
-
-test('foo', async t => {
-  await t.perform(browser.saveScreenshot());
 });
 ```
 
@@ -271,7 +257,7 @@ Example usage:
 ```js
 const {browser, test} = require('cybernaut');
 
-test('foo', async t => {
+test('Example', async t => {
   await t.perform(browser.setWindowPosition(123, 456));
 });
 ```
@@ -287,7 +273,7 @@ Example usage:
 ```js
 const {browser, test} = require('cybernaut');
 
-test('foo', async t => {
+test('Example', async t => {
   await t.perform(browser.setWindowSize(123, 456));
 });
 ```
@@ -303,7 +289,7 @@ Example usage:
 ```js
 const {browser, test} = require('cybernaut');
 
-test('foo', async t => {
+test('Example', async t => {
   await t.perform(browser.sleep(123));
 });
 ```

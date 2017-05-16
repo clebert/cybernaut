@@ -12,10 +12,10 @@ Example usage:
 const {test} = require('cybernaut');
 
 // The following end-to-end test will be marked as TODO.
-test('foo');
+test('Example 1');
 
 // The following end-to-end test will be executed.
-test('foo', async t => {
+test('Example 2', async t => {
   // ...
 });
 ```

@@ -20,7 +20,6 @@ export interface Config {
   readonly include: string;
   readonly retries: number;
   readonly retryDelay: number;
-  readonly screenshotDirectory: string;
   readonly timeouts: Timeouts;
 }
 
@@ -32,25 +31,20 @@ const defaultConfig: Config = {
   exclude: ['**/node_modules/**/*'],
   include: '**/*.e2e.js',
   retries: 4,
-  retryDelay: 500,
-  screenshotDirectory: 'screenshots',
+  retryDelay: 1000,
   timeouts: {element: 0, page: 30000, script: 30000}
 };
 
-export function loadConfig(
-  filename?: string,
-  /* istanbul ignore next */
-  _require: typeof require = require
-): Config {
+export function loadConfig(filename?: string): Config {
   filename = filename ? resolve(filename) : '';
 
   if (filename) {
-    debug('load custom config:', filename);
+    debug('Load the custom config file:', filename);
   } else {
-    debug('load default config');
+    debug('Load the default config');
   }
 
-  const customConfig = filename ? _require(filename) : {};
+  const customConfig = filename ? require(filename) : {};
 
   return {...defaultConfig, ...customConfig};
 }

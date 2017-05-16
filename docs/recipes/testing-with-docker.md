@@ -9,13 +9,13 @@ Cybernaut brings two fully configured Docker containers, which can be found on [
 One allows testing on Chrome:
 
 ```dockerfile
-FROM clebert/cybernaut-chrome:4.0.0
+FROM clebert/cybernaut-chrome:5.0.0
 ```
 
  the other on Firefox:
 
 ```dockerfile
-FROM clebert/cybernaut-firefox:4.0.0
+FROM clebert/cybernaut-firefox:5.0.0
 ```
 
 You can find a list of available tags for `cybernaut-chrome` [here][chrome-tags] and for `cybernaut-firefox` [here][firefox-tags].
@@ -72,12 +72,6 @@ You can override it with your own `CMD` instruction or with CLI arguments for `d
 
 ```sh
 docker run -it --rm -v /dev/shm:/dev/shm clebert/cybernaut-chrome-example 1920x1080 dot
-```
-
-In order to get access to the captured screenshots, a local screenshots directory can be [mounted][docker-mount] into the `/opt/e2e-test/` directory inside the Docker container:
-
-```sh
-docker run -it --rm -v $(cd example/screenshots; pwd):/opt/e2e-test/screenshots -v /dev/shm:/dev/shm clebert/cybernaut-chrome-example
 ```
 
 To enable debug output, you can set the `DEBUG=cybernaut:*` environment variable:

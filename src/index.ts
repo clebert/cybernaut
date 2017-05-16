@@ -8,21 +8,19 @@ import tap = require('tap');
 import {sync} from 'glob';
 import {Key} from 'selenium-webdriver';
 import {inspect} from 'util';
-import {Accessor} from './accessor';
-import {Action} from './action';
-import {Browser, Script} from './browser';
 import {Config, loadConfig, validate} from './config';
-import {Description} from './description';
-import {Element} from './element';
-import {Implementation, execute} from './implementation';
-import {PredicateBuilder} from './predicate';
+import {Accessor} from './core/accessor';
+import {Action} from './core/action';
+import {Browser, Script} from './core/browser';
+import {Element} from './core/element';
+import {PredicateBuilder} from './core/predicate';
+import {Implementation, run} from './implementation';
 import {Test} from './test';
 
 export {
   Accessor,
   Action,
   Browser,
-  Description,
   Element,
   Implementation,
   Key,
@@ -40,7 +38,7 @@ const configFilename = process.argv[2];
 try {
   config = loadConfig(configFilename);
 } catch (e) {
-  console.error(`\nError: unable to load config file '${configFilename}'`);
+  console.error(`\nError: Unable to load the config file: '${configFilename}'`);
 
   process.exit(1);
 }
@@ -57,7 +55,9 @@ for (const key of Object.keys(config) as (keyof Config)[]) {
 const configErrors = validate(config);
 
 if (configErrors.length > 0) {
-  console.error(`\nError: unable to validate config file '${configFilename}'`);
+  console.error(
+    `\nError: Unable to validate the config file: '${configFilename}'`
+  );
 
   for (const configError of configErrors) {
     console.error('  ' + configError);
@@ -66,8 +66,8 @@ if (configErrors.length > 0) {
   process.exit(1);
 }
 
-export function defineElement(selector: string, name?: string): Element {
-  return new Element(selector, name);
+export function defineElement(name: string, selector: string): Element {
+  return new Element(name, selector);
 }
 
 export class It {
@@ -77,19 +77,18 @@ export class It {
 }
 
 export const it = new It();
-export const browser = new Browser(config.screenshotDirectory);
+export const browser = new Browser();
 
 const tasks: (() => void)[] = [];
 
 export function test(name: string, implementation?: Implementation): void {
   tasks.push(() => {
-    // tslint:disable-next-line no-floating-promises
-    tap.test(
+    tap.test( // tslint:disable-line no-floating-promises
       name,
       {diagnostic: false, timeout: 0, todo: !implementation},
-      async t => {
+      async logger => {
         if (implementation) {
-          await execute(implementation, t, config);
+          await run(implementation, logger, config);
         }
       }
     ).catch((error: Error) => {
@@ -107,7 +106,7 @@ export function skip(name: string, implementation: Implementation): void {
 if (require.main !== module) {
   const packageName = require('../package.json').name;
 
-  console.error(`\nError: please run your tests only via ${packageName} CLI`);
+  console.error(`\nError: Please run your tests only via ${packageName} CLI`);
 
   process.exit(1);
 }
@@ -116,11 +115,11 @@ try {
   const {browserName} = config.capabilities;
 
   if (browserName === 'chrome') {
-    debug('load chromedriver');
+    debug('Load the chromedriver');
 
     require('chromedriver');
   } else if (browserName === 'firefox') {
-    debug('load geckodriver');
+    debug('Load the geckodriver');
 
     require('geckodriver');
   }
@@ -130,7 +129,7 @@ try {
   });
 
   for (const filename of filenames) {
-    debug('load test file:', filename);
+    debug('Load the test file:', filename);
 
     require(filename);
   }

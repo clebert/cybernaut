@@ -1,25 +1,29 @@
-import {By} from 'selenium-webdriver';
+import {By, Key} from 'selenium-webdriver';
 import {Accessor} from './accessor';
 import {Action} from './action';
-import {translate} from './utils';
+
+const KeyName = Object.create(null);
+
+for (const keyName of Object.keys(Key).sort() as (keyof Key)[]) {
+  KeyName[Key[keyName]] = keyName;
+}
+
+function serialize(char: string): string {
+  return KeyName[char] ? 'Key.' + String(KeyName[char]) : `'${char}'`;
+}
 
 export class Element {
-  private readonly _description: string;
+  private readonly _name: string;
   private readonly _selector: string;
 
-  public constructor(selector: string, name?: string) {
-    this._description =
-      name ? name + ' (element with selector {})' : 'element with selector {}';
-
+  public constructor(name: string, selector: string) {
+    this._name = name;
     this._selector = selector;
   }
 
   public get tagName(): Accessor<string> {
     return {
-      description: {
-        template: `tag name of ${this._description}`,
-        args: [this._selector]
-      },
+      name: `The tag name of the ${this._name} element`,
       get: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 
@@ -30,10 +34,7 @@ export class Element {
 
   public get text(): Accessor<string> {
     return {
-      description: {
-        template: `text of ${this._description}`,
-        args: [this._selector]
-      },
+      name: `The text of the ${this._name} element`,
       get: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 
@@ -42,12 +43,20 @@ export class Element {
     };
   }
 
+  public get existence(): Accessor<boolean> {
+    return {
+      name: `The existence of the ${this._name} element`,
+      get: async driver => {
+        const elements = await driver.findElements(By.css(this._selector));
+
+        return elements.length > 0;
+      }
+    };
+  }
+
   public get visibility(): Accessor<boolean> {
     return {
-      description: {
-        template: `visibility of ${this._description}`,
-        args: [this._selector]
-      },
+      name: `The visibility of the ${this._name} element`,
       get: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 
@@ -58,10 +67,7 @@ export class Element {
 
   public get xPosition(): Accessor<number> {
     return {
-      description: {
-        template: `X position of ${this._description}`,
-        args: [this._selector]
-      },
+      name: `The X position of the ${this._name} element`,
       get: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 
@@ -72,10 +78,7 @@ export class Element {
 
   public get yPosition(): Accessor<number> {
     return {
-      description: {
-        template: `Y position of ${this._description}`,
-        args: [this._selector]
-      },
+      name: `The Y position of the ${this._name} element`,
       get: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 
@@ -86,10 +89,7 @@ export class Element {
 
   public get width(): Accessor<number> {
     return {
-      description: {
-        template: `width of ${this._description}`,
-        args: [this._selector]
-      },
+      name: `The width of the ${this._name} element`,
       get: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 
@@ -100,10 +100,7 @@ export class Element {
 
   public get height(): Accessor<number> {
     return {
-      description: {
-        template: `height of ${this._description}`,
-        args: [this._selector]
-      },
+      name: `The height of the ${this._name} element`,
       get: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 
@@ -112,12 +109,27 @@ export class Element {
     };
   }
 
-  public cssValue(cssName: string): Accessor<string> {
+  public attributeValue(attributeName: string): Accessor<string | null> {
+    const name =
+      `The value of the ${attributeName} attribute ` +
+      `of the ${this._name} element`;
+
     return {
-      description: {
-        template: `css value with name {} of ${this._description}`,
-        args: [cssName, this._selector]
-      },
+      name,
+      get: async driver => {
+        const element = await driver.findElement(By.css(this._selector));
+
+        return element.getAttribute(attributeName);
+      }
+    };
+  }
+
+  public cssValue(cssName: string): Accessor<string> {
+    const name =
+      `The value of the ${cssName} css of the ${this._name} element`;
+
+    return {
+      name,
       get: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 
@@ -126,26 +138,9 @@ export class Element {
     };
   }
 
-  public propertyValue(propertyName: string): Accessor<string | null> {
-    return {
-      description: {
-        template: `property value with name {} of ${this._description}`,
-        args: [propertyName, this._selector]
-      },
-      get: async driver => {
-        const element = await driver.findElement(By.css(this._selector));
-
-        return element.getAttribute(propertyName);
-      }
-    };
-  }
-
   public clearValue(): Action {
     return {
-      description: {
-        template: `clear value of ${this._description}`,
-        args: [this._selector]
-      },
+      description: `Clear the value of the ${this._name} element`,
       perform: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 
@@ -156,10 +151,7 @@ export class Element {
 
   public click(): Action {
     return {
-      description: {
-        template: `click on ${this._description}`,
-        args: [this._selector]
-      },
+      description: `Click on the ${this._name} element`,
       perform: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 
@@ -169,11 +161,18 @@ export class Element {
   }
 
   public sendKeys(...keys: string[]): Action {
+    if (keys.length === 0) {
+      throw new Error('At least one key must be specified');
+    }
+
+    const serializedKeys = keys.map(serialize).join(', ');
+
+    const description =
+      `Send the key${keys.length > 1 ? 's' : ''} ` +
+      `${serializedKeys} to the ${this._name} element`;
+
     return {
-      description: {
-        template: `send keys {} to ${this._description}`,
-        args: [keys.map(translate), this._selector]
-      },
+      description,
       perform: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 
@@ -184,10 +183,7 @@ export class Element {
 
   public submitForm(): Action {
     return {
-      description: {
-        template: `submit form containing ${this._description}`,
-        args: [this._selector]
-      },
+      description: `Submit the form containing the ${this._name} element`,
       perform: async driver => {
         const element = await driver.findElement(By.css(this._selector));
 

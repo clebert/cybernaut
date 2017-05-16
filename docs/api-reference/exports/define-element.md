@@ -2,7 +2,7 @@
 
 Type definition:
 
-* **`defineElement(selector: string, name: string = 'element'): Element`**
+* **`defineElement(name: string, selector: string): Element`**
 * [`Element`](../interfaces/element.md)
 
 Example usage:
@@ -10,9 +10,9 @@ Example usage:
 ```js
 const {defineElement, test} = require('cybernaut');
 
-test('foo', async t => {
-  const bar = defineElement('#bar');
+test('Example', async t => {
+  const element = defineElement('elementName', 'selector');
 
-  await t.perform(bar.click());
+  await t.perform(element.click());
 });
 ```

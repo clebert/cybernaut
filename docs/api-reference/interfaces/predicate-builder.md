@@ -1,47 +1,41 @@
 # Interface `PredicateBuilder`
 
+## Properties
+
+* [`not`](#property-not)
+
 ## Methods
 
 * [`contain`](#method-contain)
-* [`not.contain`](#method-notcontain)
 * [`equal`](#method-equal)
-* [`not.equal`](#method-notequal)
 * [`match`](#method-match)
-* [`not.match`](#method-notmatch)
-* [`be.above`](#method-beabove)
-* [`be.at.least`](#method-beatleast)
-* [`be.below`](#method-bebelow)
-* [`be.at.most`](#method-beatmost)
+* [`beBetween`](#method-bebetween)
+* [`beGreaterThan`](#method-begreaterthan)
+* [`beGreaterThanOrEqual`](#method-begreaterthanorequal)
+* [`beLessThan`](#method-belessthan)
+* [`beLessThanOrEqual`](#method-belessthanorequal)
+
+### Property `not`
+
+Type definition:
+
+* **`not: PredicateBuilder`**
 
 ### Method `contain`
 
 Type definition:
 
-* **`contain(expectedValue: string): Predicate<string>`**
+* **`contain(value: string): Predicate<string>`**
 
 Example usage:
 
 ```js
 const {browser, it, test} = require('cybernaut');
 
-test('foo', async t => {
-  await t.assert(browser.pageTitle, it.should.contain('bar'));
-});
-```
+test('Example', async t => {
+  await t.assert(browser.pageTitle, it.should.contain('pageTitle'));
 
-### Method `not.contain`
-
-Type definition:
-
-* **`not.contain(expectedValue: string): Predicate<string>`**
-
-Example usage:
-
-```js
-const {browser, it, test} = require('cybernaut');
-
-test('foo', async t => {
-  await t.assert(browser.pageTitle, it.should.not.contain('bar'));
+  await t.assert(browser.pageTitle, it.should.not.contain('pageTitle'));
 });
 ```
 
@@ -49,33 +43,17 @@ test('foo', async t => {
 
 Type definition:
 
-* **`equal<T>(expectedValue: T): Predicate<T>`**
+* **`equal<T>(value: T): Predicate<T>`**
 
 Example usage:
 
 ```js
 const {browser, it, test} = require('cybernaut');
 
-test('foo', async t => {
-  await t.assert(browser.pageTitle, it.should.equal('bar'));
-});
-```
+test('Example', async t => {
+  await t.assert(browser.pageTitle, it.should.equal('pageTitle'));
 
-*Note: The comparison is performed with deep-strict-equal.*
-
-### Method `not.equal`
-
-Type definition:
-
-* **`not.equal<T>(expectedValue: T): Predicate<T>`**
-
-Example usage:
-
-```js
-const {browser, it, test} = require('cybernaut');
-
-test('foo', async t => {
-  await t.assert(browser.pageTitle, it.should.not.equal('bar'));
+  await t.assert(browser.pageTitle, it.should.not.equal('pageTitle'));
 });
 ```
 
@@ -85,98 +63,118 @@ test('foo', async t => {
 
 Type definition:
 
-* **`match(regex: RegExp): Predicate<string>`**
+* **`match(value: RegExp): Predicate<string>`**
 
 Example usage:
 
 ```js
 const {browser, it, test} = require('cybernaut');
 
-test('foo', async t => {
-  await t.assert(browser.pageTitle, it.should.match(/bar/));
+test('Example', async t => {
+  await t.assert(browser.pageTitle, it.should.match(/pageTitle/));
+
+  await t.assert(browser.pageTitle, it.should.not.match(/pageTitle/));
 });
 ```
 
-### Method `not.match`
+### Method `beBetween`
 
 Type definition:
 
-* **`not.match(regex: RegExp): Predicate<string>`**
+* **`beBetween(minValue: number, maxValue: number): Predicate<number>`**
 
 Example usage:
 
 ```js
 const {browser, it, test} = require('cybernaut');
 
-test('foo', async t => {
-  await t.assert(browser.pageTitle, it.should.not.match(/bar/));
+test('Example', async t => {
+  // windowWidth >= 123 && windowWidth <= 456
+  await t.assert(browser.windowWidth, it.should.beBetween(123, 456));
+
+  // windowWidth < 123 || windowWidth > 456
+  await t.assert(browser.windowWidth, it.should.not.beBetween(123, 456));
 });
 ```
 
-### Method `be.above`
+*Note: Both values `minValue` and `maxValue` are inclusive.*
+
+### Method `beGreaterThan`
 
 Type definition:
 
-* **`be.above(expectedValue: number): Predicate<number>`**
+* **`beGreaterThan(value: number): Predicate<number>`**
 
 Example usage:
 
 ```js
 const {browser, it, test} = require('cybernaut');
 
-test('foo', async t => {
+test('Example', async t => {
   // windowWidth > 123
-  await t.assert(browser.windowWidth, it.should.be.above(123));
-});
-```
+  await t.assert(browser.windowWidth, it.should.beGreaterThan(123));
 
-### Method `be.at.least`
-
-Type definition:
-
-* **`be.at.least(expectedValue: number): Predicate<number>`**
-
-Example usage:
-
-```js
-const {browser, it, test} = require('cybernaut');
-
-test('foo', async t => {
-  // windowWidth >= 123
-  await t.assert(browser.windowWidth, it.should.be.at.least(123));
-});
-```
-
-### Method `be.below`
-
-Type definition:
-
-* **`be.below(expectedValue: number): Predicate<number>`**
-
-Example usage:
-
-```js
-const {browser, it, test} = require('cybernaut');
-
-test('foo', async t => {
-  // windowWidth < 123
-  await t.assert(browser.windowWidth, it.should.be.below(123));
-});
-```
-
-### Method `be.at.most`
-
-Type definition:
-
-* **`be.at.most(expectedValue: number): Predicate<number>`**
-
-Example usage:
-
-```js
-const {browser, it, test} = require('cybernaut');
-
-test('foo', async t => {
   // windowWidth <= 123
-  await t.assert(browser.windowWidth, it.should.be.at.most(123));
+  await t.assert(browser.windowWidth, it.should.not.beGreaterThan(123));
+});
+```
+
+### Method `beGreaterThanOrEqual`
+
+Type definition:
+
+* **`beGreaterThanOrEqual(value: number): Predicate<number>`**
+
+Example usage:
+
+```js
+const {browser, it, test} = require('cybernaut');
+
+test('Example', async t => {
+  // windowWidth >= 123
+  await t.assert(browser.windowWidth, it.should.beGreaterThanOrEqual(123));
+
+  // windowWidth < 123
+  await t.assert(browser.windowWidth, it.should.not.beGreaterThanOrEqual(123));
+});
+```
+
+### Method `beLessThan`
+
+Type definition:
+
+* **`beLessThan(value: number): Predicate<number>`**
+
+Example usage:
+
+```js
+const {browser, it, test} = require('cybernaut');
+
+test('Example', async t => {
+  // windowWidth < 123
+  await t.assert(browser.windowWidth, it.should.beLessThan(123));
+
+  // windowWidth >= 123
+  await t.assert(browser.windowWidth, it.should.not.beLessThan(123));
+});
+```
+
+### Method `beLessThanOrEqual`
+
+Type definition:
+
+* **`beLessThanOrEqual(value: number): Predicate<number>`**
+
+Example usage:
+
+```js
+const {browser, it, test} = require('cybernaut');
+
+test('Example', async t => {
+  // windowWidth <= 123
+  await t.assert(browser.windowWidth, it.should.beLessThanOrEqual(123));
+
+  // windowWidth > 123
+  await t.assert(browser.windowWidth, it.should.not.beLessThanOrEqual(123));
 });
 ```

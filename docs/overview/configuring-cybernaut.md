@@ -9,8 +9,7 @@ The following configuration is active by default:
   "exclude": ["**/node_modules/**/*"],
   "include": "**/*.e2e.js",
   "retries": 4,
-  "retryDelay": 500,
-  "screenshotDirectory": "screenshots",
+  "retryDelay": 1000,
   "timeouts": {"element": 0, "page": 30000, "script": 30000}
 }
 ```
@@ -24,12 +23,11 @@ Configuration options:
 * `include`: Specifies the [glob pattern][node-glob], for which matching files will be added to the set of test files.
 * `retries`: Specifies the maximum number of retries of failed test steps.
 * `retryDelay`: Specifies the time, in milliseconds, to wait between retries of failed test steps.
-* `screenshotDirectory`: Specifies the relative or absolute path to the screenshot directory.
 * `timeouts.element`: Specifies the maximum time, in milliseconds, to wait when searching for an element, that is not immediately present, before returning an error.
 * `timeouts.page`: Specifies the maximum time, in milliseconds, to wait for a page load to complete before returning an error.
 * `timeouts.script`: Specifies the maximum time, in milliseconds, for an asynchronous script to finish execution before returning an error.
 
-A separate configuration can be passed as a command line argument:
+A separate configuration can be specified as a command line argument:
 
 ```sh
 $(npm bin)/cybernaut config.json

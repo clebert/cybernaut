@@ -14,36 +14,18 @@
 WYSIWYM—the above **human-readable** test output corresponds to what is programmed:
 
 ```js
-const {browser, defineElement, it, test} = require('cybernaut');
+import {browser, defineElement, it, test} from 'cybernaut';
 
-test('The gitbook should include the chapter "Starting Cybernaut"', async t => {
-  await t.perform(browser.loadPage('https://cybernaut.js.org/'));
-  await t.perform(browser.saveScreenshot());
+test('This is an end-to-end test example for Cybernaut', async t => {
+  await t.perform(browser.loadPage('http://example.com/'), {retries: 0});
 
-  const summary = defineElement('div.book-summary', 'summary');
+  await t.assert(browser.pageTitle, it.should.equal('Example Domain'));
 
-  if (await t.verify(summary.visibility, it.should.equal(false))) {
-    const toggleSummaryButton = defineElement(
-      'div.book-header > a:nth-child(1).js-toolbar-action',
-      'toggle-summary-button'
-    );
+  const moreInformationLink = defineElement('more-information-link', 'a');
 
-    await t.perform(toggleSummaryButton.click());
+  await t.perform(moreInformationLink.click());
 
-    await t.perform(browser.sleep(1000, 'an animation is running'));
-    await t.perform(browser.saveScreenshot());
-  }
-
-  const chapterLink = defineElement(
-    'div.book-summary > nav > ul > li[data-level="1.2"].chapter',
-    'chapter-link-1-2'
-  );
-
-  await t.perform(chapterLink.click());
-
-  const textHeadline = defineElement('section > h1', 'headline');
-
-  await t.assert(textHeadline.text, it.should.equal('Starting Cybernaut'));
+  await t.assert(browser.pageTitle, it.should.contain('IANA'));
 });
 ```
 
@@ -69,8 +51,6 @@ on iPhone 6 Plus (via Mobile Emulation):
 git clone https://github.com/clebert/cybernaut.git && cd cybernaut && \
 ./scripts/docker/build-example.sh iphone && ./scripts/docker/run-example.sh iphone
 ```
-
-The captured screenshots can be found in the `./example/screenshots/` directory.
 
 ## Installation
 
