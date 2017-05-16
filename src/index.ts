@@ -7,13 +7,13 @@ import tap = require('tap');
 
 import {sync} from 'glob';
 import {Key} from 'selenium-webdriver';
-import {inspect} from 'util';
 import {Config, loadConfig, validate} from './config';
 import {Accessor} from './core/accessor';
 import {Action} from './core/action';
 import {Browser, Script} from './core/browser';
 import {Element} from './core/element';
 import {PredicateBuilder} from './core/predicate';
+import {format} from './core/utils';
 import {Implementation, run} from './implementation';
 import {Test} from './test';
 
@@ -31,7 +31,8 @@ export {
 
 const debug = createDebug('cybernaut:index');
 
-let config: Config = {} as any; // tslint:disable-line no-any
+// tslint:disable-next-line no-object-literal-type-assertion
+let config: Config = {} as Config;
 
 const configFilename = process.argv[2];
 
@@ -46,10 +47,7 @@ try {
 console.error('\nConfig:');
 
 for (const key of Object.keys(config) as (keyof Config)[]) {
-  // tslint:disable-next-line no-any
-  const value = inspect(config[key], {breakLength: Infinity} as any);
-
-  console.error(`  ${key}: ${value}`);
+  console.error(`  ${key}: ${format(config[key])}`);
 }
 
 const configErrors = validate(config);
