@@ -1,13 +1,16 @@
 # Interface `Browser`
 
+## Properties
+
+* [`pageTitle`](#property-pagetitle)
+* [`pageUrl`](#property-pageurl)
+* [`windowXPosition`](#property-windowxposition)
+* [`windowYPosition`](#property-windowyposition)
+* [`windowWidth`](#property-windowwidth)
+* [`windowHeight`](#property-windowheight)
+
 ## Methods
 
-* [`pageTitle`](#method-pagetitle)
-* [`pageUrl`](#method-pageurl)
-* [`windowXPosition`](#method-windowxposition)
-* [`windowYPosition`](#method-windowyposition)
-* [`windowWidth`](#method-windowwidth)
-* [`windowHeight`](#method-windowheight)
 * [`scriptResult`](#method-scriptresult)
 * [`executeScript`](#method-executescript)
 * [`loadPage`](#method-loadpage)
@@ -19,7 +22,7 @@
 * [`setWindowSize`](#method-setwindowsize)
 * [`sleep`](#method-sleep)
 
-### Method `pageTitle`
+### Property `pageTitle`
 
 Type definition:
 
@@ -35,7 +38,7 @@ test('Example', async t => {
 });
 ```
 
-### Method `pageUrl`
+### Property `pageUrl`
 
 Type definition:
 
@@ -51,7 +54,7 @@ test('Example', async t => {
 });
 ```
 
-### Method `windowXPosition`
+### Property `windowXPosition`
 
 Type definition:
 
@@ -67,7 +70,7 @@ test('Example', async t => {
 });
 ```
 
-### Method `windowYPosition`
+### Property `windowYPosition`
 
 Type definition:
 
@@ -83,7 +86,7 @@ test('Example', async t => {
 });
 ```
 
-### Method `windowWidth`
+### Property `windowWidth`
 
 Type definition:
 
@@ -99,7 +102,7 @@ test('Example', async t => {
 });
 ```
 
-### Method `windowHeight`
+### Property `windowHeight`
 
 Type definition:
 

@@ -1,15 +1,18 @@
 # Interface `Element`
 
+## Properties
+
+* [`tagName`](#property-tagname)
+* [`text`](#property-text)
+* [`existence`](#property-existence)
+* [`visibility`](#property-visibility)
+* [`xPosition`](#property-xposition)
+* [`yPosition`](#property-yposition)
+* [`width`](#property-width)
+* [`height`](#property-height)
+
 ## Methods
 
-* [`tagName`](#method-tagname)
-* [`text`](#method-text)
-* [`existence`](#method-existence)
-* [`visibility`](#method-visibility)
-* [`xPosition`](#method-xposition)
-* [`yPosition`](#method-yposition)
-* [`width`](#method-width)
-* [`height`](#method-height)
 * [`attributeValue`](#method-attributevalue)
 * [`cssValue`](#method-cssvalue)
 * [`clearValue`](#method-clearvalue)
@@ -17,7 +20,7 @@
 * [`sendKeys`](#method-sendkeys)
 * [`submitForm`](#method-submitform)
 
-### Method `tagName`
+### Property `tagName`
 
 Type definition:
 
@@ -35,7 +38,7 @@ test('Example', async t => {
 });
 ```
 
-### Method `text`
+### Property `text`
 
 Type definition:
 
@@ -53,7 +56,7 @@ test('Example', async t => {
 });
 ```
 
-### Method `existence`
+### Property `existence`
 
 Type definition:
 
@@ -71,7 +74,7 @@ test('Example', async t => {
 });
 ```
 
-### Method `visibility`
+### Property `visibility`
 
 Type definition:
 
@@ -89,7 +92,7 @@ test('Example', async t => {
 });
 ```
 
-### Method `xPosition`
+### Property `xPosition`
 
 Type definition:
 
@@ -107,7 +110,7 @@ test('Example', async t => {
 });
 ```
 
-### Method `yPosition`
+### Property `yPosition`
 
 Type definition:
 
@@ -125,7 +128,7 @@ test('Example', async t => {
 });
 ```
 
-### Method `width`
+### Property `width`
 
 Type definition:
 
@@ -143,7 +146,7 @@ test('Example', async t => {
 });
 ```
 
-### Method `height`
+### Property `height`
 
 Type definition:
 
