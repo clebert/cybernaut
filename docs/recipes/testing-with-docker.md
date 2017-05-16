@@ -9,13 +9,13 @@ Cybernaut brings two fully configured Docker containers, which can be found on [
 One allows testing on Chrome:
 
 ```dockerfile
-FROM clebert/cybernaut-chrome:4.0.0
+FROM clebert/cybernaut-chrome:5.0.0
 ```
 
  the other on Firefox:
 
 ```dockerfile
-FROM clebert/cybernaut-firefox:4.0.0
+FROM clebert/cybernaut-firefox:5.0.0
 ```
 
 You can find a list of available tags for `cybernaut-chrome` [here][chrome-tags] and for `cybernaut-firefox` [here][firefox-tags].
