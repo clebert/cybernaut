@@ -123,7 +123,7 @@ test('Example', async t => {
 Type definition:
 
 * **`scriptResult(scriptName: string, script: Script): Accessor<any>`**
-* `Script = (callback: (result?: any) => void) => void`
+* `Script: (callback: (result?: any) => void) => void`
 
 Example usage:
 
@@ -147,7 +147,7 @@ test('Example', async t => {
 Type definition:
 
 * **`executeScript(scriptName: string, script: Script): Action`**
-* `Script = (callback: (result?: any) => void) => void`
+* `Script: (callback: (result?: any) => void) => void`
 
 Example usage:
 
