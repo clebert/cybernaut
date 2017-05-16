@@ -1,4 +1,5 @@
-import {WebDriver} from 'selenium-webdriver';
+// tslint:disable no-any no-object-literal-type-assertion
+
 import {Executor, createExecutor, execute} from '../execution';
 
 interface ActionMock {
@@ -6,7 +7,7 @@ interface ActionMock {
   readonly perform: jest.Mock<Promise<void>>;
 }
 
-const driver = {} as WebDriver;
+const driver = {} as any;
 
 describe('given a newly created executor() is called', () => {
   let action: ActionMock;

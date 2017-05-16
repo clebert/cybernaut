@@ -1,16 +1,7 @@
-import {By, Key} from 'selenium-webdriver';
+import {By} from 'selenium-webdriver';
 import {Accessor} from './accessor';
 import {Action} from './action';
-
-const KeyName = Object.create(null);
-
-for (const keyName of Object.keys(Key).sort() as (keyof Key)[]) {
-  KeyName[Key[keyName]] = keyName;
-}
-
-function serialize(char: string): string {
-  return KeyName[char] ? 'Key.' + String(KeyName[char]) : `'${char}'`;
-}
+import {serialize} from './utils';
 
 export class Element {
   private readonly _name: string;

@@ -1,4 +1,4 @@
-// tslint:disable no-any
+// tslint:disable no-any no-object-literal-type-assertion
 
 import {Accessor} from '../accessor';
 import {Action} from '../action';

@@ -1,6 +1,6 @@
 import deepStrictEqual = require('deep-strict-equal');
 
-import {inspect} from 'util';
+import {format} from './utils';
 
 export interface Predicate<T> {
   readonly description: string;
@@ -8,12 +8,6 @@ export interface Predicate<T> {
   compare(actualValue: T): string;
   test(actualValue: T): boolean;
 }
-
-// tslint:disable no-any
-function format(value: any): string {
-  return inspect(value, {breakLength: Infinity} as any);
-}
-// tslint:enable no-any
 
 abstract class AbstractPredicate<T> implements Predicate<T> {
   private readonly _not: string;

@@ -1,4 +1,5 @@
-import {WebDriver} from 'selenium-webdriver';
+// tslint:disable no-any no-object-literal-type-assertion
+
 import {Verifier, createVerifier, verify} from '../verification';
 
 interface AccessorMock<T> {
@@ -12,7 +13,7 @@ interface PredicateMock {
   readonly test: jest.Mock<boolean>;
 }
 
-const driver = {} as WebDriver;
+const driver = {} as any;
 
 describe('given a newly created verifier() is called', () => {
   let accessor: AccessorMock<string>;
