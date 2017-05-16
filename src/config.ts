@@ -16,8 +16,7 @@ export interface Timeouts {
 export interface Config {
   readonly capabilities: Capabilities;
   readonly concurrency: number;
-  readonly exclude: string[];
-  readonly include: string;
+  readonly files: string[];
   readonly retries: number;
   readonly retryDelay: number;
   readonly timeouts: Timeouts;
@@ -28,8 +27,7 @@ const debug = createDebug('cybernaut:config');
 const defaultConfig: Config = {
   capabilities: {browserName: 'chrome'},
   concurrency: 1,
-  exclude: ['**/node_modules/**/*'],
-  include: '**/*.e2e.js',
+  files: ['**/*.e2e.js', '!**/node_modules/**/*'],
   retries: 4,
   retryDelay: 1000,
   timeouts: {element: 0, page: 30000, script: 30000}
