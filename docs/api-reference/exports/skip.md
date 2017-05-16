@@ -3,7 +3,7 @@
 Type definition:
 
 * **`skip(name: string, implementation: Implementation): void`**
-* `Implementation = (t: Test) => Promise<void>`
+* `Implementation: (t: Test) => Promise<void>`
 * [`Test`](../interfaces/test.md)
 
 Example usage:
