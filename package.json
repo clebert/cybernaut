@@ -87,7 +87,7 @@
     "custom-tslint-formatters": "2.1.0",
     "cz-customizable": "5.0.0",
     "gitbook-cli": "2.3.0",
-    "jest": "20.0.1",
+    "jest": "20.0.2",
     "markdownlint": "0.4.1",
     "semantic-release": "6.3.6",
     "ts-config": "7.1.0",
