@@ -17,9 +17,12 @@ if [ "$1" != "chrome" ] && [ "$1" != "firefox" ]; then
   exit 1
 fi
 
-# echo "Determined version $VERSION"
+GIT_TAG=$("$(npm bin)"/git-latest-semver-tag)
+VERSION="${GIT_TAG:1}"
+
+echo "Determined version $VERSION"
 
 docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 
 docker push "clebert/cybernaut-$1:latest"
-# docker push "clebert/cybernaut-$1:$VERSION"
+docker push "clebert/cybernaut-$1:$VERSION"

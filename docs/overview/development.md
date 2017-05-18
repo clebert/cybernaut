@@ -49,3 +49,9 @@ npm run cz
 ```sh
 npm run docs
 ```
+
+## Releasing a new version
+
+```sh
+npm run release && npm run push
+```
