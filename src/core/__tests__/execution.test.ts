@@ -150,6 +150,7 @@ describe('given execute() is called with a retries-option of 1', () => {
 
         await Promise.resolve();
         await Promise.resolve();
+        await Promise.resolve();
 
         expect(executor.mock.calls.length).toBe(1);
 
@@ -157,11 +158,13 @@ describe('given execute() is called with a retries-option of 1', () => {
 
         await Promise.resolve();
         await Promise.resolve();
+        await Promise.resolve();
 
         expect(executor.mock.calls.length).toBe(1);
 
         jest.runTimersToTime(1);
 
+        await Promise.resolve();
         await Promise.resolve();
         await Promise.resolve();
 

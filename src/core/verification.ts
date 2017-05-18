@@ -1,7 +1,7 @@
 import {WebDriver} from 'selenium-webdriver';
+import {sleep} from '../utils/sleep';
 import {Accessor} from './accessor';
 import {Predicate} from './predicate';
-import {sleep} from './utils';
 
 export interface Options {
   readonly retries: number;

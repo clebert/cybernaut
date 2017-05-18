@@ -1,6 +1,6 @@
 import {WebDriver} from 'selenium-webdriver';
+import {sleep} from '../utils/sleep';
 import {Action} from './action';
-import {sleep} from './utils';
 
 export interface Execution {
   readonly description: string;

@@ -220,6 +220,7 @@ describe('given verify() is called with a retries-option of 1', () => {
 
           await Promise.resolve();
           await Promise.resolve();
+          await Promise.resolve();
 
           expect(verifier.mock.calls.length).toBe(1);
 
@@ -227,11 +228,13 @@ describe('given verify() is called with a retries-option of 1', () => {
 
           await Promise.resolve();
           await Promise.resolve();
+          await Promise.resolve();
 
           expect(verifier.mock.calls.length).toBe(1);
 
           jest.runTimersToTime(1);
 
+          await Promise.resolve();
           await Promise.resolve();
           await Promise.resolve();
 
