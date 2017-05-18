@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-/// <reference path="../types/index.d.ts" />
+/// <reference path="../types/selenium-webdriver.d.ts" />
 
 import createDebug = require('debug');
 import tap = require('tap');
