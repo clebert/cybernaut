@@ -16,13 +16,8 @@ cp -rf types "docker/cybernaut-$1/cybernaut/types"
 
 cp -f scripts/lib/cybernaut-xvfb.sh "docker/cybernaut-$1/cybernaut-xvfb.sh"
 
-if [ -n "$VERSION" ]; then
-  # echo "Determined version $VERSION"
-
-  # docker build -t "clebert/cybernaut-$1:latest" -t "clebert/cybernaut-$1:$VERSION" "docker/cybernaut-$1"
-else
-  docker build -t "clebert/cybernaut-$1:latest" "docker/cybernaut-$1"
-fi
+# docker build -t "clebert/cybernaut-$1:latest" -t "clebert/cybernaut-$1:$VERSION" "docker/cybernaut-$1"
+docker build -t "clebert/cybernaut-$1:latest" "docker/cybernaut-$1"
 
 rm -rf "docker/cybernaut-$1/cybernaut"
 rm -f "docker/cybernaut-$1/cybernaut-xvfb.sh"
