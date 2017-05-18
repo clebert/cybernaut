@@ -3,20 +3,16 @@ cache:
   directories:
   - node_modules
 node_js:
-- '6'
+- '7'
 before_script:
 - npm prune
 script:
 - ./scripts/travis/script.sh
 after_success:
-- ./scripts/travis/after_success.sh
+- ./scripts/travis/coveralls.sh
 branches:
   except:
   - /^v\d+\.\d+\.\d+$/
 sudo: required
 services:
 - docker
-env:
-  global:
-  - secure: F3qlkvsPlpV5zhUBq5evgTBRt8wYxlOLS6A1EB32VnXiH9CTeQCBnQVDuwnQKpvcGUIE+vc+uSMlZ12PhvcSFwBR/mW0Hr2f1KwCvjlqkbm+9Ohq6x3QRo2AoIuSXWKQ/VSw7Niv5wAIdX++1shZ0R9sREfq66qS2u4MzKwImERaTy8jb2GeBSF2tG9lqbFlWVSwRRTNSJC0lxDcWgdulUbeFo1Y7blIQCYfD1Jws1rDHlkOlNAMNDrYZXDBeL9dZ2SuNxSRIw4+DoBBZXESsdvEMIoIQqZagVhGiUbuIcWQJgXOE+yynFwUzZ+Ycuh+1jKzD/4SpuGIfSLZ9FxWvj6W9hLjhM3anaHoqejfSi1qHyUrZQcEg0icFA1jO94WTCnRN37/X7bYtZXjE2f3sOe8fbcAFIrWWx7c8RdhmzqW/+QU6Bp6WymtihZJBhRnUZ3qg8GL2BDdISDKN318oZ7PO+lvarklE5wH8k3espN77mJxVr+7npDOXnr+JGo07z80UhsMv0t7R5nnM5XmiYIpbXG2wb6gTsUINjNdJKsq1+CUZTH7IfXAsKBMxfZ8peidp6o2GWJoRpemfrcAJWS9rbQG+rijXTJGl4B5Uw/ldbNmB9/WSQg3N5B2i1sB6QK2YsPa55/yiC2+1jVOKUxUJKKc1ilZ/xE+spGo+Y8=
-  - secure: B/QzfT5n7eFRZBTwy0TT+K9TD9qa8Id/H7LUhdOD+X8D958ic14VNU3Pv3ZYwax2I8gMxXcL3kM7/uMqEJ4UUT0tUYUAVXbO85dSu1y1BaopHxAOTA9VFc2eXmhYtzdXGzGXI9+Ci0JyNi27a1cCuWqXBCwQwwa+71AXDK5W6eouJJb92ttMbOK6n9+i6l2XQ98llJIbX0NZ+9p7febWLNz/rwycFXr8J2UNi0rFQsQl9X/cjsRQjVpYnuKAvZ78lznkvb66uSaI/RVd7TfGOn9Cl1F7lkbLNK2PbzHFDYpfpdpQRmdJ1nfqQlISY4EhOn4c7zYKdb/zDcDsJV59mgjf+zK6YXevJlqDiKU9qwl861ugaOO5zdsMWgKkVzETLDgEUXLLUlj/PMxr31kIkHULlykDdyyWiapwamfA3BE8cn5srGgTGpf1iQvbeWAeBahMQv/cVWS5PCwURvxiVYxt1XSbrqcf4N5dORWRPG+G0ub2WMGjmMpjk/KFkW2VxfMsGCNFM4hfz8LTk0DMXE6ouqCWYMCTtU4c2CnD7471J0aNzTnydGVxfBJ2RtgxyM3rswchEO6tBjarJ5nnwRjfQSGexE9nhrPeXEmT8r2h7uWFInsr6cKQVDgyS7xD5tlVChB3wErBpnrSFmB/fYMS6y0HBlPyJpM4/zrrcp8=
