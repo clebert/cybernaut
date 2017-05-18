@@ -3,7 +3,6 @@
 [![npm][npm-cybernaut-badge]][npm-cybernaut]
 [![build][travis-ci-badge]][travis-ci]
 [![coverage][coveralls-badge]][coveralls]
-[![semantic-release][semantic-release-badge]][semantic-release]
 [![Greenkeeper][greenkeeper-badge]][greenkeeper]
 [![TypeScript][typescript-badge]][typescript]
 
@@ -94,8 +93,6 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [mdn-promise]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
 [npm-cybernaut]: https://www.npmjs.com/package/cybernaut
 [npm-cybernaut-badge]: https://img.shields.io/npm/v/cybernaut.svg?maxAge=3600
-[semantic-release]: https://github.com/semantic-release/semantic-release
-[semantic-release-badge]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
 [travis-ci]: https://travis-ci.org/clebert/cybernaut
 [travis-ci-badge]: https://travis-ci.org/clebert/cybernaut.svg?branch=master
 [typescript]: http://www.typescriptlang.org/
