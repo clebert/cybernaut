@@ -1,6 +1,6 @@
+import {sleep} from '../utils/sleep';
 import {Accessor} from './accessor';
 import {Action} from './action';
-import {sleep} from './utils';
 
 // tslint:disable-next-line no-any
 export type Script = (callback: (result?: any) => void) => void;

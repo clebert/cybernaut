@@ -74,10 +74,10 @@ You can override it with your own `CMD` instruction or with CLI arguments for `d
 docker run -it --rm -v /dev/shm:/dev/shm clebert/cybernaut-chrome-example 1920x1080 dot
 ```
 
-To enable debug output, you can set the `DEBUG=cybernaut:*` environment variable:
+To enable debug output, you can set the `DEBUG='cybernaut:*'` environment variable:
 
 ```sh
-docker run -it --rm -v /dev/shm:/dev/shm -e DEBUG=cybernaut:* clebert/cybernaut-chrome-example
+docker run -it --rm -v /dev/shm:/dev/shm -e DEBUG='cybernaut:*' clebert/cybernaut-chrome-example
 ```
 
 *Note: When executing `docker run` for an image with chrome browser please add `-v /dev/shm:/dev/shm` [volume mount][docker-mount] to use the host's shared memory.

@@ -92,6 +92,8 @@ test('Example', async t => {
 });
 ```
 
+*Note: The value of this property is a simplified [approximation][element-displayed] of the element's visibility.*
+
 ### Property `xPosition`
 
 Type definition:
@@ -284,5 +286,6 @@ test('Example', async t => {
 });
 ```
 
+[element-displayed]: https://w3c.github.io/webdriver/webdriver-spec.html#dfn-element-displayed
 [webdriver-key]: https://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/lib/input_exports_Key.html
 [webdriver-webelement]: https://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_WebElement.html
