@@ -53,5 +53,9 @@ npm run docs
 ## Releasing a new version
 
 ```sh
-npm run release && npm run push
+npm run release
+```
+
+```sh
+DOCKER_USERNAME='clebert' DOCKER_PASSWORD='XXX' npm run push
 ```

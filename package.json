@@ -61,8 +61,8 @@
     "preexamples": "npm run build",
     "examples": "./scripts/examples.sh",
     "format": "tsfmt --replace",
+    "prepush": "npm run examples",
     "push": "./scripts/push.sh",
-    "prerelease": "npm run examples",
     "release": "standard-version",
     "test": "./scripts/test.sh",
     "watch": "jest --verbose --watch"
