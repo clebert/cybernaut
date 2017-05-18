@@ -20,9 +20,6 @@
   "bin": "dist/index.js",
   "main": "dist/index",
   "types": "dist/index",
-  "engines": {
-    "node": ">=6"
-  },
   "config": {
     "commitizen": {
       "path": "node_modules/cz-customizable"
@@ -45,8 +42,8 @@
       "ts"
     ],
     "testPathIgnorePatterns": [
-      "<rootDir>/_book/",
-      "<rootDir>/node_modules/"
+      "_book/",
+      "node_modules/"
     ],
     "testRegex": "\\.test\\.ts$",
     "transform": {
@@ -87,7 +84,7 @@
     "custom-tslint-formatters": "2.1.0",
     "cz-customizable": "5.0.0",
     "gitbook-cli": "2.3.0",
-    "jest": "20.0.1",
+    "jest": "20.0.3",
     "markdownlint": "0.4.1",
     "ts-config": "7.1.0",
     "ts-jest": "20.0.3",
