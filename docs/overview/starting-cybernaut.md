@@ -18,8 +18,8 @@ npm install --save-dev tap-mocha-reporter
 $(npm bin)/cybernaut | $(npm bin)/tap-mocha-reporter spec
 ```
 
-To enable debug output, you can set the `DEBUG=cybernaut:*` environment variable:
+To enable debug output, you can set the `DEBUG='cybernaut:*'` environment variable:
 
 ```sh
-DEBUG=cybernaut:* $(npm bin)/cybernaut
+DEBUG='cybernaut:*' $(npm bin)/cybernaut
 ```
