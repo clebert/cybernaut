@@ -1,17 +1,17 @@
 {
   "files.exclude": {
+    "**/_book": true,
     "**/.DS_Store": true,
     "**/.git": true,
-    "**/_book": true,
     "**/coverage": true,
     "**/dist": true,
     "**/node_modules": true,
     "**/npm-debug.log*": true
   },
   "search.exclude": {
+    "**/_book": true,
     "**/.DS_Store": true,
     "**/.git": true,
-    "**/_book": true,
     "**/coverage": true,
     "**/dist": true,
     "**/node_modules": true,
