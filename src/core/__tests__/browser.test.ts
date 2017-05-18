@@ -658,6 +658,7 @@ describe('given a browser is created', () => {
 
           await Promise.resolve();
           await Promise.resolve();
+          await Promise.resolve();
 
           expect(resolved).toBe(false);
 
@@ -665,11 +666,13 @@ describe('given a browser is created', () => {
 
           await Promise.resolve();
           await Promise.resolve();
+          await Promise.resolve();
 
           expect(resolved).toBe(false);
 
           jest.runTimersToTime(1);
 
+          await Promise.resolve();
           await Promise.resolve();
           await Promise.resolve();
 

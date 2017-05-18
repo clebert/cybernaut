@@ -1,6 +1,6 @@
 import deepStrictEqual = require('deep-strict-equal');
 
-import {format} from './utils';
+import {format} from '../utils/format';
 
 export interface Predicate<T> {
   readonly description: string;

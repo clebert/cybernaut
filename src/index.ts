@@ -13,9 +13,9 @@ import {Action} from './core/action';
 import {Browser, Script} from './core/browser';
 import {Element} from './core/element';
 import {PredicateBuilder} from './core/predicate';
-import {format} from './core/utils';
 import {Implementation, run} from './implementation';
 import {Test} from './test';
+import {format} from './utils/format';
 
 export {
   Accessor,
