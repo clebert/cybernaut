@@ -1,7 +1,11 @@
 {
   "extends": ["angular"],
   "rules": {
-    "scope-empty": [2,
+    "header-max-length": [1,
+      "always",
+      72
+    ],
+    "scope-empty": [1,
       "always"
     ],
     "type-enum": [2,
