@@ -1,17 +1,8 @@
 {
   "extends": ["angular"],
   "rules": {
-    "header-max-length": [0],
     "scope-empty": [2,
-      "never"
-    ],
-    "scope-enum": [2,
-      "always",
-      [
-        "docker",
-        "example",
-        "package"
-      ]
+      "always"
     ],
     "type-enum": [2,
       "always",
