@@ -1,4 +1,5 @@
-import {By, Key} from 'selenium-webdriver';
+import {By, Key, WebDriver, WebElement} from 'selenium-webdriver';
+import {format} from '../utils/format';
 import {Accessor} from './accessor';
 import {Action} from './action';
 
@@ -13,10 +14,12 @@ function serialize(char: string): string {
 }
 
 export class Element {
+  private readonly _index: number;
   private readonly _name: string;
   private readonly _selector: string;
 
-  public constructor(name: string, selector: string) {
+  public constructor(name: string, selector: string, index: number) {
+    this._index = index;
     this._name = name;
     this._selector = selector;
   }
@@ -25,7 +28,7 @@ export class Element {
     return {
       name: `The tag name of the ${this._name} element`,
       get: async driver => {
-        const element = await driver.findElement(By.css(this._selector));
+        const element = await this._findElement(driver);
 
         return element.getTagName();
       }
@@ -36,7 +39,7 @@ export class Element {
     return {
       name: `The text of the ${this._name} element`,
       get: async driver => {
-        const element = await driver.findElement(By.css(this._selector));
+        const element = await this._findElement(driver);
 
         return element.getText();
       }
@@ -47,9 +50,9 @@ export class Element {
     return {
       name: `The existence of the ${this._name} element`,
       get: async driver => {
-        const elements = await driver.findElements(By.css(this._selector));
+        const elements = await this._findElements(driver);
 
-        return elements.length > 0;
+        return Boolean(elements[this._index]);
       }
     };
   }
@@ -58,7 +61,7 @@ export class Element {
     return {
       name: `The visibility of the ${this._name} element`,
       get: async driver => {
-        const element = await driver.findElement(By.css(this._selector));
+        const element = await this._findElement(driver);
 
         return element.isDisplayed();
       }
@@ -69,7 +72,7 @@ export class Element {
     return {
       name: `The X position of the ${this._name} element`,
       get: async driver => {
-        const element = await driver.findElement(By.css(this._selector));
+        const element = await this._findElement(driver);
 
         return (await element.getLocation()).x;
       }
@@ -80,7 +83,7 @@ export class Element {
     return {
       name: `The Y position of the ${this._name} element`,
       get: async driver => {
-        const element = await driver.findElement(By.css(this._selector));
+        const element = await this._findElement(driver);
 
         return (await element.getLocation()).y;
       }
@@ -91,7 +94,7 @@ export class Element {
     return {
       name: `The width of the ${this._name} element`,
       get: async driver => {
-        const element = await driver.findElement(By.css(this._selector));
+        const element = await this._findElement(driver);
 
         return (await element.getSize()).width;
       }
@@ -102,7 +105,7 @@ export class Element {
     return {
       name: `The height of the ${this._name} element`,
       get: async driver => {
-        const element = await driver.findElement(By.css(this._selector));
+        const element = await this._findElement(driver);
 
         return (await element.getSize()).height;
       }
@@ -117,7 +120,7 @@ export class Element {
     return {
       name,
       get: async driver => {
-        const element = await driver.findElement(By.css(this._selector));
+        const element = await this._findElement(driver);
 
         return element.getAttribute(attributeName);
       }
@@ -131,7 +134,7 @@ export class Element {
     return {
       name,
       get: async driver => {
-        const element = await driver.findElement(By.css(this._selector));
+        const element = await this._findElement(driver);
 
         return element.getCssValue(cssName);
       }
@@ -142,7 +145,7 @@ export class Element {
     return {
       description: `Clear the value of the ${this._name} element`,
       perform: async driver => {
-        const element = await driver.findElement(By.css(this._selector));
+        const element = await this._findElement(driver);
 
         await element.clear();
       }
@@ -153,7 +156,7 @@ export class Element {
     return {
       description: `Click on the ${this._name} element`,
       perform: async driver => {
-        const element = await driver.findElement(By.css(this._selector));
+        const element = await this._findElement(driver);
 
         await element.click();
       }
@@ -174,7 +177,7 @@ export class Element {
     return {
       description,
       perform: async driver => {
-        const element = await driver.findElement(By.css(this._selector));
+        const element = await this._findElement(driver);
 
         await element.sendKeys(...keys);
       }
@@ -185,10 +188,31 @@ export class Element {
     return {
       description: `Submit the form containing the ${this._name} element`,
       perform: async driver => {
-        const element = await driver.findElement(By.css(this._selector));
+        const element = await this._findElement(driver);
 
         await element.submit();
       }
     };
+  }
+
+  public toString(): string {
+    return format({
+      name: this._name, selector: this._selector, index: this._index
+    });
+  }
+
+  private async _findElement(driver: WebDriver): Promise<WebElement> {
+    const elements = await this._findElements(driver);
+    const element = elements[this._index];
+
+    if (!element) {
+      throw new Error('Unable to locate element: ' + this);
+    }
+
+    return element;
+  }
+
+  private async _findElements(driver: WebDriver): Promise<WebElement[]> {
+    return driver.findElements(By.css(this._selector));
   }
 }

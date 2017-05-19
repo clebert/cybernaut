@@ -64,8 +64,10 @@ if (configErrors.length > 0) {
   process.exit(1);
 }
 
-export function defineElement(name: string, selector: string): Element {
-  return new Element(name, selector);
+export function defineElement(
+  name: string, selector: string, index: number = 0
+): Element {
+  return new Element(name, selector, index);
 }
 
 export class It {
