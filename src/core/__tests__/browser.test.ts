@@ -648,11 +648,11 @@ describe('given a browser is created', () => {
         try {
           jest.useFakeTimers();
 
-          const durationInMillis = 123;
+          const duration = 123;
 
           let resolved = false;
 
-          const promise = browser.sleep(durationInMillis).perform(
+          const promise = browser.sleep(duration).perform(
             {} as any
           ).then(() => resolved = true);
 
@@ -662,7 +662,7 @@ describe('given a browser is created', () => {
 
           expect(resolved).toBe(false);
 
-          jest.runTimersToTime(durationInMillis - 1);
+          jest.runTimersToTime(duration - 1);
 
           await Promise.resolve();
           await Promise.resolve();

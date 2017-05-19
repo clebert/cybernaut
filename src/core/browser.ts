@@ -112,10 +112,10 @@ export class Browser {
     };
   }
 
-  public sleep(durationInMillis: number, reason?: string): Action {
+  public sleep(duration: number, reason?: string): Action {
     const description =
-      `Sleep for ${durationInMillis} ms${reason ? ` because ${reason}` : ''}`;
+      `Sleep for ${duration} ms${reason ? ` because ${reason}` : ''}`;
 
-    return {description, perform: async () => sleep(durationInMillis)};
+    return {description, perform: async () => sleep(duration)};
   }
 }

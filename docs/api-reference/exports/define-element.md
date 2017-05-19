@@ -17,4 +17,4 @@ test('Example', async t => {
 });
 ```
 
-*Note: If the specified `selector` points to more than one element, then a specific element can be selected using the `index` parameter.*
+*Note: If the specified `selector` matches more than one element, an individual element can be selected using the `index` parameter.*
