@@ -65,7 +65,7 @@ export class Browser {
 
   public loadPage(url: string): Action {
     return {
-      description: 'Load the page ' + url,
+      description: 'Load the page at ' + url,
       perform: async driver => driver.navigate().to(url)
     };
   }
@@ -114,7 +114,7 @@ export class Browser {
 
   public sleep(duration: number, reason?: string): Action {
     const description =
-      `Sleep for ${duration} ms${reason ? ` because ${reason}` : ''}`;
+      `Sleep for ${duration} ms${reason ? `, because ${reason}` : ''}`;
 
     return {description, perform: async () => sleep(duration)};
   }

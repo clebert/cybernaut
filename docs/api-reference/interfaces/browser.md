@@ -184,7 +184,7 @@ test('Example', async t => {
 
 ### Method `loadPage`
 
-> Load the page {url}
+> Load the page at {url}
 
 Type definition:
 
@@ -310,7 +310,7 @@ test('Example', async t => {
 
 ### Method `sleep`
 
-> Sleep for {duration} ms because {reason}
+> Sleep for {duration} ms, because {reason}
 
 Type definition:
 

@@ -10,7 +10,7 @@ for (const keyName of Object.keys(Key).sort() as (keyof Key)[]) {
 }
 
 function serialize(char: string): string {
-  return KeyName[char] ? 'Key.' + String(KeyName[char]) : `'${char}'`;
+  return KeyName[char] ? 'Key.' + String(KeyName[char]) : format(char);
 }
 
 export class Element {
@@ -171,8 +171,8 @@ export class Element {
     const serializedKeys = keys.map(serialize).join(', ');
 
     const description =
-      `Send the key${keys.length > 1 ? 's' : ''} ` +
-      `${serializedKeys} to the ${this._name} element`;
+      `Send the specified key${keys.length > 1 ? 's' : ''} ` +
+      `(${serializedKeys}) to the ${this._name} element`;
 
     return {
       description,
