@@ -1,12 +1,32 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
-./scripts/docker/build-cybernaut.sh chrome
-./scripts/docker/build-cybernaut.sh firefox
+./scripts/compile.sh
 
-./scripts/docker/build-example.sh chrome
-./scripts/docker/build-example.sh firefox
-./scripts/docker/build-example.sh iphone
+GIT_TAG=$("$(npm bin)"/git-latest-semver-tag)
+VERSION="${GIT_TAG:1}"
+HOME=scripts/build
 
-./scripts/docker/clean.sh
+for TARGET in chrome firefox
+do
+  RESOURCES="$HOME"/cybernaut-"$TARGET"/resources
+
+  rm -rf "$RESOURCES" && mkdir -p "$RESOURCES"
+
+  cp -f config-schema.json "$RESOURCES"/config-schema.json
+  cp -rf dist "$RESOURCES"/dist
+  cp -f package.json "$RESOURCES"/package.json
+  cp -rf types "$RESOURCES"/types
+
+  cp -f "$HOME"/cybernaut-xvfb.sh "$RESOURCES"/cybernaut-xvfb.sh
+
+  docker build \
+    -t clebert/cybernaut-"$TARGET" \
+    -t clebert/cybernaut-"$TARGET":"$VERSION" \
+    "$HOME"/cybernaut-"$TARGET"
+
+  rm -rf "$RESOURCES"
+done
+
+./scripts/clean.sh

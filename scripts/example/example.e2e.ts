@@ -1,4 +1,3 @@
-// import {browser, defineElement, it, test} from '../src';
 import {browser, defineElement, it, test} from 'cybernaut';
 
 test('This is an end-to-end test example', async t => {

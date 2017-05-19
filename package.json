@@ -43,17 +43,12 @@
     }
   },
   "scripts": {
-    "prebuild": "npm run compile",
-    "build": "./scripts/build.sh",
     "check": "./scripts/check.sh",
-    "compile": "./scripts/compile.sh",
     "cz": "git-cz",
     "predocs": "gitbook install",
     "docs": "gitbook serve",
-    "preexamples": "npm run build",
-    "examples": "./scripts/examples.sh",
+    "example": "./scripts/example.sh",
     "format": "tsfmt --replace",
-    "prepush": "npm prune && npm install && npm run examples",
     "push": "./scripts/push.sh",
     "release": "standard-version",
     "test": "./scripts/test.sh",
