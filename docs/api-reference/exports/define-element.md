@@ -2,7 +2,7 @@
 
 Type definition:
 
-* **`defineElement(name: string, selector: string): Element`**
+* **`defineElement(name: string, selector: string, index: number = 0): Element`**
 * [`Element`](../interfaces/element.md)
 
 Example usage:
@@ -16,3 +16,5 @@ test('Example', async t => {
   await t.perform(element.click());
 });
 ```
+
+*Note: If the specified `selector` points to more than one element, then a specific element can be selected using the `index` parameter.*

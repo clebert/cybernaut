@@ -7,9 +7,11 @@ import {Element} from '../element';
 
 describe('given an element is created', () => {
   let element: Element;
+  let error: Error;
 
   beforeEach(() => {
-    element = new Element('<elementName>', '<elementSelector>');
+    element = new Element('<elementName>', '<elementSelector>', 1);
+    error = new Error('Unable to locate element: ' + element.toString());
   });
 
   describe('when element.tagName is accessed', () => {
@@ -24,27 +26,29 @@ describe('given an element is created', () => {
     });
 
     describe('when accessor.get() is called', () => {
-      test('then it should call driver.findElement() once', async () => {
+      test('then it should call driver.findElements() once', async () => {
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => ({
-            getTagName: jest.fn()
-          }))
+          findElements: jest.fn().mockImplementation(async () => [
+            {}, {getTagName: jest.fn()}
+          ])
         };
 
         await accessor.get(driver as any);
 
-        expect(driver.findElement.mock.calls.length).toBe(1);
+        expect(driver.findElements.mock.calls.length).toBe(1);
 
-        expect(driver.findElement.mock.calls[0][0]).toEqual(
+        expect(driver.findElements.mock.calls[0][0]).toEqual(
           By.css('<elementSelector>')
         );
       });
 
-      test('then it should call element.getTagName() once', async () => {
+      test('then it should call elements[1].getTagName() once', async () => {
         const getTagName = jest.fn();
 
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => ({getTagName}))
+          findElements: jest.fn().mockImplementation(async () => [
+            {}, {getTagName}
+          ])
         };
 
         await accessor.get(driver as any);
@@ -54,21 +58,17 @@ describe('given an element is created', () => {
 
       test('then it should return the tag name of the element', async () => {
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => ({
-            getTagName: jest.fn().mockReturnValue('<tagName>')
-          }))
+          findElements: jest.fn().mockImplementation(async () => [
+            {}, {getTagName: jest.fn().mockReturnValue('<tagName>')}
+          ])
         };
 
         expect(await accessor.get(driver as any)).toBe('<tagName>');
       });
 
       test('then it should throw an error', async () => {
-        const error = new Error('<message>');
-
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => {
-            throw error;
-          })
+          findElements: jest.fn().mockImplementation(async () => [{}])
         };
 
         await expect(accessor.get(driver as any)).rejects.toEqual(error);
@@ -88,27 +88,29 @@ describe('given an element is created', () => {
     });
 
     describe('when accessor.get() is called', () => {
-      test('then it should call driver.findElement() once', async () => {
+      test('then it should call driver.findElements() once', async () => {
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => ({
-            getText: jest.fn()
-          }))
+          findElements: jest.fn().mockImplementation(async () => [
+            {}, {getText: jest.fn()}
+          ])
         };
 
         await accessor.get(driver as any);
 
-        expect(driver.findElement.mock.calls.length).toBe(1);
+        expect(driver.findElements.mock.calls.length).toBe(1);
 
-        expect(driver.findElement.mock.calls[0][0]).toEqual(
+        expect(driver.findElements.mock.calls[0][0]).toEqual(
           By.css('<elementSelector>')
         );
       });
 
-      test('then it should call element.getText() once', async () => {
+      test('then it should call elements[1].getText() once', async () => {
         const getText = jest.fn();
 
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => ({getText}))
+          findElements: jest.fn().mockImplementation(async () => [
+            {}, {getText}
+          ])
         };
 
         await accessor.get(driver as any);
@@ -118,21 +120,17 @@ describe('given an element is created', () => {
 
       test('then it should return the text of the element', async () => {
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => ({
-            getText: jest.fn().mockReturnValue('<text>')
-          }))
+          findElements: jest.fn().mockImplementation(async () => [
+            {}, {getText: jest.fn().mockReturnValue('<text>')}
+          ])
         };
 
         expect(await accessor.get(driver as any)).toBe('<text>');
       });
 
       test('then it should throw an error', async () => {
-        const error = new Error('<message>');
-
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => {
-            throw error;
-          })
+          findElements: jest.fn().mockImplementation(async () => [{}])
         };
 
         await expect(accessor.get(driver as any)).rejects.toEqual(error);
@@ -168,7 +166,7 @@ describe('given an element is created', () => {
 
       test('then it should return true', async () => {
         const driver = {
-          findElements: jest.fn().mockImplementation(async () => [{}])
+          findElements: jest.fn().mockImplementation(async () => [{}, {}])
         };
 
         expect(await accessor.get(driver as any)).toBe(true);
@@ -176,15 +174,13 @@ describe('given an element is created', () => {
 
       test('then it should return false', async () => {
         const driver = {
-          findElements: jest.fn().mockImplementation(async () => [])
+          findElements: jest.fn().mockImplementation(async () => [{}])
         };
 
         expect(await accessor.get(driver as any)).toBe(false);
       });
 
       test('then it should throw an error', async () => {
-        const error = new Error('<message>');
-
         const driver = {
           findElements: jest.fn().mockImplementation(async () => {
             throw error;
@@ -208,27 +204,29 @@ describe('given an element is created', () => {
     });
 
     describe('when accessor.get() is called', () => {
-      test('then it should call driver.findElement() once', async () => {
+      test('then it should call driver.findElements() once', async () => {
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => ({
-            isDisplayed: jest.fn()
-          }))
+          findElements: jest.fn().mockImplementation(async () => [
+            {}, {isDisplayed: jest.fn()}
+          ])
         };
 
         await accessor.get(driver as any);
 
-        expect(driver.findElement.mock.calls.length).toBe(1);
+        expect(driver.findElements.mock.calls.length).toBe(1);
 
-        expect(driver.findElement.mock.calls[0][0]).toEqual(
+        expect(driver.findElements.mock.calls[0][0]).toEqual(
           By.css('<elementSelector>')
         );
       });
 
-      test('then it should call element.isDisplayed() once', async () => {
+      test('then it should call elements[1].isDisplayed() once', async () => {
         const isDisplayed = jest.fn();
 
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => ({isDisplayed}))
+          findElements: jest.fn().mockImplementation(async () => [
+            {}, {isDisplayed}
+          ])
         };
 
         await accessor.get(driver as any);
@@ -238,21 +236,17 @@ describe('given an element is created', () => {
 
       test('then it should return the visibility of the element', async () => {
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => ({
-            isDisplayed: jest.fn().mockReturnValue(true)
-          }))
+          findElements: jest.fn().mockImplementation(async () => [
+            {}, {isDisplayed: jest.fn().mockReturnValue(true)}
+          ])
         };
 
         expect(await accessor.get(driver as any)).toBe(true);
       });
 
       test('then it should throw an error', async () => {
-        const error = new Error('<message>');
-
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => {
-            throw error;
-          })
+          findElements: jest.fn().mockImplementation(async () => [{}])
         };
 
         await expect(accessor.get(driver as any)).rejects.toEqual(error);
@@ -272,27 +266,29 @@ describe('given an element is created', () => {
     });
 
     describe('when accessor.get() is called', () => {
-      test('then it should call driver.findElement() once', async () => {
+      test('then it should call driver.findElements() once', async () => {
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => ({
-            getLocation: jest.fn().mockReturnValue({})
-          }))
+          findElements: jest.fn().mockImplementation(async () => [
+            {}, {getLocation: jest.fn().mockReturnValue({})}
+          ])
         };
 
         await accessor.get(driver as any);
 
-        expect(driver.findElement.mock.calls.length).toBe(1);
+        expect(driver.findElements.mock.calls.length).toBe(1);
 
-        expect(driver.findElement.mock.calls[0][0]).toEqual(
+        expect(driver.findElements.mock.calls[0][0]).toEqual(
           By.css('<elementSelector>')
         );
       });
 
-      test('then it should call element.getLocation() once', async () => {
+      test('then it should call elements[1].getLocation() once', async () => {
         const getLocation = jest.fn().mockReturnValue({});
 
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => ({getLocation}))
+          findElements: jest.fn().mockImplementation(async () => [
+            {}, {getLocation}
+          ])
         };
 
         await accessor.get(driver as any);
@@ -302,21 +298,17 @@ describe('given an element is created', () => {
 
       test('then it should return the X position of the element', async () => {
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => ({
-            getLocation: jest.fn().mockReturnValue({x: 123})
-          }))
+          findElements: jest.fn().mockImplementation(async () => [
+            {}, {getLocation: jest.fn().mockReturnValue({x: 123})}
+          ])
         };
 
         expect(await accessor.get(driver as any)).toBe(123);
       });
 
       test('then it should throw an error', async () => {
-        const error = new Error('<message>');
-
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => {
-            throw error;
-          })
+          findElements: jest.fn().mockImplementation(async () => [{}])
         };
 
         await expect(accessor.get(driver as any)).rejects.toEqual(error);
@@ -336,27 +328,29 @@ describe('given an element is created', () => {
     });
 
     describe('when accessor.get() is called', () => {
-      test('then it should call driver.findElement() once', async () => {
+      test('then it should call driver.findElements() once', async () => {
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => ({
-            getLocation: jest.fn().mockReturnValue({})
-          }))
+          findElements: jest.fn().mockImplementation(async () => [
+            {}, {getLocation: jest.fn().mockReturnValue({})}
+          ])
         };
 
         await accessor.get(driver as any);
 
-        expect(driver.findElement.mock.calls.length).toBe(1);
+        expect(driver.findElements.mock.calls.length).toBe(1);
 
-        expect(driver.findElement.mock.calls[0][0]).toEqual(
+        expect(driver.findElements.mock.calls[0][0]).toEqual(
           By.css('<elementSelector>')
         );
       });
 
-      test('then it should call element.getLocation() once', async () => {
+      test('then it should call elements[1].getLocation() once', async () => {
         const getLocation = jest.fn().mockReturnValue({});
 
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => ({getLocation}))
+          findElements: jest.fn().mockImplementation(async () => [
+            {}, {getLocation}
+          ])
         };
 
         await accessor.get(driver as any);
@@ -366,21 +360,17 @@ describe('given an element is created', () => {
 
       test('then it should return the Y position of the element', async () => {
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => ({
-            getLocation: jest.fn().mockReturnValue({y: 123})
-          }))
+          findElements: jest.fn().mockImplementation(async () => [
+            {}, {getLocation: jest.fn().mockReturnValue({y: 123})}
+          ])
         };
 
         expect(await accessor.get(driver as any)).toBe(123);
       });
 
       test('then it should throw an error', async () => {
-        const error = new Error('<message>');
-
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => {
-            throw error;
-          })
+          findElements: jest.fn().mockImplementation(async () => [{}])
         };
 
         await expect(accessor.get(driver as any)).rejects.toEqual(error);
@@ -400,27 +390,29 @@ describe('given an element is created', () => {
     });
 
     describe('when accessor.get() is called', () => {
-      test('then it should call driver.findElement() once', async () => {
+      test('then it should call driver.findElements() once', async () => {
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => ({
-            getSize: jest.fn().mockReturnValue({})
-          }))
+          findElements: jest.fn().mockImplementation(async () => [
+            {}, {getSize: jest.fn().mockReturnValue({})}
+          ])
         };
 
         await accessor.get(driver as any);
 
-        expect(driver.findElement.mock.calls.length).toBe(1);
+        expect(driver.findElements.mock.calls.length).toBe(1);
 
-        expect(driver.findElement.mock.calls[0][0]).toEqual(
+        expect(driver.findElements.mock.calls[0][0]).toEqual(
           By.css('<elementSelector>')
         );
       });
 
-      test('then it should call element.getSize() once', async () => {
+      test('then it should call elements[1].getSize() once', async () => {
         const getSize = jest.fn().mockReturnValue({});
 
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => ({getSize}))
+          findElements: jest.fn().mockImplementation(async () => [
+            {}, {getSize}
+          ])
         };
 
         await accessor.get(driver as any);
@@ -430,21 +422,17 @@ describe('given an element is created', () => {
 
       test('then it should return the width of the element', async () => {
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => ({
-            getSize: jest.fn().mockReturnValue({width: 123})
-          }))
+          findElements: jest.fn().mockImplementation(async () => [
+            {}, {getSize: jest.fn().mockReturnValue({width: 123})}
+          ])
         };
 
         expect(await accessor.get(driver as any)).toBe(123);
       });
 
       test('then it should throw an error', async () => {
-        const error = new Error('<message>');
-
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => {
-            throw error;
-          })
+          findElements: jest.fn().mockImplementation(async () => [{}])
         };
 
         await expect(accessor.get(driver as any)).rejects.toEqual(error);
@@ -464,27 +452,29 @@ describe('given an element is created', () => {
     });
 
     describe('when accessor.get() is called', () => {
-      test('then it should call driver.findElement() once', async () => {
+      test('then it should call driver.findElements() once', async () => {
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => ({
-            getSize: jest.fn().mockReturnValue({})
-          }))
+          findElements: jest.fn().mockImplementation(async () => [
+            {}, {getSize: jest.fn().mockReturnValue({})}
+          ])
         };
 
         await accessor.get(driver as any);
 
-        expect(driver.findElement.mock.calls.length).toBe(1);
+        expect(driver.findElements.mock.calls.length).toBe(1);
 
-        expect(driver.findElement.mock.calls[0][0]).toEqual(
+        expect(driver.findElements.mock.calls[0][0]).toEqual(
           By.css('<elementSelector>')
         );
       });
 
-      test('then it should call element.getSize() once', async () => {
+      test('then it should call elements[1].getSize() once', async () => {
         const getSize = jest.fn().mockReturnValue({});
 
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => ({getSize}))
+          findElements: jest.fn().mockImplementation(async () => [
+            {}, {getSize}
+          ])
         };
 
         await accessor.get(driver as any);
@@ -494,21 +484,17 @@ describe('given an element is created', () => {
 
       test('then it should return the height of the element', async () => {
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => ({
-            getSize: jest.fn().mockReturnValue({height: 123})
-          }))
+          findElements: jest.fn().mockImplementation(async () => [
+            {}, {getSize: jest.fn().mockReturnValue({height: 123})}
+          ])
         };
 
         expect(await accessor.get(driver as any)).toBe(123);
       });
 
       test('then it should throw an error', async () => {
-        const error = new Error('<message>');
-
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => {
-            throw error;
-          })
+          findElements: jest.fn().mockImplementation(async () => [{}])
         };
 
         await expect(accessor.get(driver as any)).rejects.toEqual(error);
@@ -531,28 +517,28 @@ describe('given an element is created', () => {
     });
 
     describe('when accessor.get() is called', () => {
-      test('then it should call driver.findElement() once', async () => {
+      test('then it should call driver.findElements() once', async () => {
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => ({
-            getAttribute: jest.fn()
-          }))
+          findElements: jest.fn().mockImplementation(async () => [
+            {}, {getAttribute: jest.fn()}
+          ])
         };
 
         await accessor.get(driver as any);
 
-        expect(driver.findElement.mock.calls.length).toBe(1);
+        expect(driver.findElements.mock.calls.length).toBe(1);
 
-        expect(driver.findElement.mock.calls[0][0]).toEqual(
+        expect(driver.findElements.mock.calls[0][0]).toEqual(
           By.css('<elementSelector>')
         );
       });
 
-      test('then it should call element.getAttribute() once', async () => {
+      test('then it should call elements[1].getAttribute() once', async () => {
         const getAttribute = jest.fn();
 
         const driver = {
-          findElement: jest.fn().mockImplementation(
-            async () => ({getAttribute})
+          findElements: jest.fn().mockImplementation(
+            async () => [{}, {getAttribute}]
           )
         };
 
@@ -567,21 +553,17 @@ describe('given an element is created', () => {
 
       test(name, async () => {
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => ({
-            getAttribute: jest.fn().mockReturnValue('<attributeValue>')
-          }))
+          findElements: jest.fn().mockImplementation(async () => [
+            {}, {getAttribute: jest.fn().mockReturnValue('<attributeValue>')}
+          ])
         };
 
         expect(await accessor.get(driver as any)).toBe('<attributeValue>');
       });
 
       test('then it should throw an error', async () => {
-        const error = new Error('<message>');
-
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => {
-            throw error;
-          })
+          findElements: jest.fn().mockImplementation(async () => [{}])
         };
 
         await expect(accessor.get(driver as any)).rejects.toEqual(error);
@@ -603,27 +585,29 @@ describe('given an element is created', () => {
     });
 
     describe('when accessor.get() is called', () => {
-      test('then it should call driver.findElement() once', async () => {
+      test('then it should call driver.findElements() once', async () => {
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => ({
-            getCssValue: jest.fn()
-          }))
+          findElements: jest.fn().mockImplementation(async () => [
+            {}, {getCssValue: jest.fn()}
+          ])
         };
 
         await accessor.get(driver as any);
 
-        expect(driver.findElement.mock.calls.length).toBe(1);
+        expect(driver.findElements.mock.calls.length).toBe(1);
 
-        expect(driver.findElement.mock.calls[0][0]).toEqual(
+        expect(driver.findElements.mock.calls[0][0]).toEqual(
           By.css('<elementSelector>')
         );
       });
 
-      test('then it should call element.getCssValue() once', async () => {
+      test('then it should call elements[1].getCssValue() once', async () => {
         const getCssValue = jest.fn();
 
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => ({getCssValue}))
+          findElements: jest.fn().mockImplementation(async () => [
+            {}, {getCssValue}
+          ])
         };
 
         await accessor.get(driver as any);
@@ -636,21 +620,17 @@ describe('given an element is created', () => {
 
       test(name, async () => {
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => ({
-            getCssValue: jest.fn().mockReturnValue('<cssValue>')
-          }))
+          findElements: jest.fn().mockImplementation(async () => [
+            {}, {getCssValue: jest.fn().mockReturnValue('<cssValue>')}
+          ])
         };
 
         expect(await accessor.get(driver as any)).toBe('<cssValue>');
       });
 
       test('then it should throw an error', async () => {
-        const error = new Error('<message>');
-
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => {
-            throw error;
-          })
+          findElements: jest.fn().mockImplementation(async () => [{}])
         };
 
         await expect(accessor.get(driver as any)).rejects.toEqual(error);
@@ -672,27 +652,27 @@ describe('given an element is created', () => {
     });
 
     describe('when action.perform() is called', () => {
-      test('then it should call driver.findElement() once', async () => {
+      test('then it should call driver.findElements() once', async () => {
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => ({
-            clear: jest.fn()
-          }))
+          findElements: jest.fn().mockImplementation(async () => [
+            {}, {clear: jest.fn()}
+          ])
         };
 
         await action.perform(driver as any);
 
-        expect(driver.findElement.mock.calls.length).toBe(1);
+        expect(driver.findElements.mock.calls.length).toBe(1);
 
-        expect(driver.findElement.mock.calls[0][0]).toEqual(
+        expect(driver.findElements.mock.calls[0][0]).toEqual(
           By.css('<elementSelector>')
         );
       });
 
-      test('then it should call element.clear() once', async () => {
+      test('then it should call elements[1].clear() once', async () => {
         const clear = jest.fn();
 
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => ({clear}))
+          findElements: jest.fn().mockImplementation(async () => [{}, {clear}])
         };
 
         await action.perform(driver as any);
@@ -701,12 +681,8 @@ describe('given an element is created', () => {
       });
 
       test('then it should throw an error', async () => {
-        const error = new Error('<message>');
-
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => {
-            throw error;
-          })
+          findElements: jest.fn().mockImplementation(async () => [{}])
         };
 
         await expect(action.perform(driver as any)).rejects.toEqual(error);
@@ -726,27 +702,27 @@ describe('given an element is created', () => {
     });
 
     describe('when action.perform() is called', () => {
-      test('then it should call driver.findElement() once', async () => {
+      test('then it should call driver.findElements() once', async () => {
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => ({
-            click: jest.fn()
-          }))
+          findElements: jest.fn().mockImplementation(async () => [
+            {}, {click: jest.fn()}
+          ])
         };
 
         await action.perform(driver as any);
 
-        expect(driver.findElement.mock.calls.length).toBe(1);
+        expect(driver.findElements.mock.calls.length).toBe(1);
 
-        expect(driver.findElement.mock.calls[0][0]).toEqual(
+        expect(driver.findElements.mock.calls[0][0]).toEqual(
           By.css('<elementSelector>')
         );
       });
 
-      test('then it should call element.click() once', async () => {
+      test('then it should call elements[1].click() once', async () => {
         const click = jest.fn();
 
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => ({click}))
+          findElements: jest.fn().mockImplementation(async () => [{}, {click}])
         };
 
         await action.perform(driver as any);
@@ -755,12 +731,8 @@ describe('given an element is created', () => {
       });
 
       test('then it should throw an error', async () => {
-        const error = new Error('<message>');
-
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => {
-            throw error;
-          })
+          findElements: jest.fn().mockImplementation(async () => [{}])
         };
 
         await expect(action.perform(driver as any)).rejects.toEqual(error);
@@ -1028,27 +1000,29 @@ describe('given an element is created', () => {
     });
 
     describe('when action.perform() is called', () => {
-      test('then it should call driver.findElement() once', async () => {
+      test('then it should call driver.findElements() once', async () => {
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => ({
-            sendKeys: jest.fn()
-          }))
+          findElements: jest.fn().mockImplementation(async () => [
+            {}, {sendKeys: jest.fn()}
+          ])
         };
 
         await action.perform(driver as any);
 
-        expect(driver.findElement.mock.calls.length).toBe(1);
+        expect(driver.findElements.mock.calls.length).toBe(1);
 
-        expect(driver.findElement.mock.calls[0][0]).toEqual(
+        expect(driver.findElements.mock.calls[0][0]).toEqual(
           By.css('<elementSelector>')
         );
       });
 
-      test('then it should call element.sendKeys() once', async () => {
+      test('then it should call elements[1].sendKeys() once', async () => {
         const sendKeys = jest.fn();
 
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => ({sendKeys}))
+          findElements: jest.fn().mockImplementation(async () => [
+            {}, {sendKeys}
+          ])
         };
 
         await action.perform(driver as any);
@@ -1060,12 +1034,8 @@ describe('given an element is created', () => {
       });
 
       test('then it should throw an error', async () => {
-        const error = new Error('<message>');
-
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => {
-            throw error;
-          })
+          findElements: jest.fn().mockImplementation(async () => [{}])
         };
 
         await expect(action.perform(driver as any)).rejects.toEqual(error);
@@ -1087,27 +1057,27 @@ describe('given an element is created', () => {
     });
 
     describe('when action.perform() is called', () => {
-      test('then it should call driver.findElement() once', async () => {
+      test('then it should call driver.findElements() once', async () => {
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => ({
-            submit: jest.fn()
-          }))
+          findElements: jest.fn().mockImplementation(async () => [
+            {}, {submit: jest.fn()}
+          ])
         };
 
         await action.perform(driver as any);
 
-        expect(driver.findElement.mock.calls.length).toBe(1);
+        expect(driver.findElements.mock.calls.length).toBe(1);
 
-        expect(driver.findElement.mock.calls[0][0]).toEqual(
+        expect(driver.findElements.mock.calls[0][0]).toEqual(
           By.css('<elementSelector>')
         );
       });
 
-      test('then it should call element.submit() once', async () => {
+      test('then it should call elements[1].submit() once', async () => {
         const submit = jest.fn();
 
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => ({submit}))
+          findElements: jest.fn().mockImplementation(async () => [{}, {submit}])
         };
 
         await action.perform(driver as any);
@@ -1116,16 +1086,26 @@ describe('given an element is created', () => {
       });
 
       test('then it should throw an error', async () => {
-        const error = new Error('<message>');
-
         const driver = {
-          findElement: jest.fn().mockImplementation(async () => {
-            throw error;
-          })
+          findElements: jest.fn().mockImplementation(async () => [{}])
         };
 
         await expect(action.perform(driver as any)).rejects.toEqual(error);
       });
+    });
+  });
+
+  describe('when element.toString() is called', () => {
+    let stringRepresentation: string;
+
+    beforeEach(() => {
+      stringRepresentation = element.toString();
+    });
+
+    test('then it should return a string representation of itself', () => {
+      expect(stringRepresentation).toBe(
+        "{ name: '<elementName>', selector: '<elementSelector>', index: 1 }"
+      );
     });
   });
 });
