@@ -24,6 +24,8 @@
 
 ### Property `pageTitle`
 
+> The title of the page
+
 Type definition:
 
 * **`pageTitle: Accessor<string>`**
@@ -39,6 +41,8 @@ test('Example', async t => {
 ```
 
 ### Property `pageUrl`
+
+> The URL of the page
 
 Type definition:
 
@@ -56,6 +60,8 @@ test('Example', async t => {
 
 ### Property `windowXPosition`
 
+> The X position of the window
+
 Type definition:
 
 * **`windowXPosition: Accessor<number>`**
@@ -71,6 +77,8 @@ test('Example', async t => {
 ```
 
 ### Property `windowYPosition`
+
+> The Y position of the window
 
 Type definition:
 
@@ -88,6 +96,8 @@ test('Example', async t => {
 
 ### Property `windowWidth`
 
+> The width of the window
+
 Type definition:
 
 * **`windowWidth: Accessor<number>`**
@@ -104,6 +114,8 @@ test('Example', async t => {
 
 ### Property `windowHeight`
 
+> The height of the window
+
 Type definition:
 
 * **`windowHeight: Accessor<number>`**
@@ -119,6 +131,8 @@ test('Example', async t => {
 ```
 
 ### Method `scriptResult`
+
+> The result of the {scriptName} script
 
 Type definition:
 
@@ -144,6 +158,8 @@ test('Example', async t => {
 
 ### Method `executeScript`
 
+> Execute the {scriptName} script
+
 Type definition:
 
 * **`executeScript(scriptName: string, script: Script): Action`**
@@ -168,6 +184,8 @@ test('Example', async t => {
 
 ### Method `loadPage`
 
+> Load the page {url}
+
 Type definition:
 
 * **`loadPage(url: string): Action`**
@@ -183,6 +201,8 @@ test('Example', async t => {
 ```
 
 ### Method `maximizeWindow`
+
+> Maximize the window
 
 Type definition:
 
@@ -200,6 +220,8 @@ test('Example', async t => {
 
 ### Method `navigateBack`
 
+> Navigate back
+
 Type definition:
 
 * **`navigateBack(): Action`**
@@ -215,6 +237,8 @@ test('Example', async t => {
 ```
 
 ### Method `navigateForward`
+
+> Navigate forward
 
 Type definition:
 
@@ -232,6 +256,8 @@ test('Example', async t => {
 
 ### Method `reloadPage`
 
+> Reload the page
+
 Type definition:
 
 * **`reloadPage(): Action`**
@@ -247,6 +273,8 @@ test('Example', async t => {
 ```
 
 ### Method `setWindowPosition`
+
+> Set the window position to {x},{y}
 
 Type definition:
 
@@ -264,6 +292,8 @@ test('Example', async t => {
 
 ### Method `setWindowSize`
 
+> Set the window size to {width}x{height}
+
 Type definition:
 
 * **`setWindowSize(width: number, height: number): Action`**
@@ -280,9 +310,11 @@ test('Example', async t => {
 
 ### Method `sleep`
 
+> Sleep for {duration} ms because {reason}
+
 Type definition:
 
-* **`sleep(durationInMillis: number, reason?: string): Action`**
+* **`sleep(duration: number, reason?: string): Action`**
 
 Example usage:
 
