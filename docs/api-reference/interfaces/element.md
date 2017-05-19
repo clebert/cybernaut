@@ -22,6 +22,8 @@
 
 ### Property `tagName`
 
+> The tag name of the element
+
 Type definition:
 
 * **`tagName: Accessor<string>`**
@@ -39,6 +41,8 @@ test('Example', async t => {
 ```
 
 ### Property `text`
+
+> The text of the element
 
 Type definition:
 
@@ -58,6 +62,8 @@ test('Example', async t => {
 
 ### Property `existence`
 
+> The existence of the element
+
 Type definition:
 
 * **`existence: Accessor<boolean>`**
@@ -75,6 +81,8 @@ test('Example', async t => {
 ```
 
 ### Property `visibility`
+
+> The visibility of the element
 
 Type definition:
 
@@ -96,6 +104,8 @@ test('Example', async t => {
 
 ### Property `xPosition`
 
+> The X position of the element
+
 Type definition:
 
 * **`xPosition: Accessor<number>`**
@@ -113,6 +123,8 @@ test('Example', async t => {
 ```
 
 ### Property `yPosition`
+
+> The Y position of the element
 
 Type definition:
 
@@ -132,6 +144,8 @@ test('Example', async t => {
 
 ### Property `width`
 
+> The width of the element
+
 Type definition:
 
 * **`width: Accessor<number>`**
@@ -149,6 +163,8 @@ test('Example', async t => {
 ```
 
 ### Property `height`
+
+> The height of the element
 
 Type definition:
 
@@ -168,6 +184,8 @@ test('Example', async t => {
 
 ### Method `attributeValue`
 
+> The value of the {attributeName} attribute of the element`
+
 Type definition:
 
 * **`attributeValue(attributeName: string): Accessor<string | null>`**
@@ -185,6 +203,8 @@ test('Example', async t => {
 ```
 
 ### Method `cssValue`
+
+> The value of the {cssName} css of the element
 
 Type definition:
 
@@ -204,6 +224,8 @@ test('Example', async t => {
 
 ### Method `clearValue`
 
+> Clear the value of the element
+
 Type definition:
 
 * **`clearValue(): Action`**
@@ -222,6 +244,8 @@ test('Example', async t => {
 
 ### Method `click`
 
+> Click on the element
+
 Type definition:
 
 * **`click(): Action`**
@@ -239,6 +263,8 @@ test('Example', async t => {
 ```
 
 ### Method `sendKeys`
+
+> Send the specified keys ({keys}) to the element
 
 Type definition:
 
@@ -269,6 +295,8 @@ test('Example', async t => {
 *Note: The `WebElement` of selenium-webdriver is used internally, but is not accessible from the outside.*
 
 ### Method `submitForm`
+
+> Submit the form containing the element
 
 Type definition:
 

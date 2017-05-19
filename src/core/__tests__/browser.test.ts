@@ -379,7 +379,7 @@ describe('given a browser is created', () => {
     });
 
     test('then it should return an action', () => {
-      expect(action.description).toBe('Load the page <url>');
+      expect(action.description).toBe('Load the page at <url>');
     });
 
     describe('when action.perform() is called', () => {
@@ -636,7 +636,7 @@ describe('given a browser is created', () => {
       expect(browser.sleep(1).description).toBe('Sleep for 1 ms');
 
       expect(browser.sleep(2, '<reason>').description).toBe(
-        'Sleep for 2 ms because <reason>'
+        'Sleep for 2 ms, because <reason>'
       );
     });
 
