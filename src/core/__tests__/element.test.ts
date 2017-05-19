@@ -11,7 +11,7 @@ describe('given an element is created', () => {
 
   beforeEach(() => {
     element = new Element('<elementName>', '<elementSelector>', 1);
-    error = new Error('Unable to locate element: ' + element);
+    error = new Error('Unable to locate element: ' + element.toString());
   });
 
   describe('when element.tagName is accessed', () => {

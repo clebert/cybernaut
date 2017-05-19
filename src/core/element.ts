@@ -206,7 +206,7 @@ export class Element {
     const element = elements[this._index];
 
     if (!element) {
-      throw new Error('Unable to locate element: ' + this);
+      throw new Error('Unable to locate element: ' + this.toString());
     }
 
     return element;
