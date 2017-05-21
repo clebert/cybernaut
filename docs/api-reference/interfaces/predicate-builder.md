@@ -1,4 +1,4 @@
-# Interface `PredicateBuilder`
+# Interface: `PredicateBuilder`
 
 ## Properties
 
@@ -6,22 +6,22 @@
 
 ## Methods
 
-* [`contain`](#method-contain)
-* [`equal`](#method-equal)
-* [`match`](#method-match)
-* [`beBetween`](#method-bebetween)
-* [`beGreaterThan`](#method-begreaterthan)
-* [`beGreaterThanOrEqual`](#method-begreaterthanorequal)
-* [`beLessThan`](#method-belessthan)
-* [`beLessThanOrEqual`](#method-belessthanorequal)
+* [`contain()`](#method-contain)
+* [`equal()`](#method-equal)
+* [`match()`](#method-match)
+* [`beBetween()`](#method-bebetween)
+* [`beGreaterThan()`](#method-begreaterthan)
+* [`beGreaterThanOrEqual()`](#method-begreaterthanorequal)
+* [`beLessThan()`](#method-belessthan)
+* [`beLessThanOrEqual()`](#method-belessthanorequal)
 
-### Property `not`
+### Property: `not`
 
 Type definition:
 
 * **`not: PredicateBuilder`**
 
-### Method `contain`
+### Method: `contain()`
 
 Type definition:
 
@@ -39,7 +39,7 @@ test('Example', async t => {
 });
 ```
 
-### Method `equal`
+### Method: `equal()`
 
 Type definition:
 
@@ -59,7 +59,7 @@ test('Example', async t => {
 
 *Note: The comparison is performed with deep-strict-equal.*
 
-### Method `match`
+### Method: `match()`
 
 Type definition:
 
@@ -77,7 +77,7 @@ test('Example', async t => {
 });
 ```
 
-### Method `beBetween`
+### Method: `beBetween()`
 
 Type definition:
 
@@ -99,7 +99,7 @@ test('Example', async t => {
 
 *Note: Both values `minValue` and `maxValue` are inclusive.*
 
-### Method `beGreaterThan`
+### Method: `beGreaterThan()`
 
 Type definition:
 
@@ -119,7 +119,7 @@ test('Example', async t => {
 });
 ```
 
-### Method `beGreaterThanOrEqual`
+### Method: `beGreaterThanOrEqual()`
 
 Type definition:
 
@@ -139,7 +139,7 @@ test('Example', async t => {
 });
 ```
 
-### Method `beLessThan`
+### Method: `beLessThan()`
 
 Type definition:
 
@@ -159,7 +159,7 @@ test('Example', async t => {
 });
 ```
 
-### Method `beLessThanOrEqual`
+### Method: `beLessThanOrEqual()`
 
 Type definition:
 

@@ -1,4 +1,4 @@
-# Export `browser`
+# Export: `browser`
 
 Type definition:
 

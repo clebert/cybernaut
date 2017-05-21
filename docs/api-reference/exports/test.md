@@ -1,4 +1,4 @@
-# Export `test`
+# Export: `test()`
 
 Type definition:
 

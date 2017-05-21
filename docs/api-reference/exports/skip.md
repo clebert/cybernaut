@@ -1,4 +1,4 @@
-# Export `skip`
+# Export: `skip()`
 
 Type definition:
 

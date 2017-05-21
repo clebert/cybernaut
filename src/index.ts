@@ -11,7 +11,7 @@ import {Config, loadConfig, validate} from './config';
 import {Accessor} from './core/accessor';
 import {Action} from './core/action';
 import {Browser, Script} from './core/browser';
-import {Element} from './core/element';
+import {Element, defineElement} from './core/element';
 import {PredicateBuilder} from './core/predicate';
 import {Implementation, run} from './implementation';
 import {Test} from './test';
@@ -26,7 +26,8 @@ export {
   Key,
   PredicateBuilder,
   Script,
-  Test
+  Test,
+  defineElement
 };
 
 const debug = createDebug('cybernaut:index');
@@ -62,12 +63,6 @@ if (configErrors.length > 0) {
   }
 
   process.exit(1);
-}
-
-export function defineElement(
-  name: string, selector: string, index: number = 0
-): Element {
-  return new Element(name, selector, index);
 }
 
 export class It {

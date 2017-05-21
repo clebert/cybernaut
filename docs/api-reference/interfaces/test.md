@@ -1,12 +1,12 @@
-# Interface `Test`
+# Interface: `Test`
 
 ## Methods
 
-* [`assert`](#method-assert)
-* [`perform`](#method-perform)
-* [`verify`](#method-verify)
+* [`assert()`](#method-assert)
+* [`perform()`](#method-perform)
+* [`verify()`](#method-verify)
 
-### Method `assert`
+### Method: `assert()`
 
 Type definition:
 
@@ -26,7 +26,7 @@ test('Example', async t => {
 
 *Note: An assertion is a single test step for which the globally configured `retries` and `retryDelay` options can be overwritten.*
 
-### Method `perform`
+### Method: `perform()`
 
 Type definition:
 
@@ -46,7 +46,7 @@ test('Example', async t => {
 
 *Note: A performance is a single test step for which the globally configured `retries` and `retryDelay` options can be overwritten.*
 
-### Method `verify`
+### Method: `verify()`
 
 Type definition:
 

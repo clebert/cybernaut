@@ -1,28 +1,32 @@
-# Interface `Browser`
+# Interface: `Browser`
 
-## Properties
+## Accessor properties
 
-* [`pageTitle`](#property-pagetitle)
-* [`pageUrl`](#property-pageurl)
-* [`windowXPosition`](#property-windowxposition)
-* [`windowYPosition`](#property-windowyposition)
-* [`windowWidth`](#property-windowwidth)
-* [`windowHeight`](#property-windowheight)
+* [`pageTitle`](#accessor-property-pagetitle)
+* [`pageUrl`](#accessor-property-pageurl)
+* [`windowXPosition`](#accessor-property-windowxposition)
+* [`windowYPosition`](#accessor-property-windowyposition)
+* [`windowWidth`](#accessor-property-windowwidth)
+* [`windowHeight`](#accessor-property-windowheight)
 
-## Methods
+## Accessor methods
 
-* [`scriptResult`](#method-scriptresult)
-* [`executeScript`](#method-executescript)
-* [`loadPage`](#method-loadpage)
-* [`maximizeWindow`](#method-maximizewindow)
-* [`navigateBack`](#method-navigateback)
-* [`navigateForward`](#method-navigateforward)
-* [`reloadPage`](#method-reloadpage)
-* [`setWindowPosition`](#method-setwindowposition)
-* [`setWindowSize`](#method-setwindowsize)
-* [`sleep`](#method-sleep)
+* [`elementCount()`](#accessor-method-elementcount)
+* [`scriptResult()`](#accessor-method-scriptresult)
 
-### Property `pageTitle`
+## Action methods
+
+* [`executeScript()`](#action-method-executescript)
+* [`loadPage()`](#action-method-loadpage)
+* [`maximizeWindow()`](#action-method-maximizewindow)
+* [`navigateBack()`](#action-method-navigateback)
+* [`navigateForward()`](#action-method-navigateforward)
+* [`reloadPage()`](#action-method-reloadpage)
+* [`setWindowPosition()`](#action-method-setwindowposition)
+* [`setWindowSize()`](#action-method-setwindowsize)
+* [`sleep()`](#action-method-sleep)
+
+### Accessor property: `pageTitle`
 
 > The title of the page
 
@@ -40,7 +44,7 @@ test('Example', async t => {
 });
 ```
 
-### Property `pageUrl`
+### Accessor property: `pageUrl`
 
 > The URL of the page
 
@@ -58,7 +62,7 @@ test('Example', async t => {
 });
 ```
 
-### Property `windowXPosition`
+### Accessor property: `windowXPosition`
 
 > The X position of the window
 
@@ -76,7 +80,7 @@ test('Example', async t => {
 });
 ```
 
-### Property `windowYPosition`
+### Accessor property: `windowYPosition`
 
 > The Y position of the window
 
@@ -94,7 +98,7 @@ test('Example', async t => {
 });
 ```
 
-### Property `windowWidth`
+### Accessor property: `windowWidth`
 
 > The width of the window
 
@@ -112,7 +116,7 @@ test('Example', async t => {
 });
 ```
 
-### Property `windowHeight`
+### Accessor property: `windowHeight`
 
 > The height of the window
 
@@ -130,7 +134,25 @@ test('Example', async t => {
 });
 ```
 
-### Method `scriptResult`
+### Accessor method: `elementCount()`
+
+> The count of matching elements for the specified selector ({selector})
+
+Type definition:
+
+* **`elementCount(selector: string): Accessor<number>`**
+
+Example usage:
+
+```js
+const {browser, it, test} = require('cybernaut');
+
+test('Example', async t => {
+  await t.assert(browser.elementCount('selector'), it.should.beGreaterThan(0));
+});
+```
+
+### Accessor method: `scriptResult()`
 
 > The result of the {scriptName} script
 
@@ -156,7 +178,7 @@ test('Example', async t => {
 });
 ```
 
-### Method `executeScript`
+### Action method: `executeScript()`
 
 > Execute the {scriptName} script
 
@@ -182,7 +204,7 @@ test('Example', async t => {
 });
 ```
 
-### Method `loadPage`
+### Action method: `loadPage()`
 
 > Load the page at {url}
 
@@ -200,7 +222,7 @@ test('Example', async t => {
 });
 ```
 
-### Method `maximizeWindow`
+### Action method: `maximizeWindow()`
 
 > Maximize the window
 
@@ -218,7 +240,7 @@ test('Example', async t => {
 });
 ```
 
-### Method `navigateBack`
+### Action method: `navigateBack()`
 
 > Navigate back
 
@@ -236,7 +258,7 @@ test('Example', async t => {
 });
 ```
 
-### Method `navigateForward`
+### Action method: `navigateForward()`
 
 > Navigate forward
 
@@ -254,7 +276,7 @@ test('Example', async t => {
 });
 ```
 
-### Method `reloadPage`
+### Action method: `reloadPage()`
 
 > Reload the page
 
@@ -272,7 +294,7 @@ test('Example', async t => {
 });
 ```
 
-### Method `setWindowPosition`
+### Action method: `setWindowPosition()`
 
 > Set the window position to {x},{y}
 
@@ -290,7 +312,7 @@ test('Example', async t => {
 });
 ```
 
-### Method `setWindowSize`
+### Action method: `setWindowSize()`
 
 > Set the window size to {width}x{height}
 
@@ -308,7 +330,7 @@ test('Example', async t => {
 });
 ```
 
-### Method `sleep`
+### Action method: `sleep()`
 
 > Sleep for {duration} ms, because {reason}
 

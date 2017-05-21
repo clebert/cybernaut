@@ -1,4 +1,4 @@
-# Export `defineElement`
+# Export: `defineElement()`
 
 Type definition:
 
@@ -11,7 +11,7 @@ Example usage:
 const {defineElement, test} = require('cybernaut');
 
 test('Example', async t => {
-  const element = defineElement('elementName', 'selector');
+  const element = defineElement('name', 'selector');
 
   await t.perform(element.click());
 });
