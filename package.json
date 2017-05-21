@@ -53,7 +53,7 @@
     "preexamples": "npm run build",
     "examples": "./scripts/examples.sh",
     "format": "tsfmt --replace",
-    "prepush": "npm run examples",
+    "prepush": "npm prune && npm install && npm run examples",
     "push": "./scripts/push.sh",
     "release": "standard-version",
     "test": "./scripts/test.sh",
