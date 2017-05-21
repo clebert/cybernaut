@@ -1,66 +1,53 @@
-# Interface `Element`
+# Interface: `Element`
 
-## Properties
+## Factory methods
 
-* [`tagName`](#property-tagname)
-* [`text`](#property-text)
-* [`existence`](#property-existence)
-* [`visibility`](#property-visibility)
-* [`xPosition`](#property-xposition)
-* [`yPosition`](#property-yposition)
-* [`width`](#property-width)
-* [`height`](#property-height)
+* [`defineDescendantElement()`](#factory-method-definedescendantelement)
 
-## Methods
+## Accessor properties
 
-* [`attributeValue`](#method-attributevalue)
-* [`cssValue`](#method-cssvalue)
-* [`clearValue`](#method-clearvalue)
-* [`click`](#method-click)
-* [`sendKeys`](#method-sendkeys)
-* [`submitForm`](#method-submitform)
+* [`existence`](#accessor-property-existence)
+* [`visibility`](#accessor-property-visibility)
+* [`tagName`](#accessor-property-tagname)
+* [`text`](#accessor-property-text)
+* [`xPosition`](#accessor-property-xposition)
+* [`yPosition`](#accessor-property-yposition)
+* [`width`](#accessor-property-width)
+* [`height`](#accessor-property-height)
 
-### Property `tagName`
+## Accessor methods
 
-> The tag name of the element
+* [`attributeValue()`](#accessor-method-attributevalue)
+* [`cssValue()`](#accessor-method-cssvalue)
+* [`descendantElementCount()`](#accessor-method-descendantelementcount)
+
+## Action methods
+
+* [`clearValue()`](#action-method-clearvalue)
+* [`click()`](#action-method-click)
+* [`sendKeys()`](#action-method-sendkeys)
+* [`submitForm()`](#action-method-submitform)
+
+### Factory method: `defineDescendantElement()`
 
 Type definition:
 
-* **`tagName: Accessor<string>`**
+* **`defineDescendantElement(name: string, selector: string, index: number = 0): Element`**
 
 Example usage:
 
 ```js
-const {defineElement, it, test} = require('cybernaut');
+const {defineElement, test} = require('cybernaut');
 
 test('Example', async t => {
-  const element = defineElement('elementName', 'selector');
+  const element = defineElement('name', 'selector');
+  const descendantElement = element.defineDescendantElement('name', 'selector');
 
-  await t.assert(element.tagName, it.should.equal('tagName'));
+  await t.perform(descendantElement.click());
 });
 ```
 
-### Property `text`
-
-> The text of the element
-
-Type definition:
-
-* **`text: Accessor<string>`**
-
-Example usage:
-
-```js
-const {defineElement, it, test} = require('cybernaut');
-
-test('Example', async t => {
-  const element = defineElement('elementName', 'selector');
-
-  await t.assert(element.text, it.should.equal('text'));
-});
-```
-
-### Property `existence`
+### Accessor property: `existence`
 
 > The existence of the element
 
@@ -74,13 +61,13 @@ Example usage:
 const {defineElement, it, test} = require('cybernaut');
 
 test('Example', async t => {
-  const element = defineElement('elementName', 'selector');
+  const element = defineElement('name', 'selector');
 
   await t.assert(element.existence, it.should.equal(true));
 });
 ```
 
-### Property `visibility`
+### Accessor property: `visibility`
 
 > The visibility of the element
 
@@ -94,7 +81,7 @@ Example usage:
 const {defineElement, it, test} = require('cybernaut');
 
 test('Example', async t => {
-  const element = defineElement('elementName', 'selector');
+  const element = defineElement('name', 'selector');
 
   await t.assert(element.visibility, it.should.equal(true));
 });
@@ -102,7 +89,47 @@ test('Example', async t => {
 
 *Note: The value of this property is a simplified [approximation][element-displayed] of the element's visibility.*
 
-### Property `xPosition`
+### Accessor property: `tagName`
+
+> The tag name of the element
+
+Type definition:
+
+* **`tagName: Accessor<string>`**
+
+Example usage:
+
+```js
+const {defineElement, it, test} = require('cybernaut');
+
+test('Example', async t => {
+  const element = defineElement('name', 'selector');
+
+  await t.assert(element.tagName, it.should.equal('tagName'));
+});
+```
+
+### Accessor property: `text`
+
+> The text of the element
+
+Type definition:
+
+* **`text: Accessor<string>`**
+
+Example usage:
+
+```js
+const {defineElement, it, test} = require('cybernaut');
+
+test('Example', async t => {
+  const element = defineElement('name', 'selector');
+
+  await t.assert(element.text, it.should.equal('text'));
+});
+```
+
+### Accessor property: `xPosition`
 
 > The X position of the element
 
@@ -116,13 +143,13 @@ Example usage:
 const {defineElement, it, test} = require('cybernaut');
 
 test('Example', async t => {
-  const element = defineElement('elementName', 'selector');
+  const element = defineElement('name', 'selector');
 
   await t.assert(element.xPosition, it.should.equal(123));
 });
 ```
 
-### Property `yPosition`
+### Accessor property: `yPosition`
 
 > The Y position of the element
 
@@ -136,13 +163,13 @@ Example usage:
 const {defineElement, it, test} = require('cybernaut');
 
 test('Example', async t => {
-  const element = defineElement('elementName', 'selector');
+  const element = defineElement('name', 'selector');
 
   await t.assert(element.yPosition, it.should.equal(123));
 });
 ```
 
-### Property `width`
+### Accessor property: `width`
 
 > The width of the element
 
@@ -156,13 +183,13 @@ Example usage:
 const {defineElement, it, test} = require('cybernaut');
 
 test('Example', async t => {
-  const element = defineElement('elementName', 'selector');
+  const element = defineElement('name', 'selector');
 
   await t.assert(element.width, it.should.equal(123));
 });
 ```
 
-### Property `height`
+### Accessor property: `height`
 
 > The height of the element
 
@@ -176,13 +203,13 @@ Example usage:
 const {defineElement, it, test} = require('cybernaut');
 
 test('Example', async t => {
-  const element = defineElement('elementName', 'selector');
+  const element = defineElement('name', 'selector');
 
   await t.assert(element.height, it.should.equal(123));
 });
 ```
 
-### Method `attributeValue`
+### Accessor method: `attributeValue()`
 
 > The value of the {attributeName} attribute of the element`
 
@@ -196,13 +223,13 @@ Example usage:
 const {defineElement, it, test} = require('cybernaut');
 
 test('Example', async t => {
-  const element = defineElement('elementName', 'selector');
+  const element = defineElement('name', 'selector');
 
   await t.assert(element.attributeValue('id'), it.should.equal('id'));
 });
 ```
 
-### Method `cssValue`
+### Accessor method: `cssValue()`
 
 > The value of the {cssName} css of the element
 
@@ -216,13 +243,33 @@ Example usage:
 const {defineElement, it, test} = require('cybernaut');
 
 test('Example', async t => {
-  const element = defineElement('elementName', 'selector');
+  const element = defineElement('name', 'selector');
 
   await t.assert(element.cssValue('margin-left'), it.should.equal('22px'));
 });
 ```
 
-### Method `clearValue`
+### Accessor method: `descendantElementCount()`
+
+> The count of matching descendant elements for the specified selector ({selector})
+
+Type definition:
+
+* **`descendantElementCount(selector: string): Accessor<number>`**
+
+Example usage:
+
+```js
+const {defineElement, it, test} = require('cybernaut');
+
+test('Example', async t => {
+  const element = defineElement('name', 'selector');
+
+  await t.assert(element.descendantElementCount('selector'), it.should.beGreaterThan(0));
+});
+```
+
+### Action method: `clearValue()`
 
 > Clear the value of the element
 
@@ -236,13 +283,13 @@ Example usage:
 const {defineElement, test} = require('cybernaut');
 
 test('Example', async t => {
-  const element = defineElement('elementName', 'selector');
+  const element = defineElement('name', 'selector');
 
   await t.perform(element.clearValue());
 });
 ```
 
-### Method `click`
+### Action method: `click()`
 
 > Click on the element
 
@@ -256,13 +303,13 @@ Example usage:
 const {defineElement, test} = require('cybernaut');
 
 test('Example', async t => {
-  const element = defineElement('elementName', 'selector');
+  const element = defineElement('name', 'selector');
 
   await t.perform(element.click());
 });
 ```
 
-### Method `sendKeys`
+### Action method: `sendKeys()`
 
 > Send the specified keys ({keys}) to the element
 
@@ -276,7 +323,7 @@ Example usage:
 const {Key, defineElement, test} = require('cybernaut');
 
 test('Example', async t => {
-  const element = defineElement('elementName', 'selector');
+  const element = defineElement('name', 'selector');
 
   await t.perform(element.sendKeys('text was', Key.CONTROL, 'a', Key.NULL, 'now text is'));
 });
@@ -294,7 +341,7 @@ test('Example', async t => {
 
 *Note: The `WebElement` of selenium-webdriver is used internally, but is not accessible from the outside.*
 
-### Method `submitForm`
+### Action method: `submitForm()`
 
 > Submit the form containing the element
 
@@ -308,7 +355,7 @@ Example usage:
 const {defineElement, test} = require('cybernaut');
 
 test('Example', async t => {
-  const element = defineElement('elementName', 'selector');
+  const element = defineElement('name', 'selector');
 
   await t.perform(element.submitForm());
 });

@@ -3,8 +3,8 @@
 import {Verifier, createVerifier, verify} from '../verification';
 
 interface AccessorMock<T> {
+  readonly description: string;
   readonly get: jest.Mock<Promise<T>>;
-  readonly name: string;
 }
 
 interface PredicateMock {
@@ -22,7 +22,7 @@ describe('given a newly created verifier() is called', () => {
   let verifier: Verifier;
 
   beforeEach(() => {
-    accessor = {name: '<accessorName>', get: jest.fn<Promise<string>>()};
+    accessor = {description: '<accessorName>', get: jest.fn<Promise<string>>()};
 
     predicate = {
       compare: jest.fn<string>().mockReturnValue('<predicateComparison>'),
@@ -30,7 +30,7 @@ describe('given a newly created verifier() is called', () => {
       test: jest.fn<boolean>()
     };
 
-    description = `${accessor.name} ${predicate.description}`;
+    description = `${accessor.description} ${predicate.description}`;
     verifier = createVerifier(accessor, predicate);
   });
 

@@ -22,7 +22,7 @@ export type Verifier = (
 export function createVerifier<T>(
   accessor: Accessor<T>, predicate: Predicate<T>
 ): Verifier {
-  const description = `${accessor.name} ${predicate.description}`;
+  const description = `${accessor.description} ${predicate.description}`;
 
   return async (driver: WebDriver, attempt: number, retries: number) => {
     try {

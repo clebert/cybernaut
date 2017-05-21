@@ -1,4 +1,4 @@
-# Export `it`
+# Export: `it`
 
 Type definition:
 

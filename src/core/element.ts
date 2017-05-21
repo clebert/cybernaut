@@ -13,20 +13,47 @@ function serialize(char: string): string {
   return KeyName[char] ? 'Key.' + String(KeyName[char]) : format(char);
 }
 
-export class Element {
-  private readonly _index: number;
-  private readonly _name: string;
-  private readonly _selector: string;
+export interface Locator {
+  readonly index: number;
+  readonly selector: string;
+}
 
-  public constructor(name: string, selector: string, index: number) {
-    this._index = index;
+export class Element {
+  private readonly _locators: Locator[];
+  private readonly _name: string;
+
+  public constructor(name: string, locators: Locator[]) {
+    this._locators = locators;
     this._name = name;
-    this._selector = selector;
+  }
+
+  public defineDescendantElement(
+    name: string, selector: string, index: number = 0
+  ): Element {
+    return new Element(name, [...this._locators, {index, selector}]);
+  }
+
+  public get existence(): Accessor<boolean> {
+    return {
+      description: `The existence of the ${this._name} element`,
+      get: async driver => Boolean(await this._locateElement(driver))
+    };
+  }
+
+  public get visibility(): Accessor<boolean> {
+    return {
+      description: `The visibility of the ${this._name} element`,
+      get: async driver => {
+        const element = await this._findElement(driver);
+
+        return element.isDisplayed();
+      }
+    };
   }
 
   public get tagName(): Accessor<string> {
     return {
-      name: `The tag name of the ${this._name} element`,
+      description: `The tag name of the ${this._name} element`,
       get: async driver => {
         const element = await this._findElement(driver);
 
@@ -37,7 +64,7 @@ export class Element {
 
   public get text(): Accessor<string> {
     return {
-      name: `The text of the ${this._name} element`,
+      description: `The text of the ${this._name} element`,
       get: async driver => {
         const element = await this._findElement(driver);
 
@@ -46,31 +73,9 @@ export class Element {
     };
   }
 
-  public get existence(): Accessor<boolean> {
-    return {
-      name: `The existence of the ${this._name} element`,
-      get: async driver => {
-        const elements = await this._findElements(driver);
-
-        return Boolean(elements[this._index]);
-      }
-    };
-  }
-
-  public get visibility(): Accessor<boolean> {
-    return {
-      name: `The visibility of the ${this._name} element`,
-      get: async driver => {
-        const element = await this._findElement(driver);
-
-        return element.isDisplayed();
-      }
-    };
-  }
-
   public get xPosition(): Accessor<number> {
     return {
-      name: `The X position of the ${this._name} element`,
+      description: `The X position of the ${this._name} element`,
       get: async driver => {
         const element = await this._findElement(driver);
 
@@ -81,7 +86,7 @@ export class Element {
 
   public get yPosition(): Accessor<number> {
     return {
-      name: `The Y position of the ${this._name} element`,
+      description: `The Y position of the ${this._name} element`,
       get: async driver => {
         const element = await this._findElement(driver);
 
@@ -92,7 +97,7 @@ export class Element {
 
   public get width(): Accessor<number> {
     return {
-      name: `The width of the ${this._name} element`,
+      description: `The width of the ${this._name} element`,
       get: async driver => {
         const element = await this._findElement(driver);
 
@@ -103,7 +108,7 @@ export class Element {
 
   public get height(): Accessor<number> {
     return {
-      name: `The height of the ${this._name} element`,
+      description: `The height of the ${this._name} element`,
       get: async driver => {
         const element = await this._findElement(driver);
 
@@ -113,12 +118,12 @@ export class Element {
   }
 
   public attributeValue(attributeName: string): Accessor<string | null> {
-    const name =
+    const description =
       `The value of the ${attributeName} attribute ` +
       `of the ${this._name} element`;
 
     return {
-      name,
+      description,
       get: async driver => {
         const element = await this._findElement(driver);
 
@@ -128,15 +133,31 @@ export class Element {
   }
 
   public cssValue(cssName: string): Accessor<string> {
-    const name =
+    const description =
       `The value of the ${cssName} css of the ${this._name} element`;
 
     return {
-      name,
+      description,
       get: async driver => {
         const element = await this._findElement(driver);
 
         return element.getCssValue(cssName);
+      }
+    };
+  }
+
+  public descendantElementCount(selector: string): Accessor<number> {
+    const description =
+      'The count of matching descendant elements ' +
+      `for the specified selector (${selector})`;
+
+    return {
+      description,
+      get: async driver => {
+        const element = await this._findElement(driver);
+        const descendantElements = await element.findElements(By.css(selector));
+
+        return descendantElements.length;
       }
     };
   }
@@ -195,24 +216,42 @@ export class Element {
     };
   }
 
-  public toString(): string {
-    return format({
-      name: this._name, selector: this._selector, index: this._index
-    });
-  }
-
   private async _findElement(driver: WebDriver): Promise<WebElement> {
-    const elements = await this._findElements(driver);
-    const element = elements[this._index];
+    const element = await this._locateElement(driver);
 
     if (!element) {
-      throw new Error('Unable to locate element: ' + this.toString());
+      throw new Error('Unable to locate element: ' + format(this._locators));
     }
 
     return element;
   }
 
-  private async _findElements(driver: WebDriver): Promise<WebElement[]> {
-    return driver.findElements(By.css(this._selector));
+  private async _locateElement(
+    driver: WebDriver
+  ): Promise<WebElement | undefined> {
+    let element: WebElement | undefined;
+    let elements: WebElement[] = [];
+
+    for (const locator of this._locators) {
+      if (element) {
+        elements = await element.findElements(By.css(locator.selector));
+      } else {
+        elements = await driver.findElements(By.css(locator.selector));
+      }
+
+      element = elements[locator.index];
+
+      if (!element) {
+        break;
+      }
+    }
+
+    return element;
   }
+}
+
+export function defineElement(
+  name: string, selector: string, index: number = 0
+): Element {
+  return new Element(name, [{index, selector}]);
 }
