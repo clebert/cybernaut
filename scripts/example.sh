@@ -10,8 +10,6 @@ rm -rf "$HOME"/dist
 
 "$(npm bin)"/tsc --project "$HOME"
 
-DEBUG='cybernaut:*'
-
 docker run -it --rm \
   -e DEBUG="$DEBUG" \
   -v "$HOME"/dist:/opt/cybernaut-tests \
@@ -29,3 +27,5 @@ docker run -it --rm \
   -v "$HOME"/dist:/opt/cybernaut-tests \
   -v /dev/shm:/dev/shm \
   clebert/cybernaut-chrome
+
+rm -rf "$HOME"/dist
