@@ -1,6 +1,6 @@
 # Testing with Docker
 
-End-to-end tests written with Cybernaut can be run in a Docker container.
+Tests written with Cybernaut can be run in a Docker container.
 This has the advantage of being able to run them independently of the environment and under reproducible conditions.
 
 *Note: The provided [example][example] can serve as a reference implementation.*
@@ -81,7 +81,7 @@ docker run -it --rm -v /dev/shm:/dev/shm -e DEBUG='cybernaut:*' clebert/cybernau
 ```
 
 *Note: When executing `docker run` for an image with chrome browser please add `-v /dev/shm:/dev/shm` [volume mount][docker-mount] to use the host's shared memory.
-Since a Docker container is not meant to preserve state and spawning a new one takes less than 3 seconds you will likely want to remove containers after each end-to-end test with `--rm` command.*
+Since a Docker container is not meant to preserve state and spawning a new one takes less than 3 seconds you will likely want to remove containers after each test with `--rm` command.*
 
 [chrome-tags]: https://hub.docker.com/r/clebert/cybernaut-chrome/tags/
 [firefox-tags]: https://hub.docker.com/r/clebert/cybernaut-firefox/tags/

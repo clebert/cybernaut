@@ -17,7 +17,7 @@ Configuration options:
 
 * `capabilities`: Specifies the desired [WebDriver capabilities][selenium-desired-capabilities].
 * `capabilities.browserName`: Specifies the browser to use. For example: `"chrome"` or `"firefox"`
-* `concurrency`: Specifies the maximum number of end-to-end tests running at the same time.
+* `concurrency`: Specifies the maximum number of tests running at the same time.
 * `files`: Specifies the [glob patterns][globby], for which matching files will be added to the set of test files.
 * `retries`: Specifies the maximum number of retries of failed test steps.
 * `retryDelay`: Specifies the time, in milliseconds, to wait between retries of failed test steps.

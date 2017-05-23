@@ -6,7 +6,7 @@
 [![Greenkeeper][greenkeeper-badge]][greenkeeper]
 [![TypeScript][typescript-badge]][typescript]
 
-> Reliable, zero configuration end-to-end testing in BDD-style.
+> Reliable, automated web UI testing in BDD-style.
 
 [![Example][example-png]][example-png]
 
@@ -15,7 +15,7 @@ WYSIWYM—the above **human-readable** test output corresponds to what is progra
 ```js
 import {browser, defineElement, it, test} from 'cybernaut';
 
-test('This is an end-to-end test example', async t => {
+test('This is an example test', async t => {
   await t.perform(browser.loadPage('http://example.com/'), {retries: 0});
 
   await t.assert(browser.pageTitle, it.should.equal('Example Domain'));
@@ -30,7 +30,7 @@ test('This is an end-to-end test example', async t => {
 
 ## Getting started
 
-Although it is possible to run your end-to-end tests locally, it is recommended to run them on Docker. For this, only Docker must be [installed][docker-installation], no further dependencies are necessary.
+Although it is possible to run your tests locally, it is recommended to run them on Docker. For this, only Docker must be [installed][docker-installation], no further dependencies are necessary.
 
 To get started, put a test file (e.g. test.e2e.js) into a directory:
 
@@ -52,12 +52,12 @@ docker run -it --rm \
 ## Introduction
 
 Cybernaut is built on top of selenium-webdriver and lets you control a browser with just a few lines of code.
-Your end-to-end test code will look simple, concise and easy to read and is automatically output line by line in a human-readable form (WYSIWYM).
+Your test code will look simple, concise and easy to read and is automatically output line by line in a human-readable form (WYSIWYM).
 It provides a [`Promise`][mdn-promise]-based API and allows the use of [`async`][mdn-async]/[`await`][mdn-await] to write your code without nesting and with the possibility of using control-flow primitives such as `if...else`.
 
-Additionally, there are pre-built Docker containers to run your end-to-end tests effortlessly in any environment such as Travis CI.
+Additionally, there are pre-built Docker containers to run your tests effortlessly in any environment such as Travis CI.
 
-### Writing reliable end-to-end tests will be easy
+### Writing reliable tests will be easy
 
 Let's say we want to write a test which checks the text of a headline element.
 
@@ -65,13 +65,13 @@ A test written with, for example, selenium-webdriver consists of three test step
 Each of these test steps can go wrong and end the whole test:
 
 ```js
-// Fails if the headline element does not yet exist
+// Fails if the headline element does not yet exist.
 const headline = await driver.findElement(By.css('h1'));
 
-// Fails if the headline element is stale
+// Fails if the headline element is stale.
 const text = await headline.getText();
 
-// Fails if the actual text does not equal the expected text
+// Fails if the actual text does not equal the expected text.
 assert.equal(text, 'Lorem ipsum');
 ```
 
@@ -79,14 +79,14 @@ Cybernaut allows all three of these test steps to be implemented in a single tes
 This means that if one part of this test step fails, the entire test step fails and can then be repeated as a whole by the test runner:
 
 ```js
-// Can not fail because it is just a definition of an element
+// Can not fail because it is just a definition of an element.
 const headline = defineElement('headline', 'h1');
 
-// Can fail but only after several attempts
+// Can fail but only after several attempts.
 await t.assert(element.text, it.should.equal('Lorem ipsum'));
 ```
 
-By this mechanism, a high reliability and thus stability of your end-to-end tests can be ensured.
+By this mechanism, a high reliability and thus stability of your tests can be ensured.
 
 ---
 Built by (c) Clemens Akens. Released under the MIT license.

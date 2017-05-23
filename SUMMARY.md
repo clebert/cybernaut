@@ -12,7 +12,7 @@
 
 * [Testing with Docker](docs/recipes/testing-with-docker.md)
 * [Emulating mobile devices in Chrome](docs/recipes/emulating-mobile-devices-in-chrome.md)
-* [Writing end-to-end tests](docs/recipes/writing-end-to-end-tests.md)
+* [Writing tests](docs/recipes/writing-tests.md)
 
 ## API Reference
 
