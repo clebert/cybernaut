@@ -14,10 +14,6 @@ fi
 
 ./scripts/ci.sh
 
-git push --follow-tags origin master
-
-npm publish
-
 docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 
 GIT_TAG=$("$(npm bin)"/git-latest-semver-tag)
@@ -25,6 +21,10 @@ VERSION="${GIT_TAG:1}"
 
 for TARGET in chrome firefox
 do
-  docker push clebert/cybernaut-"$TARGET"
+  docker push clebert/cybernaut-"$TARGET":latest
   docker push clebert/cybernaut-"$TARGET":"$VERSION"
 done
+
+git push --follow-tags origin master
+
+npm publish

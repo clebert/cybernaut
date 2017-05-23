@@ -22,7 +22,7 @@ do
   cp -f "$HOME"/cybernaut-xvfb.sh "$RESOURCES"/cybernaut-xvfb.sh
 
   docker build \
-    -t clebert/cybernaut-"$TARGET" \
+    -t clebert/cybernaut-"$TARGET":latest \
     -t clebert/cybernaut-"$TARGET":"$VERSION" \
     "$HOME"/cybernaut-"$TARGET"
 
