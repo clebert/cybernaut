@@ -18,7 +18,7 @@ Each Docker tag corresponds to the same tag or version of `cybernaut` on [npm][n
 
 ## Getting started
 
-To get started, copy your test files into the `/opt/cybernaut-tests` directory inside the Docker container:
+To get started, copy your test files into the `/opt/cybernaut-tests` directory within the Docker container:
 
 ```dockerfile
 COPY example.e2e.js /opt/cybernaut-tests/example.e2e.js

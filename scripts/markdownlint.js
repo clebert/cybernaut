@@ -6,7 +6,7 @@ const {sync} = require('globby');
 const markdownlint = require('markdownlint');
 
 const options = {
-  files: sync(['**/*.md', '!CHANGELOG.md', '!**/node_modules/**/*'], {
+  files: sync(['**/*.md', '!**/CHANGELOG.md', '!**/node_modules/**/*'], {
     nodir: true, realpath: true
   }),
   config: require('../.markdownlint.json')

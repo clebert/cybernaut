@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.0.0](https://github.com/clebert/cybernaut/compare/v6.2.0...v7.0.0) (2017-05-23)
+
+### Features
+
+* improve documentation and docker containers ([69c3ae6](https://github.com/clebert/cybernaut/commit/69c3ae6))
+
+### BREAKING CHANGES
+
+* The paths within the docker containers for both the test directory (/opt/cybernaut-tests) and the configuration directory (/opt/cybernaut-config) have changed.
+
 ## [6.2.0](https://github.com/clebert/cybernaut/compare/v6.1.0...v6.2.0) (2017-05-21)
 
 ### Bug Fixes
