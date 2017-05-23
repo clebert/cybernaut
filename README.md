@@ -13,7 +13,7 @@
 WYSIWYM—the above **human-readable** test output corresponds to what is programmed:
 
 ```js
-import {browser, defineElement, it, test} from 'cybernaut';
+const {browser, defineElement, it, test} = require('cybernaut');
 
 test('This is an example test', async t => {
   await t.perform(browser.loadPage('http://example.com/'), {retries: 0});
