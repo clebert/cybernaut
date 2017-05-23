@@ -85,7 +85,7 @@
     "standard-version": "4.0.0",
     "ts-config": "7.1.0",
     "ts-jest": "20.0.4",
-    "tslint": "5.2.0",
+    "tslint": "5.3.0",
     "typescript": "2.3.3",
     "typescript-formatter": "5.2.0"
   }
