@@ -9,7 +9,7 @@ const options = {
   files: sync(['**/*.md', '!CHANGELOG.md', '!**/node_modules/**/*'], {
     nodir: true, realpath: true
   }),
-  config: require('../../.markdownlint.json')
+  config: require('../.markdownlint.json')
 };
 
 markdownlint(options, (error, result) => {

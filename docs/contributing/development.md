@@ -1,6 +1,6 @@
 # Development
 
-## Installing dev dependencies
+## Installing the dev dependencies
 
 ```sh
 npm install
@@ -8,22 +8,22 @@ npm install
 
 *Note: Please also install Docker.*
 
-## Watching unit tests
+## Watching the unit tests
 
 ```sh
 npm run watch
 ```
 
-## Running unit tests (w/o watching)
+## Running the unit tests (w/o watching)
 
 ```sh
 npm test
 ```
 
-## Running examples with Docker
+## Running the example with Docker
 
 ```sh
-npm run examples
+npm run example
 ```
 
 ## Checking for formatting and linting errors
@@ -32,7 +32,7 @@ npm run examples
 npm run check
 ```
 
-## Formatting sources
+## Formatting the sources
 
 ```sh
 npm run format

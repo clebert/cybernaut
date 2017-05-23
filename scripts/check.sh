@@ -8,11 +8,15 @@ echo 'Running conventional-changelog-lint ...'
 
 echo 'Running shellcheck ...'
 
-./scripts/docker/run-shellcheck.sh
+docker run -it --rm \
+  -v "$(pwd)"/scripts:/scripts \
+  --entrypoint /bin/sh \
+  koalaman/shellcheck \
+  /scripts/shellcheck.sh
 
 echo 'Running markdownlint ...'
 
-./scripts/lib/markdownlint.js
+./scripts/markdownlint.js
 
 echo 'Running tsfmt ...'
 

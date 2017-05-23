@@ -6,7 +6,8 @@
     "**/coverage": true,
     "**/dist": true,
     "**/node_modules": true,
-    "**/npm-debug.log*": true
+    "**/npm-debug.log": true,
+    "**/resources": true
   },
   "search.exclude": {
     "**/_book": true,
@@ -15,7 +16,8 @@
     "**/coverage": true,
     "**/dist": true,
     "**/node_modules": true,
-    "**/npm-debug.log*": true
+    "**/npm-debug.log": true,
+    "**/resources": true
   },
   "tslint.configFile": "./tslint.json",
   "tslint.enable": true,

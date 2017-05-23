@@ -1,5 +1,5 @@
 #!/bin/sh
 
-set -e -x
+set -e
 
 < coverage/lcov.info "$(npm bin)"/coveralls

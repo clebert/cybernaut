@@ -1,7 +1,6 @@
-// import {browser, defineElement, it, test} from '../src';
 import {browser, defineElement, it, test} from 'cybernaut';
 
-test('This is an end-to-end test example', async t => {
+test('This is an example test', async t => {
   await t.perform(browser.loadPage('http://example.com/'), {retries: 0});
 
   await t.assert(browser.pageTitle, it.should.equal('Example Domain'));

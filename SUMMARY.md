@@ -2,17 +2,15 @@
 
 ## Overview
 
-* [Starting Cybernaut](docs/overview/starting-cybernaut.md)
+* [Testing with Docker](docs/overview/testing-with-docker.md)
+* [Testing locally](docs/overview/testing-locally.md)
 * [Configuring Cybernaut](docs/overview/configuring-cybernaut.md)
-* [GitHub Repository][github-cybernaut]
 * [Related links](docs/overview/related-links.md)
-* [Development](docs/overview/development.md)
 
 ## Recipes
 
-* [Testing with Docker](docs/recipes/testing-with-docker.md)
+* [Writing tests](docs/recipes/writing-tests.md)
 * [Emulating mobile devices in Chrome](docs/recipes/emulating-mobile-devices-in-chrome.md)
-* [Writing end-to-end tests](docs/recipes/writing-end-to-end-tests.md)
 
 ## API Reference
 
@@ -28,5 +26,10 @@
   * [Browser](docs/api-reference/interfaces/browser.md)
   * [Element](docs/api-reference/interfaces/element.md)
   * [PredicateBuilder](docs/api-reference/interfaces/predicate-builder.md)
+
+## Contributing
+
+* [GitHub Repository][github-cybernaut]
+* [Development](docs/contributing/development.md)
 
 [github-cybernaut]: https://github.com/clebert/cybernaut

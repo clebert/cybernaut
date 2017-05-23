@@ -1,16 +1,19 @@
 {
   "name": "cybernaut",
   "version": "6.2.0",
-  "description": "Reliable, zero configuration end-to-end testing in BDD-style.",
+  "description": "Reliable, automated web UI testing in BDD-style.",
   "license": "MIT",
   "author": "Clemens Akens <clebert@me.com>",
   "keywords": [
+    "automated",
     "bdd",
     "e2e",
     "end-to-end",
     "selenium",
     "test",
     "testing",
+    "ui",
+    "web",
     "webdriver"
   ],
   "repository": {
@@ -43,17 +46,12 @@
     }
   },
   "scripts": {
-    "prebuild": "npm run compile",
-    "build": "./scripts/build.sh",
     "check": "./scripts/check.sh",
-    "compile": "./scripts/compile.sh",
     "cz": "git-cz",
     "predocs": "gitbook install",
     "docs": "gitbook serve",
-    "preexamples": "npm run build",
-    "examples": "./scripts/examples.sh",
+    "example": "./scripts/example.sh",
     "format": "tsfmt --replace",
-    "prepush": "npm prune && npm install && npm run examples",
     "push": "./scripts/push.sh",
     "release": "standard-version",
     "test": "./scripts/test.sh",

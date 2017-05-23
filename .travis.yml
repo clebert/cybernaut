@@ -7,9 +7,9 @@ node_js:
 before_script:
 - npm prune
 script:
-- ./scripts/travis/script.sh
+- ./scripts/ci.sh
 after_success:
-- ./scripts/travis/coveralls.sh
+- ./scripts/coveralls.sh
 branches:
   except:
   - /^v\d+\.\d+\.\d+$/
