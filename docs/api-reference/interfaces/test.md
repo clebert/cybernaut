@@ -10,8 +10,8 @@
 
 Type definition:
 
-* **`assert<T>(accessor: Accessor<T>, predicate: Predicate<T>, options?: Partial<Options>): Promise<void>`**
-* `Options: {retries: number, retryDelay: number}`
+* **`assert<T>(accessor: Accessor<T>, predicate: Predicate<T>, options?: Options): Promise<void>`**
+* `Options: {retries?: number, retryDelay?: number}`
 
 Example usage:
 
@@ -30,8 +30,8 @@ test('Example', async t => {
 
 Type definition:
 
-* **`perform(action: Action, options?: Partial<Options>): Promise<void>`**
-* `Options: {retries: number, retryDelay: number}`
+* **`perform(action: Action, options?: Options): Promise<void>`**
+* `Options: {retries?: number, retryDelay?: number}`
 
 Example usage:
 
@@ -50,8 +50,8 @@ test('Example', async t => {
 
 Type definition:
 
-* **`verify<T>(accessor: Accessor<T>, predicate: Predicate<T>, options?: Partial<Options>): Promise<boolean>`**
-* `Options: {retries: number, retryDelay: number}`
+* **`verify<T>(accessor: Accessor<T>, predicate: Predicate<T>, options?: Options): Promise<boolean>`**
+* `Options: {retries?: number, retryDelay?: number}`
 
 Example usage:
 
