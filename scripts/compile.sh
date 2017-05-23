@@ -24,8 +24,8 @@ rm -rf dist && mkdir -p dist
 
 docker run -it --rm -v "$(pwd)"/dist:/opt/cybernaut/dist "$DOCKER_TAG"
 
-# TODO: remove
-ls -la .
-ls -la dist
+if [ "$TRAVIS" == "true" ]; then
+  sudo chown -R travis dist
+fi
 
 chmod +x dist/index.js
