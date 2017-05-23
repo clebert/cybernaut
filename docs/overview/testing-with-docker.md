@@ -9,7 +9,7 @@ Only Docker must be [installed][docker-installation], no further dependencies ar
 
 ## Docker containers
 
-Cybernaut provides two fully configured Docker containers, which can be found on [Docker Hub][docker-hub-clebert]:
+Cybernaut provides two fully configured Docker containers which can be found on [Docker Hub][docker-hub-clebert]:
 
 * `cybernaut-chrome` allows testing on Chrome ([Docker tags][chrome-tags])
 * `cybernaut-firefox` allows testing on Firefox ([Docker tags][firefox-tags])
@@ -18,7 +18,7 @@ Each Docker tag corresponds to the same tag or version of `cybernaut` on [npm][n
 
 ## Getting started
 
-To get started, copy your test files into the `/opt/cybernaut-tests/` directory inside the Docker container:
+To get started, copy your test files into the `/opt/cybernaut-tests` directory inside the Docker container:
 
 ```dockerfile
 COPY example.e2e.js /opt/cybernaut-tests/example.e2e.js

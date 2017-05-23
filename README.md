@@ -30,7 +30,7 @@ test('This is an example test', async t => {
 
 ## Getting started
 
-Although it is possible to run your tests locally, it is recommended to run them on Docker. For this, only Docker must be [installed][docker-installation], no further dependencies are necessary.
+Although it is possible to run your tests [locally][testing-locally], it is recommended to run them on Docker. For this, only Docker must be [installed][docker-installation], no further dependencies are necessary.
 
 To get started, put a test file (e.g. test.e2e.js) into a directory:
 
@@ -47,7 +47,7 @@ docker run -it --rm \
   clebert/cybernaut-chrome:latest
 ```
 
-**For further information, please consult the [documentation][documentation].**
+**For further information, please consult the [documentation][testing-with-docker].**
 
 ## Introduction
 
@@ -62,7 +62,7 @@ Additionally, there are pre-built Docker containers to run your tests effortless
 Let's say we want to write a test which checks the text of a headline element.
 
 A test written with, for example, selenium-webdriver consists of three test steps.
-Each of these test steps can go wrong and end the whole test:
+Each of these test steps can go wrong:
 
 ```js
 // Fails if the headline element does not yet exist.
@@ -75,8 +75,8 @@ const text = await headline.getText();
 assert.equal(text, 'Lorem ipsum');
 ```
 
-Cybernaut allows all three of these test steps to be implemented in a single test step. This single test step is executed in an atomic way.
-This means that if one part of this test step fails, the entire test step fails and can then be repeated as a whole by the test runner:
+Cybernaut allows all these test steps to be implemented in a single test step. This single test step is executed in an atomic way.
+This means that if one part of this test step fails, the entire test step fails and can then be repeated as a whole by the integrated test runner:
 
 ```js
 // Can not fail because it is just a definition of an element.
@@ -94,7 +94,6 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [coveralls]: https://coveralls.io/github/clebert/cybernaut?branch=master
 [coveralls-badge]: https://coveralls.io/repos/github/clebert/cybernaut/badge.svg?branch=master
 [docker-installation]: https://docs.docker.com/engine/installation/
-[documentation]: https://cybernaut.js.org/docs/overview/starting-cybernaut.html
 [example]: https://github.com/clebert/cybernaut/tree/master/example
 [example-png]: https://clebert.github.io/cybernaut/images/example.png
 [greenkeeper]: https://greenkeeper.io/
@@ -105,6 +104,8 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [mdn-promise]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
 [npm-cybernaut]: https://www.npmjs.com/package/cybernaut
 [npm-cybernaut-badge]: https://img.shields.io/npm/v/cybernaut.svg?maxAge=3600
+[testing-locally]: https://cybernaut.js.org/docs/overview/testing-locally.html
+[testing-with-docker]: https://cybernaut.js.org/docs/overview/testing-with-docker.html
 [travis-ci]: https://travis-ci.org/clebert/cybernaut
 [travis-ci-badge]: https://travis-ci.org/clebert/cybernaut.svg?branch=master
 [typescript]: http://www.typescriptlang.org/
