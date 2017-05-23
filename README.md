@@ -42,7 +42,7 @@ and run it on Chrome with Docker:
 
 ```sh
 docker run -it --rm \
-  -v "$(pwd)"/cybernaut-tests/:/opt/cybernaut-tests/ \
+  -v "$(pwd)"/cybernaut-tests:/opt/cybernaut-tests \
   -v /dev/shm:/dev/shm \
   clebert/cybernaut-chrome:latest
 ```

@@ -1,4 +1,15 @@
-# Starting Cybernaut
+# Testing locally
+
+## Installation
+
+```sh
+npm install --save-dev cybernaut
+```
+
+*Note: If the default configuration is used, a current version of Chrome must be installed.
+Cybernaut is tested with Chrome and Firefox and **provides** the latest drivers for these two.*
+
+## Getting started
 
 Cybernaut must be started from the command line:
 
