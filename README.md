@@ -30,7 +30,7 @@ test('This is an example test', async t => {
 
 ## Getting started
 
-Although it is possible to run your tests [locally][testing-locally], it is recommended to run them on Docker. For this, only Docker must be [installed][docker-installation], no further dependencies are necessary.
+Although it is possible to run your tests [locally][testing-locally], it is recommended to run them on Docker. For this, only Docker has to be [installed][docker-installation]. No further dependencies are required.
 
 To get started, put a test file (e.g. test.e2e.js) into a directory:
 

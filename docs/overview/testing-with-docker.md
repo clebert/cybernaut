@@ -5,7 +5,7 @@ This has the advantage of being able to run them independently of the environmen
 
 ## Installation
 
-Only Docker must be [installed][docker-installation], no further dependencies are necessary.
+Only Docker has to be [installed][docker-installation]. No further dependencies are required.
 
 ## Docker containers
 
