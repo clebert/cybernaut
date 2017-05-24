@@ -16,6 +16,8 @@ Cybernaut provides two fully configured Docker containers which can be found on 
 
 Each Docker tag corresponds to the same tag or version of `cybernaut` on [npm][npm-cybernaut].
 
+*Note: Both docker containers are built with the latest browser version available at the time of construction.*
+
 ## Getting started
 
 To get started, copy your test files into the `/opt/cybernaut-tests` directory within the Docker container:
