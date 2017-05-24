@@ -29,8 +29,25 @@ npm install --save-dev tap-mocha-reporter
 $(npm bin)/cybernaut | $(npm bin)/tap-mocha-reporter spec
 ```
 
+## Troubleshooting
+
 To enable debug output, you can set the `DEBUG='cybernaut:*'` environment variable:
 
 ```sh
 DEBUG='cybernaut:*' $(npm bin)/cybernaut
+```
+
+If the following error occurs:
+
+```sh
+ECONNREFUSED connect ECONNREFUSED 127.0.0.1:51983
+````
+
+then it is very likely that an outdated version of chromedriver is globally installed.
+These version of chromedriver takes precedence over the version installed by Cybernaut.
+
+On a Mac with Homebrew installed, try the following command:
+
+```sh
+brew uninstall chromedriver
 ```
