@@ -3,8 +3,9 @@
 Type definition:
 
 * **`test(name: string, implementation?: Implementation): void`**
-* `Implementation: (t: Test) => Promise<void>`
+* `Implementation: (t: Test, config: Config) => Promise<void>`
 * [`Test`](../interfaces/test.md)
+* [`Config`](../../overview/configuring-cybernaut.md)
 
 Example usage:
 
@@ -15,7 +16,11 @@ const {test} = require('cybernaut');
 test('Example 1');
 
 // The following test will be executed.
-test('Example 2', async t => {
-  // ...
+test('Example 2', async (t, config) => {
+  if (config.capabilities.browserName === 'chrome') {
+    // ...
+  } else {
+    // ...
+  }
 });
 ```

@@ -44,7 +44,7 @@ export function loadConfig(filename?: string): Config {
 
   const customConfig = filename ? require(filename) : {};
 
-  return {...defaultConfig, ...customConfig};
+  return Object.freeze({...defaultConfig, ...customConfig});
 }
 
 const schema = require('../config-schema.json');
