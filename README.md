@@ -83,7 +83,7 @@ This means that if one part of this test step fails, the entire test step fails 
 const headline = defineElement('headline', 'h1');
 
 // Can fail but only after several attempts.
-await t.assert(element.text, it.should.equal('Lorem ipsum'));
+await t.assert(headline.text, it.should.equal('Lorem ipsum'));
 ```
 
 By this mechanism, a high reliability and thus stability of your tests can be ensured.
