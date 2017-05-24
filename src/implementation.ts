@@ -4,17 +4,14 @@ import {Builder} from 'selenium-webdriver';
 import {Config} from './config';
 import {Logger, Test} from './test';
 
-export type Implementation = (t: Test) => Promise<void>;
-
-export type Options =
-  Pick<Config, 'capabilities' | 'retries' | 'retryDelay' | 'timeouts'>;
+export type Implementation = (t: Test, config: Config) => Promise<void>;
 
 const debug = createDebug('cybernaut:implementation');
 
 export async function run(
-  implementation: Implementation, logger: Logger, options: Options
+  implementation: Implementation, logger: Logger, config: Config
 ): Promise<void> {
-  const {capabilities, timeouts} = options;
+  const {capabilities, timeouts} = config;
 
   debug('Create the browser session');
 
@@ -31,7 +28,7 @@ export async function run(
 
     debug('Run the test implementation');
 
-    await implementation(new Test(driver, logger, options));
+    await implementation(new Test(driver, logger, config), config);
   } finally {
     debug('Terminate the browser session');
 
