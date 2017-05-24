@@ -89,6 +89,11 @@ docker run -it --rm \
   1920x1080 dot
 ```
 
+*Note: When executing `docker run` for an image with chrome browser please add `-v /dev/shm:/dev/shm` [volume mount][docker-mount] to use the host's shared memory.
+Since a Docker container is not meant to preserve state and spawning a new one takes less than 3 seconds you will likely want to remove containers after each test with `--rm` command.*
+
+## Troubleshooting
+
 To enable debug output, you can set the `DEBUG='cybernaut:*'` environment variable:
 
 ```sh
@@ -97,9 +102,6 @@ docker run -it --rm \
   -v "$(pwd)"/cybernaut-tests:/opt/cybernaut-tests \
   clebert/cybernaut-firefox:latest
 ```
-
-*Note: When executing `docker run` for an image with chrome browser please add `-v /dev/shm:/dev/shm` [volume mount][docker-mount] to use the host's shared memory.
-Since a Docker container is not meant to preserve state and spawning a new one takes less than 3 seconds you will likely want to remove containers after each test with `--rm` command.*
 
 [chrome-tags]: https://hub.docker.com/r/clebert/cybernaut-chrome/tags/
 [firefox-tags]: https://hub.docker.com/r/clebert/cybernaut-firefox/tags/

@@ -6,6 +6,7 @@
 * [Testing locally](docs/overview/testing-locally.md)
 * [Configuring Cybernaut](docs/overview/configuring-cybernaut.md)
 * [Related links](docs/overview/related-links.md)
+* [Changelog](https://github.com/clebert/cybernaut/blob/master/CHANGELOG.md)
 
 ## Recipes
 
@@ -29,7 +30,5 @@
 
 ## Contributing
 
-* [GitHub Repository][github-cybernaut]
+* [GitHub Repository](https://github.com/clebert/cybernaut)
 * [Development](docs/contributing/development.md)
-
-[github-cybernaut]: https://github.com/clebert/cybernaut
