@@ -199,7 +199,7 @@ test('Example', async t => {
 
     // ...
 
-    callback();
+    callback(); // Do not forget to call the callback function!
   }));
 });
 ```

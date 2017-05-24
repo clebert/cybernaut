@@ -29,6 +29,8 @@ npm install --save-dev tap-mocha-reporter
 $(npm bin)/cybernaut | $(npm bin)/tap-mocha-reporter spec
 ```
 
+*Note: Cybernaut must be installed relative to the test files according to the [module resolution algorithm][module-resolution-algorithm].*
+
 ## Troubleshooting
 
 To enable debug output, you can set the `DEBUG='cybernaut:*'` environment variable:
@@ -51,3 +53,5 @@ On a Mac with Homebrew installed, try the following command:
 ```sh
 brew uninstall chromedriver
 ```
+
+[module-resolution-algorithm]: https://nodejs.org/api/modules.html#modules_all_together
