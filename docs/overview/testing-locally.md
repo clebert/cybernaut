@@ -41,7 +41,7 @@ If the following error occurs:
 
 ```sh
 ECONNREFUSED connect ECONNREFUSED 127.0.0.1:51983
-````
+```
 
 then it is very likely that an outdated version of chromedriver is globally installed.
 These version of chromedriver takes precedence over the version installed by Cybernaut.
