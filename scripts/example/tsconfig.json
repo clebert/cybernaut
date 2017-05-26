@@ -1,18 +1,18 @@
 {
+  "extends": "../../node_modules/ts-config/tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "noImplicitAny": true,
+    "importHelpers": false,
+    "lib": ["dom", "es2016"],
     "outDir": "dist",
     "paths": {
       "cybernaut": [
         "../../dist"
       ]
     },
-    "target": "es2016"
+    "rootDir": "tests"
   },
-  "files": [
-    "example.e2e.ts"
+  "include": [
+    "tests/**/*.ts"
   ]
 }

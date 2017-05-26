@@ -2,12 +2,14 @@
 
 set -e
 
-if [ -z "$1" ]; then
+if [ -z "$1" ];
+then
   echo 'Missing argument: screen size'
   exit 1
 fi
 
-if [ -z "$2" ]; then
+if [ -z "$2" ];
+then
   echo 'Missing argument: reporter'
   exit 1
 fi

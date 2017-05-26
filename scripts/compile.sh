@@ -24,7 +24,8 @@ rm -rf dist && mkdir -p dist
 
 docker run -it --rm -v "$(pwd)"/dist:/opt/cybernaut/dist "$DOCKER_TAG"
 
-if [ "$TRAVIS" == "true" ]; then
+if [ "$TRAVIS" == "true" ];
+then
   sudo chown -R travis dist
 fi
 
