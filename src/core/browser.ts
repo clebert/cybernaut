@@ -85,13 +85,6 @@ export class Browser {
     };
   }
 
-  public maximizeWindow(): Action {
-    return {
-      description: 'Maximize the window',
-      perform: async driver => driver.manage().window().maximize()
-    };
-  }
-
   public navigateBack(): Action {
     return {
       description: 'Navigate back',

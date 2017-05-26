@@ -83,12 +83,6 @@ describe('given a browser is created', () => {
     });
   });
 
-  describe('when browser.maximizeWindow() is called', () => {
-    test('then it should return a correctly described action', () => {
-      expect(browser.maximizeWindow().description).toBe('Maximize the window');
-    });
-  });
-
   describe('when browser.navigateBack() is called', () => {
     test('then it should return a correctly described action', () => {
       expect(browser.navigateBack().description).toBe('Navigate back');
