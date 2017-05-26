@@ -18,7 +18,6 @@
 
 * [`executeScript()`](#action-method-executescript)
 * [`loadPage()`](#action-method-loadpage)
-* [`maximizeWindow()`](#action-method-maximizewindow)
 * [`navigateBack()`](#action-method-navigateback)
 * [`navigateForward()`](#action-method-navigateforward)
 * [`reloadPage()`](#action-method-reloadpage)
@@ -219,24 +218,6 @@ const {browser, test} = require('cybernaut');
 
 test('Example', async t => {
   await t.perform(browser.loadPage('url'));
-});
-```
-
-### Action method: `maximizeWindow()`
-
-> Maximize the window
-
-Type definition:
-
-* **`maximizeWindow(): Action`**
-
-Example usage:
-
-```js
-const {browser, test} = require('cybernaut');
-
-test('Example', async t => {
-  await t.perform(browser.maximizeWindow());
 });
 ```
 
