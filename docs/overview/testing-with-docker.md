@@ -16,7 +16,7 @@ Cybernaut provides two fully configured Docker containers which can be found on 
 
 Each Docker tag corresponds to the same tag or version of `cybernaut` on [npm][npm-cybernaut].
 
-*Note: Both docker containers are built with the latest browser version available at the time of construction.*
+*Note: Both Docker containers are built with the latest browser version available at the time of construction.*
 
 ## Getting started
 
