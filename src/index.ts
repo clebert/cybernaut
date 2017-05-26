@@ -7,25 +7,26 @@ import tap = require('tap');
 
 import {sync} from 'globby';
 import {Key} from 'selenium-webdriver';
+import {AccessorScript, ActionScript, Browser} from './browser';
 import {Config, loadConfig, validate} from './config';
 import {Accessor} from './core/accessor';
 import {Action} from './core/action';
-import {Browser, Script} from './core/browser';
-import {Element, defineElement} from './core/element';
 import {PredicateBuilder} from './core/predicate';
+import {Test} from './core/test';
+import {format} from './core/utils';
+import {Element, defineElement} from './element';
 import {Implementation, run} from './implementation';
-import {Test} from './test';
-import {format} from './utils/format';
 
 export {
   Accessor,
+  AccessorScript,
   Action,
+  ActionScript,
   Browser,
   Element,
   Implementation,
   Key,
   PredicateBuilder,
-  Script,
   Test,
   defineElement
 };

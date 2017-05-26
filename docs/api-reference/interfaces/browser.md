@@ -23,7 +23,6 @@
 * [`reloadPage()`](#action-method-reloadpage)
 * [`setWindowPosition()`](#action-method-setwindowposition)
 * [`setWindowSize()`](#action-method-setwindowsize)
-* [`sleep()`](#action-method-sleep)
 
 ### Accessor property: `pageTitle`
 
@@ -31,7 +30,7 @@
 
 Type definition:
 
-* **`pageTitle: Accessor<string>`**
+* **`pageTitle: Accessor<WebDriver, string>`**
 
 Example usage:
 
@@ -49,7 +48,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`pageUrl: Accessor<string>`**
+* **`pageUrl: Accessor<WebDriver, string>`**
 
 Example usage:
 
@@ -67,7 +66,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`windowXPosition: Accessor<number>`**
+* **`windowXPosition: Accessor<WebDriver, number>`**
 
 Example usage:
 
@@ -85,7 +84,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`windowYPosition: Accessor<number>`**
+* **`windowYPosition: Accessor<WebDriver, number>`**
 
 Example usage:
 
@@ -103,7 +102,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`windowWidth: Accessor<number>`**
+* **`windowWidth: Accessor<WebDriver, number>`**
 
 Example usage:
 
@@ -121,7 +120,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`windowHeight: Accessor<number>`**
+* **`windowHeight: Accessor<WebDriver, number>`**
 
 Example usage:
 
@@ -139,7 +138,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`elementCount(selector: string): Accessor<number>`**
+* **`elementCount(selector: string): Accessor<WebDriver, number>`**
 
 Example usage:
 
@@ -157,8 +156,8 @@ test('Example', async t => {
 
 Type definition:
 
-* **`scriptResult(scriptName: string, script: Script): Accessor<any>`**
-* `Script: (callback: (result?: any) => void) => void`
+* **`scriptResult<T>(scriptName: string, script: AccessorScript<T>): Accessor<WebDriver, T>`**
+* `AccessorScript<T>: (callback: (result: T) => void) => void`
 
 Example usage:
 
@@ -183,8 +182,8 @@ test('Example', async t => {
 
 Type definition:
 
-* **`executeScript(scriptName: string, script: Script): Action`**
-* `Script: (callback: (result?: any) => void) => void`
+* **`executeScript(scriptName: string, script: ActionScript): Action<WebDriver>`**
+* `ActionScript: (callback: () => void) => void`
 
 Example usage:
 
@@ -209,7 +208,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`loadPage(url: string): Action`**
+* **`loadPage(url: string): Action<WebDriver>`**
 
 Example usage:
 
@@ -227,7 +226,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`navigateBack(): Action`**
+* **`navigateBack(): Action<WebDriver>`**
 
 Example usage:
 
@@ -245,7 +244,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`navigateForward(): Action`**
+* **`navigateForward(): Action<WebDriver>`**
 
 Example usage:
 
@@ -263,7 +262,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`reloadPage(): Action`**
+* **`reloadPage(): Action<WebDriver>`**
 
 Example usage:
 
@@ -281,7 +280,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`setWindowPosition(x: number, y: number): Action`**
+* **`setWindowPosition(x: number, y: number): Action<WebDriver>`**
 
 Example usage:
 
@@ -299,7 +298,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`setWindowSize(width: number, height: number): Action`**
+* **`setWindowSize(width: number, height: number): Action<WebDriver>`**
 
 Example usage:
 
@@ -308,23 +307,5 @@ const {browser, test} = require('cybernaut');
 
 test('Example', async t => {
   await t.perform(browser.setWindowSize(123, 456));
-});
-```
-
-### Action method: `sleep()`
-
-> Sleep for {duration} ms, because {reason}
-
-Type definition:
-
-* **`sleep(duration: number, reason?: string): Action`**
-
-Example usage:
-
-```js
-const {browser, test} = require('cybernaut');
-
-test('Example', async t => {
-  await t.perform(browser.sleep(123));
 });
 ```

@@ -1,5 +1,3 @@
-// tslint:disable no-any no-object-literal-type-assertion
-
 import {Executor, createExecutor, execute} from '../execution';
 
 interface ActionMock {
@@ -7,11 +5,11 @@ interface ActionMock {
   readonly perform: jest.Mock<Promise<void>>;
 }
 
-const driver = {} as any;
+const driver = {};
 
 describe('given a newly created executor() is called', () => {
   let action: ActionMock;
-  let executor: Executor;
+  let executor: Executor<object>;
 
   beforeEach(() => {
     action = {
@@ -83,10 +81,10 @@ describe('given a newly created executor() is called', () => {
 describe('given execute() is called with a retries-option of 1', () => {
   const options = {retries: 1, retryDelay: 0};
 
-  let executor: jest.Mock<Executor>;
+  let executor: jest.Mock<Executor<object>>;
 
   beforeEach(() => {
-    executor = jest.fn<Executor>();
+    executor = jest.fn<Executor<object>>();
   });
 
   describe('when any call to executor() returns a non-error execution', () => {

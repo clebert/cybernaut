@@ -1,5 +1,3 @@
-// tslint:disable no-any no-object-literal-type-assertion
-
 import {Verifier, createVerifier, verify} from '../verification';
 
 interface AccessorMock<T> {
@@ -13,13 +11,13 @@ interface PredicateMock {
   readonly test: jest.Mock<boolean>;
 }
 
-const driver = {} as any;
+const driver = {};
 
 describe('given a newly created verifier() is called', () => {
   let accessor: AccessorMock<string>;
   let description: string;
   let predicate: PredicateMock;
-  let verifier: Verifier;
+  let verifier: Verifier<object>;
 
   beforeEach(() => {
     accessor = {description: '<accessorName>', get: jest.fn<Promise<string>>()};
@@ -149,10 +147,10 @@ describe('given a newly created verifier() is called', () => {
 describe('given verify() is called with a retries-option of 1', () => {
   const options = {retries: 1, retryDelay: 0};
 
-  let verifier: jest.Mock<Verifier>;
+  let verifier: jest.Mock<Verifier<object>>;
 
   beforeEach(() => {
-    verifier = jest.fn<Verifier>();
+    verifier = jest.fn<Verifier<object>>();
   });
 
   describe('when any call to verifier() returns a valid verification', () => {

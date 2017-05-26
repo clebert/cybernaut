@@ -1,25 +1,20 @@
-import {WebDriver} from 'selenium-webdriver';
-import {sleep} from '../utils/sleep';
 import {Action} from './action';
+import {Options} from './options';
+import {sleep} from './utils';
 
 export interface Execution {
   readonly description: string;
   readonly error: boolean;
 }
 
-export type Executor = (
-  driver: WebDriver, attempt: number, retries: number
+export type Executor<T> = (
+  driver: T, attempt: number, retries: number
 ) => Promise<Execution>;
 
-export interface Options {
-  readonly retries: number;
-  readonly retryDelay: number;
-}
-
-export function createExecutor(action: Action): Executor {
+export function createExecutor<T>(action: Action<T>): Executor<T> {
   const {description} = action;
 
-  return async (driver: WebDriver, attempt: number, retries: number) => {
+  return async (driver: T, attempt: number, retries: number) => {
     try {
       await action.perform(driver);
 
@@ -37,8 +32,8 @@ export function createExecutor(action: Action): Executor {
   };
 }
 
-export async function execute(
-  executor: Executor, driver: WebDriver, options: Options, _attempt: number = 1
+export async function execute<T>(
+  executor: Executor<T>, driver: T, options: Options, _attempt: number = 1
 ): Promise<Execution> {
   const {retries, retryDelay} = options;
 

@@ -1,4 +1,4 @@
-# Interface: `Test`
+# Interface: `Test<T>`
 
 ## Methods
 
@@ -10,7 +10,7 @@
 
 Type definition:
 
-* **`assert<T>(accessor: Accessor<T>, predicate: Predicate<T>, options?: Options): Promise<void>`**
+* **`assert<U>(accessor: Accessor<T, U>, predicate: Predicate<U>, options?: Options): Promise<void>`**
 * `Options: {retries?: number, retryDelay?: number}`
 
 Example usage:
@@ -30,7 +30,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`perform(action: Action, options?: Options): Promise<void>`**
+* **`perform(action: Action<T>, options?: Options): Promise<void>`**
 * `Options: {retries?: number, retryDelay?: number}`
 
 Example usage:
@@ -50,7 +50,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`verify<T>(accessor: Accessor<T>, predicate: Predicate<T>, options?: Options): Promise<boolean>`**
+* **`verify<U>(accessor: Accessor<T, U>, predicate: Predicate<U>, options?: Options): Promise<boolean>`**
 * `Options: {retries?: number, retryDelay?: number}`
 
 Example usage:

@@ -1,7 +1,5 @@
-import {WebDriver} from 'selenium-webdriver';
-
-export interface Action {
+export interface Action<T> {
   readonly description: string;
 
-  perform(driver: WebDriver): Promise<void>;
+  perform(driver: T): Promise<void>;
 }
