@@ -10,9 +10,9 @@
         "../../dist"
       ]
     },
-    "rootDir": "src"
+    "rootDir": "tests"
   },
-  "files": [
-    "example.e2e.ts"
+  "include": [
+    "tests/**/*.ts"
   ]
 }
