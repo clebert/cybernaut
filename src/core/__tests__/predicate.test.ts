@@ -6,7 +6,7 @@ beforeEach(() => {
   should = new PredicateBuilder();
 });
 
-describe('given a predicate is built via should.contain()', () => {
+describe('given a predicate is built via contain()', () => {
   let predicate: Predicate<string>;
 
   beforeEach(() => {
@@ -38,7 +38,7 @@ describe('given a predicate is built via should.contain()', () => {
   });
 });
 
-describe('given a predicate is built via should.not.contain()', () => {
+describe('given a predicate is built via not.contain()', () => {
   let predicate: Predicate<string>;
 
   beforeEach(() => {
@@ -72,7 +72,7 @@ describe('given a predicate is built via should.not.contain()', () => {
   });
 });
 
-describe('given a predicate is built via should.equal()', () => {
+describe('given a predicate is built via equal()', () => {
   let predicate: Predicate<object>;
 
   beforeEach(() => {
@@ -106,7 +106,7 @@ describe('given a predicate is built via should.equal()', () => {
   });
 });
 
-describe('given a predicate is built via should.not.equal()', () => {
+describe('given a predicate is built via not.equal()', () => {
   let predicate: Predicate<object>;
 
   beforeEach(() => {
@@ -140,7 +140,7 @@ describe('given a predicate is built via should.not.equal()', () => {
   });
 });
 
-describe('given a predicate is built via should.match()', () => {
+describe('given a predicate is built via match()', () => {
   let predicate: Predicate<string>;
 
   beforeEach(() => {
@@ -172,7 +172,7 @@ describe('given a predicate is built via should.match()', () => {
   });
 });
 
-describe('given a predicate is built via should.not.match()', () => {
+describe('given a predicate is built via not.match()', () => {
   let predicate: Predicate<string>;
 
   beforeEach(() => {
@@ -206,7 +206,7 @@ describe('given a predicate is built via should.not.match()', () => {
   });
 });
 
-describe('given a predicate is built via should.beBetween()', () => {
+describe('given a predicate is built via beBetween()', () => {
   let predicate: Predicate<number>;
 
   beforeEach(() => {
@@ -244,7 +244,7 @@ describe('given a predicate is built via should.beBetween()', () => {
   });
 });
 
-describe('given a predicate is built via should.not.beBetween()', () => {
+describe('given a predicate is built via not.beBetween()', () => {
   let predicate: Predicate<number>;
 
   beforeEach(() => {
@@ -282,7 +282,7 @@ describe('given a predicate is built via should.not.beBetween()', () => {
   });
 });
 
-describe('given a predicate is built via should.beGreaterThan()', () => {
+describe('given a predicate is built via beGreaterThan()', () => {
   let predicate: Predicate<number>;
 
   beforeEach(() => {
@@ -314,7 +314,7 @@ describe('given a predicate is built via should.beGreaterThan()', () => {
   });
 });
 
-describe('given a predicate is built via should.not.beGreaterThan()', () => {
+describe('given a predicate is built via not.beGreaterThan()', () => {
   let predicate: Predicate<number>;
 
   beforeEach(() => {
@@ -348,9 +348,7 @@ describe('given a predicate is built via should.not.beGreaterThan()', () => {
   });
 });
 
-let name = 'given a predicate is built via should.beGreaterThanOrEqual()';
-
-describe(name, () => {
+describe('given a predicate is built via beGreaterThanOrEqual()', () => {
   let predicate: Predicate<number>;
 
   beforeEach(() => {
@@ -384,9 +382,7 @@ describe(name, () => {
   });
 });
 
-name = 'given a predicate is built via should.not.beGreaterThanOrEqual()';
-
-describe(name, () => {
+describe('given a predicate is built via not.beGreaterThanOrEqual()', () => {
   let predicate: Predicate<number>;
 
   beforeEach(() => {
@@ -422,7 +418,7 @@ describe(name, () => {
   });
 });
 
-describe('given a predicate is built via should.beLessThan()', () => {
+describe('given a predicate is built via beLessThan()', () => {
   let predicate: Predicate<number>;
 
   beforeEach(() => {
@@ -454,7 +450,7 @@ describe('given a predicate is built via should.beLessThan()', () => {
   });
 });
 
-describe('given a predicate is built via should.not.beLessThan()', () => {
+describe('given a predicate is built via not.beLessThan()', () => {
   let predicate: Predicate<number>;
 
   beforeEach(() => {
@@ -486,7 +482,7 @@ describe('given a predicate is built via should.not.beLessThan()', () => {
   });
 });
 
-describe('given a predicate is built via should.beLessThanOrEqual()', () => {
+describe('given a predicate is built via beLessThanOrEqual()', () => {
   let predicate: Predicate<number>;
 
   beforeEach(() => {
@@ -520,9 +516,7 @@ describe('given a predicate is built via should.beLessThanOrEqual()', () => {
   });
 });
 
-name = 'given a predicate is built via should.not.beLessThanOrEqual()';
-
-describe(name, () => {
+describe('given a predicate is built via not.beLessThanOrEqual()', () => {
   let predicate: Predicate<number>;
 
   beforeEach(() => {

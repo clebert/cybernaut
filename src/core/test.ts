@@ -28,7 +28,7 @@ export class Test<T> {
     const verifier = createVerifier(accessor, predicate);
 
     const verification = await verify(
-      verifier, this._driver, {...this._options, options}
+      verifier, this._driver, {...this._options, ...options}
     );
 
     const message = 'Assert: ' + verification.description;
@@ -46,7 +46,7 @@ export class Test<T> {
     const executor = createExecutor(action);
 
     const execution = await execute(
-      executor, this._driver, {...this._options, options}
+      executor, this._driver, {...this._options, ...options}
     );
 
     const message = 'Perform: ' + execution.description;
@@ -66,7 +66,7 @@ export class Test<T> {
     const verifier = createVerifier(accessor, predicate);
 
     const verification = await verify(
-      verifier, this._driver, {...this._options, options}
+      verifier, this._driver, {...this._options, ...options}
     );
 
     const message = 'Verify: ' + verification.description;

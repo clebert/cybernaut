@@ -1,8 +1,8 @@
 import {Verifier, createVerifier, verify} from '../verification';
 
-interface AccessorMock<T> {
+interface AccessorMock {
   readonly description: string;
-  readonly get: jest.Mock<Promise<T>>;
+  readonly get: jest.Mock<Promise<string>>;
 }
 
 interface PredicateMock {
@@ -14,13 +14,15 @@ interface PredicateMock {
 const driver = {};
 
 describe('given a newly created verifier() is called', () => {
-  let accessor: AccessorMock<string>;
+  let accessor: AccessorMock;
   let description: string;
   let predicate: PredicateMock;
   let verifier: Verifier<object>;
 
   beforeEach(() => {
-    accessor = {description: '<accessorName>', get: jest.fn<Promise<string>>()};
+    accessor = {
+      description: '<accessorDescription>', get: jest.fn<Promise<string>>()
+    };
 
     predicate = {
       compare: jest.fn<string>().mockReturnValue('<predicateComparison>'),
@@ -28,7 +30,7 @@ describe('given a newly created verifier() is called', () => {
       test: jest.fn<boolean>()
     };
 
-    description = `${accessor.description} ${predicate.description}`;
+    description = '<accessorDescription> <predicateDescription>';
     verifier = createVerifier(accessor, predicate);
   });
 
@@ -97,9 +99,9 @@ describe('given a newly created verifier() is called', () => {
     });
 
     describe('when the call to predicate.test() throws an error', () => {
-      test('then it should return an error verification', async () => {
+      test('then it should return an erroneous verification', async () => {
         predicate.test.mockImplementationOnce(() => {
-          throw new Error('<message>');
+          throw new Error('<cause>');
         });
 
         predicate.test.mockImplementationOnce(() => {
@@ -110,7 +112,7 @@ describe('given a newly created verifier() is called', () => {
           throw undefined;
         });
 
-        for (const message of ['<message>', 'unknown error', 'unknown error']) {
+        for (const message of ['<cause>', 'unknown error', 'unknown error']) {
           const verification = await verifier(driver, 2, 1);
 
           expect(verification.description).toBe(`${description} (${message})`);
@@ -121,9 +123,9 @@ describe('given a newly created verifier() is called', () => {
   });
 
   describe('when the call to accessor.get() throws an error', () => {
-    test('then it should return an error verification', async () => {
+    test('then it should return an erroneous verification', async () => {
       accessor.get.mockImplementationOnce(async () => {
-        throw new Error('<message>');
+        throw new Error('<cause>');
       });
 
       accessor.get.mockImplementationOnce(async () => {
@@ -134,7 +136,7 @@ describe('given a newly created verifier() is called', () => {
         throw undefined;
       });
 
-      for (const message of ['<message>', 'unknown error', 'unknown error']) {
+      for (const message of ['<cause>', 'unknown error', 'unknown error']) {
         const verification = await verifier(driver, 2, 1);
 
         expect(verification.description).toBe(`${description} (${message})`);

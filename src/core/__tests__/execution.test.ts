@@ -27,34 +27,34 @@ describe('given a newly created executor() is called', () => {
   });
 
   describe('when the call to action.perform() does not throw an error', () => {
-    test('then it should return a non-error execution', async () => {
+    test('then it should return a completed execution', async () => {
       const execution = await executor(driver, 1, 0);
 
-      expect(execution.description).toBe(action.description);
+      expect(execution.description).toBe('<actionDescription>');
       expect(execution.error).toBe(false);
 
       expect((await executor(driver, 1, 1)).description).toBe(
-        action.description
+        '<actionDescription>'
       );
 
       expect((await executor(driver, 1, 2)).description).toBe(
-        action.description
+        '<actionDescription>'
       );
 
       expect((await executor(driver, 2, 1)).description).toBe(
-        action.description + ' (attempt 2 of 2)'
+        '<actionDescription>' + ' (attempt 2 of 2)'
       );
 
       expect((await executor(driver, 2, 2)).description).toBe(
-        action.description + ' (attempt 2 of 3)'
+        '<actionDescription>' + ' (attempt 2 of 3)'
       );
     });
   });
 
   describe('when the call to action.perform() throws an error', () => {
-    test('then it should return an error execution', async () => {
+    test('then it should return an erroneous execution', async () => {
       action.perform.mockImplementationOnce(async () => {
-        throw new Error('<message>');
+        throw new Error('<cause>');
       });
 
       action.perform.mockImplementationOnce(async () => {
@@ -65,13 +65,10 @@ describe('given a newly created executor() is called', () => {
         throw undefined;
       });
 
-      for (const message of ['<message>', 'unknown error', 'unknown error']) {
+      for (const message of ['<cause>', 'unknown error', 'unknown error']) {
         const execution = await executor(driver, 2, 1);
 
-        expect(execution.description).toBe(
-          `${action.description} (${message})`
-        );
-
+        expect(execution.description).toBe(`<actionDescription> (${message})`);
         expect(execution.error).toBe(true);
       }
     });
@@ -87,7 +84,7 @@ describe('given execute() is called with a retries-option of 1', () => {
     executor = jest.fn<Executor<object>>();
   });
 
-  describe('when any call to executor() returns a non-error execution', () => {
+  describe('when any call to executor() returns a completed execution', () => {
     beforeEach(() => {
       executor.mockImplementation(async () => ({
         description: 'attempt 1', error: false
@@ -110,7 +107,7 @@ describe('given execute() is called with a retries-option of 1', () => {
     });
   });
 
-  describe('when any call to executor() returns an error execution', () => {
+  describe('when any call to executor() returns an erroneous execution', () => {
     beforeEach(() => {
       executor.mockImplementationOnce(async () => ({
         description: 'attempt 1', error: true
