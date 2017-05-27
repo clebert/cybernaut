@@ -49,17 +49,13 @@ describe('given a new test is created', () => {
       test: jest.fn<boolean>()
     };
 
-    t = new Test({}, logger, {retries: 0, retryDelay: 0});
+    t = new Test<object>({}, logger, {retries: 0, retryDelay: 0});
   });
 
   describe('when test.assert() is called without options (retries=0)', () => {
     describe('and the verification is valid in the first attempt', () => {
       beforeEach(() => {
         predicate.test.mockReturnValue(true);
-      });
-
-      test('then it should return void', async () => {
-        expect(await t.assert(accessor, predicate)).toBeUndefined();
       });
 
       test('then it should call logger.pass() without attempts', async () => {
@@ -125,10 +121,6 @@ describe('given a new test is created', () => {
         predicate.test.mockReturnValue(true);
       });
 
-      test('then it should return void', async () => {
-        expect(await t.assert(accessor, predicate, options)).toBeUndefined();
-      });
-
       test('then it should call logger.pass() with attempts', async () => {
         await t.assert(accessor, predicate, options);
 
@@ -144,10 +136,6 @@ describe('given a new test is created', () => {
 
   describe('when test.perform() is called without options (retries=0)', () => {
     describe('and the execution is completed in the first attempt', () => {
-      test('then it should return void', async () => {
-        expect(await t.perform(action)).toBeUndefined();
-      });
-
       test('then it should call logger.pass() without attempts', async () => {
         await t.perform(action);
 
@@ -188,10 +176,6 @@ describe('given a new test is created', () => {
         action.perform.mockImplementationOnce(async () => {
           throw error;
         });
-      });
-
-      test('then it should return void', async () => {
-        expect(await t.perform(action, options)).toBeUndefined();
       });
 
       test('then it should call logger.pass() with attempts', async () => {
