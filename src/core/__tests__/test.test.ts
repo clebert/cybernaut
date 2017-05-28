@@ -1,5 +1,5 @@
-import {Options} from '../options';
 import {Test} from '../test';
+import {and, given, shortSleep, then, when} from './test-utils';
 
 interface AccessorMock {
   readonly description: string;
@@ -21,12 +21,13 @@ interface PredicateMock {
   readonly test: jest.Mock<boolean>;
 }
 
-describe('given a new test is created', () => {
+const defaultOptions = {retries: 0, retryDelay: 10};
+const error = new Error('<cause>');
+
+given('a new test is created with retries=0 and retryDelay=10', () => {
   let accessor: AccessorMock;
   let action: ActionMock;
-  let error: Error;
   let logger: LoggerMock;
-  let options: Partial<Options>;
   let predicate: PredicateMock;
   let t: Test<object>;
 
@@ -39,9 +40,7 @@ describe('given a new test is created', () => {
       description: '<actionDescription>', perform: jest.fn<Promise<void>>()
     };
 
-    error = new Error('<cause>');
     logger = {pass: jest.fn<Promise<void>>()};
-    options = {retries: 1};
 
     predicate = {
       compare: jest.fn<string>().mockReturnValue('<predicateComparison>'),
@@ -49,16 +48,16 @@ describe('given a new test is created', () => {
       test: jest.fn<boolean>()
     };
 
-    t = new Test<object>({}, logger, {retries: 0, retryDelay: 0});
+    t = new Test<object>({}, logger, defaultOptions);
   });
 
-  describe('when test.assert() is called without options (retries=0)', () => {
-    describe('and the verification is valid in the first attempt', () => {
+  when('test.assert() is called without options', () => {
+    and('the verification is valid in the first attempt', () => {
       beforeEach(() => {
         predicate.test.mockReturnValue(true);
       });
 
-      test('then it should call logger.pass() without attempts', async () => {
+      then('it should call logger.pass() without attempts', async () => {
         await t.assert(accessor, predicate);
 
         expect(logger.pass.mock.calls.length).toBe(1);
@@ -69,20 +68,20 @@ describe('given a new test is created', () => {
       });
     });
 
-    describe('and the verification is invalid until the second attempt', () => {
+    and('the verification is invalid until the second attempt', () => {
       beforeEach(() => {
         predicate.test.mockReturnValueOnce(false);
         predicate.test.mockReturnValue(true);
       });
 
-      test('then it should throw an error with a comparison', async () => {
+      then('it should throw an error with a comparison', async () => {
         await expect(t.assert(accessor, predicate)).rejects.toEqual(new Error(
           'Assert: <accessorDescription> <predicateDescription> ' +
           '(<predicateComparison>)'
         ));
       });
 
-      test('then it should not call logger.pass()', async () => {
+      then('it should not call logger.pass()', async () => {
         try {
           await t.assert(accessor, predicate);
         } catch (e) {/* */}
@@ -91,20 +90,20 @@ describe('given a new test is created', () => {
       });
     });
 
-    describe('and the verification is erroneous in the first attempt', () => {
+    and('the verification is erroneous in the first attempt', () => {
       beforeEach(() => {
         accessor.get.mockImplementation(async () => {
           throw error;
         });
       });
 
-      test('then it should throw an error with a cause', async () => {
+      then('it should throw an error with a cause', async () => {
         await expect(t.assert(accessor, predicate)).rejects.toEqual(new Error(
           'Assert: <accessorDescription> <predicateDescription> (<cause>)'
         ));
       });
 
-      test('then it should not call logger.pass()', async () => {
+      then('it should not call logger.pass()', async () => {
         try {
           await t.assert(accessor, predicate);
         } catch (e) {/* */}
@@ -114,14 +113,16 @@ describe('given a new test is created', () => {
     });
   });
 
-  describe('when test.assert() is called with options (retries=1)', () => {
-    describe('and the verification is invalid until the second attempt', () => {
+  when('test.assert() is called with retries=1', () => {
+    const options = {retries: 1};
+
+    and('the verification is invalid until the second attempt', () => {
       beforeEach(() => {
         predicate.test.mockReturnValueOnce(false);
         predicate.test.mockReturnValue(true);
       });
 
-      test('then it should call logger.pass() with attempts', async () => {
+      then('it should call logger.pass() with attempts', async () => {
         await t.assert(accessor, predicate, options);
 
         expect(logger.pass.mock.calls.length).toBe(1);
@@ -131,12 +132,85 @@ describe('given a new test is created', () => {
           '(attempt 2 of 2)'
         );
       });
+
+      then('it should delay the second attempt by 10 ms', async () => {
+        try {
+          jest.useFakeTimers();
+
+          const promise = t.assert(accessor, predicate, options);
+
+          await shortSleep();
+
+          expect(accessor.get.mock.calls.length).toBe(1);
+          expect(predicate.test.mock.calls.length).toBe(1);
+
+          jest.runTimersToTime(defaultOptions.retryDelay - 1);
+
+          await shortSleep();
+
+          expect(accessor.get.mock.calls.length).toBe(1);
+          expect(predicate.test.mock.calls.length).toBe(1);
+
+          jest.runTimersToTime(1);
+
+          await shortSleep();
+
+          expect(accessor.get.mock.calls.length).toBe(2);
+          expect(predicate.test.mock.calls.length).toBe(2);
+
+          await promise;
+        } finally {
+          jest.useRealTimers();
+        }
+      });
     });
   });
 
-  describe('when test.perform() is called without options (retries=0)', () => {
-    describe('and the execution is completed in the first attempt', () => {
-      test('then it should call logger.pass() without attempts', async () => {
+  when('test.assert() is called with retries=1 and retryDelay=20', () => {
+    const options = {retries: 1, retryDelay: 20};
+
+    and('the verification is invalid until the second attempt', () => {
+      beforeEach(() => {
+        predicate.test.mockReturnValueOnce(false);
+        predicate.test.mockReturnValue(true);
+      });
+
+      then('it should delay the second attempt by 20 ms', async () => {
+        try {
+          jest.useFakeTimers();
+
+          const promise = t.assert(accessor, predicate, options);
+
+          await shortSleep();
+
+          expect(accessor.get.mock.calls.length).toBe(1);
+          expect(predicate.test.mock.calls.length).toBe(1);
+
+          jest.runTimersToTime(options.retryDelay - 1);
+
+          await shortSleep();
+
+          expect(accessor.get.mock.calls.length).toBe(1);
+          expect(predicate.test.mock.calls.length).toBe(1);
+
+          jest.runTimersToTime(1);
+
+          await shortSleep();
+
+          expect(accessor.get.mock.calls.length).toBe(2);
+          expect(predicate.test.mock.calls.length).toBe(2);
+
+          await promise;
+        } finally {
+          jest.useRealTimers();
+        }
+      });
+    });
+  });
+
+  when('test.perform() is called without options', () => {
+    and('the execution is successful in the first attempt', () => {
+      then('it should call logger.pass() without attempts', async () => {
         await t.perform(action);
 
         expect(logger.pass.mock.calls.length).toBe(1);
@@ -147,20 +221,20 @@ describe('given a new test is created', () => {
       });
     });
 
-    describe('and the execution is erroneous until the second attempt', () => {
+    and('the execution is erroneous until the second attempt', () => {
       beforeEach(() => {
         action.perform.mockImplementationOnce(async () => {
           throw error;
         });
       });
 
-      test('then it should throw an error with a cause', async () => {
+      then('it should throw an error with a cause', async () => {
         await expect(t.perform(action)).rejects.toEqual(new Error(
           'Perform: <actionDescription> (<cause>)'
         ));
       });
 
-      test('then it should not call logger.pass()', async () => {
+      then('it should not call logger.pass()', async () => {
         try {
           await t.perform(action);
         } catch (e) {/* */}
@@ -170,15 +244,17 @@ describe('given a new test is created', () => {
     });
   });
 
-  describe('when test.perform() is called with options (retries=1)', () => {
-    describe('and the execution is erroneous until the second attempt', () => {
+  when('test.perform() is called with retries=1', () => {
+    const options = {retries: 1};
+
+    and('the execution is erroneous until the second attempt', () => {
       beforeEach(() => {
         action.perform.mockImplementationOnce(async () => {
           throw error;
         });
       });
 
-      test('then it should call logger.pass() with attempts', async () => {
+      then('it should call logger.pass() with attempts', async () => {
         await t.perform(action, options);
 
         expect(logger.pass.mock.calls.length).toBe(1);
@@ -187,20 +263,88 @@ describe('given a new test is created', () => {
           'Perform: <actionDescription> (attempt 2 of 2)'
         );
       });
+
+      then('it should delay the second attempt by 10 ms', async () => {
+        try {
+          jest.useFakeTimers();
+
+          const promise = t.perform(action, options);
+
+          await shortSleep();
+
+          expect(action.perform.mock.calls.length).toBe(1);
+
+          jest.runTimersToTime(defaultOptions.retryDelay - 1);
+
+          await shortSleep();
+
+          expect(action.perform.mock.calls.length).toBe(1);
+
+          jest.runTimersToTime(1);
+
+          await shortSleep();
+
+          expect(action.perform.mock.calls.length).toBe(2);
+
+          await promise;
+        } finally {
+          jest.useRealTimers();
+        }
+      });
     });
   });
 
-  describe('when test.verify() is called without options (retries=0)', () => {
-    describe('and the verification is valid in the first attempt', () => {
+  when('test.perform() is called with retries=1 and retryDelay=20', () => {
+    const options = {retries: 1, retryDelay: 20};
+
+    and('the execution is erroneous until the second attempt', () => {
+      beforeEach(() => {
+        action.perform.mockImplementationOnce(async () => {
+          throw error;
+        });
+      });
+
+      then('it should delay the second attempt by 20 ms', async () => {
+        try {
+          jest.useFakeTimers();
+
+          const promise = t.perform(action, options);
+
+          await shortSleep();
+
+          expect(action.perform.mock.calls.length).toBe(1);
+
+          jest.runTimersToTime(options.retryDelay - 1);
+
+          await shortSleep();
+
+          expect(action.perform.mock.calls.length).toBe(1);
+
+          jest.runTimersToTime(1);
+
+          await shortSleep();
+
+          expect(action.perform.mock.calls.length).toBe(2);
+
+          await promise;
+        } finally {
+          jest.useRealTimers();
+        }
+      });
+    });
+  });
+
+  when('test.verify() is called without options', () => {
+    and('the verification is valid in the first attempt', () => {
       beforeEach(() => {
         predicate.test.mockReturnValue(true);
       });
 
-      test('then it should return true', async () => {
+      then('it should return true', async () => {
         expect(await t.verify(accessor, predicate)).toBe(true);
       });
 
-      test('then it should call logger.pass() without attempts', async () => {
+      then('it should call logger.pass() without attempts', async () => {
         await t.verify(accessor, predicate);
 
         expect(logger.pass.mock.calls.length).toBe(1);
@@ -211,17 +355,17 @@ describe('given a new test is created', () => {
       });
     });
 
-    describe('and the verification is invalid until the second attempt', () => {
+    and('the verification is invalid until the second attempt', () => {
       beforeEach(() => {
         predicate.test.mockReturnValueOnce(false);
         predicate.test.mockReturnValue(true);
       });
 
-      test('then it should return false', async () => {
+      then('it should return false', async () => {
         expect(await t.verify(accessor, predicate)).toBe(false);
       });
 
-      test('then it should call logger.pass() with a comparison', async () => {
+      then('it should call logger.pass() with a comparison', async () => {
         await t.verify(accessor, predicate);
 
         expect(logger.pass.mock.calls.length).toBe(1);
@@ -233,20 +377,20 @@ describe('given a new test is created', () => {
       });
     });
 
-    describe('and the verification is erroneous in the first attempt', () => {
+    and('the verification is erroneous in the first attempt', () => {
       beforeEach(() => {
         accessor.get.mockImplementation(async () => {
           throw error;
         });
       });
 
-      test('then it should throw an error with a cause', async () => {
+      then('it should throw an error with a cause', async () => {
         await expect(t.verify(accessor, predicate)).rejects.toEqual(new Error(
           'Verify: <accessorDescription> <predicateDescription> (<cause>)'
         ));
       });
 
-      test('then it should not call logger.pass()', async () => {
+      then('it should not call logger.pass()', async () => {
         try {
           await t.verify(accessor, predicate);
         } catch (e) {/* */}
@@ -256,18 +400,20 @@ describe('given a new test is created', () => {
     });
   });
 
-  describe('when test.verify() is called with options (retries=1)', () => {
-    describe('and the verification is invalid until the second attempt', () => {
+  when('test.verify() is called with retries=1', () => {
+    const options = {retries: 1};
+
+    and('the verification is invalid until the second attempt', () => {
       beforeEach(() => {
         predicate.test.mockReturnValueOnce(false);
         predicate.test.mockReturnValue(true);
       });
 
-      test('then it should return true', async () => {
+      then('it should return true', async () => {
         expect(await t.verify(accessor, predicate, options)).toBe(true);
       });
 
-      test('then it should call logger.pass() with attempts', async () => {
+      then('it should call logger.pass() with attempts', async () => {
         await t.verify(accessor, predicate, options);
 
         expect(logger.pass.mock.calls.length).toBe(1);
@@ -276,6 +422,79 @@ describe('given a new test is created', () => {
           'Verify: <accessorDescription> <predicateDescription> ' +
           '(attempt 2 of 2)'
         );
+      });
+
+      then('it should delay the second attempt by 10 ms', async () => {
+        try {
+          jest.useFakeTimers();
+
+          const promise = t.verify(accessor, predicate, options);
+
+          await shortSleep();
+
+          expect(accessor.get.mock.calls.length).toBe(1);
+          expect(predicate.test.mock.calls.length).toBe(1);
+
+          jest.runTimersToTime(defaultOptions.retryDelay - 1);
+
+          await shortSleep();
+
+          expect(accessor.get.mock.calls.length).toBe(1);
+          expect(predicate.test.mock.calls.length).toBe(1);
+
+          jest.runTimersToTime(1);
+
+          await shortSleep();
+
+          expect(accessor.get.mock.calls.length).toBe(2);
+          expect(predicate.test.mock.calls.length).toBe(2);
+
+          await promise;
+        } finally {
+          jest.useRealTimers();
+        }
+      });
+    });
+  });
+
+  when('test.verify() is called with retries=1 and retryDelay=20', () => {
+    const options = {retries: 1, retryDelay: 20};
+
+    and('the verification is invalid until the second attempt', () => {
+      beforeEach(() => {
+        predicate.test.mockReturnValueOnce(false);
+        predicate.test.mockReturnValue(true);
+      });
+
+      then('it should delay the second attempt by 20 ms', async () => {
+        try {
+          jest.useFakeTimers();
+
+          const promise = t.verify(accessor, predicate, options);
+
+          await shortSleep();
+
+          expect(accessor.get.mock.calls.length).toBe(1);
+          expect(predicate.test.mock.calls.length).toBe(1);
+
+          jest.runTimersToTime(options.retryDelay - 1);
+
+          await shortSleep();
+
+          expect(accessor.get.mock.calls.length).toBe(1);
+          expect(predicate.test.mock.calls.length).toBe(1);
+
+          jest.runTimersToTime(1);
+
+          await shortSleep();
+
+          expect(accessor.get.mock.calls.length).toBe(2);
+          expect(predicate.test.mock.calls.length).toBe(2);
+
+          await promise;
+        } finally {
+          jest.useRealTimers();
+        }
       });
     });
   });
