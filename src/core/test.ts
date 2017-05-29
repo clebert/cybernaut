@@ -20,9 +20,9 @@ export class Test<T> {
     this._options = options;
   }
 
-  public async assert<U>(
-    accessor: Accessor<T, U>,
-    predicate: Predicate<U>,
+  public async assert<S>(
+    accessor: Accessor<T, S>,
+    predicate: Predicate<S>,
     options?: Partial<Options>
   ): Promise<void> {
     const verifier = createVerifier(accessor, predicate);
@@ -58,9 +58,9 @@ export class Test<T> {
     this._logger.pass(message);
   }
 
-  public async verify<U>(
-    accessor: Accessor<T, U>,
-    predicate: Predicate<U>,
+  public async verify<S>(
+    accessor: Accessor<T, S>,
+    predicate: Predicate<S>,
     options?: Partial<Options>
   ): Promise<boolean> {
     const verifier = createVerifier(accessor, predicate);

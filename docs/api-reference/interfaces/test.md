@@ -10,7 +10,7 @@
 
 Type definition:
 
-* **`assert<U>(accessor: Accessor<T, U>, predicate: Predicate<U>, options?: Options): Promise<void>`**
+* **`assert<S>(accessor: Accessor<T, S>, predicate: Predicate<S>, options?: Options): Promise<void>`**
 * `Options: {retries?: number, retryDelay?: number}`
 
 Example usage:
@@ -50,7 +50,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`verify<U>(accessor: Accessor<T, U>, predicate: Predicate<U>, options?: Options): Promise<boolean>`**
+* **`verify<S>(accessor: Accessor<T, S>, predicate: Predicate<S>, options?: Options): Promise<boolean>`**
 * `Options: {retries?: number, retryDelay?: number}`
 
 Example usage:
