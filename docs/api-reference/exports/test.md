@@ -3,7 +3,7 @@
 Type definition:
 
 * **`test(name: string, implementation?: Implementation): void`**
-* `Implementation: (t: Test, config: Config) => Promise<void>`
+* `Implementation: (t: Test<WebDriver>, config: Config) => Promise<void>`
 * [`Test`](../interfaces/test.md)
 * [`Config`](../../overview/configuring-cybernaut.md)
 

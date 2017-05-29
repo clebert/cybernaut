@@ -3,8 +3,9 @@
 Type definition:
 
 * **`skip(name: string, implementation: Implementation): void`**
-* `Implementation: (t: Test) => Promise<void>`
+* `Implementation: (t: Test<WebDriver>, config: Config) => Promise<void>`
 * [`Test`](../interfaces/test.md)
+* [`Config`](../../overview/configuring-cybernaut.md)
 
 Example usage:
 

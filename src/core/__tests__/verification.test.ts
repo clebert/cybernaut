@@ -1,10 +1,9 @@
-// tslint:disable no-any no-object-literal-type-assertion
-
 import {Verifier, createVerifier, verify} from '../verification';
+import {given, shortSleep, then, when} from './test-utils';
 
-interface AccessorMock<T> {
+interface AccessorMock {
   readonly description: string;
-  readonly get: jest.Mock<Promise<T>>;
+  readonly get: jest.Mock<Promise<string>>;
 }
 
 interface PredicateMock {
@@ -13,16 +12,18 @@ interface PredicateMock {
   readonly test: jest.Mock<boolean>;
 }
 
-const driver = {} as any;
+const driver = {};
 
-describe('given a newly created verifier() is called', () => {
-  let accessor: AccessorMock<string>;
+given('a newly created verifier() is called', () => {
+  let accessor: AccessorMock;
   let description: string;
   let predicate: PredicateMock;
-  let verifier: Verifier;
+  let verifier: Verifier<object>;
 
   beforeEach(() => {
-    accessor = {description: '<accessorName>', get: jest.fn<Promise<string>>()};
+    accessor = {
+      description: '<accessorDescription>', get: jest.fn<Promise<string>>()
+    };
 
     predicate = {
       compare: jest.fn<string>().mockReturnValue('<predicateComparison>'),
@@ -30,31 +31,31 @@ describe('given a newly created verifier() is called', () => {
       test: jest.fn<boolean>()
     };
 
-    description = `${accessor.description} ${predicate.description}`;
+    description = '<accessorDescription> <predicateDescription>';
     verifier = createVerifier(accessor, predicate);
   });
 
-  test('then it should call accessor.get() once', async () => {
+  then('it should call accessor.get() once', async () => {
     await verifier(driver, 2, 1);
 
     expect(accessor.get.mock.calls.length).toBe(1);
     expect(accessor.get.mock.calls[0][0]).toBe(driver);
   });
 
-  describe('when the call to accessor.get() returns an actual value', () => {
+  when('the call to accessor.get() returns an actual value', () => {
     beforeEach(() => {
       accessor.get.mockImplementation(async () => '<actualValue>');
     });
 
-    test('then it should call predicate.test() once', async () => {
+    then('it should call predicate.test() once', async () => {
       await verifier(driver, 2, 1);
 
       expect(predicate.test.mock.calls.length).toBe(1);
       expect(predicate.test.mock.calls[0][0]).toBe('<actualValue>');
     });
 
-    describe('when the call to predicate.test() returns true', () => {
-      test('then it should return a valid verification', async () => {
+    when('the call to predicate.test() returns true', () => {
+      then('it should return a valid verification', async () => {
         predicate.test.mockReturnValue(true);
 
         const verification = await verifier(driver, 1, 0);
@@ -75,19 +76,19 @@ describe('given a newly created verifier() is called', () => {
       });
     });
 
-    describe('when the call to predicate.test() returns false', () => {
+    when('the call to predicate.test() returns false', () => {
       beforeEach(() => {
         predicate.test.mockReturnValue(false);
       });
 
-      test('then it should call predicate.compare() once', async () => {
+      then('it should call predicate.compare() once', async () => {
         await verifier(driver, 2, 1);
 
         expect(predicate.compare.mock.calls.length).toBe(1);
         expect(predicate.compare.mock.calls[0][0]).toBe('<actualValue>');
       });
 
-      test('then it should return an invalid verification', async () => {
+      then('it should return an invalid verification', async () => {
         const verification = await verifier(driver, 2, 1);
 
         expect(verification.description).toBe(
@@ -98,10 +99,10 @@ describe('given a newly created verifier() is called', () => {
       });
     });
 
-    describe('when the call to predicate.test() throws an error', () => {
-      test('then it should return an error verification', async () => {
+    when('the call to predicate.test() throws an error', () => {
+      then('it should return an erroneous verification', async () => {
         predicate.test.mockImplementationOnce(() => {
-          throw new Error('<message>');
+          throw new Error('<cause>');
         });
 
         predicate.test.mockImplementationOnce(() => {
@@ -112,7 +113,7 @@ describe('given a newly created verifier() is called', () => {
           throw undefined;
         });
 
-        for (const message of ['<message>', 'unknown error', 'unknown error']) {
+        for (const message of ['<cause>', 'unknown error', 'unknown error']) {
           const verification = await verifier(driver, 2, 1);
 
           expect(verification.description).toBe(`${description} (${message})`);
@@ -122,10 +123,10 @@ describe('given a newly created verifier() is called', () => {
     });
   });
 
-  describe('when the call to accessor.get() throws an error', () => {
-    test('then it should return an error verification', async () => {
+  when('the call to accessor.get() throws an error', () => {
+    then('it should return an erroneous verification', async () => {
       accessor.get.mockImplementationOnce(async () => {
-        throw new Error('<message>');
+        throw new Error('<cause>');
       });
 
       accessor.get.mockImplementationOnce(async () => {
@@ -136,7 +137,7 @@ describe('given a newly created verifier() is called', () => {
         throw undefined;
       });
 
-      for (const message of ['<message>', 'unknown error', 'unknown error']) {
+      for (const message of ['<cause>', 'unknown error', 'unknown error']) {
         const verification = await verifier(driver, 2, 1);
 
         expect(verification.description).toBe(`${description} (${message})`);
@@ -146,23 +147,23 @@ describe('given a newly created verifier() is called', () => {
   });
 });
 
-describe('given verify() is called with a retries-option of 1', () => {
+given('verify() is called with retries=1', () => {
   const options = {retries: 1, retryDelay: 0};
 
-  let verifier: jest.Mock<Verifier>;
+  let verifier: jest.Mock<Verifier<object>>;
 
   beforeEach(() => {
-    verifier = jest.fn<Verifier>();
+    verifier = jest.fn<Verifier<object>>();
   });
 
-  describe('when any call to verifier() returns a valid verification', () => {
+  when('any call to verifier() returns a valid verification', () => {
     beforeEach(() => {
       verifier.mockImplementation(async () => ({
         description: 'attempt 1', result: 'valid'
       }));
     });
 
-    test('then it should call verifier() once', async () => {
+    then('it should call verifier() once', async () => {
       await verify(verifier, driver, options);
 
       expect(verifier.mock.calls.length).toBe(1);
@@ -171,7 +172,7 @@ describe('given verify() is called with a retries-option of 1', () => {
       expect(verifier.mock.calls[0][2]).toBe(options.retries);
     });
 
-    test('then it should return the verification', async () => {
+    then('it should return the verification', async () => {
       const verification = await verify(verifier, driver, options);
 
       expect(verification).toEqual({description: 'attempt 1', result: 'valid'});
@@ -179,10 +180,9 @@ describe('given verify() is called with a retries-option of 1', () => {
   });
 
   for (const result of ['invalid', 'error']) {
-    const name =
-      `when any call to verifier() returns an ${result} verification`;
+    const adjective = result === 'error' ? 'erroneous' : result;
 
-    describe(name, () => {
+    when(`any call to verifier() returns an ${adjective} verification`, () => {
       beforeEach(() => {
         verifier.mockImplementationOnce(async () => ({
           description: 'attempt 1', result
@@ -193,7 +193,7 @@ describe('given verify() is called with a retries-option of 1', () => {
         }));
       });
 
-      test('then it should call verifier() twice', async () => {
+      then('it should call verifier() twice', async () => {
         await verify(verifier, driver, options);
 
         expect(verifier.mock.calls.length).toBe(2);
@@ -205,38 +205,32 @@ describe('given verify() is called with a retries-option of 1', () => {
         expect(verifier.mock.calls[1][2]).toBe(options.retries);
       });
 
-      test('then it should return the second verification', async () => {
+      then('it should return the second verification', async () => {
         const verification = await verify(verifier, driver, options);
 
         expect(verification).toEqual({description: 'attempt 2', result});
       });
 
-      test('then it should delay the second call to verifier()', async () => {
+      then('it should delay the second call to verifier()', async () => {
         try {
           jest.useFakeTimers();
 
           const retryDelay = 123;
           const promise = verify(verifier, driver, {...options, retryDelay});
 
-          await Promise.resolve();
-          await Promise.resolve();
-          await Promise.resolve();
+          await shortSleep();
 
           expect(verifier.mock.calls.length).toBe(1);
 
           jest.runTimersToTime(retryDelay - 1);
 
-          await Promise.resolve();
-          await Promise.resolve();
-          await Promise.resolve();
+          await shortSleep();
 
           expect(verifier.mock.calls.length).toBe(1);
 
           jest.runTimersToTime(1);
 
-          await Promise.resolve();
-          await Promise.resolve();
-          await Promise.resolve();
+          await shortSleep();
 
           expect(verifier.mock.calls.length).toBe(2);
 

@@ -32,6 +32,12 @@
     }
   },
   "jest": {
+    "collectCoverageFrom": [
+      "src/core/**/*.ts",
+      "!src/core/accessor.ts",
+      "!src/core/action.ts",
+      "!src/core/options.ts"
+    ],
     "moduleFileExtensions": [
       "js",
       "ts"

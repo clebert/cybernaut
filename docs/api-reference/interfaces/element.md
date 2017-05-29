@@ -53,7 +53,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`existence: Accessor<boolean>`**
+* **`existence: Accessor<WebDriver, boolean>`**
 
 Example usage:
 
@@ -73,7 +73,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`visibility: Accessor<boolean>`**
+* **`visibility: Accessor<WebDriver, boolean>`**
 
 Example usage:
 
@@ -95,7 +95,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`tagName: Accessor<string>`**
+* **`tagName: Accessor<WebDriver, string>`**
 
 Example usage:
 
@@ -115,7 +115,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`text: Accessor<string>`**
+* **`text: Accessor<WebDriver, string>`**
 
 Example usage:
 
@@ -135,7 +135,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`xPosition: Accessor<number>`**
+* **`xPosition: Accessor<WebDriver, number>`**
 
 Example usage:
 
@@ -155,7 +155,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`yPosition: Accessor<number>`**
+* **`yPosition: Accessor<WebDriver, number>`**
 
 Example usage:
 
@@ -175,7 +175,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`width: Accessor<number>`**
+* **`width: Accessor<WebDriver, number>`**
 
 Example usage:
 
@@ -195,7 +195,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`height: Accessor<number>`**
+* **`height: Accessor<WebDriver, number>`**
 
 Example usage:
 
@@ -215,7 +215,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`attributeValue(attributeName: string): Accessor<string | null>`**
+* **`attributeValue(attributeName: string): Accessor<WebDriver, string | null>`**
 
 Example usage:
 
@@ -235,7 +235,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`cssValue(cssName: string): Accessor<string>`**
+* **`cssValue(cssName: string): Accessor<WebDriver, string>`**
 
 Example usage:
 
@@ -255,7 +255,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`descendantElementCount(selector: string): Accessor<number>`**
+* **`descendantElementCount(selector: string): Accessor<WebDriver, number>`**
 
 Example usage:
 
@@ -275,7 +275,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`clearValue(): Action`**
+* **`clearValue(): Action<WebDriver>`**
 
 Example usage:
 
@@ -295,7 +295,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`click(): Action`**
+* **`click(): Action<WebDriver>`**
 
 Example usage:
 
@@ -315,7 +315,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`sendKeys(...keys: string[]): Action`**
+* **`sendKeys(...keys: string[]): Action<WebDriver>`**
 
 Example usage:
 
@@ -347,7 +347,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`submitForm(): Action`**
+* **`submitForm(): Action<WebDriver>`**
 
 Example usage:
 

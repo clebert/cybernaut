@@ -1,12 +1,7 @@
-import {WebDriver} from 'selenium-webdriver';
-import {sleep} from '../utils/sleep';
 import {Accessor} from './accessor';
+import {Options} from './options';
 import {Predicate} from './predicate';
-
-export interface Options {
-  readonly retries: number;
-  readonly retryDelay: number;
-}
+import {sleep} from './utils';
 
 export type VerificationResult = 'error' | 'invalid' | 'valid';
 
@@ -15,16 +10,16 @@ export interface Verification {
   readonly result: VerificationResult;
 }
 
-export type Verifier = (
-  driver: WebDriver, attempt: number, retries: number
+export type Verifier<T> = (
+  driver: T, attempt: number, retries: number
 ) => Promise<Verification>;
 
-export function createVerifier<T>(
-  accessor: Accessor<T>, predicate: Predicate<T>
-): Verifier {
+export function createVerifier<T, S>(
+  accessor: Accessor<T, S>, predicate: Predicate<S>
+): Verifier<T> {
   const description = `${accessor.description} ${predicate.description}`;
 
-  return async (driver: WebDriver, attempt: number, retries: number) => {
+  return async (driver: T, attempt: number, retries: number) => {
     try {
       const actualValue = await accessor.get(driver);
       const result = predicate.test(actualValue);
@@ -50,8 +45,8 @@ export function createVerifier<T>(
   };
 }
 
-export async function verify(
-  verifier: Verifier, driver: WebDriver, options: Options, _attempt: number = 1
+export async function verify<T>(
+  verifier: Verifier<T>, driver: T, options: Options, _attempt: number = 1
 ): Promise<Verification> {
   const {retries, retryDelay} = options;
 

@@ -1,7 +1,5 @@
-import {WebDriver} from 'selenium-webdriver';
-
-export interface Accessor<T> {
+export interface Accessor<T, S> {
   readonly description: string;
 
-  get(driver: WebDriver): Promise<T>;
+  get(driver: T): Promise<S>;
 }

@@ -1,10 +1,11 @@
 import createDebug = require('debug');
 
-import {Builder} from 'selenium-webdriver';
+import {Builder, WebDriver} from 'selenium-webdriver';
 import {Config} from './config';
-import {Logger, Test} from './test';
+import {Logger, Test} from './core/test';
 
-export type Implementation = (t: Test, config: Config) => Promise<void>;
+export type Implementation =
+  (t: Test<WebDriver>, config: Config) => Promise<void>;
 
 const debug = createDebug('cybernaut:implementation');
 
