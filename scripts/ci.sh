@@ -2,6 +2,8 @@
 
 set -e
 
+npm prune && npm install
+
 ./scripts/check.sh
 ./scripts/test.sh
 
