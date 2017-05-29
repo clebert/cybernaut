@@ -2,6 +2,7 @@
 
 [![npm][npm-cybernaut-badge]][npm-cybernaut]
 [![build][travis-ci-badge]][travis-ci]
+[![coverage][coveralls-badge]][coveralls]
 [![Greenkeeper][greenkeeper-badge]][greenkeeper]
 [![TypeScript][typescript-badge]][typescript]
 
@@ -90,6 +91,8 @@ By this mechanism, a high reliability and thus stability of your tests can be en
 ---
 Built by (c) Clemens Akens. Released under the MIT license.
 
+[coveralls]: https://coveralls.io/github/clebert/cybernaut?branch=master
+[coveralls-badge]: https://coveralls.io/repos/github/clebert/cybernaut/badge.svg?branch=master
 [docker-containers]: https://cybernaut.js.org/docs/overview/testing-with-docker.html#docker-containers
 [docker-installation]: https://docs.docker.com/engine/installation/
 [example]: https://github.com/clebert/cybernaut/tree/master/example
