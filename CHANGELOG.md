@@ -2,11 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [8.0.0](https://github.com/clebert/cybernaut/compare/v7.0.0...v8.0.0) (2017-05-29)
+
+### Bug Fixes
+
+* Update ajv to version 5.1.4 ([#237](https://github.com/clebert/cybernaut/issues/237)) ([6109544](https://github.com/clebert/cybernaut/commit/6109544))
+
+### Features
+
+* Make the configuration available at runtime ([#234](https://github.com/clebert/cybernaut/issues/234)) ([2d34fe1](https://github.com/clebert/cybernaut/commit/2d34fe1))
+* Remove browser.sleep() and improve typings ([#240](https://github.com/clebert/cybernaut/issues/240)) ([04d9ed9](https://github.com/clebert/cybernaut/commit/04d9ed9))
+* Remove browser.maximizeWindow() ([#239](https://github.com/clebert/cybernaut/issues/239)) ([6313b8d](https://github.com/clebert/cybernaut/commit/6313b8d))
+
+### BREAKING CHANGES
+
+* Remove browser.sleep()
+* Improve typings for browser.scriptResult() and browser.executeScript()
+* Remove browser.maximizeWindow()
+
 ## [7.0.0](https://github.com/clebert/cybernaut/compare/v6.2.0...v7.0.0) (2017-05-23)
 
 ### Features
 
-* improve documentation and docker containers ([69c3ae6](https://github.com/clebert/cybernaut/commit/69c3ae6))
+* Improve documentation and docker containers ([69c3ae6](https://github.com/clebert/cybernaut/commit/69c3ae6))
 
 ### BREAKING CHANGES
 

@@ -1,6 +1,6 @@
 {
   "name": "cybernaut",
-  "version": "7.0.0",
+  "version": "8.0.0",
   "description": "Reliable, automated web UI testing in BDD-style.",
   "license": "MIT",
   "author": "Clemens Akens <clebert@me.com>",
