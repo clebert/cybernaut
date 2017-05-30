@@ -1,11 +1,3 @@
 {
-  "extends": "./node_modules/ts-config/tslint.json",
-  "rules": {
-    "space-before-function-paren": [true, {
-      "anonymous": "always",
-      "named": "never",
-      "method": "never",
-      "constructor": "never"
-    }]
-  }
+  "extends": "./node_modules/ts-config/tslint.json"
 }
