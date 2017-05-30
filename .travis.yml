@@ -3,9 +3,14 @@ cache:
   directories:
   - node_modules
 node_js:
-- '7'
+- '8'
+before_install:
+- npm install -g npm
+- npm install -g greenkeeper-lockfile@1
+before_script: greenkeeper-lockfile-update
 script:
 - ./scripts/ci.sh
+after_script: greenkeeper-lockfile-upload
 after_success:
 - ./scripts/coveralls.sh
 branches:

@@ -7,6 +7,7 @@ RESOURCES="$HOME"/resources
 
 rm -rf "$RESOURCES" && mkdir -p "$RESOURCES"
 
+cp -f package-lock.json "$RESOURCES"/package-lock.json
 cp -f package.json "$RESOURCES"/package.json
 cp -rf src "$RESOURCES"/src
 cp -f tsconfig.json "$RESOURCES"/tsconfig.json
