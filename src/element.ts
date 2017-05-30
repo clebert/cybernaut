@@ -235,11 +235,9 @@ export class Element {
     let elements: WebElement[] = [];
 
     for (const locator of this._locators) {
-      if (element) {
-        elements = await element.findElements(By.css(locator.selector));
-      } else {
-        elements = await driver.findElements(By.css(locator.selector));
-      }
+      elements = element ?
+        await element.findElements(By.css(locator.selector)) :
+        await driver.findElements(By.css(locator.selector));
 
       element = elements[locator.index];
 
