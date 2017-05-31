@@ -2,8 +2,8 @@
 
 Type definition:
 
-* **`browser: Browser`**
-* [`Browser`](../interfaces/browser.md)
+* **`browser: SeleniumBrowser`**
+* [`SeleniumBrowser`](../interfaces/selenium-browser.md)
 
 Example usage:
 

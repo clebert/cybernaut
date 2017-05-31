@@ -1,4 +1,4 @@
-import {Test} from '../test';
+import {TestContext} from '../test-context';
 import {and, given, shortSleep, then, when} from './test-utils';
 
 interface AccessorMock {
@@ -24,12 +24,12 @@ interface PredicateMock {
 const defaultOptions = {retries: 0, retryDelay: 10};
 const error = new Error('<cause>');
 
-given('a new test is created with retries=0 and retryDelay=10', () => {
+given('a new test context is created with retries=0 and retryDelay=10', () => {
   let accessor: AccessorMock;
   let action: ActionMock;
   let logger: LoggerMock;
   let predicate: PredicateMock;
-  let t: Test<object>;
+  let t: TestContext<object>;
 
   beforeEach(() => {
     accessor = {
@@ -48,10 +48,10 @@ given('a new test is created with retries=0 and retryDelay=10', () => {
       test: jest.fn<boolean>()
     };
 
-    t = new Test<object>({}, logger, defaultOptions);
+    t = new TestContext<object>({}, logger, defaultOptions);
   });
 
-  when('test.assert() is called without options', () => {
+  when('t.assert() is called without options', () => {
     and('the verification is valid in the first attempt', () => {
       beforeEach(() => {
         predicate.test.mockReturnValue(true);
@@ -113,7 +113,7 @@ given('a new test is created with retries=0 and retryDelay=10', () => {
     });
   });
 
-  when('test.assert() is called with retries=1', () => {
+  when('t.assert() is called with retries=1', () => {
     const options = {retries: 1};
 
     and('the verification is invalid until the second attempt', () => {
@@ -166,7 +166,7 @@ given('a new test is created with retries=0 and retryDelay=10', () => {
     });
   });
 
-  when('test.assert() is called with retries=1 and retryDelay=20', () => {
+  when('t.assert() is called with retries=1 and retryDelay=20', () => {
     const options = {retries: 1, retryDelay: 20};
 
     and('the verification is invalid until the second attempt', () => {
@@ -208,7 +208,7 @@ given('a new test is created with retries=0 and retryDelay=10', () => {
     });
   });
 
-  when('test.perform() is called without options', () => {
+  when('t.perform() is called without options', () => {
     and('the execution is successful in the first attempt', () => {
       then('it should call logger.pass() without attempts', async () => {
         await t.perform(action);
@@ -244,7 +244,7 @@ given('a new test is created with retries=0 and retryDelay=10', () => {
     });
   });
 
-  when('test.perform() is called with retries=1', () => {
+  when('t.perform() is called with retries=1', () => {
     const options = {retries: 1};
 
     and('the execution is erroneous until the second attempt', () => {
@@ -294,7 +294,7 @@ given('a new test is created with retries=0 and retryDelay=10', () => {
     });
   });
 
-  when('test.perform() is called with retries=1 and retryDelay=20', () => {
+  when('t.perform() is called with retries=1 and retryDelay=20', () => {
     const options = {retries: 1, retryDelay: 20};
 
     and('the execution is erroneous until the second attempt', () => {
@@ -334,7 +334,7 @@ given('a new test is created with retries=0 and retryDelay=10', () => {
     });
   });
 
-  when('test.verify() is called without options', () => {
+  when('t.verify() is called without options', () => {
     and('the verification is valid in the first attempt', () => {
       beforeEach(() => {
         predicate.test.mockReturnValue(true);
@@ -400,7 +400,7 @@ given('a new test is created with retries=0 and retryDelay=10', () => {
     });
   });
 
-  when('test.verify() is called with retries=1', () => {
+  when('t.verify() is called with retries=1', () => {
     const options = {retries: 1};
 
     and('the verification is invalid until the second attempt', () => {
@@ -457,7 +457,7 @@ given('a new test is created with retries=0 and retryDelay=10', () => {
     });
   });
 
-  when('test.verify() is called with retries=1 and retryDelay=20', () => {
+  when('t.verify() is called with retries=1 and retryDelay=20', () => {
     const options = {retries: 1, retryDelay: 20};
 
     and('the verification is invalid until the second attempt', () => {

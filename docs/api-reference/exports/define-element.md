@@ -2,8 +2,8 @@
 
 Type definition:
 
-* **`defineElement(name: string, selector: string, index: number = 0): Element`**
-* [`Element`](../interfaces/element.md)
+* **`defineElement(name: string, selector: string, index: number = 0): SeleniumElement`**
+* [`SeleniumElement`](../interfaces/selenium-element.md)
 
 Example usage:
 
