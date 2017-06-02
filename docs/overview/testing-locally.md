@@ -14,7 +14,7 @@ Cybernaut is tested with Chrome and Firefox and **provides** the latest drivers 
 Cybernaut must be started from the command line:
 
 ```sh
-$(npm bin)/cybernaut
+"$(npm bin)"/cybernaut
 ```
 
 Directories are recursed, with all `**/*.e2e.js` files being treated as test files.
@@ -26,7 +26,7 @@ npm install --save-dev tap-mocha-reporter
 ```
 
 ```sh
-$(npm bin)/cybernaut | $(npm bin)/tap-mocha-reporter spec
+"$(npm bin)"/cybernaut | "$(npm bin)"/tap-mocha-reporter spec
 ```
 
 *Note: Cybernaut must be installed relative to the test files according to the [module resolution algorithm][module-resolution-algorithm].*
@@ -36,7 +36,7 @@ $(npm bin)/cybernaut | $(npm bin)/tap-mocha-reporter spec
 To enable debug output, you can set the `DEBUG='cybernaut:*'` environment variable:
 
 ```sh
-DEBUG='cybernaut:*' $(npm bin)/cybernaut
+DEBUG='cybernaut:*' "$(npm bin)"/cybernaut
 ```
 
 If the following error occurs:
