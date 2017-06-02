@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [9.0.0](https://github.com/clebert/cybernaut/compare/v8.0.0...v9.0.0) (2017-06-02)
+
+### Bug Fixes
+
+* Update ajv to version 5.1.5 ([#257](https://github.com/clebert/cybernaut/issues/257)) ([236bb82](https://github.com/clebert/cybernaut/commit/236bb82))
+* Export `Predicate` type
+
+### Features
+
+* Rename types and restructure api ([#252](https://github.com/clebert/cybernaut/issues/252)) ([f24106b](https://github.com/clebert/cybernaut/commit/f24106b))
+
+### BREAKING CHANGES
+
+* Renamed types:
+  * `Accessor` -> `SeleniumAccessor`
+  * `Action` -> `SeleniumAction`
+  * `Browser` -> `SeleniumBrowser`
+  * `Config` -> `SeleniumConfig`
+  * `Element` -> `SeleniumElement`
+  * `Test` -> `SeleniumTestContext`
+  * `Implementation` -> `SeleniumTest`
+
 ## [8.0.0](https://github.com/clebert/cybernaut/compare/v7.0.0...v8.0.0) (2017-05-29)
 
 ### Bug Fixes
