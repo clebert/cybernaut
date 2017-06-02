@@ -2,10 +2,12 @@
 
 Type definition:
 
-* **`skip(name: string, implementation: Implementation): void`**
-* `Implementation: (t: Test<WebDriver>, config: Config) => Promise<void>`
-* [`Test`](../interfaces/test.md)
-* [`Config`](../../overview/configuring-cybernaut.md)
+* **`skip(name: string, implementation: SeleniumTest): void`**
+* `SeleniumTest: (t: SeleniumTestContext, config: SeleniumConfig) => Promise<void>`
+* [`SeleniumTestContext`](../interfaces/selenium-test-context.md)
+* `SeleniumConfig: {capabilities: Capabilities, timeouts: Timeouts, retries: number, retryDelay: number}`
+* `Capabilities: {browserName: string}`
+* `Timeouts: {element: number, page: number, script: number}`
 
 Example usage:
 

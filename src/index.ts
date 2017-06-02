@@ -1,35 +1,17 @@
 #!/usr/bin/env node
 
-/// <reference path="../types/selenium-webdriver.d.ts" />
-
 import createDebug = require('debug');
 import tap = require('tap');
 
 import {sync} from 'globby';
-import {Key} from 'selenium-webdriver';
-import {AccessorScript, ActionScript, Browser} from './browser';
 import {Config, loadConfig, validate} from './config';
-import {Accessor} from './core/accessor';
-import {Action} from './core/action';
 import {PredicateBuilder} from './core/predicate';
-import {Test} from './core/test';
 import {format} from './core/utils';
-import {Element, defineElement} from './element';
-import {Implementation, run} from './implementation';
+import {SeleniumBrowser} from './selenium/browser';
+import {SeleniumTest, run} from './selenium/test';
 
-export {
-  Accessor,
-  AccessorScript,
-  Action,
-  ActionScript,
-  Browser,
-  Element,
-  Implementation,
-  Key,
-  PredicateBuilder,
-  Test,
-  defineElement
-};
+export * from './core/public';
+export * from './selenium/public';
 
 const debug = createDebug('cybernaut:index');
 
@@ -73,11 +55,11 @@ export class It {
 }
 
 export const it = new It();
-export const browser = new Browser();
+export const browser = new SeleniumBrowser();
 
 const tasks: (() => void)[] = [];
 
-export function test(name: string, implementation?: Implementation): void {
+export function test(name: string, implementation?: SeleniumTest): void {
   tasks.push(() => {
     tap.test( // tslint:disable-line no-floating-promises
       name,
@@ -93,7 +75,7 @@ export function test(name: string, implementation?: Implementation): void {
   });
 }
 
-export function skip(name: string, implementation: Implementation): void {
+export function skip(name: string, implementation: SeleniumTest): void {
   tasks.push(() => {
     tap.test(name, {skip: true}); // tslint:disable-line no-floating-promises
   });

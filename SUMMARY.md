@@ -23,10 +23,10 @@
   * [it](docs/api-reference/exports/it.md)
 
 * Interfaces
-  * [Test](docs/api-reference/interfaces/test.md)
-  * [Browser](docs/api-reference/interfaces/browser.md)
-  * [Element](docs/api-reference/interfaces/element.md)
   * [PredicateBuilder](docs/api-reference/interfaces/predicate-builder.md)
+  * [SeleniumBrowser](docs/api-reference/interfaces/selenium-browser.md)
+  * [SeleniumElement](docs/api-reference/interfaces/selenium-element.md)
+  * [SeleniumTestContext](docs/api-reference/interfaces/selenium-test-context.md)
 
 ## Contributing
 

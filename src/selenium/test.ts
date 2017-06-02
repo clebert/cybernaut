@@ -1,16 +1,17 @@
 import createDebug = require('debug');
 
-import {Builder, WebDriver} from 'selenium-webdriver';
-import {Config} from './config';
-import {Logger, Test} from './core/test';
+import {Builder} from 'selenium-webdriver';
+import {Logger, TestContext} from '../core/test-context';
+import {SeleniumConfig} from './config';
+import {SeleniumTestContext} from './test-context';
 
-export type Implementation =
-  (t: Test<WebDriver>, config: Config) => Promise<void>;
+export type SeleniumTest =
+  (t: SeleniumTestContext, config: SeleniumConfig) => Promise<void>;
 
-const debug = createDebug('cybernaut:implementation');
+const debug = createDebug('cybernaut:test');
 
 export async function run(
-  implementation: Implementation, logger: Logger, config: Config
+  implementation: SeleniumTest, logger: Logger, config: SeleniumConfig
 ): Promise<void> {
   const {capabilities, timeouts} = config;
 
@@ -29,7 +30,7 @@ export async function run(
 
     debug('Run the test implementation');
 
-    await implementation(new Test(driver, logger, config), config);
+    await implementation(new TestContext(driver, logger, config), config);
   } finally {
     debug('Terminate the browser session');
 

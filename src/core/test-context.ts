@@ -9,7 +9,7 @@ export interface Logger {
   pass(message: string): void;
 }
 
-export class Test<T> {
+export class TestContext<T> {
   private readonly _driver: T;
   private readonly _logger: Logger;
   private readonly _options: Options;

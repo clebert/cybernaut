@@ -2,24 +2,11 @@ import Ajv = require('ajv');
 import createDebug = require('debug');
 
 import {resolve} from 'path';
+import {SeleniumConfig} from './selenium/config';
 
-export interface Capabilities {
-  readonly browserName: string;
-}
-
-export interface Timeouts {
-  readonly element: number;
-  readonly page: number;
-  readonly script: number;
-}
-
-export interface Config {
-  readonly capabilities: Capabilities;
+export interface Config extends SeleniumConfig {
   readonly concurrency: number;
   readonly files: string[];
-  readonly retries: number;
-  readonly retryDelay: number;
-  readonly timeouts: Timeouts;
 }
 
 const debug = createDebug('cybernaut:config');
