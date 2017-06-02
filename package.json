@@ -72,7 +72,7 @@
     "geckodriver": "1.6.1",
     "globby": "6.1.0",
     "selenium-webdriver": "3.4.0",
-    "tap": "10.3.2",
+    "tap": "10.3.3",
     "tslib": "1.7.1"
   },
   "devDependencies": {
