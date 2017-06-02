@@ -75,7 +75,7 @@
     "tslib": "1.7.1"
   },
   "devDependencies": {
-    "@types/jest": "19.2.3",
+    "@types/jest": "19.2.4",
     "@types/node": "7.0.22",
     "commitizen": "2.9.6",
     "conventional-changelog-lint": "1.1.9",
