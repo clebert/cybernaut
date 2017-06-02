@@ -1,4 +1,4 @@
-# Interface: `Element`
+# Interface: `SeleniumElement`
 
 ## Factory methods
 
@@ -32,7 +32,7 @@
 
 Type definition:
 
-* **`defineDescendantElement(name: string, selector: string, index: number = 0): Element`**
+* **`defineDescendantElement(name: string, selector: string, index: number = 0): SeleniumElement`**
 
 Example usage:
 
@@ -53,7 +53,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`existence: Accessor<WebDriver, boolean>`**
+* **`existence: SeleniumAccessor<boolean>`**
 
 Example usage:
 
@@ -73,7 +73,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`visibility: Accessor<WebDriver, boolean>`**
+* **`visibility: SeleniumAccessor<boolean>`**
 
 Example usage:
 
@@ -95,7 +95,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`tagName: Accessor<WebDriver, string>`**
+* **`tagName: SeleniumAccessor<string>`**
 
 Example usage:
 
@@ -115,7 +115,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`text: Accessor<WebDriver, string>`**
+* **`text: SeleniumAccessor<string>`**
 
 Example usage:
 
@@ -135,7 +135,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`xPosition: Accessor<WebDriver, number>`**
+* **`xPosition: SeleniumAccessor<number>`**
 
 Example usage:
 
@@ -155,7 +155,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`yPosition: Accessor<WebDriver, number>`**
+* **`yPosition: SeleniumAccessor<number>`**
 
 Example usage:
 
@@ -175,7 +175,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`width: Accessor<WebDriver, number>`**
+* **`width: SeleniumAccessor<number>`**
 
 Example usage:
 
@@ -195,7 +195,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`height: Accessor<WebDriver, number>`**
+* **`height: SeleniumAccessor<number>`**
 
 Example usage:
 
@@ -215,7 +215,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`attributeValue(attributeName: string): Accessor<WebDriver, string | null>`**
+* **`attributeValue(attributeName: string): SeleniumAccessor<string | null>`**
 
 Example usage:
 
@@ -235,7 +235,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`cssValue(cssName: string): Accessor<WebDriver, string>`**
+* **`cssValue(cssName: string): SeleniumAccessor<string>`**
 
 Example usage:
 
@@ -255,7 +255,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`descendantElementCount(selector: string): Accessor<WebDriver, number>`**
+* **`descendantElementCount(selector: string): SeleniumAccessor<number>`**
 
 Example usage:
 
@@ -275,7 +275,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`clearValue(): Action<WebDriver>`**
+* **`clearValue(): SeleniumAction`**
 
 Example usage:
 
@@ -295,7 +295,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`click(): Action<WebDriver>`**
+* **`click(): SeleniumAction`**
 
 Example usage:
 
@@ -315,7 +315,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`sendKeys(...keys: string[]): Action<WebDriver>`**
+* **`sendKeys(...keys: string[]): SeleniumAction`**
 
 Example usage:
 
@@ -347,7 +347,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`submitForm(): Action<WebDriver>`**
+* **`submitForm(): SeleniumAction`**
 
 Example usage:
 

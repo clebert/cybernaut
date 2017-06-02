@@ -1,7 +1,7 @@
 import {By, Key, WebDriver, WebElement} from 'selenium-webdriver';
-import {Accessor} from './core/accessor';
-import {Action} from './core/action';
-import {format} from './core/utils';
+import {format} from '../core/utils';
+import {SeleniumAccessor} from './accessor';
+import {SeleniumAction} from './action';
 
 const KeyName = Object.create(null);
 
@@ -18,7 +18,7 @@ export interface Locator {
   readonly selector: string;
 }
 
-export class Element {
+export class SeleniumElement {
   private readonly _locators: Locator[];
   private readonly _name: string;
 
@@ -29,18 +29,18 @@ export class Element {
 
   public defineDescendantElement(
     name: string, selector: string, index: number = 0
-  ): Element {
-    return new Element(name, [...this._locators, {index, selector}]);
+  ): SeleniumElement {
+    return new SeleniumElement(name, [...this._locators, {index, selector}]);
   }
 
-  public get existence(): Accessor<WebDriver, boolean> {
+  public get existence(): SeleniumAccessor<boolean> {
     return {
       description: `The existence of the ${this._name} element`,
       get: async driver => Boolean(await this._locateElement(driver))
     };
   }
 
-  public get visibility(): Accessor<WebDriver, boolean> {
+  public get visibility(): SeleniumAccessor<boolean> {
     return {
       description: `The visibility of the ${this._name} element`,
       get: async driver => {
@@ -51,7 +51,7 @@ export class Element {
     };
   }
 
-  public get tagName(): Accessor<WebDriver, string> {
+  public get tagName(): SeleniumAccessor<string> {
     return {
       description: `The tag name of the ${this._name} element`,
       get: async driver => {
@@ -62,7 +62,7 @@ export class Element {
     };
   }
 
-  public get text(): Accessor<WebDriver, string> {
+  public get text(): SeleniumAccessor<string> {
     return {
       description: `The text of the ${this._name} element`,
       get: async driver => {
@@ -73,7 +73,7 @@ export class Element {
     };
   }
 
-  public get xPosition(): Accessor<WebDriver, number> {
+  public get xPosition(): SeleniumAccessor<number> {
     return {
       description: `The X position of the ${this._name} element`,
       get: async driver => {
@@ -84,7 +84,7 @@ export class Element {
     };
   }
 
-  public get yPosition(): Accessor<WebDriver, number> {
+  public get yPosition(): SeleniumAccessor<number> {
     return {
       description: `The Y position of the ${this._name} element`,
       get: async driver => {
@@ -95,7 +95,7 @@ export class Element {
     };
   }
 
-  public get width(): Accessor<WebDriver, number> {
+  public get width(): SeleniumAccessor<number> {
     return {
       description: `The width of the ${this._name} element`,
       get: async driver => {
@@ -106,7 +106,7 @@ export class Element {
     };
   }
 
-  public get height(): Accessor<WebDriver, number> {
+  public get height(): SeleniumAccessor<number> {
     return {
       description: `The height of the ${this._name} element`,
       get: async driver => {
@@ -119,7 +119,7 @@ export class Element {
 
   public attributeValue(
     attributeName: string
-  ): Accessor<WebDriver, string | null> {
+  ): SeleniumAccessor<string | null> {
     const description =
       `The value of the ${attributeName} attribute ` +
       `of the ${this._name} element`;
@@ -134,7 +134,7 @@ export class Element {
     };
   }
 
-  public cssValue(cssName: string): Accessor<WebDriver, string> {
+  public cssValue(cssName: string): SeleniumAccessor<string> {
     const description =
       `The value of the ${cssName} css of the ${this._name} element`;
 
@@ -148,7 +148,7 @@ export class Element {
     };
   }
 
-  public descendantElementCount(selector: string): Accessor<WebDriver, number> {
+  public descendantElementCount(selector: string): SeleniumAccessor<number> {
     const description =
       'The count of matching descendant elements ' +
       `for the specified selector (${selector})`;
@@ -164,7 +164,7 @@ export class Element {
     };
   }
 
-  public clearValue(): Action<WebDriver> {
+  public clearValue(): SeleniumAction {
     return {
       description: `Clear the value of the ${this._name} element`,
       perform: async driver => {
@@ -175,7 +175,7 @@ export class Element {
     };
   }
 
-  public click(): Action<WebDriver> {
+  public click(): SeleniumAction {
     return {
       description: `Click on the ${this._name} element`,
       perform: async driver => {
@@ -186,7 +186,7 @@ export class Element {
     };
   }
 
-  public sendKeys(...keys: string[]): Action<WebDriver> {
+  public sendKeys(...keys: string[]): SeleniumAction {
     if (keys.length === 0) {
       throw new Error('At least one key must be specified');
     }
@@ -207,7 +207,7 @@ export class Element {
     };
   }
 
-  public submitForm(): Action<WebDriver> {
+  public submitForm(): SeleniumAction {
     return {
       description: `Submit the form containing the ${this._name} element`,
       perform: async driver => {
@@ -252,6 +252,6 @@ export class Element {
 
 export function defineElement(
   name: string, selector: string, index: number = 0
-): Element {
-  return new Element(name, [{index, selector}]);
+): SeleniumElement {
+  return new SeleniumElement(name, [{index, selector}]);
 }

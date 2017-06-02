@@ -36,7 +36,8 @@
       "src/core/**/*.ts",
       "!src/core/accessor.ts",
       "!src/core/action.ts",
-      "!src/core/options.ts"
+      "!src/core/options.ts",
+      "!src/core/public.ts"
     ],
     "moduleFileExtensions": [
       "js",

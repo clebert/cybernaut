@@ -1,4 +1,4 @@
-# Interface: `Browser`
+# Interface: `SeleniumBrowser`
 
 ## Accessor properties
 
@@ -30,7 +30,7 @@
 
 Type definition:
 
-* **`pageTitle: Accessor<WebDriver, string>`**
+* **`pageTitle: SeleniumAccessor<string>`**
 
 Example usage:
 
@@ -48,7 +48,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`pageUrl: Accessor<WebDriver, string>`**
+* **`pageUrl: SeleniumAccessor<string>`**
 
 Example usage:
 
@@ -66,7 +66,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`windowXPosition: Accessor<WebDriver, number>`**
+* **`windowXPosition: SeleniumAccessor<number>`**
 
 Example usage:
 
@@ -84,7 +84,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`windowYPosition: Accessor<WebDriver, number>`**
+* **`windowYPosition: SeleniumAccessor<number>`**
 
 Example usage:
 
@@ -102,7 +102,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`windowWidth: Accessor<WebDriver, number>`**
+* **`windowWidth: SeleniumAccessor<number>`**
 
 Example usage:
 
@@ -120,7 +120,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`windowHeight: Accessor<WebDriver, number>`**
+* **`windowHeight: SeleniumAccessor<number>`**
 
 Example usage:
 
@@ -138,7 +138,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`elementCount(selector: string): Accessor<WebDriver, number>`**
+* **`elementCount(selector: string): SeleniumAccessor<number>`**
 
 Example usage:
 
@@ -156,7 +156,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`scriptResult<T>(scriptName: string, script: AccessorScript<T>): Accessor<WebDriver, T>`**
+* **`scriptResult<T>(scriptName: string, script: AccessorScript<T>): SeleniumAccessor<T>`**
 * `AccessorScript<T>: (callback: (result: T) => void) => void`
 
 Example usage:
@@ -182,7 +182,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`executeScript(scriptName: string, script: ActionScript): Action<WebDriver>`**
+* **`executeScript(scriptName: string, script: ActionScript): SeleniumAction`**
 * `ActionScript: (callback: () => void) => void`
 
 Example usage:
@@ -208,7 +208,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`loadPage(url: string): Action<WebDriver>`**
+* **`loadPage(url: string): SeleniumAction`**
 
 Example usage:
 
@@ -226,7 +226,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`navigateBack(): Action<WebDriver>`**
+* **`navigateBack(): SeleniumAction`**
 
 Example usage:
 
@@ -244,7 +244,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`navigateForward(): Action<WebDriver>`**
+* **`navigateForward(): SeleniumAction`**
 
 Example usage:
 
@@ -262,7 +262,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`reloadPage(): Action<WebDriver>`**
+* **`reloadPage(): SeleniumAction`**
 
 Example usage:
 
@@ -280,7 +280,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`setWindowPosition(x: number, y: number): Action<WebDriver>`**
+* **`setWindowPosition(x: number, y: number): SeleniumAction`**
 
 Example usage:
 
@@ -298,7 +298,7 @@ test('Example', async t => {
 
 Type definition:
 
-* **`setWindowSize(width: number, height: number): Action<WebDriver>`**
+* **`setWindowSize(width: number, height: number): SeleniumAction`**
 
 Example usage:
 
