@@ -28,7 +28,7 @@ Configuration options:
 A separate configuration can be specified as a command line argument:
 
 ```sh
-$(npm bin)/cybernaut config.json
+"$(npm bin)"/cybernaut config.json
 ```
 
 Such a configuration can be validated with [this JSON schema][config-schema] and written as a
