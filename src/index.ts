@@ -61,23 +61,27 @@ const tasks: (() => void)[] = [];
 
 export function test(name: string, implementation?: SeleniumTest): void {
   tasks.push(() => {
-    tap.test( // tslint:disable-line no-floating-promises
-      name,
-      {diagnostic: false, timeout: 0, todo: !implementation},
-      async logger => {
-        if (implementation) {
-          await run(implementation, logger, config);
+    tap
+      .test(
+        name,
+        {diagnostic: false, timeout: 0, todo: !implementation},
+        async logger => {
+          if (implementation) {
+            await run(implementation, logger, config);
+          }
         }
-      }
-    ).catch((error: Error) => {
-      tap.fail(error.message);
-    });
+      )
+      .catch((error: Error) => {
+        tap.fail(error.message);
+      });
   });
 }
 
 export function skip(name: string, implementation: SeleniumTest): void {
   tasks.push(() => {
-    tap.test(name, {skip: true}); // tslint:disable-line no-floating-promises
+    tap.test(name, {skip: true}).catch((error: Error) => {
+      tap.fail(error.message);
+    });
   });
 }
 

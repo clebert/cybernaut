@@ -11,11 +11,14 @@ export interface Verification {
 }
 
 export type Verifier<T> = (
-  driver: T, attempt: number, retries: number
+  driver: T,
+  attempt: number,
+  retries: number
 ) => Promise<Verification>;
 
 export function createVerifier<T, S>(
-  accessor: Accessor<T, S>, predicate: Predicate<S>
+  accessor: Accessor<T, S>,
+  predicate: Predicate<S>
 ): Verifier<T> {
   const description = `${accessor.description} ${predicate.description}`;
 
@@ -46,7 +49,10 @@ export function createVerifier<T, S>(
 }
 
 export async function verify<T>(
-  verifier: Verifier<T>, driver: T, options: Options, _attempt: number = 1
+  verifier: Verifier<T>,
+  driver: T,
+  options: Options,
+  _attempt: number = 1
 ): Promise<Verification> {
   const {retries, retryDelay} = options;
 

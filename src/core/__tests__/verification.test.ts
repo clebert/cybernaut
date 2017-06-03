@@ -22,7 +22,8 @@ given('a newly created verifier() is called', () => {
 
   beforeEach(() => {
     accessor = {
-      description: '<accessorDescription>', get: jest.fn<Promise<string>>()
+      description: '<accessorDescription>',
+      get: jest.fn<Promise<string>>()
     };
 
     predicate = {
@@ -159,7 +160,8 @@ given('verify() is called with retries=1', () => {
   when('any call to verifier() returns a valid verification', () => {
     beforeEach(() => {
       verifier.mockImplementation(async () => ({
-        description: 'attempt 1', result: 'valid'
+        description: 'attempt 1',
+        result: 'valid'
       }));
     });
 
@@ -185,11 +187,13 @@ given('verify() is called with retries=1', () => {
     when(`any call to verifier() returns an ${adjective} verification`, () => {
       beforeEach(() => {
         verifier.mockImplementationOnce(async () => ({
-          description: 'attempt 1', result
+          description: 'attempt 1',
+          result
         }));
 
         verifier.mockImplementationOnce(async () => ({
-          description: 'attempt 2', result
+          description: 'attempt 2',
+          result
         }));
       });
 

@@ -18,9 +18,15 @@ echo 'Running markdownlint ...'
 
 ./scripts/markdownlint.js
 
-echo 'Running tsfmt ...'
+echo 'Running prettier ...'
 
-"$(npm bin)"/tsfmt --verify
+"$(npm bin)"/prettier \
+  --single-quote \
+  --no-bracket-spacing \
+  --parser typescript \
+  --list-different \
+  '{src,types}/**/*.ts' \
+  'scripts/example/tests/**/*.ts'
 
 echo 'Running tslint ...'
 
@@ -31,3 +37,11 @@ echo 'Running tslint ...'
   --formatters-dir node_modules/custom-tslint-formatters/formatters \
   --format grouped \
   '{src,types}/**/*.ts'
+
+"$(npm bin)"/tslint \
+  --config tslint.json \
+  --project scripts/example/tsconfig.json \
+  --type-check \
+  --formatters-dir node_modules/custom-tslint-formatters/formatters \
+  --format grouped \
+  'scripts/example/tests/**/*.ts'

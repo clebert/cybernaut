@@ -5,6 +5,7 @@
 [![coverage][coveralls-badge]][coveralls]
 [![Greenkeeper][greenkeeper-badge]][greenkeeper]
 [![TypeScript][typescript-badge]][typescript]
+[![Prettier][prettier-badge]][prettier]
 
 > Reliable, automated web UI testing in BDD-style.
 
@@ -106,6 +107,8 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [mdn-promise]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
 [npm-cybernaut]: https://www.npmjs.com/package/cybernaut
 [npm-cybernaut-badge]: https://img.shields.io/npm/v/cybernaut.svg?maxAge=3600
+[prettier]: https://github.com/prettier/prettier
+[prettier-badge]: https://img.shields.io/badge/Prettier-styled-ff69b4.svg
 [testing-locally]: https://cybernaut.js.org/docs/overview/testing-locally.html
 [testing-with-docker]: https://cybernaut.js.org/docs/overview/testing-with-docker.html
 [travis-ci]: https://travis-ci.org/clebert/cybernaut

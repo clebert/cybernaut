@@ -185,14 +185,32 @@ declare module 'selenium-webdriver' {
 
   // https://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/lib/actions_exports_ActionSequence.html
   export class ActionSequence {
-    public click(elementOrButton?: WebElement | Button, button?: Button): ActionSequence;
-    public doubleClick(elementOrButton?: WebElement | Button, button?: Button): ActionSequence;
-    public dragAndDrop(element: WebElement, location: WebElement | Point): ActionSequence;
+    public click(
+      elementOrButton?: WebElement | Button,
+      button?: Button
+    ): ActionSequence;
+    public doubleClick(
+      elementOrButton?: WebElement | Button,
+      button?: Button
+    ): ActionSequence;
+    public dragAndDrop(
+      element: WebElement,
+      location: WebElement | Point
+    ): ActionSequence;
     public keyDown(key: Key): ActionSequence;
     public keyUp(key: Key): ActionSequence;
-    public mouseDown(elementOrButton?: WebElement | Button, button?: Button): ActionSequence;
-    public mouseMove(location: WebElement | Point, offset?: Point): ActionSequence;
-    public mouseUp(elementOrButton?: WebElement | Button, button?: Button): ActionSequence;
+    public mouseDown(
+      elementOrButton?: WebElement | Button,
+      button?: Button
+    ): ActionSequence;
+    public mouseMove(
+      location: WebElement | Point,
+      offset?: Point
+    ): ActionSequence;
+    public mouseUp(
+      elementOrButton?: WebElement | Button,
+      button?: Button
+    ): ActionSequence;
     public perform(): Promise<void>;
     public sendKeys(...args: string[]): ActionSequence;
   }
@@ -233,7 +251,9 @@ declare module 'selenium-webdriver' {
     public static safari(): Capabilities;
 
     public set(key: string, value: any): Capabilities;
-    public setAlertBehavior(behavior: 'accept' | 'dismiss' | 'ignore'): Capabilities;
+    public setAlertBehavior(
+      behavior: 'accept' | 'dismiss' | 'ignore'
+    ): Capabilities;
   }
 
   // https://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_Condition.html
@@ -245,7 +265,11 @@ declare module 'selenium-webdriver' {
   export class TouchSequence {
     public doubleTap(elem: WebElement): TouchSequence;
     public flick(speed: Speed): TouchSequence;
-    public flickElement(elem: WebElement, offset: Point, speed: number): TouchSequence;
+    public flickElement(
+      elem: WebElement,
+      offset: Point,
+      speed: number
+    ): TouchSequence;
     public longPress(elem: WebElement): TouchSequence;
     public move(location: Point): TouchSequence;
     public perform(): Promise<void>;
@@ -260,8 +284,14 @@ declare module 'selenium-webdriver' {
   export class WebDriver {
     public actions(): ActionSequence;
     public close(): Promise<void>;
-    public executeAsyncScript<TValue>(script: string | ((...args: any[]) => void), ...args: any[]): Promise<TValue>;
-    public executeScript<TValue>(script: string | ((...args: any[]) => TValue), ...args: any[]): Promise<TValue>;
+    public executeAsyncScript<TValue>(
+      script: string | ((...args: any[]) => void),
+      ...args: any[]
+    ): Promise<TValue>;
+    public executeScript<TValue>(
+      script: string | ((...args: any[]) => TValue),
+      ...args: any[]
+    ): Promise<TValue>;
     public findElement(locator: By): Promise<WebElement>;
     public findElements(locator: By): Promise<WebElement[]>;
     public get(url: string): Promise<void>;
@@ -276,7 +306,11 @@ declare module 'selenium-webdriver' {
     public switchTo(): TargetLocator;
     public takeScreenshot(): Promise<string>;
     public touchActions(): TouchSequence;
-    public wait<T>(condition: Condition<T> | Promise<T | null>, timeout?: number, message?: string): Promise<T | null>;
+    public wait<T>(
+      condition: Condition<T> | Promise<T | null>,
+      timeout?: number,
+      message?: string
+    ): Promise<T | null>;
   }
 
   // https://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_WebElement.html
@@ -312,9 +346,15 @@ declare module 'selenium-webdriver' {
     elementIsSelected(element: WebElement): Condition<WebElement>;
     elementIsVisible(element: WebElement): Condition<WebElement>;
     elementLocated(locator: By): Condition<WebElement>;
-    elementTextContains(element: WebElement, substr: string): Condition<WebElement>;
+    elementTextContains(
+      element: WebElement,
+      substr: string
+    ): Condition<WebElement>;
     elementTextIs(element: WebElement, text: string): Condition<WebElement>;
-    elementTextMatches(element: WebElement, regex: RegExp): Condition<WebElement>;
+    elementTextMatches(
+      element: WebElement,
+      regex: RegExp
+    ): Condition<WebElement>;
     elementsLocated(locator: By): Condition<WebElement[]>;
     stalenessOf(element: WebElement): Condition<boolean>;
     titleContains(substr: string): Condition<boolean>;
