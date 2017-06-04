@@ -100,17 +100,11 @@ You can also run Cybernaut tests by using [docker compose][docker-compose].
 
 *Note: In order to use this, an additional dependency, docker-compose is required.*
 
-Run it by using either:
+Run it by using docker-compose:
 
 ```sh
 docker-compose up
 ```
-
-or 
-```sh 
-docker-compose up -d 
-```
-for `daemon`mode.
 
 To get start with Cybernaut and docker-compose there is a simple `docker-compose.yml` as a starting point.
 
