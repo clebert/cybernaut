@@ -108,7 +108,6 @@ docker-compose up
 
 To get start with Cybernaut and docker-compose there is a simple `docker-compose.yml` as a starting point.
 
-
 ## Troubleshooting
 
 To enable debug output, you can set the `DEBUG='cybernaut:*'` environment variable:
