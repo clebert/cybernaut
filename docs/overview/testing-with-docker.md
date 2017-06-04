@@ -94,6 +94,27 @@ docker run -it --rm \
 *Note: When executing `docker run` for an image with chrome browser please add `-v /dev/shm:/dev/shm` [volume mount][docker-mount] to use the host's shared memory.
 Since a Docker container is not meant to preserve state and spawning a new one takes less than 3 seconds you will likely want to remove containers after each test with `--rm` command.*
 
+## Docker Compose
+
+You can also run Cybernaut tests by using [docker compose][docker-compose].
+
+*Note: In order to use this, an additional dependency, docker-compose is required.*
+
+Run it by using either:
+
+```sh
+docker-compose up
+```
+
+or 
+```sh 
+docker-compose up -d 
+```
+for `daemon`mode.
+
+To get start with Cybernaut and docker-compose there is a simple `docker-compose.yml` as a starting point.
+
+
 ## Troubleshooting
 
 To enable debug output, you can set the `DEBUG='cybernaut:*'` environment variable:
@@ -112,3 +133,4 @@ docker run -it --rm \
 [docker-mount]: https://docs.docker.com/engine/tutorials/dockervolumes/#mount-a-host-directory-as-a-data-volume
 [npm-cybernaut]: https://www.npmjs.com/package/cybernaut
 [tap-mocha-reporters]: https://github.com/tapjs/tap-mocha-reporter/tree/master/lib/reporters
+[docker-compose]: https://docs.docker.com/compose
