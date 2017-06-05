@@ -1,6 +1,5 @@
 FROM node:8
 
-COPY resources/package-lock.json /opt/cybernaut/package-lock.json
 COPY resources/package.json /opt/cybernaut/package.json
 
 WORKDIR /opt/cybernaut

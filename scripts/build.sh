@@ -16,7 +16,6 @@ do
 
   cp -f config-schema.json "$RESOURCES"/config-schema.json
   cp -rf dist "$RESOURCES"/dist
-  cp -f package-lock.json "$RESOURCES"/package-lock.json
   cp -f package.json "$RESOURCES"/package.json
   cp -rf types "$RESOURCES"/types
 

@@ -15,7 +15,6 @@ RUN ln -fs /opt/cybernaut-xvfb.sh /usr/local/bin/cybernaut-xvfb
 COPY config.json /opt/cybernaut-config/config.json
 
 COPY resources/config-schema.json /opt/node_modules/cybernaut/config-schema.json
-COPY resources/package-lock.json /opt/node_modules/cybernaut/package-lock.json
 COPY resources/package.json /opt/node_modules/cybernaut/package.json
 COPY resources/types /opt/node_modules/cybernaut/types
 COPY resources/dist /opt/node_modules/cybernaut/dist
