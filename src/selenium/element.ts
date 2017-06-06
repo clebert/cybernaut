@@ -211,17 +211,6 @@ export class SeleniumElement {
     };
   }
 
-  public submitForm(): SeleniumAction {
-    return {
-      description: `Submit the form containing the ${this._name} element`,
-      perform: async driver => {
-        const element = await this._findElement(driver);
-
-        await element.submit();
-      }
-    };
-  }
-
   private async _findElement(driver: WebDriver): Promise<WebElement> {
     const element = await this._locateElement(driver);
 
