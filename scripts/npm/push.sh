@@ -29,4 +29,13 @@ done
 
 git push --follow-tags origin master
 
-npm publish
+rm -rf package && mkdir -p package
+
+cp -f config-schema.json package/config-schema.json
+cp -rf dist package/dist
+cp -f package.json package/package.json
+cp -rf types package/types
+
+rm -f package.tar.gz && tar czf package.tar.gz package
+
+npm publish package.tar.gz
