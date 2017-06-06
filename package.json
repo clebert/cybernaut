@@ -53,11 +53,12 @@
     }
   },
   "scripts": {
+    "check": "make",
     "cz": "git-cz",
-    "docs": "gitbook install && gitbook serve",
     "format": "./scripts/npm/format.sh",
     "push": "./scripts/npm/push.sh",
     "release": "standard-version",
+    "serve": "gitbook install && gitbook serve",
     "watch": "jest --verbose --watch"
   },
   "dependencies": {

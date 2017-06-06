@@ -7,4 +7,4 @@ set -e
   --no-bracket-spacing \
   --parser typescript \
   --write \
-  '{src,types}/**/*.ts'
+  '{example/tests,src,types}/**/*.ts'
