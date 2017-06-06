@@ -53,15 +53,11 @@
     }
   },
   "scripts": {
-    "check": "./scripts/check.sh",
     "cz": "git-cz",
-    "predocs": "gitbook install",
-    "docs": "gitbook serve",
-    "example": "./scripts/example.sh",
-    "format": "./scripts/format.sh",
-    "push": "./scripts/push.sh",
+    "docs": "gitbook install && gitbook serve",
+    "format": "./scripts/npm/format.sh",
+    "push": "./scripts/npm/push.sh",
     "release": "standard-version",
-    "test": "./scripts/test.sh",
     "watch": "jest --verbose --watch"
   },
   "dependencies": {

@@ -14,12 +14,12 @@ then
   exit 1
 fi
 
-./scripts/ci.sh
-
-docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-
 GIT_TAG=$("$(npm bin)"/git-latest-semver-tag)
 VERSION="${GIT_TAG:1}"
+
+./scripts/travis/script.sh
+
+docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 
 for TARGET in chrome firefox
 do

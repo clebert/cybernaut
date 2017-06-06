@@ -1,6 +1,6 @@
 _book
 coverage
-scripts/example/dist
+example/dist
 resources
 src
 todo.tasks

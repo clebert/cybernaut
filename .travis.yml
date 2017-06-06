@@ -5,9 +5,9 @@ cache:
 node_js:
 - '8'
 script:
-- ./scripts/ci.sh
+- ./scripts/travis/script.sh
 after_success:
-- ./scripts/coveralls.sh
+- ./scripts/travis/after-success.sh
 branches:
   except:
   - /^v\d+\.\d+\.\d+$/
