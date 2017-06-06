@@ -37,14 +37,14 @@ For this, only Docker has to be [installed][docker-installation], no further dep
 To get started, put a test file (e.g. test.e2e.js) into a directory:
 
 ```sh
-mkdir -p cybernaut-tests/ && vi cybernaut-tests/test.e2e.js
+mkdir -p tests && vi tests/test.e2e.js
 ```
 
 and run it on Chrome with Docker:
 
 ```sh
 docker run -it --rm \
-  -v "$(pwd)"/cybernaut-tests:/opt/cybernaut-tests \
+  -v "$(pwd)"/tests:/opt/cybernaut-tests \
   -v /dev/shm:/dev/shm \
   clebert/cybernaut-chrome:latest
 ```
