@@ -96,11 +96,11 @@ Since a Docker container is not meant to preserve state and spawning a new one t
 
 ## Docker Compose
 
-You can also run Cybernaut tests by using [Docker Compose][docker-compose].
+You can also run Cybernaut tests by using Docker Compose.
 
-*Note: In order to use this, an additional dependency, docker-compose is required.*
+*Note: In order to use this, an additional dependency, `docker-compose` is required.*
 
-Run it by using docker-compose:
+Run it by using `docker-compose`:
 
 ```sh
 docker-compose up
@@ -126,5 +126,4 @@ docker run -it --rm \
 [docker-mount]: https://docs.docker.com/engine/tutorials/dockervolumes/#mount-a-host-directory-as-a-data-volume
 [npm-cybernaut]: https://www.npmjs.com/package/cybernaut
 [tap-mocha-reporters]: https://github.com/tapjs/tap-mocha-reporter/tree/master/lib/reporters
-[docker-compose]: https://docs.docker.com/compose
 [docker-compose-yml]: https://github.com/clebert/cybernaut/blob/master/docker-compose.yml
