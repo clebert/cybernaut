@@ -26,7 +26,6 @@
 * [`clearValue()`](#action-method-clearvalue)
 * [`click()`](#action-method-click)
 * [`sendKeys()`](#action-method-sendkeys)
-* [`submitForm()`](#action-method-submitform)
 
 ### Factory method: `defineDescendantElement()`
 
@@ -340,26 +339,6 @@ test('Example', async t => {
 > — *[selenium-webdriver.WebElement][webdriver-webelement]*
 
 *Note: The `WebElement` of selenium-webdriver is used internally, but is not accessible from the outside.*
-
-### Action method: `submitForm()`
-
-> Submit the form containing the element
-
-Type definition:
-
-* **`submitForm(): SeleniumAction`**
-
-Example usage:
-
-```js
-const {defineElement, test} = require('cybernaut');
-
-test('Example', async t => {
-  const element = defineElement('name', 'selector');
-
-  await t.perform(element.submitForm());
-});
-```
 
 [element-displayed]: https://w3c.github.io/webdriver/webdriver-spec.html#dfn-element-displayed
 [webdriver-key]: https://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/lib/input_exports_Key.html
