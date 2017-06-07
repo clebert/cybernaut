@@ -96,7 +96,7 @@ Since a Docker container is not meant to preserve state and spawning a new one t
 
 ## Docker Compose
 
-You can also run Cybernaut tests by using [docker compose][docker-compose].
+You can also run Cybernaut tests by using [Docker Compose][docker-compose].
 
 *Note: In order to use this, an additional dependency, docker-compose is required.*
 
@@ -106,7 +106,7 @@ Run it by using docker-compose:
 docker-compose up
 ```
 
-To get start with Cybernaut and docker-compose there is a simple `docker-compose.yml` as a starting point.
+To get started with Cybernaut and Docker Compose there is a simple [`docker-compose.yml`][docker-compose-yml] as a starting point.
 
 ## Troubleshooting
 
@@ -127,3 +127,4 @@ docker run -it --rm \
 [npm-cybernaut]: https://www.npmjs.com/package/cybernaut
 [tap-mocha-reporters]: https://github.com/tapjs/tap-mocha-reporter/tree/master/lib/reporters
 [docker-compose]: https://docs.docker.com/compose
+[docker-compose-yml]: https://github.com/clebert/cybernaut/blob/master/docker-compose.yml
