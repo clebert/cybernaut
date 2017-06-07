@@ -26,15 +26,19 @@ declare namespace Tap {
       options: TestOptions,
       callback?: TestCallback
     ): Promise<this>;
+
     public test(name: string, callback?: TestCallback): Promise<this>;
 
     public tearDown(callback: () => void): void;
+
     public beforeEach(
       callback: ((done: () => void) => void) | (() => Promise<void>)
     ): void;
+
     public afterEach(
       callback: ((done: () => void) => void) | (() => Promise<void>)
     ): void;
+
     public plan(n: number): void;
     public end(): void;
     public bailout(reason?: Error): void;
