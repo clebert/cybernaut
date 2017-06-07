@@ -6,7 +6,7 @@
 npm install
 ```
 
-*Note: Please also install Docker.*
+*Note: Please also install Docker and make.*
 
 ## Watching the unit tests
 
@@ -14,19 +14,7 @@ npm install
 npm run watch
 ```
 
-## Running the unit tests (w/o watching)
-
-```sh
-npm test
-```
-
-## Running the example with Docker
-
-```sh
-npm run example
-```
-
-## Checking for formatting and linting errors
+## Running the CI checks
 
 ```sh
 npm run check
@@ -44,10 +32,10 @@ npm run format
 npm run cz
 ```
 
-## Serving the documentation
+## Serving the documentation on localhost
 
 ```sh
-npm run docs
+npm run serve
 ```
 
 ## Releasing a new version

@@ -44,9 +44,12 @@ export function validate(config: Config): string[] {
   if (!ajv.validate(schema, config) && ajv.errors) {
     const separator = '///';
 
-    return ajv.errorsText(ajv.errors, {
-      dataVar: 'config', separator
-    }).split(separator);
+    return ajv
+      .errorsText(ajv.errors, {
+        dataVar: 'config',
+        separator
+      })
+      .split(separator);
   }
 
   return [];

@@ -5,13 +5,17 @@ import {Logger, TestContext} from '../core/test-context';
 import {SeleniumConfig} from './config';
 import {SeleniumTestContext} from './test-context';
 
-export type SeleniumTest =
-  (t: SeleniumTestContext, config: SeleniumConfig) => Promise<void>;
+export type SeleniumTest = (
+  t: SeleniumTestContext,
+  config: SeleniumConfig
+) => Promise<void>;
 
 const debug = createDebug('cybernaut:test');
 
 export async function run(
-  implementation: SeleniumTest, logger: Logger, config: SeleniumConfig
+  implementation: SeleniumTest,
+  logger: Logger,
+  config: SeleniumConfig
 ): Promise<void> {
   const {capabilities, timeouts} = config;
 

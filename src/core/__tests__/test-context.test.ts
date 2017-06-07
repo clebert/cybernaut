@@ -33,11 +33,13 @@ given('a new test context is created with retries=0 and retryDelay=10', () => {
 
   beforeEach(() => {
     accessor = {
-      description: '<accessorDescription>', get: jest.fn<Promise<string>>()
+      description: '<accessorDescription>',
+      get: jest.fn<Promise<string>>()
     };
 
     action = {
-      description: '<actionDescription>', perform: jest.fn<Promise<void>>()
+      description: '<actionDescription>',
+      perform: jest.fn<Promise<void>>()
     };
 
     logger = {pass: jest.fn<Promise<void>>()};
@@ -75,16 +77,20 @@ given('a new test context is created with retries=0 and retryDelay=10', () => {
       });
 
       then('it should throw an error with a comparison', async () => {
-        await expect(t.assert(accessor, predicate)).rejects.toEqual(new Error(
-          'Assert: <accessorDescription> <predicateDescription> ' +
-          '(<predicateComparison>)'
-        ));
+        await expect(t.assert(accessor, predicate)).rejects.toEqual(
+          new Error(
+            'Assert: <accessorDescription> <predicateDescription> ' +
+              '(<predicateComparison>)'
+          )
+        );
       });
 
       then('it should not call logger.pass()', async () => {
         try {
           await t.assert(accessor, predicate);
-        } catch (e) {/* */}
+        } catch (e) {
+          /* */
+        }
 
         expect(logger.pass.mock.calls.length).toBe(0);
       });
@@ -98,15 +104,19 @@ given('a new test context is created with retries=0 and retryDelay=10', () => {
       });
 
       then('it should throw an error with a cause', async () => {
-        await expect(t.assert(accessor, predicate)).rejects.toEqual(new Error(
-          'Assert: <accessorDescription> <predicateDescription> (<cause>)'
-        ));
+        await expect(t.assert(accessor, predicate)).rejects.toEqual(
+          new Error(
+            'Assert: <accessorDescription> <predicateDescription> (<cause>)'
+          )
+        );
       });
 
       then('it should not call logger.pass()', async () => {
         try {
           await t.assert(accessor, predicate);
-        } catch (e) {/* */}
+        } catch (e) {
+          /* */
+        }
 
         expect(logger.pass.mock.calls.length).toBe(0);
       });
@@ -129,7 +139,7 @@ given('a new test context is created with retries=0 and retryDelay=10', () => {
 
         expect(logger.pass.mock.calls[0][0]).toBe(
           'Assert: <accessorDescription> <predicateDescription> ' +
-          '(attempt 2 of 2)'
+            '(attempt 2 of 2)'
         );
       });
 
@@ -229,15 +239,17 @@ given('a new test context is created with retries=0 and retryDelay=10', () => {
       });
 
       then('it should throw an error with a cause', async () => {
-        await expect(t.perform(action)).rejects.toEqual(new Error(
-          'Perform: <actionDescription> (<cause>)'
-        ));
+        await expect(t.perform(action)).rejects.toEqual(
+          new Error('Perform: <actionDescription> (<cause>)')
+        );
       });
 
       then('it should not call logger.pass()', async () => {
         try {
           await t.perform(action);
-        } catch (e) {/* */}
+        } catch (e) {
+          /* */
+        }
 
         expect(logger.pass.mock.calls.length).toBe(0);
       });
@@ -372,7 +384,7 @@ given('a new test context is created with retries=0 and retryDelay=10', () => {
 
         expect(logger.pass.mock.calls[0][0]).toBe(
           'Verify: <accessorDescription> <predicateDescription> ' +
-          '(<predicateComparison>)'
+            '(<predicateComparison>)'
         );
       });
     });
@@ -385,15 +397,19 @@ given('a new test context is created with retries=0 and retryDelay=10', () => {
       });
 
       then('it should throw an error with a cause', async () => {
-        await expect(t.verify(accessor, predicate)).rejects.toEqual(new Error(
-          'Verify: <accessorDescription> <predicateDescription> (<cause>)'
-        ));
+        await expect(t.verify(accessor, predicate)).rejects.toEqual(
+          new Error(
+            'Verify: <accessorDescription> <predicateDescription> (<cause>)'
+          )
+        );
       });
 
       then('it should not call logger.pass()', async () => {
         try {
           await t.verify(accessor, predicate);
-        } catch (e) {/* */}
+        } catch (e) {
+          /* */
+        }
 
         expect(logger.pass.mock.calls.length).toBe(0);
       });
@@ -420,7 +436,7 @@ given('a new test context is created with retries=0 and retryDelay=10', () => {
 
         expect(logger.pass.mock.calls[0][0]).toBe(
           'Verify: <accessorDescription> <predicateDescription> ' +
-          '(attempt 2 of 2)'
+            '(attempt 2 of 2)'
         );
       });
 

@@ -8,7 +8,9 @@ export interface Execution {
 }
 
 export type Executor<T> = (
-  driver: T, attempt: number, retries: number
+  driver: T,
+  attempt: number,
+  retries: number
 ) => Promise<Execution>;
 
 export function createExecutor<T>(action: Action<T>): Executor<T> {
@@ -33,7 +35,10 @@ export function createExecutor<T>(action: Action<T>): Executor<T> {
 }
 
 export async function execute<T>(
-  executor: Executor<T>, driver: T, options: Options, _attempt: number = 1
+  executor: Executor<T>,
+  driver: T,
+  options: Options,
+  _attempt: number = 1
 ): Promise<Execution> {
   const {retries, retryDelay} = options;
 

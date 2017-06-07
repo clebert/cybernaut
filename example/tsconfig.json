@@ -1,5 +1,5 @@
 {
-  "extends": "../../node_modules/ts-config/tsconfig.json",
+  "extends": "../node_modules/ts-config/tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
     "importHelpers": false,
@@ -7,7 +7,7 @@
     "outDir": "dist",
     "paths": {
       "cybernaut": [
-        "../../dist"
+        "../dist"
       ]
     },
     "rootDir": "tests"
