@@ -10,6 +10,8 @@
 
 ## [deep-strict-equal](https://www.npmjs.com/package/deep-strict-equal)
 
+## [Docker Compose](https://docs.docker.com/compose)
+
 ## [Docker](https://www.docker.com/)
 
 ## [Firefox](https://www.mozilla.org/en-US/firefox/products/)
