@@ -1,7 +1,16 @@
 version: '2'
 
 services:
-  app:
+  chrome:
     image: clebert/cybernaut-chrome:latest
+    environment:
+    - DEBUG=cybernaut:*
     volumes:
-    - ./cybernaut-tests:/opt/cybernaut-tests
+    - ./example/dist:/opt/cybernaut-tests
+    - /dev/shm:/dev/shm
+  firefox:
+    image: clebert/cybernaut-firefox:latest
+    environment:
+    - DEBUG=cybernaut:*
+    volumes:
+    - ./example/dist:/opt/cybernaut-tests
