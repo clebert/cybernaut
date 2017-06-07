@@ -4,6 +4,8 @@ coverage
 dist
 node_modules
 npm-debug.log
+package
 package-lock.json
+package.tar.gz
 resources
 todo.tasks

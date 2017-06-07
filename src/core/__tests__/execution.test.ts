@@ -14,7 +14,8 @@ given('a newly created executor() is called', () => {
 
   beforeEach(() => {
     action = {
-      description: '<actionDescription>', perform: jest.fn<Promise<void>>()
+      description: '<actionDescription>',
+      perform: jest.fn<Promise<void>>()
     };
 
     executor = createExecutor(action);
@@ -88,7 +89,8 @@ given('execute() is called with retries=1', () => {
   when('any call to executor() returns a successful execution', () => {
     beforeEach(() => {
       executor.mockImplementation(async () => ({
-        description: 'attempt 1', error: false
+        description: 'attempt 1',
+        error: false
       }));
     });
 
@@ -111,11 +113,13 @@ given('execute() is called with retries=1', () => {
   when('any call to executor() returns an erroneous execution', () => {
     beforeEach(() => {
       executor.mockImplementationOnce(async () => ({
-        description: 'attempt 1', error: true
+        description: 'attempt 1',
+        error: true
       }));
 
       executor.mockImplementationOnce(async () => ({
-        description: 'attempt 2', error: true
+        description: 'attempt 2',
+        error: true
       }));
     });
 

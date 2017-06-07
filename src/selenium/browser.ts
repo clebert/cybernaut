@@ -50,7 +50,8 @@ export class SeleniumBrowser {
 
   public elementCount(selector: string): SeleniumAccessor<number> {
     const description =
-      `The count of matching elements for the specified selector (${selector})`;
+      'The count of matching elements ' +
+      `for the specified selector (${selector})`;
 
     return {
       description,
@@ -63,7 +64,8 @@ export class SeleniumBrowser {
   }
 
   public scriptResult<T>(
-    scriptName: string, script: AccessorScript<T>
+    scriptName: string,
+    script: AccessorScript<T>
   ): SeleniumAccessor<T> {
     return {
       description: `The result of the ${scriptName} script`,
@@ -72,7 +74,8 @@ export class SeleniumBrowser {
   }
 
   public executeScript(
-    scriptName: string, script: ActionScript
+    scriptName: string,
+    script: ActionScript
   ): SeleniumAction {
     return {
       description: `Execute the ${scriptName} script`,

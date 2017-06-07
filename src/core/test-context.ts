@@ -27,9 +27,10 @@ export class TestContext<T> {
   ): Promise<void> {
     const verifier = createVerifier(accessor, predicate);
 
-    const verification = await verify(
-      verifier, this._driver, {...this._options, ...options}
-    );
+    const verification = await verify(verifier, this._driver, {
+      ...this._options,
+      ...options
+    });
 
     const message = 'Assert: ' + verification.description;
 
@@ -41,13 +42,15 @@ export class TestContext<T> {
   }
 
   public async perform(
-    action: Action<T>, options?: Partial<Options>
+    action: Action<T>,
+    options?: Partial<Options>
   ): Promise<void> {
     const executor = createExecutor(action);
 
-    const execution = await execute(
-      executor, this._driver, {...this._options, ...options}
-    );
+    const execution = await execute(executor, this._driver, {
+      ...this._options,
+      ...options
+    });
 
     const message = 'Perform: ' + execution.description;
 
@@ -65,9 +68,10 @@ export class TestContext<T> {
   ): Promise<boolean> {
     const verifier = createVerifier(accessor, predicate);
 
-    const verification = await verify(
-      verifier, this._driver, {...this._options, ...options}
-    );
+    const verification = await verify(verifier, this._driver, {
+      ...this._options,
+      ...options
+    });
 
     const message = 'Verify: ' + verification.description;
 

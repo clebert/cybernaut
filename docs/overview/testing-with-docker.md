@@ -30,7 +30,7 @@ or mount the directory containing your test files as a [data volume][docker-moun
 
 ```sh
 docker run -it --rm \
-  -v "$(pwd)"/cybernaut-tests:/opt/cybernaut-tests \
+  -v "$(pwd)"/tests:/opt/cybernaut-tests \
   clebert/cybernaut-firefox:latest
 ```
 
@@ -42,8 +42,8 @@ COPY config.json /opt/cybernaut-config/config.json
 
 ```sh
 docker run -it --rm \
-  -v "$(pwd)"/cybernaut-config:/opt/cybernaut-config \
-  -v "$(pwd)"/cybernaut-tests:/opt/cybernaut-tests \
+  -v "$(pwd)"/config:/opt/cybernaut-config \
+  -v "$(pwd)"/tests:/opt/cybernaut-tests \
   clebert/cybernaut-firefox:latest
 ```
 
@@ -86,7 +86,7 @@ You can override it with your own `CMD` instruction or with CLI arguments for `d
 
 ```sh
 docker run -it --rm \
-  -v "$(pwd)"/cybernaut-tests:/opt/cybernaut-tests \
+  -v "$(pwd)"/tests:/opt/cybernaut-tests \
   clebert/cybernaut-firefox:latest \
   1920x1080 dot
 ```
@@ -101,7 +101,7 @@ To enable debug output, you can set the `DEBUG='cybernaut:*'` environment variab
 ```sh
 docker run -it --rm \
   -e DEBUG='cybernaut:*' \
-  -v "$(pwd)"/cybernaut-tests:/opt/cybernaut-tests \
+  -v "$(pwd)"/tests:/opt/cybernaut-tests \
   clebert/cybernaut-firefox:latest
 ```
 

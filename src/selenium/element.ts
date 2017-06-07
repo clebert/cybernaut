@@ -28,7 +28,9 @@ export class SeleniumElement {
   }
 
   public defineDescendantElement(
-    name: string, selector: string, index: number = 0
+    name: string,
+    selector: string,
+    index: number = 0
   ): SeleniumElement {
     return new SeleniumElement(name, [...this._locators, {index, selector}]);
   }
@@ -135,6 +137,8 @@ export class SeleniumElement {
   }
 
   public cssValue(cssName: string): SeleniumAccessor<string> {
+    // https://github.com/prettier/prettier/issues/1893
+    // prettier-ignore
     const description =
       `The value of the ${cssName} css of the ${this._name} element`;
 
@@ -207,17 +211,6 @@ export class SeleniumElement {
     };
   }
 
-  public submitForm(): SeleniumAction {
-    return {
-      description: `Submit the form containing the ${this._name} element`,
-      perform: async driver => {
-        const element = await this._findElement(driver);
-
-        await element.submit();
-      }
-    };
-  }
-
   private async _findElement(driver: WebDriver): Promise<WebElement> {
     const element = await this._locateElement(driver);
 
@@ -235,9 +228,9 @@ export class SeleniumElement {
     let elements: WebElement[] = [];
 
     for (const locator of this._locators) {
-      elements = element ?
-        await element.findElements(By.css(locator.selector)) :
-        await driver.findElements(By.css(locator.selector));
+      elements = element
+        ? await element.findElements(By.css(locator.selector))
+        : await driver.findElements(By.css(locator.selector));
 
       element = elements[locator.index];
 
@@ -251,7 +244,9 @@ export class SeleniumElement {
 }
 
 export function defineElement(
-  name: string, selector: string, index: number = 0
+  name: string,
+  selector: string,
+  index: number = 0
 ): SeleniumElement {
   return new SeleniumElement(name, [{index, selector}]);
 }
