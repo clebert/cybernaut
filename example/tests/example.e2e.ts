@@ -5,7 +5,7 @@ test('This is an example test', async t => {
 
   await t.assert(browser.pageTitle, it.should.equal('Example Domain'));
 
-  const moreInformationLink = defineElement('more-information-link', 'a');
+  const moreInformationLink = defineElement('moreInformationLink', 'a');
 
   await t.perform(moreInformationLink.click());
 
