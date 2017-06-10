@@ -81,7 +81,6 @@ test('Example', async t => {
 *Note: This feature is [supported by Firefox only from version 53 onwards][firefox-bug].
 At the moment, the `cybernaut-firefox` Docker container still uses [Firefox ESR in version 52][firefox-esr] and therefore does not support this feature.*
 
-
 ### Accessor property: `windowYPosition`
 
 > The Y position of the window
