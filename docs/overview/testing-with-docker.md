@@ -16,7 +16,8 @@ Cybernaut provides two fully configured Docker containers which can be found on 
 
 Each Docker tag corresponds to the same tag or version of `cybernaut` on [npm][npm-cybernaut].
 
-*Note: Both Docker containers are built with the latest browser version available at the time of construction.*
+*Note: Both Docker containers are built with the latest stable browser version available at the time of construction.
+For [technical reasons][cybernaut-issue-283], [Firefox ESR][firefox-esr] is currently used.*
 
 ## Getting started
 
@@ -120,6 +121,8 @@ docker run -it --rm \
 ```
 
 [chrome-tags]: https://hub.docker.com/r/clebert/cybernaut-chrome/tags/
+[cybernaut-issue-283]: https://github.com/clebert/cybernaut/issues/283
+[firefox-esr]: https://www.mozilla.org/en-US/firefox/organizations/faq/
 [firefox-tags]: https://hub.docker.com/r/clebert/cybernaut-firefox/tags/
 [docker-hub-clebert]: https://hub.docker.com/r/clebert/
 [docker-installation]: https://docs.docker.com/engine/installation/

@@ -78,6 +78,9 @@ test('Example', async t => {
 });
 ```
 
+*Note: This feature is [supported by Firefox only from version 53 onwards][firefox-bug].
+At the moment, the `cybernaut-firefox` Docker container still uses [Firefox ESR in version 52][firefox-esr] and therefore does not support this feature.*
+
 ### Accessor property: `windowYPosition`
 
 > The Y position of the window
@@ -95,6 +98,9 @@ test('Example', async t => {
   await t.assert(browser.windowYPosition, it.should.equal(123));
 });
 ```
+
+*Note: This feature is [supported by Firefox only from version 53 onwards][firefox-bug].
+At the moment, the `cybernaut-firefox` Docker container still uses [Firefox ESR in version 52][firefox-esr] and therefore does not support this feature.*
 
 ### Accessor property: `windowWidth`
 
@@ -114,6 +120,9 @@ test('Example', async t => {
 });
 ```
 
+*Note: This feature is [supported by Firefox only from version 53 onwards][firefox-bug].
+At the moment, the `cybernaut-firefox` Docker container still uses [Firefox ESR in version 52][firefox-esr] and therefore does not support this feature.*
+
 ### Accessor property: `windowHeight`
 
 > The height of the window
@@ -131,6 +140,9 @@ test('Example', async t => {
   await t.assert(browser.windowHeight, it.should.equal(123));
 });
 ```
+
+*Note: This feature is [supported by Firefox only from version 53 onwards][firefox-bug].
+At the moment, the `cybernaut-firefox` Docker container still uses [Firefox ESR in version 52][firefox-esr] and therefore does not support this feature.*
 
 ### Accessor method: `elementCount()`
 
@@ -292,6 +304,9 @@ test('Example', async t => {
 });
 ```
 
+*Note: This feature is [supported by Firefox only from version 53 onwards][firefox-bug].
+At the moment, the `cybernaut-firefox` Docker container still uses [Firefox ESR in version 52][firefox-esr] and therefore does not support this feature.*
+
 ### Action method: `setWindowSize()`
 
 > Set the window size to {width}x{height}
@@ -309,3 +324,11 @@ test('Example', async t => {
   await t.perform(browser.setWindowSize(123, 456));
 });
 ```
+
+*Note: This feature is [supported by Firefox only from version 53 onwards][firefox-bug].
+At the moment, the `cybernaut-firefox` Docker container still uses [Firefox ESR in version 52][firefox-esr] and therefore does not support this feature.
+A possible workaround would be to adjust the virtual screen resolution, as described [here][docker-getting-started].*
+
+[firefox-bug]: https://bugzilla.mozilla.org/show_bug.cgi?id=1347589
+[firefox-esr]: https://www.mozilla.org/en-US/firefox/organizations/faq/
+[docker-getting-started]: https://cybernaut.js.org/docs/overview/testing-with-docker.html#getting-started
