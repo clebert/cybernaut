@@ -20,19 +20,23 @@ lint-commit:
 run-example: build-containers example/dist
 	./scripts/make/.phony/run-example.sh
 
+# CI=true
+.PHONY: true
+true:
+
 ################################################################################
 
-dist: node_modules $(SOURCES) tsconfig.json tslint.json
+dist: node_modules $(SOURCES) tsconfig.json tslint.json $(CI)
 	./scripts/make/dist.sh && touch dist
 
-docs: $(DOCS)
+docs: $(DOCS) $(CI)
 	./scripts/make/docs.js && touch docs
 
-example/dist: dist $(EXAMPLE_TESTS) example/tsconfig.json
+example/dist: dist $(EXAMPLE_TESTS) example/tsconfig.json $(CI)
 	./scripts/make/example/dist.sh && touch example/dist
 
-node_modules: package.json
+node_modules: package.json $(CI)
 	./scripts/make/node_modules.sh && touch node_modules
 
-scripts: $(SCRIPTS)
+scripts: $(SCRIPTS) $(CI)
 	./scripts/make/scripts.sh && touch scripts
