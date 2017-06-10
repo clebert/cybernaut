@@ -87,7 +87,7 @@
     "prettier": "1.4.4",
     "standard-version": "4.0.0",
     "ts-config": "9.3.0",
-    "ts-jest": "20.0.5",
+    "ts-jest": "20.0.6",
     "tslint": "5.4.3",
     "typescript": "2.3.4"
   }
