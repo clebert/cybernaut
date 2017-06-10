@@ -14,7 +14,21 @@ then
   exit 1
 fi
 
-echo "Setting screen size to '$1'";
+browser_exists() {
+  type "$1" > /dev/null 2>&1
+}
+
+if browser_exists google-chrome;
+then
+  echo Browser: "$(google-chrome --version)"
+fi
+
+if browser_exists firefox;
+then
+  echo Browser: "$(firefox -v)"
+fi
+
+echo Screen: "$1"
 
 Xvfb :99 -screen 0 "$1x16" &
 
