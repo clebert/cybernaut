@@ -7,4 +7,4 @@ set -e
   --no-bracket-spacing \
   --parser typescript \
   --write \
-  '{example/tests,src,types}/**/*.ts'
+  '{e2e-tests/src,examples/src,scripts/src,src,types}/**/*.ts'

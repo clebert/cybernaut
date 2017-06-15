@@ -1,69 +1,16 @@
-# Interface: `SeleniumTestContext`
+# `SeleniumTestContext`
 
-## Methods
+## Type definition
 
-* [`assert()`](#method-assert)
-* [`perform()`](#method-perform)
-* [`verify()`](#method-verify)
+```ts
+interface Options {
+  readonly retries?: number;
+  readonly retryDelay?: number;
+}
 
-### Method: `assert()`
-
-Type definition:
-
-* **`assert<T>(accessor: SeleniumAccessor<T>, predicate: Predicate<T>, options?: Options): Promise<void>`**
-* `Options: {retries?: number, retryDelay?: number}`
-
-Example usage:
-
-```js
-const {browser, it, test} = require('cybernaut');
-
-test('Example', async t => {
-  // The following expression throws an error if the condition isn't met.
-  await t.assert(browser.pageTitle, it.should.contain('pageTitle'));
-});
+interface SeleniumTestContext {
+  assert<T>(accessor: SeleniumAccessor<T>, predicate: Predicate<S>, options?: Options): Promise<void>;
+  perform(action: SeleniumAction<T>, options?: Options): Promise<void>;
+  verify<T>(accessor: SeleniumAccessor<T>, predicate: Predicate<S>, options?: Options): Promise<boolean>;
+}
 ```
-
-*Note: An assertion is a single test step for which the globally configured `retries` and `retryDelay` options can be overwritten.*
-
-### Method: `perform()`
-
-Type definition:
-
-* **`perform(action: SeleniumAction, options?: Options): Promise<void>`**
-* `Options: {retries?: number, retryDelay?: number}`
-
-Example usage:
-
-```js
-const {browser, test} = require('cybernaut');
-
-test('Example', async t => {
-  // The following expression throws an error if the action fails.
-  await t.perform(browser.loadPage('url'));
-});
-```
-
-*Note: A performance is a single test step for which the globally configured `retries` and `retryDelay` options can be overwritten.*
-
-### Method: `verify()`
-
-Type definition:
-
-* **`verify<T>(accessor: SeleniumAccessor<T>, predicate: Predicate<T>, options?: Options): Promise<boolean>`**
-* `Options: {retries?: number, retryDelay?: number}`
-
-Example usage:
-
-```js
-const {browser, it, test} = require('cybernaut');
-
-test('Example', async t => {
-  // The following expression evaluates to false if the condition isn't met.
-  if (await t.verify(browser.pageTitle, it.should.contain('pageTitle'))) {
-    // ...
-  }
-});
-```
-
-*Note: A verification is a single test step for which the globally configured `retries` and `retryDelay` options can be overwritten.*

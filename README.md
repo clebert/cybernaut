@@ -13,15 +13,18 @@
 
 WYSIWYM—the above **human-readable** test output corresponds to what is programmed:
 
-```js
-const {browser, defineElement, it, test} = require('cybernaut');
+```ts
+import {browser, it, test} from 'cybernaut';
 
 test('This is an example test', async t => {
   await t.perform(browser.loadPage('http://example.com/'), {retries: 0});
 
   await t.assert(browser.pageTitle, it.should.equal('Example Domain'));
 
-  const moreInformationLink = defineElement('more-information-link', 'a');
+  const moreInformationLink = browser.defineElement(
+    'more-information-link',
+    'a'
+  );
 
   await t.perform(moreInformationLink.click());
 

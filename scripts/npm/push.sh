@@ -24,20 +24,29 @@ then
   exit 1
 fi
 
-./scripts/travis/script.sh
+export CI=true
+export DEBUG='cybernaut:*'
+export NO_CACHE=true
+
+make
+
+echo '# Checking the Git status ###############################################'
+
+if [ -n "$(git status --porcelain)" ];
+then
+  echo 'Dirty Git working tree'
+  exit 1
+fi
+
+echo '# Pushing to GitHub #####################################################'
 
 git push --follow-tags origin master
 
-rm -rf package && mkdir -p package
+echo '# Publishing to npm #####################################################'
 
-cp -f config-schema.json package/config-schema.json
-cp -rf dist package/dist
-cp -f package.json package/package.json
-cp -rf types package/types
+npm publish
 
-rm -f package.tar.gz && tar czf package.tar.gz package
-
-npm publish package.tar.gz
+echo '# Pushing to DockerHub ##################################################'
 
 docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 

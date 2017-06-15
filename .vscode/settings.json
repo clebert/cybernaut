@@ -1,27 +1,27 @@
 {
   "files.exclude": {
-    "**/_book": true,
+    "**/_book/**": true,
     "**/.DS_Store": true,
-    "**/.git": true,
-    "**/coverage": true,
-    "**/dist": true,
-    "**/node_modules": true,
+    "**/.git/**": true,
+    "**/coverage/**": true,
+    "**/dist/**": true,
+    "**/node_modules/**": true,
     "**/npm-debug.log": true,
-    "**/package": true,
-    "**/package.tar.gz": true,
-    "**/resources": true
+    "**/resources/**": true
   },
   "search.exclude": {
-    "**/_book": true,
+    "**/_book/**": true,
     "**/.DS_Store": true,
-    "**/.git": true,
-    "**/coverage": true,
-    "**/dist": true,
-    "**/node_modules": true,
+    "**/.git/**": true,
+    "**/coverage/**": true,
+    "**/dist/**": true,
+    "**/docs/api-reference/browser/**": true,
+    "**/docs/api-reference/element/**": true,
+    "**/docs/api-reference/it/**": true,
+    "**/docs/api-reference/utils/**": true,
+    "**/node_modules/**": true,
     "**/npm-debug.log": true,
-    "**/package": true,
-    "**/package.tar.gz": true,
-    "**/resources": true
+    "**/resources/**": true
   },
   "prettier.bracketSpacing": false,
   "prettier.parser": "typescript",

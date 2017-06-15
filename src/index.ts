@@ -7,11 +7,9 @@ import {sync} from 'globby';
 import {Config, loadConfig, validate} from './config';
 import {PredicateBuilder} from './core/predicate';
 import {format} from './core/utils';
-import {SeleniumBrowser} from './selenium/browser';
 import {SeleniumTest, run} from './selenium/test';
 
-export * from './core/public';
-export * from './selenium/public';
+export * from './selenium';
 
 const debug = createDebug('cybernaut:index');
 
@@ -55,35 +53,61 @@ export class It {
 }
 
 export const it = new It();
-export const browser = new SeleniumBrowser();
 
-const tasks: (() => void)[] = [];
+type Task = () => void;
 
-export function test(name: string, implementation?: SeleniumTest): void {
-  tasks.push(() => {
+let onlyTask: Task | undefined;
+
+const tasks: Task[] = [];
+
+function createTask(name: string, implementation: SeleniumTest): Task {
+  return () => {
     tap
-      .test(
-        name,
-        {diagnostic: false, timeout: 0, todo: !implementation},
-        async logger => {
-          if (implementation) {
-            await run(implementation, logger, config);
-          }
+      .test(name, {diagnostic: false, timeout: 0}, async logger => {
+        if (implementation) {
+          await run(implementation, logger, config);
         }
-      )
+      })
       .catch((error: Error) => {
         tap.fail(error.message);
       });
-  });
+  };
 }
 
-export function skip(name: string, implementation: SeleniumTest): void {
+export interface TestFunction {
+  (name: string, implementation: SeleniumTest): void;
+
+  only(name: string, implementation: SeleniumTest): void;
+  skip(name: string, implementation: SeleniumTest): void;
+  todo(name: string): void;
+}
+
+export const test: TestFunction = ((
+  name: string,
+  implementation: SeleniumTest
+) => {
+  tasks.push(createTask(name, implementation));
+}) as any; // tslint:disable-line no-any
+
+test.only = (name: string, implementation: SeleniumTest) => {
+  onlyTask = createTask(name, implementation);
+};
+
+test.skip = (name: string, implementation: SeleniumTest) => {
   tasks.push(() => {
     tap.test(name, {skip: true}).catch((error: Error) => {
       tap.fail(error.message);
     });
   });
-}
+};
+
+test.todo = (name: string) => {
+  tasks.push(() => {
+    tap.test(name, {todo: true}).catch((error: Error) => {
+      tap.fail(error.message);
+    });
+  });
+};
 
 if (require.main !== module) {
   const packageName = require('../package.json').name;
@@ -119,6 +143,12 @@ try {
 
 tap.jobs = config.concurrency;
 
-for (const task of tasks) {
-  task();
+if (onlyTask) {
+  debug('Run only one test');
+
+  onlyTask();
+} else {
+  for (const task of tasks) {
+    task();
+  }
 }

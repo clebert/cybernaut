@@ -52,6 +52,11 @@
       ".ts": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     }
   },
+  "files": [
+    "config-schema.json",
+    "dist",
+    "types"
+  ],
   "scripts": {
     "check": "make",
     "cz": "git-cz",
