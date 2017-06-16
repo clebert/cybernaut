@@ -67,7 +67,7 @@
     "watch": "jest --verbose --watch"
   },
   "dependencies": {
-    "ajv": "5.1.5",
+    "ajv": "5.1.6",
     "chromedriver": "2.29.2",
     "debug": "2.6.8",
     "deep-strict-equal": "0.2.0",
