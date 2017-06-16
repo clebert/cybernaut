@@ -1,42 +1,29 @@
-DOCS := $(shell ./scripts/lib/find-docs.sh)
-EXAMPLE_TESTS := $(shell ./scripts/lib/find-example-tests.sh)
-SCRIPTS := $(shell ./scripts/lib/find-scripts.sh)
-SOURCES := $(shell ./scripts/lib/find-sources.sh)
-
-################################################################################
-
 .PHONY: all
-all: lint-commit docs scripts run-example
+all: lint-commit-message e2e-tests docs
 
-.PHONY: build-containers
-build-containers: dist
-	./scripts/make/.phony/build-containers.sh
+.PHONY: lint-commit-message
+lint-commit-message:
+	./scripts/make/phony-targets/lint-commit-message.sh
 
-.PHONY: lint-commit
-lint-commit:
-	./scripts/make/.phony/lint-commit.sh
-
-.PHONY: run-example
-run-example: build-containers example/dist
-	./scripts/make/.phony/run-example.sh
-
-# CI=true
 .PHONY: true
-true:
+true: # CI=true
 
 ################################################################################
 
-dist: node_modules $(SOURCES) tsconfig.json tslint.json $(CI)
-	./scripts/make/dist.sh && touch dist
+node_modules: $(shell ./scripts/make/dependencies/find-node-modules.sh) $(CI)
+	./scripts/make/targets/node-modules.sh && touch node_modules
 
-docs: $(DOCS) $(CI)
-	./scripts/make/docs.js && touch docs
+scripts: node_modules $(shell ./scripts/make/dependencies/find-scripts.sh) $(CI)
+	./scripts/make/targets/scripts.sh && touch scripts
 
-example/dist: dist $(EXAMPLE_TESTS) example/tsconfig.json $(CI)
-	./scripts/make/example/dist.sh && touch example/dist
+dist: scripts $(shell ./scripts/make/dependencies/find-dist.sh) $(CI)
+	./scripts/make/targets/dist.sh && touch dist
 
-node_modules: package.json $(CI)
-	./scripts/make/node_modules.sh && touch node_modules
+e2e-tests: dist $(shell ./scripts/make/dependencies/find-e2e-tests.sh) $(CI)
+	./scripts/make/targets/e2e-tests.sh && touch e2e-tests
 
-scripts: $(SCRIPTS) $(CI)
-	./scripts/make/scripts.sh && touch scripts
+examples: dist $(shell ./scripts/make/dependencies/find-examples.sh) $(CI)
+	./scripts/make/targets/examples.sh && touch examples
+
+docs: examples $(shell ./scripts/make/dependencies/find-docs.sh) $(CI)
+	./scripts/make/targets/docs.sh && touch docs

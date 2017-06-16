@@ -15,6 +15,7 @@ function serialize(char: string): string {
 
 export interface Locator {
   readonly index: number;
+  readonly name: string;
   readonly selector: string;
 }
 
@@ -22,101 +23,9 @@ export class SeleniumElement {
   private readonly _locators: Locator[];
   private readonly _name: string;
 
-  public constructor(name: string, locators: Locator[]) {
+  public constructor(locators: Locator[]) {
     this._locators = locators;
-    this._name = name;
-  }
-
-  public defineDescendantElement(
-    name: string,
-    selector: string,
-    index: number = 0
-  ): SeleniumElement {
-    return new SeleniumElement(name, [...this._locators, {index, selector}]);
-  }
-
-  public get existence(): SeleniumAccessor<boolean> {
-    return {
-      description: `The existence of the ${this._name} element`,
-      get: async driver => Boolean(await this._locateElement(driver))
-    };
-  }
-
-  public get visibility(): SeleniumAccessor<boolean> {
-    return {
-      description: `The visibility of the ${this._name} element`,
-      get: async driver => {
-        const element = await this._findElement(driver);
-
-        return element.isDisplayed();
-      }
-    };
-  }
-
-  public get tagName(): SeleniumAccessor<string> {
-    return {
-      description: `The tag name of the ${this._name} element`,
-      get: async driver => {
-        const element = await this._findElement(driver);
-
-        return element.getTagName();
-      }
-    };
-  }
-
-  public get text(): SeleniumAccessor<string> {
-    return {
-      description: `The text of the ${this._name} element`,
-      get: async driver => {
-        const element = await this._findElement(driver);
-
-        return element.getText();
-      }
-    };
-  }
-
-  public get xPosition(): SeleniumAccessor<number> {
-    return {
-      description: `The X position of the ${this._name} element`,
-      get: async driver => {
-        const element = await this._findElement(driver);
-
-        return (await element.getLocation()).x;
-      }
-    };
-  }
-
-  public get yPosition(): SeleniumAccessor<number> {
-    return {
-      description: `The Y position of the ${this._name} element`,
-      get: async driver => {
-        const element = await this._findElement(driver);
-
-        return (await element.getLocation()).y;
-      }
-    };
-  }
-
-  public get width(): SeleniumAccessor<number> {
-    return {
-      description: `The width of the ${this._name} element`,
-      get: async driver => {
-        const element = await this._findElement(driver);
-
-        return (await element.getSize()).width;
-      }
-    };
-  }
-
-  public get height(): SeleniumAccessor<number> {
-    return {
-      description: `The height of the ${this._name} element`,
-      get: async driver => {
-        const element = await this._findElement(driver);
-
-        return (await element.getSize()).height;
-      }
-    };
+    this._name = locators.map(locator => locator.name).join(':');
   }
 
   public attributeValue(
@@ -132,38 +41,6 @@ export class SeleniumElement {
         const element = await this._findElement(driver);
 
         return element.getAttribute(attributeName);
-      }
-    };
-  }
-
-  public cssValue(cssName: string): SeleniumAccessor<string> {
-    // https://github.com/prettier/prettier/issues/1893
-    // prettier-ignore
-    const description =
-      `The value of the ${cssName} css of the ${this._name} element`;
-
-    return {
-      description,
-      get: async driver => {
-        const element = await this._findElement(driver);
-
-        return element.getCssValue(cssName);
-      }
-    };
-  }
-
-  public descendantElementCount(selector: string): SeleniumAccessor<number> {
-    const description =
-      'The count of matching descendant elements ' +
-      `for the specified selector (${selector})`;
-
-    return {
-      description,
-      get: async driver => {
-        const element = await this._findElement(driver);
-        const descendantElements = await element.findElements(By.css(selector));
-
-        return descendantElements.length;
       }
     };
   }
@@ -190,6 +67,64 @@ export class SeleniumElement {
     };
   }
 
+  public cssValue(cssName: string): SeleniumAccessor<string> {
+    // https://github.com/prettier/prettier/issues/1893
+    // prettier-ignore
+    const description =
+      `The value of the ${cssName} css of the ${this._name} element`;
+
+    return {
+      description,
+      get: async driver => {
+        const element = await this._findElement(driver);
+
+        return element.getCssValue(cssName);
+      }
+    };
+  }
+
+  public defineDescendantElement(
+    name: string,
+    selector: string,
+    index: number = 0
+  ): SeleniumElement {
+    return new SeleniumElement([...this._locators, {index, name, selector}]);
+  }
+
+  public descendantElementCount(selector: string): SeleniumAccessor<number> {
+    const description =
+      'The count of matching descendant elements ' +
+      `of the ${this._name} element for the specified selector (${selector})`;
+
+    return {
+      description,
+      get: async driver => {
+        const element = await this._findElement(driver);
+        const descendantElements = await element.findElements(By.css(selector));
+
+        return descendantElements.length;
+      }
+    };
+  }
+
+  public get existence(): SeleniumAccessor<boolean> {
+    return {
+      description: `The existence of the ${this._name} element`,
+      get: async driver => Boolean(await this._locateElement(driver))
+    };
+  }
+
+  public get height(): SeleniumAccessor<number> {
+    return {
+      description: `The height of the ${this._name} element`,
+      get: async driver => {
+        const element = await this._findElement(driver);
+
+        return (await element.getSize()).height;
+      }
+    };
+  }
+
   public sendKeys(...keys: string[]): SeleniumAction {
     if (keys.length === 0) {
       throw new Error('At least one key must be specified');
@@ -207,6 +142,72 @@ export class SeleniumElement {
         const element = await this._findElement(driver);
 
         await element.sendKeys(...keys);
+      }
+    };
+  }
+
+  public get tagName(): SeleniumAccessor<string> {
+    return {
+      description: `The tag name of the ${this._name} element`,
+      get: async driver => {
+        const element = await this._findElement(driver);
+
+        return element.getTagName();
+      }
+    };
+  }
+
+  public get text(): SeleniumAccessor<string> {
+    return {
+      description: `The text of the ${this._name} element`,
+      get: async driver => {
+        const element = await this._findElement(driver);
+
+        return element.getText();
+      }
+    };
+  }
+
+  public get visibility(): SeleniumAccessor<boolean> {
+    return {
+      description: `The visibility of the ${this._name} element`,
+      get: async driver => {
+        const element = await this._findElement(driver);
+
+        return element.isDisplayed();
+      }
+    };
+  }
+
+  public get width(): SeleniumAccessor<number> {
+    return {
+      description: `The width of the ${this._name} element`,
+      get: async driver => {
+        const element = await this._findElement(driver);
+
+        return (await element.getSize()).width;
+      }
+    };
+  }
+
+  public get xPosition(): SeleniumAccessor<number> {
+    return {
+      description: `The X position of the ${this._name} element`,
+      get: async driver => {
+        const element = await this._findElement(driver);
+
+        return (await element.getLocation()).x;
+      }
+    };
+  }
+
+  public get yPosition(): SeleniumAccessor<number> {
+    return {
+      description: `The Y position of the ${this._name} element`,
+      get: async driver => {
+        const element = await this._findElement(driver);
+
+        return (await element.getLocation()).y;
       }
     };
   }
@@ -241,12 +242,4 @@ export class SeleniumElement {
 
     return element;
   }
-}
-
-export function defineElement(
-  name: string,
-  selector: string,
-  index: number = 0
-): SeleniumElement {
-  return new SeleniumElement(name, [{index, selector}]);
 }
