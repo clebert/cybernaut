@@ -6,7 +6,10 @@ const readme = readFileSync('README.md', options);
 const index1 = readme.indexOf('```ts');
 const index2 = readme.indexOf('```', index1 + 5);
 
-const example = readFileSync('examples/src/readme.e2e.ts', options).trim();
+const example = readFileSync('examples/src/readme.e2e.ts', options)
+  .trim()
+  .replace('import {', 'const {')
+  .replace("} from 'cybernaut'", "} = require('cybernaut')");
 
 const updatedReadme = `${readme.slice(
   0,

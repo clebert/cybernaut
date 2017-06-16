@@ -14,7 +14,7 @@
 WYSIWYM—the above **human-readable** test output corresponds to what is programmed:
 
 ```ts
-import {browser, it, test} from 'cybernaut';
+const {browser, it, test} = require('cybernaut');
 
 test('This is an example test', async t => {
   await t.perform(browser.loadPage('http://example.com/'), {retries: 0});
