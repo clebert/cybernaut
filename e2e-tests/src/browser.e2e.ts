@@ -24,94 +24,13 @@ const setCountTo10: browser.ActionScript = callback => {
 const counterUrl = 'file:///opt/static/counter.html';
 const todoListUrl = 'file:///opt/static/todo-list.html';
 
-test('Accessor property: browser.pageTitle', async t => {
-  await t.perform(browser.loadPage(counterUrl));
-
-  await t.assert(browser.pageTitle, it.should.equal('counter'));
-});
-
-test('Accessor property: browser.pageUrl', async t => {
-  await t.perform(browser.loadPage(counterUrl));
-
-  await t.assert(browser.pageUrl, it.should.equal(counterUrl));
-});
-
-test('Accessor property: browser.windowXPosition', async (t, config) => {
-  await t.perform(browser.loadPage(counterUrl));
-
-  if (utils.isChrome(config)) {
-    await t.assert(browser.windowXPosition, it.should.equal(10));
-  }
-
-  if (utils.isFirefox(config)) {
-    await rejects(
-      t.assert(browser.windowXPosition, it.should.equal(10), {retries: 0}),
-      /getWindowRect/
-    );
-  }
-});
-
-test('Accessor property: browser.windowYPosition', async (t, config) => {
-  await t.perform(browser.loadPage(counterUrl));
-
-  if (utils.isChrome(config)) {
-    await t.assert(browser.windowYPosition, it.should.equal(10));
-  }
-
-  if (utils.isFirefox(config)) {
-    await rejects(
-      t.assert(browser.windowYPosition, it.should.equal(10), {retries: 0}),
-      /getWindowRect/
-    );
-  }
-});
-
-test('Accessor property: browser.windowWidth', async (t, config) => {
-  await t.perform(browser.loadPage(counterUrl));
-
-  if (utils.isChrome(config)) {
-    await t.assert(browser.windowWidth, it.should.equal(1050));
-  }
-
-  if (utils.isFirefox(config)) {
-    await rejects(
-      t.assert(browser.windowWidth, it.should.equal(1050), {retries: 0}),
-      /getWindowRect/
-    );
-  }
-});
-
-test('Accessor property: browser.windowHeight', async (t, config) => {
-  await t.perform(browser.loadPage(counterUrl));
-
-  if (utils.isChrome(config)) {
-    await t.assert(browser.windowHeight, it.should.equal(700));
-  }
-
-  if (utils.isFirefox(config)) {
-    await rejects(
-      t.assert(browser.windowHeight, it.should.equal(700), {retries: 0}),
-      /getWindowRect/
-    );
-  }
-});
-
-test('Accessor method: browser.elementCount()', async t => {
+test('Test: browser.elementCount()', async t => {
   await t.perform(browser.loadPage(todoListUrl));
 
   await t.assert(browser.elementCount('span'), it.should.equal(3));
 });
 
-test('Accessor method: browser.scriptResult()', async t => {
-  await t.perform(browser.loadPage(counterUrl));
-
-  await t.assert(
-    browser.scriptResult('get-count', getCount),
-    it.should.equal(0)
-  );
-});
-
-test('Action method: browser.executeScript()', async t => {
+test('Test: browser.executeScript()', async t => {
   await t.perform(browser.loadPage(counterUrl));
 
   await t.assert(
@@ -127,14 +46,14 @@ test('Action method: browser.executeScript()', async t => {
   );
 });
 
-test('Action method: browser.loadPage()', async t => {
+test('Test: browser.loadPage()', async t => {
   await t.perform(browser.loadPage(todoListUrl));
 
   await t.assert(browser.pageTitle, it.should.equal('todo-list'));
   await t.assert(browser.pageUrl, it.should.equal(todoListUrl));
 });
 
-test('Action method: browser.navigateBack()', async t => {
+test('Test: browser.navigateBack()', async t => {
   await t.perform(browser.loadPage(counterUrl));
 
   await t.assert(browser.pageTitle, it.should.equal('counter'));
@@ -151,7 +70,7 @@ test('Action method: browser.navigateBack()', async t => {
   await t.assert(browser.pageUrl, it.should.equal(counterUrl));
 });
 
-test('Action method: browser.navigateForward()', async t => {
+test('Test: browser.navigateForward()', async t => {
   await t.perform(browser.loadPage(counterUrl));
 
   await t.assert(browser.pageTitle, it.should.equal('counter'));
@@ -173,7 +92,19 @@ test('Action method: browser.navigateForward()', async t => {
   await t.assert(browser.pageUrl, it.should.equal(todoListUrl));
 });
 
-test('Action method: browser.reloadPage()', async t => {
+test('Test: browser.pageTitle', async t => {
+  await t.perform(browser.loadPage(counterUrl));
+
+  await t.assert(browser.pageTitle, it.should.equal('counter'));
+});
+
+test('Test: browser.pageUrl', async t => {
+  await t.perform(browser.loadPage(counterUrl));
+
+  await t.assert(browser.pageUrl, it.should.equal(counterUrl));
+});
+
+test('Test: browser.reloadPage()', async t => {
   await t.perform(browser.loadPage(counterUrl));
 
   await t.assert(
@@ -196,7 +127,16 @@ test('Action method: browser.reloadPage()', async t => {
   );
 });
 
-test('Action method: browser.setWindowPosition()', async (t, config) => {
+test('Test: browser.scriptResult()', async t => {
+  await t.perform(browser.loadPage(counterUrl));
+
+  await t.assert(
+    browser.scriptResult('get-count', getCount),
+    it.should.equal(0)
+  );
+});
+
+test('Test: browser.setWindowPosition()', async (t, config) => {
   await t.perform(browser.loadPage(counterUrl));
 
   if (utils.isChrome(config)) {
@@ -217,7 +157,7 @@ test('Action method: browser.setWindowPosition()', async (t, config) => {
   }
 });
 
-test('Action method: browser.setWindowSize()', async (t, config) => {
+test('Test: browser.setWindowSize()', async (t, config) => {
   await t.perform(browser.loadPage(counterUrl));
 
   if (utils.isChrome(config)) {
@@ -234,6 +174,66 @@ test('Action method: browser.setWindowSize()', async (t, config) => {
     await rejects(
       t.perform(browser.setWindowSize(640, 480), {retries: 0}),
       /setWindowRect/
+    );
+  }
+});
+
+test('Test: browser.windowHeight', async (t, config) => {
+  await t.perform(browser.loadPage(counterUrl));
+
+  if (utils.isChrome(config)) {
+    await t.assert(browser.windowHeight, it.should.equal(700));
+  }
+
+  if (utils.isFirefox(config)) {
+    await rejects(
+      t.assert(browser.windowHeight, it.should.equal(700), {retries: 0}),
+      /getWindowRect/
+    );
+  }
+});
+
+test('Test: browser.windowWidth', async (t, config) => {
+  await t.perform(browser.loadPage(counterUrl));
+
+  if (utils.isChrome(config)) {
+    await t.assert(browser.windowWidth, it.should.equal(1050));
+  }
+
+  if (utils.isFirefox(config)) {
+    await rejects(
+      t.assert(browser.windowWidth, it.should.equal(1050), {retries: 0}),
+      /getWindowRect/
+    );
+  }
+});
+
+test('Test: browser.windowXPosition', async (t, config) => {
+  await t.perform(browser.loadPage(counterUrl));
+
+  if (utils.isChrome(config)) {
+    await t.assert(browser.windowXPosition, it.should.equal(10));
+  }
+
+  if (utils.isFirefox(config)) {
+    await rejects(
+      t.assert(browser.windowXPosition, it.should.equal(10), {retries: 0}),
+      /getWindowRect/
+    );
+  }
+});
+
+test('Test: browser.windowYPosition', async (t, config) => {
+  await t.perform(browser.loadPage(counterUrl));
+
+  if (utils.isChrome(config)) {
+    await t.assert(browser.windowYPosition, it.should.equal(10));
+  }
+
+  if (utils.isFirefox(config)) {
+    await rejects(
+      t.assert(browser.windowYPosition, it.should.equal(10), {retries: 0}),
+      /getWindowRect/
     );
   }
 });

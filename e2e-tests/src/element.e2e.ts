@@ -25,115 +25,7 @@ const todo1 = todoList.defineDescendantElement('todo-1', '.todo');
 const todo2 = todoList.defineDescendantElement('todo-2', '.todo', 1);
 const todo3 = todoList.defineDescendantElement('todo-3', '.todo', 2);
 
-test('Accessor property: element.existence', async t => {
-  await t.perform(browser.loadPage(todoListUrl));
-
-  await t.assert(addTodoButton.existence, it.should.equal(true));
-  await t.assert(newTodoInput.existence, it.should.equal(true));
-  await t.assert(todoList.existence, it.should.equal(true));
-
-  await t.assert(todo1.existence, it.should.equal(true));
-  await t.assert(todo2.existence, it.should.equal(true));
-  await t.assert(todo3.existence, it.should.equal(false));
-});
-
-test('Accessor property: element.visibility', async t => {
-  await t.perform(browser.loadPage(todoListUrl));
-
-  await t.assert(addTodoButton.visibility, it.should.equal(true));
-  await t.assert(newTodoInput.visibility, it.should.equal(true));
-  await t.assert(todoList.visibility, it.should.equal(true));
-
-  await t.assert(todo1.visibility, it.should.equal(true));
-  await t.assert(todo2.visibility, it.should.equal(true));
-
-  await t.perform(
-    browser.executeScript('hide-todo-1', callback => {
-      const todo = document.querySelector('.todo:nth-child(1)');
-
-      if (todo) {
-        todo.setAttribute('style', 'display: none;');
-      }
-
-      callback();
-    })
-  );
-
-  await t.assert(todo1.visibility, it.should.equal(false));
-});
-
-test('Accessor property: element.tagName', async t => {
-  await t.perform(browser.loadPage(todoListUrl));
-
-  await t.assert(addTodoButton.tagName, it.should.equal('button'));
-  await t.assert(newTodoInput.tagName, it.should.equal('input'));
-  await t.assert(todoList.tagName, it.should.equal('ul'));
-
-  await t.assert(todo1.tagName, it.should.equal('li'));
-  await t.assert(todo2.tagName, it.should.equal('li'));
-});
-
-test('Accessor property: element.text', async t => {
-  await t.perform(browser.loadPage(todoListUrl));
-
-  await t.assert(addTodoButton.text, it.should.equal('Add'));
-  await t.assert(newTodoInput.text, it.should.equal(''));
-  await t.assert(todoList.text, it.should.equal('foo\nbar'));
-
-  await t.assert(todo1.text, it.should.equal('foo'));
-  await t.assert(todo2.text, it.should.equal('bar'));
-});
-
-test('Accessor property: element.xPosition', async t => {
-  await t.perform(browser.loadPage(todoListUrl));
-
-  await t.assert(todo1.xPosition, it.should.equal(48));
-  await t.assert(todo2.xPosition, it.should.equal(48));
-});
-
-test('Accessor property: element.yPosition', async (t, config) => {
-  await t.perform(browser.loadPage(todoListUrl));
-
-  if (utils.isChrome(config)) {
-    await t.assert(todo1.yPosition, it.should.equal(45));
-    await t.assert(todo2.yPosition, it.should.equal(63));
-  }
-
-  if (utils.isFirefox(config)) {
-    await t.assert(todo1.yPosition, it.should.equal(54));
-    await t.assert(todo2.yPosition, it.should.equal(73));
-  }
-});
-
-test('Accessor property: element.width', async (t, config) => {
-  await t.perform(browser.loadPage(todoListUrl));
-
-  if (utils.isChrome(config)) {
-    await t.assert(todo1.width, it.should.equal(994));
-    await t.assert(todo2.width, it.should.equal(994));
-  }
-
-  if (utils.isFirefox(config)) {
-    await t.assert(todo1.width, it.should.equal(1096));
-    await t.assert(todo2.width, it.should.equal(1096));
-  }
-});
-
-test('Accessor property: element.height', async (t, config) => {
-  await t.perform(browser.loadPage(todoListUrl));
-
-  if (utils.isChrome(config)) {
-    await t.assert(todo1.height, it.should.equal(18));
-    await t.assert(todo2.height, it.should.equal(18));
-  }
-
-  if (utils.isFirefox(config)) {
-    await t.assert(todo1.height, it.should.equal(19));
-    await t.assert(todo2.height, it.should.equal(19));
-  }
-});
-
-test('Accessor method: element.attributeValue()', async t => {
+test('Test: element.attributeValue()', async t => {
   await t.perform(browser.loadPage(todoListUrl));
 
   await t.assert(
@@ -152,7 +44,44 @@ test('Accessor method: element.attributeValue()', async t => {
   await t.assert(todo2.attributeValue('class'), it.should.equal('todo'));
 });
 
-test('Accessor method: element.cssValue()', async (t, config) => {
+test('Test: element.clearValue()', async t => {
+  await t.perform(browser.loadPage(todoListUrl));
+
+  await t.assert(newTodoInput.attributeValue('value'), it.should.equal(''));
+
+  await t.perform(
+    browser.executeScript(
+      'set-new-todo-input-value-to-baz',
+      setNewTodoInputValueToBaz
+    )
+  );
+
+  await t.assert(newTodoInput.attributeValue('value'), it.should.equal('baz'));
+
+  await t.perform(newTodoInput.clearValue());
+
+  await t.assert(newTodoInput.attributeValue('value'), it.should.equal(''));
+});
+
+test('Test: element.click()', async t => {
+  await t.perform(browser.loadPage(todoListUrl));
+
+  await t.perform(
+    browser.executeScript(
+      'set-new-todo-input-value-to-baz',
+      setNewTodoInputValueToBaz
+    )
+  );
+
+  await t.assert(todo3.existence, it.should.equal(false));
+
+  await t.perform(addTodoButton.click());
+
+  await t.assert(todo3.existence, it.should.equal(true));
+  await t.assert(todo3.text, it.should.equal('baz'));
+});
+
+test('Test: element.cssValue()', async (t, config) => {
   await t.perform(browser.loadPage(todoListUrl));
 
   if (utils.isChrome(config)) {
@@ -190,7 +119,7 @@ test('Accessor method: element.cssValue()', async (t, config) => {
   }
 });
 
-test('Accessor method: element.descendantElementCount()', async t => {
+test('Test: element.descendantElementCount()', async t => {
   await t.perform(browser.loadPage(todoListUrl));
 
   await t.assert(
@@ -209,44 +138,33 @@ test('Accessor method: element.descendantElementCount()', async t => {
   await t.assert(todo2.descendantElementCount('span'), it.should.equal(1));
 });
 
-test('Action method: element.clearValue()', async t => {
+test('Test: element.existence', async t => {
   await t.perform(browser.loadPage(todoListUrl));
 
-  await t.assert(newTodoInput.attributeValue('value'), it.should.equal(''));
+  await t.assert(addTodoButton.existence, it.should.equal(true));
+  await t.assert(newTodoInput.existence, it.should.equal(true));
+  await t.assert(todoList.existence, it.should.equal(true));
 
-  await t.perform(
-    browser.executeScript(
-      'set-new-todo-input-value-to-baz',
-      setNewTodoInputValueToBaz
-    )
-  );
-
-  await t.assert(newTodoInput.attributeValue('value'), it.should.equal('baz'));
-
-  await t.perform(newTodoInput.clearValue());
-
-  await t.assert(newTodoInput.attributeValue('value'), it.should.equal(''));
-});
-
-test('Action method: element.click()', async t => {
-  await t.perform(browser.loadPage(todoListUrl));
-
-  await t.perform(
-    browser.executeScript(
-      'set-new-todo-input-value-to-baz',
-      setNewTodoInputValueToBaz
-    )
-  );
-
+  await t.assert(todo1.existence, it.should.equal(true));
+  await t.assert(todo2.existence, it.should.equal(true));
   await t.assert(todo3.existence, it.should.equal(false));
-
-  await t.perform(addTodoButton.click());
-
-  await t.assert(todo3.existence, it.should.equal(true));
-  await t.assert(todo3.text, it.should.equal('baz'));
 });
 
-test('Action method: element.sendKeys()', async (t, config) => {
+test('Test: element.height', async (t, config) => {
+  await t.perform(browser.loadPage(todoListUrl));
+
+  if (utils.isChrome(config)) {
+    await t.assert(todo1.height, it.should.equal(18));
+    await t.assert(todo2.height, it.should.equal(18));
+  }
+
+  if (utils.isFirefox(config)) {
+    await t.assert(todo1.height, it.should.equal(19));
+    await t.assert(todo2.height, it.should.equal(19));
+  }
+});
+
+test('Test: element.sendKeys()', async (t, config) => {
   await t.perform(browser.loadPage(todoListUrl));
 
   if (utils.isChrome(config)) {
@@ -339,5 +257,87 @@ test('Action method: element.sendKeys()', async (t, config) => {
       t.perform(newTodoInput.sendKeys('baz'), {retries: 0}),
       /Could not convert 'text' to string/
     );
+  }
+});
+
+test('Test: element.tagName', async t => {
+  await t.perform(browser.loadPage(todoListUrl));
+
+  await t.assert(addTodoButton.tagName, it.should.equal('button'));
+  await t.assert(newTodoInput.tagName, it.should.equal('input'));
+  await t.assert(todoList.tagName, it.should.equal('ul'));
+
+  await t.assert(todo1.tagName, it.should.equal('li'));
+  await t.assert(todo2.tagName, it.should.equal('li'));
+});
+
+test('Test: element.text', async t => {
+  await t.perform(browser.loadPage(todoListUrl));
+
+  await t.assert(addTodoButton.text, it.should.equal('Add'));
+  await t.assert(newTodoInput.text, it.should.equal(''));
+  await t.assert(todoList.text, it.should.equal('foo\nbar'));
+
+  await t.assert(todo1.text, it.should.equal('foo'));
+  await t.assert(todo2.text, it.should.equal('bar'));
+});
+
+test('Test: element.visibility', async t => {
+  await t.perform(browser.loadPage(todoListUrl));
+
+  await t.assert(addTodoButton.visibility, it.should.equal(true));
+  await t.assert(newTodoInput.visibility, it.should.equal(true));
+  await t.assert(todoList.visibility, it.should.equal(true));
+
+  await t.assert(todo1.visibility, it.should.equal(true));
+  await t.assert(todo2.visibility, it.should.equal(true));
+
+  await t.perform(
+    browser.executeScript('hide-todo-1', callback => {
+      const todo = document.querySelector('.todo:nth-child(1)');
+
+      if (todo) {
+        todo.setAttribute('style', 'display: none;');
+      }
+
+      callback();
+    })
+  );
+
+  await t.assert(todo1.visibility, it.should.equal(false));
+});
+
+test('Test: element.width', async (t, config) => {
+  await t.perform(browser.loadPage(todoListUrl));
+
+  if (utils.isChrome(config)) {
+    await t.assert(todo1.width, it.should.equal(994));
+    await t.assert(todo2.width, it.should.equal(994));
+  }
+
+  if (utils.isFirefox(config)) {
+    await t.assert(todo1.width, it.should.equal(1096));
+    await t.assert(todo2.width, it.should.equal(1096));
+  }
+});
+
+test('Test: element.xPosition', async t => {
+  await t.perform(browser.loadPage(todoListUrl));
+
+  await t.assert(todo1.xPosition, it.should.equal(48));
+  await t.assert(todo2.xPosition, it.should.equal(48));
+});
+
+test('Test: element.yPosition', async (t, config) => {
+  await t.perform(browser.loadPage(todoListUrl));
+
+  if (utils.isChrome(config)) {
+    await t.assert(todo1.yPosition, it.should.equal(45));
+    await t.assert(todo2.yPosition, it.should.equal(63));
+  }
+
+  if (utils.isFirefox(config)) {
+    await t.assert(todo1.yPosition, it.should.equal(54));
+    await t.assert(todo2.yPosition, it.should.equal(73));
   }
 });
