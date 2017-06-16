@@ -71,7 +71,7 @@
     "chromedriver": "2.29.2",
     "debug": "2.6.8",
     "deep-strict-equal": "0.2.0",
-    "geckodriver": "1.6.1",
+    "geckodriver": "1.7.0",
     "globby": "6.1.0",
     "selenium-webdriver": "3.4.0",
     "tap": "10.3.3",
