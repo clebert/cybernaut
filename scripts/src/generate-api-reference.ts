@@ -210,6 +210,10 @@ class Generator {
         .split('\n')
         .map(line => line.replace(/\u001b\[.+?m/g, '').trim())
         .filter(line => {
+          if (/^cybernaut:/.test(line)) {
+            return false;
+          }
+
           if (new RegExp('Example: ' + escape(this.headline)).test(line)) {
             active = true;
 

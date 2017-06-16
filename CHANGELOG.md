@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [10.0.0](https://github.com/clebert/cybernaut/compare/v9.0.0...v10.0.0) (2017-06-16)
+
+### Bug Fixes
+
+* Fix the description of element.descendantElementCount() ([#291](https://github.com/clebert/cybernaut/issues/291)) ([e13fb86](https://github.com/clebert/cybernaut/commit/e13fb86))
+* Update ajv to version 5.1.6 ([#288](https://github.com/clebert/cybernaut/issues/288)) ([f40050c](https://github.com/clebert/cybernaut/commit/f40050c))
+* Update chromedriver to version 2.29.2 ([#278](https://github.com/clebert/cybernaut/issues/278)) ([49bc715](https://github.com/clebert/cybernaut/commit/49bc715))
+* Update tap to version 10.3.4 ([#290](https://github.com/clebert/cybernaut/issues/290)) ([115846b](https://github.com/clebert/cybernaut/commit/115846b))
+
+### Features
+
+* Add utils.isChrome() and utils.isFirefox() ([#291](https://github.com/clebert/cybernaut/issues/291)) ([e13fb86](https://github.com/clebert/cybernaut/commit/e13fb86))
+* Improve naming of descendant elements ([#291](https://github.com/clebert/cybernaut/issues/291)) ([e13fb86](https://github.com/clebert/cybernaut/commit/e13fb86))
+* Firefox ESR is now used in cybernaut-firefox ([#284](https://github.com/clebert/cybernaut/issues/284)) ([4c9b767](https://github.com/clebert/cybernaut/commit/4c9b767))
+* Log the browser version on Docker ([#281](https://github.com/clebert/cybernaut/issues/281)) ([1fecaf0](https://github.com/clebert/cybernaut/commit/1fecaf0))
+* Update geckodriver to version 1.7.1 ([#292](https://github.com/clebert/cybernaut/issues/292)) ([50a09d8](https://github.com/clebert/cybernaut/commit/50a09d8))
+
+### BREAKING CHANGES
+
+* Rewrite the test function API ([#291](https://github.com/clebert/cybernaut/issues/291)) ([e13fb86](https://github.com/clebert/cybernaut/commit/e13fb86))
+* Rename defineElement() to the browser.defineElement() ([#291](https://github.com/clebert/cybernaut/issues/291)) ([e13fb86](https://github.com/clebert/cybernaut/commit/e13fb86))
+* Change exports of TypeScript types/interfaces ([#291](https://github.com/clebert/cybernaut/issues/291)) ([e13fb86](https://github.com/clebert/cybernaut/commit/e13fb86))
+* Remove element.submitForm() ([#271](https://github.com/clebert/cybernaut/issues/271)) ([000f6a7](https://github.com/clebert/cybernaut/commit/000f6a7))
+
 ## [9.0.0](https://github.com/clebert/cybernaut/compare/v8.0.0...v9.0.0) (2017-06-02)
 
 ### Bug Fixes
