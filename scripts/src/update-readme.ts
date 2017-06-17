@@ -3,7 +3,7 @@ import {readFileSync, writeFileSync} from 'fs';
 const options = {encoding: 'utf8'};
 const readme = readFileSync('README.md', options);
 
-const index1 = readme.indexOf('```ts');
+const index1 = readme.indexOf('```js');
 const index2 = readme.indexOf('```', index1 + 5);
 
 const example = readFileSync('examples/src/readme.e2e.ts', options)

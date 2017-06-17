@@ -13,7 +13,7 @@
 
 WYSIWYM—the above **human-readable** test output corresponds to what is programmed:
 
-```ts
+```js
 const {browser, it, test} = require('cybernaut');
 
 test('This is an example test', async t => {
