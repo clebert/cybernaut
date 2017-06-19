@@ -1,8 +1,161 @@
-import {readFileSync, writeFileSync} from 'fs';
-import {basename, dirname, join, relative} from 'path';
+import {readFileSync, readdirSync, writeFileSync} from 'fs';
+import {basename, join} from 'path';
 
-interface Options {
-  readonly encoding: string;
+type Name = 'browser' | 'element' | 'it' | 'utils';
+
+interface Example {
+  readonly code: string;
+  readonly name: string;
+  readonly template: string;
+}
+
+const options = {encoding: 'utf8'};
+
+function readExamples(name: Name): Example[] {
+  const srcDirname = join('examples/src/', name);
+  const templatesDirname = join('examples/templates/', name);
+
+  return readdirSync(srcDirname).map(filename => ({
+    code: readFileSync(join(srcDirname, filename), options).trim(),
+    name,
+    template: readFileSync(
+      join(templatesDirname, basename(filename, '.e2e.ts')) + '.md',
+      options
+    ).replace(/# /g, '## ')
+  }));
+}
+
+function parseHeadline(example: Example): string {
+  const result = /test\('Example: (.+?)',/.exec(example.code);
+
+  if (!result || !result[1]) {
+    throw new Error('Unable to parse the headline');
+  }
+
+  return result[1];
+}
+
+function generateSummary(name: Name): string {
+  return [
+    `# \`${name}\``,
+    '',
+    ...readExamples(name).map(example => {
+      const headline = parseHeadline(example);
+      const fragment = headline.toLowerCase().replace(/[^a-z]/g, '');
+
+      return `* [\`${headline}\`](#${fragment})`;
+    }),
+    ''
+  ].join('\n');
+}
+
+function generateModuleTypeDefinition(name: string, example: Example): string {
+  let active = false;
+
+  return readFileSync(`dist/selenium/${name}.d.ts`, options)
+    .trim()
+    .split('\n')
+    .reverse()
+    .filter(line => {
+      const headline = parseHeadline(example);
+      const pattern = ' ' + headline.split('.')[1].replace('()', '(?:<|\\()');
+
+      if (new RegExp(pattern).test(line)) {
+        active = true;
+
+        return true;
+      }
+
+      if (active) {
+        if (/^export declare type/.test(line)) {
+          return true;
+        }
+
+        active = false;
+      }
+
+      return false;
+    })
+    .map(line => line.replace('export declare ', ''))
+    .reverse()
+    .join('\n\n');
+}
+
+function generateElementTypeDefinition(example: Example): string {
+  const body = readFileSync('dist/selenium/element.d.ts', options)
+    .trim()
+    .split('\n')
+    .filter(line => {
+      const headline = parseHeadline(example);
+      const pattern = ' ' + headline.split('.')[1].replace('()', '(?:<|\\()');
+
+      return new RegExp(pattern).test(line);
+    })
+    .map(line => line.replace(/^ +/, '  '))
+    .join('\n\n');
+
+  return ['class SeleniumElement {', body, '}'].join('\n');
+}
+
+function generateItTypeDefinition(example: Example): string {
+  const body = readFileSync('dist/core/predicate.d.ts', options)
+    .trim()
+    .split('\n')
+    .filter(line => {
+      if (/not:/.test(line)) {
+        return true;
+      }
+
+      const headline = parseHeadline(example);
+      const pattern = ' ' + headline.split('.')[3].replace('()', '(?:<|\\()');
+
+      if (new RegExp(pattern).test(line)) {
+        return true;
+      }
+
+      return false;
+    })
+    .map(line => line.replace(/^ +/, '  '))
+    .join('\n\n');
+
+  return [
+    'class PredicateBuilder {',
+    body,
+    '}',
+    '',
+    'class It {',
+    '  readonly should: PredicateBuilder;',
+    '}',
+    '',
+    'const it: It;'
+  ].join('\n');
+}
+
+function generateTypeDefinition(name: Name, example: Example): string {
+  let code: string;
+
+  switch (name) {
+    case 'browser':
+      code = generateModuleTypeDefinition(name, example);
+      break;
+    case 'element':
+      code = generateElementTypeDefinition(example);
+      break;
+    case 'it':
+      code = generateItTypeDefinition(example);
+      break;
+    case 'utils':
+      code = generateModuleTypeDefinition(name, example);
+      break;
+    default:
+      throw new Error('Unable to generate the type definition');
+  }
+
+  return ['', '### Type definition', '', '```ts', code, '```'].join('\n');
+}
+
+function generateExampleUsage(example: Example): string {
+  return ['', '### Example usage', '', '```ts', example.code, '```'].join('\n');
 }
 
 function escape(pattern: string): string {
@@ -13,154 +166,33 @@ function escape(pattern: string): string {
     .replace(/\)/g, '\\)');
 }
 
-class Generator {
-  private name: string;
-  private options: Options;
+function generateExampleOutput(example: Example): string {
+  let active = false;
 
-  public constructor(filename: string) {
-    if (!filename) {
-      throw new Error('Please specify a file');
-    }
+  const chromeLog = readFileSync('examples/dist/chrome.log', options).trim();
+  const headline = parseHeadline(example);
 
-    this.name = join(
-      relative('examples/src', dirname(filename)),
-      basename(filename, '.e2e.ts')
-    );
-
-    this.options = {encoding: 'utf8'};
-  }
-
-  public generateApiReference(): void {
-    const template = readFileSync(
-      `examples/templates/${this.name}.md`,
-      this.options
-    );
-
-    const markdown = template.replace(
-      '# {Placeholder}',
-      [
-        `# \`${this.headline}\``,
-        ...this.typeDefinition,
-        ...this.exampleUsage,
-        ...this.exampleOutput
-      ].join('\n')
-    );
-
-    const filename = `docs/api-reference/${this.name}.md`;
-
-    console.log(filename);
-
-    writeFileSync(filename, markdown, this.options);
-  }
-
-  private get browser(): boolean {
-    return /browser\//.test(this.name);
-  }
-
-  private get element(): boolean {
-    return /element\//.test(this.name);
-  }
-
-  private get it(): boolean {
-    return /it\//.test(this.name);
-  }
-
-  private get utils(): boolean {
-    return /utils\//.test(this.name);
-  }
-
-  private get exampleUsage(): string[] {
-    return [
-      '',
-      '## Example usage',
-      '',
-      '```ts',
-      readFileSync(`examples/src/${this.name}.e2e.ts`, this.options).trim(),
-      '```'
-    ];
-  }
-
-  private get headline(): string {
-    const result = /test\('Example: (.+?)',/.exec(this.exampleUsage[4]);
-
-    if (!result || !result[1]) {
-      throw new Error('Unable to parse the headline');
-    }
-
-    return result[1];
-  }
-
-  private get elementTypeDefinition(): string[] {
-    return [
-      'class SeleniumElement {',
-      ...readFileSync('dist/selenium/element.d.ts', this.options)
-        .trim()
-        .split('\n')
-        .filter(line => {
-          const pattern =
-            ' ' + this.headline.split('.')[1].replace('()', '(?:<|\\()');
-
-          return new RegExp(pattern).test(line);
-        })
-        .map(line => line.replace(/^ +/, '  '))
-        .join('\n\n')
-        .split('\n'),
-      '}'
-    ];
-  }
-
-  private get itTypeDefinition(): string[] {
-    return [
-      'class PredicateBuilder {',
-      ...readFileSync('dist/core/predicate.d.ts', this.options)
-        .trim()
-        .split('\n')
-        .filter(line => {
-          if (/not:/.test(line)) {
-            return true;
-          }
-
-          const pattern =
-            ' ' + this.headline.split('.')[3].replace('()', '(?:<|\\()');
-
-          if (new RegExp(pattern).test(line)) {
-            return true;
-          }
-
-          return false;
-        })
-        .map(line => line.replace(/^ +/, '  '))
-        .join('\n\n')
-        .split('\n'),
-      '}',
-      '',
-      'class It {',
-      '  readonly should: PredicateBuilder;',
-      '}',
-      '',
-      'const it: It;'
-    ];
-  }
-
-  private moduleTypeDefinition(name: string): string[] {
-    let active = false;
-
-    return readFileSync(`dist/selenium/${name}.d.ts`, this.options)
-      .trim()
+  return [
+    '',
+    '### Example output',
+    '',
+    '```fundamental',
+    ...chromeLog
       .split('\n')
-      .reverse()
+      .map(line => line.replace(/\u001b\[.+?m/g, '').trim())
       .filter(line => {
-        const pattern =
-          ' ' + this.headline.split('.')[1].replace('()', '(?:<|\\()');
+        if (/^cybernaut:/.test(line)) {
+          return false;
+        }
 
-        if (new RegExp(pattern).test(line)) {
+        if (new RegExp('Example: ' + escape(headline)).test(line)) {
           active = true;
 
           return true;
         }
 
         if (active) {
-          if (/^export declare type/.test(line)) {
+          if (/✓/.test(line)) {
             return true;
           }
 
@@ -169,73 +201,37 @@ class Generator {
 
         return false;
       })
-      .map(line => line.replace('export declare ', ''))
-      .reverse()
-      .join('\n\n')
-      .split('\n');
-  }
-
-  private get typeDefinition(): string[] {
-    let typeDefinition: string[] = [];
-
-    if (this.browser) {
-      typeDefinition = this.moduleTypeDefinition('browser');
-    } else if (this.element) {
-      typeDefinition = this.elementTypeDefinition;
-    } else if (this.it) {
-      typeDefinition = this.itTypeDefinition;
-    } else if (this.utils) {
-      typeDefinition = this.moduleTypeDefinition('utils');
-    } else {
-      throw new Error('Unable to parse the type definition');
-    }
-
-    return ['', '## Type definition', '', '```ts', ...typeDefinition, '```'];
-  }
-
-  private get exampleOutput(): string[] {
-    let active = false;
-
-    if (this.utils) {
-      return [];
-    }
-
-    return [
-      '',
-      '## Example output',
-      '',
-      '```fundamental',
-      ...readFileSync('examples/dist/chrome.log', this.options)
-        .trim()
-        .split('\n')
-        .map(line => line.replace(/\u001b\[.+?m/g, '').trim())
-        .filter(line => {
-          if (/^cybernaut:/.test(line)) {
-            return false;
-          }
-
-          if (new RegExp('Example: ' + escape(this.headline)).test(line)) {
-            active = true;
-
-            return true;
-          }
-
-          if (active) {
-            if (/✓/.test(line)) {
-              return true;
-            }
-
-            active = false;
-          }
-
-          return false;
-        })
-        .map(line => (/✓/.test(line) ? '  ' + line : line)),
-      '```'
-    ];
-  }
+      .map(line => (/✓/.test(line) ? '  ' + line : line)),
+    '```'
+  ].join('\n');
 }
 
-const generator = new Generator(process.argv[2]);
+function generateBody(name: Name): string {
+  return readExamples(name)
+    .map(example =>
+      example.template.replace(
+        '## {Placeholder}',
+        [
+          `## \`${parseHeadline(example)}\``,
+          generateTypeDefinition(name, example),
+          generateExampleUsage(example),
+          generateExampleOutput(example)
+        ].join('\n')
+      )
+    )
+    .join('\n');
+}
 
-generator.generateApiReference();
+function generateApiReference(name: Name): void {
+  const data = `${generateSummary(name)}\n${generateBody(name)}`;
+  const filename = `docs/api-reference/exports/${name}.md`;
+
+  console.log(filename);
+
+  writeFileSync(filename, data, options);
+}
+
+generateApiReference('browser');
+generateApiReference('element');
+generateApiReference('it');
+generateApiReference('utils');

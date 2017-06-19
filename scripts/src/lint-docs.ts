@@ -3,13 +3,10 @@ import markdownlint = require('markdownlint');
 import {sync} from 'globby';
 
 const options = {
-  files: sync(
-    ['**/*.md', '!CHANGELOG.md', '!**/_book/**/*', '!**/node_modules/**/*'],
-    {
-      nodir: true,
-      realpath: true
-    }
-  ),
+  files: sync(['**/*.md', '!**/_book/**/*', '!**/node_modules/**/*'], {
+    nodir: true,
+    realpath: true
+  }),
   config: require('../../.markdownlint.json')
 };
 
