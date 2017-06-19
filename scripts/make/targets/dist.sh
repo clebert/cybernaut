@@ -52,7 +52,7 @@ do
   cp -f scripts/lib/cybernaut-xvfb.sh "$RESOURCES"/cybernaut-xvfb.sh
 
   docker build \
-    --no-cache="${NO_CACHE:=false}" \
+    --no-cache="${CI:=false}" \
     -t clebert/cybernaut-"$TARGET":latest \
     -t clebert/cybernaut-"$TARGET":"$VERSION" \
     docker/cybernaut-"$TARGET"

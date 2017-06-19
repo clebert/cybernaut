@@ -26,7 +26,6 @@ fi
 
 export CI=true
 export DEBUG='cybernaut:*'
-export NO_CACHE=true
 
 make
 
