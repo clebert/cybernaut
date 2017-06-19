@@ -180,6 +180,8 @@ function generateExampleOutput(example: Example): string {
     ...chromeLog
       .split('\n')
       .map(line => line.replace(/\u001b\[.+?m/g, '').trim())
+      .map(line => line.replace(/ \(attempt [0-9]+ of [0-9]+\)/g, ''))
+      .map(line => (/✓/.test(line) ? '  ' + line : line))
       .filter(line => {
         if (/^cybernaut:/.test(line)) {
           return false;
@@ -200,8 +202,7 @@ function generateExampleOutput(example: Example): string {
         }
 
         return false;
-      })
-      .map(line => (/✓/.test(line) ? '  ' + line : line)),
+      }),
     '```'
   ].join('\n');
 }
