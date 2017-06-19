@@ -181,7 +181,7 @@ function generateExampleOutput(example: Example): string {
       .split('\n')
       .map(line => line.replace(/\u001b\[.+?m/g, '').trim())
       .map(line => line.replace(/ \(attempt [0-9]+ of [0-9]+\)/g, ''))
-      .map(line => (/✓/.test(line) ? '  ' + line : line))
+      .map(line => line.replace(/✓/g, '  ✓'))
       .filter(line => {
         if (/^cybernaut:/.test(line)) {
           return false;
