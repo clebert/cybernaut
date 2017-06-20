@@ -2,5 +2,4 @@
 
 set -e
 
-find scripts -type f \
-  -not -path '*/dist/*'
+find scripts -type f -not -path '*/dist/*'
