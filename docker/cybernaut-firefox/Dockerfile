@@ -3,9 +3,9 @@ FROM node:8
 RUN wget -q -O - http://mozilla.debian.net/archive.asc | apt-key add -
 
 # http://mozilla.debian.net/
-RUN sh -c 'echo "deb http://mozilla.debian.net/ jessie-backports firefox-esr" >> /etc/apt/sources.list.d/mozilla-firefox.list'
+RUN sh -c 'echo "deb http://security.debian.org/ jessie/updates main" >> /etc/apt/sources.list'
 
-RUN apt-get update && apt-get install -y -t jessie-backports firefox-esr xvfb
+RUN apt-get update && apt-get install -y firefox-esr xvfb
 
 RUN npm install -g tap-mocha-reporter
 
