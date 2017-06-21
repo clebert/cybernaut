@@ -6,7 +6,7 @@ clean:
 	touch package.json
 
 .PHONY: lint-commit-message
-lint-commit-message:
+lint-commit-message: scripts
 	./scripts/make/phony-targets/lint-commit-message.sh
 
 .PHONY: true
