@@ -7,10 +7,11 @@ services:
     - DEBUG=cybernaut:*
     volumes:
     - ./examples/dist:/opt/cybernaut-tests
+    - ./tests:/opt/cybernaut-tests
     - /dev/shm:/dev/shm
   firefox:
     image: clebert/cybernaut-firefox:latest
     environment:
     - DEBUG=cybernaut:*
-    volumes:
-    - ./examples/dist:/opt/cybernaut-tests
+    volumes_from:
+    - chrome
