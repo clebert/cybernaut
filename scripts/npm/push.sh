@@ -24,10 +24,10 @@ then
   exit 1
 fi
 
-export CI=true
+export CI=true # Disable the Docker build cache.
 export DEBUG='cybernaut:*'
 
-make
+make clean && make
 
 echo '# Checking the Git status ###############################################'
 

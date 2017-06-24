@@ -4,4 +4,4 @@ set -e
 
 export DEBUG='cybernaut:*'
 
-make
+make clean && make
