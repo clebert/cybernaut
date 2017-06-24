@@ -17,7 +17,7 @@ npm run watch
 ## Running the CI checks
 
 ```sh
-npm run check
+make clean && make
 ```
 
 ## Formatting the sources

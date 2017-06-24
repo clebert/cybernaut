@@ -58,7 +58,6 @@
     "types"
   ],
   "scripts": {
-    "check": "make",
     "cz": "git-cz",
     "format": "./scripts/npm/format.sh",
     "push": "./scripts/npm/push.sh",
