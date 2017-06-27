@@ -35,7 +35,7 @@ docker run -it --rm \
   -v /dev/shm:/dev/shm \
   clebert/cybernaut-chrome | tee examples/dist/chrome.log
 
-if [ "${PIPESTATUS[0]}" != 0 ];
+if [ "${PIPESTATUS[0]}" != 0 ]
 then
   exit "${PIPESTATUS[0]}"
 fi
