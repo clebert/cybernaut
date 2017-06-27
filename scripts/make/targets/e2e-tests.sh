@@ -36,7 +36,7 @@ docker run -it --rm \
   -v /dev/shm:/dev/shm \
   clebert/cybernaut-chrome | tee e2e-tests/dist/chrome.log
 
-if [ "${PIPESTATUS[0]}" != 0 ];
+if [ "${PIPESTATUS[0]}" != 0 ]
 then
   exit "${PIPESTATUS[0]}"
 fi
@@ -55,7 +55,7 @@ docker run -it --rm \
   -v "$(pwd)"/e2e-tests/static:/opt/static \
   clebert/cybernaut-firefox | tee e2e-tests/dist/firefox.log
 
-if [ "${PIPESTATUS[0]}" != 0 ];
+if [ "${PIPESTATUS[0]}" != 0 ]
 then
   exit "${PIPESTATUS[0]}"
 fi
