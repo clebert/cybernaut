@@ -29,8 +29,12 @@ echo '# Checking the formatting of the TS scripts #############################'
 
 echo '# Checking the shell scripts ############################################'
 
+SHELL_SCRIPTS=$(find scripts -type f -name '*.sh')
+
+# shellcheck disable=SC2086
+
 docker run -it --rm \
   -v "$(pwd)"/scripts:/scripts \
-  --entrypoint /bin/sh \
+  -w / \
   koalaman/shellcheck \
-  /scripts/lib/shellcheck.sh
+  $SHELL_SCRIPTS
