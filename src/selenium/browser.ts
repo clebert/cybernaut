@@ -84,7 +84,7 @@ export function scriptResult<T>(
 ): SeleniumAccessor<T> {
   return {
     description: `The result of the ${scriptName} script`,
-    get: async driver => driver.executeAsyncScript(script)
+    get: async driver => driver.executeAsyncScript<T>(script)
   };
 }
 
