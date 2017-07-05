@@ -91,7 +91,7 @@ const headline = defineElement('headline', 'h1');
 await t.assert(headline.text, it.should.equal('Lorem ipsum'));
 ```
 
-By this mechanism, a high reliability and thus stability of your tests can be ensured.
+By this mechanism, a high reliability and thus the stability of your tests can be ensured.
 
 ---
 Built by (c) Clemens Akens. Released under the MIT license.

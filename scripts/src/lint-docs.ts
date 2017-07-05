@@ -3,11 +3,11 @@ import markdownlint = require('markdownlint');
 import {sync} from 'globby';
 
 const options = {
+  config: require('../../.markdownlint.json'),
   files: sync(['**/*.md', '!**/_book/**/*', '!**/node_modules/**/*'], {
     nodir: true,
     realpath: true
-  }),
-  config: require('../../.markdownlint.json')
+  })
 };
 
 markdownlint(options, (error, result) => {
