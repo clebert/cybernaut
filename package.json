@@ -72,7 +72,7 @@
     "deep-strict-equal": "0.2.0",
     "geckodriver": "1.7.1",
     "globby": "6.1.0",
-    "selenium-webdriver": "3.4.0",
+    "selenium-webdriver": "3.5.0",
     "tap": "10.7.0",
     "tslib": "1.7.1"
   },
