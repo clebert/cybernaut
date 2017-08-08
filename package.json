@@ -68,7 +68,7 @@
   "dependencies": {
     "ajv": "5.2.0",
     "chromedriver": "2.30.1",
-    "debug": "2.6.8",
+    "debug": "3.0.0",
     "deep-strict-equal": "0.2.0",
     "geckodriver": "1.7.1",
     "globby": "6.1.0",
