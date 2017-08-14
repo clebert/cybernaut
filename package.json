@@ -83,7 +83,7 @@
     "conventional-changelog-lint": "1.1.9",
     "coveralls": "2.13.1",
     "custom-tslint-formatters": "2.1.0",
-    "cz-customizable": "5.0.0",
+    "cz-customizable": "5.1.0",
     "git-latest-semver-tag": "1.0.2",
     "gitbook-cli": "2.3.0",
     "jest": "20.0.4",
