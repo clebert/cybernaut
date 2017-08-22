@@ -1,8 +1,9 @@
 {
   "recommendations": [
-    "DavidAnson.vscode-markdownlint",
     "EditorConfig.EditorConfig",
-    "KnisterPeter.vscode-commitizen",
-    "eg2.tslint"
+    "DavidAnson.vscode-markdownlint",
+    "esbenp.prettier-vscode",
+    "eg2.tslint",
+    "WallabyJs.wallaby-vscode"
   ]
 }

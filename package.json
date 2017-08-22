@@ -1,98 +1,75 @@
 {
   "name": "cybernaut",
-  "version": "10.0.0",
-  "description": "Reliable, automated web UI testing in BDD-style.",
-  "license": "MIT",
-  "author": "Clemens Akens <clebert@me.com>",
-  "keywords": [
-    "automated",
-    "bdd",
-    "e2e",
-    "end-to-end",
-    "selenium",
-    "test",
-    "testing",
-    "ui",
-    "web",
-    "webdriver"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/clebert/cybernaut.git"
-  },
-  "bin": "dist/index.js",
-  "main": "dist/index",
-  "types": "dist/index",
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-customizable"
-    },
-    "cz-customizable": {
-      "config": ".cz-config.js"
-    }
-  },
-  "jest": {
-    "collectCoverageFrom": [
-      "src/core/**/*.ts",
-      "!src/core/accessor.ts",
-      "!src/core/action.ts",
-      "!src/core/options.ts",
-      "!src/core/public.ts"
-    ],
-    "moduleFileExtensions": [
-      "js",
-      "ts"
-    ],
-    "testPathIgnorePatterns": [
-      "_book/",
-      "node_modules/"
-    ],
-    "testRegex": "\\.test\\.ts$",
-    "transform": {
-      ".ts": "<rootDir>/node_modules/ts-jest/preprocessor.js"
-    }
-  },
-  "files": [
-    "config-schema.json",
-    "dist",
-    "types"
-  ],
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "cz": "git-cz",
-    "format": "./scripts/npm/format.sh",
-    "push": "./scripts/npm/push.sh",
-    "release": "standard-version",
-    "serve": "gitbook install && gitbook serve",
-    "watch": "jest --verbose --watch"
-  },
-  "dependencies": {
-    "ajv": "5.2.0",
-    "chromedriver": "2.30.1",
-    "debug": "2.6.8",
-    "deep-strict-equal": "0.2.0",
-    "geckodriver": "1.7.1",
-    "globby": "6.1.0",
-    "selenium-webdriver": "3.4.0",
-    "tap": "10.7.0",
-    "tslib": "1.7.1"
+    "precommit": "lint-staged",
+    "commitmsg": "commitlint --edit",
+    "postinstall": "./scripts/copy.sh && lerna bootstrap",
+    "clean": "./scripts/clean.sh",
+    "compile": "lerna run compile",
+    "format": "./scripts/format.sh --write",
+    "format:check": "./scripts/format.sh --list-different",
+    "lint": "node ./scripts/lint.js && lerna run lint",
+    "test": "jest --no-cache",
+    "watch": "run-p watch:*",
+    "watch:compile": "lerna run watch:compile --stream --no-sort --concurrency 99",
+    "watch:test": "jest --watch"
   },
   "devDependencies": {
-    "@types/jest": "20.0.2",
-    "@types/node": "8.0.7",
-    "commitizen": "2.9.6",
-    "conventional-changelog-lint": "1.1.9",
+    "@commitlint/cli": "3.1.2",
+    "@commitlint/config-angular": "3.1.1",
+    "@commitlint/config-lerna-scopes": "3.1.1",
+    "@types/jest": "20.0.6",
+    "@types/node": "8.0.20",
     "coveralls": "2.13.1",
-    "custom-tslint-formatters": "2.1.0",
-    "cz-customizable": "5.0.0",
-    "git-latest-semver-tag": "1.0.2",
-    "gitbook-cli": "2.3.0",
+    "custom-tslint-formatters": "2.1.1",
+    "globby": "6.1.0",
+    "husky": "0.14.3",
     "jest": "20.0.4",
-    "markdownlint": "0.5.0",
-    "prettier": "1.5.2",
-    "standard-version": "4.2.0",
-    "ts-config": "10.0.1",
-    "ts-jest": "20.0.6",
-    "tslint": "5.5.0",
-    "typescript": "2.4.1"
+    "lerna": "2.0.0",
+    "lint-staged": "4.0.3",
+    "markdownlint": "0.6.0",
+    "npm-run-all": "4.0.2",
+    "prettier": "1.5.3",
+    "ts-config": "12.0.0",
+    "ts-jest": "20.0.10",
+    "tslint": "5.6.0",
+    "typescript": "2.4.2"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/@cybernaut/*/src/**/*.{ts,tsx}",
+      "!**/@cybernaut/*/src/**/tests/**/*.{ts,tsx}",
+      "!**/@cybernaut/chromeless/src/**/*.{ts,tsx}",
+      "!**/@cybernaut/mocks/src/**/*.{ts,tsx}",
+      "!**/@cybernaut/types/src/**/*.{ts,tsx}"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
+    },
+    "mapCoverage": true,
+    "moduleFileExtensions": ["js", "jsx", "json", "ts", "tsx"],
+    "testMatch": ["**/@cybernaut/*/src/**/tests/**/*.{ts,tsx}"],
+    "transform": {
+      ".ts": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "verbose": true
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "prettier --single-quote --no-bracket-spacing --parser typescript --write",
+      "git add"
+    ],
+    "*.{js,jsx,json}": [
+      "prettier --single-quote --no-bracket-spacing --write",
+      "git add"
+    ]
   }
 }

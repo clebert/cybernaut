@@ -1,120 +1,88 @@
-# ![Cybernaut][logo-svg]
-
-[![npm][npm-cybernaut-badge]][npm-cybernaut]
-[![build][travis-ci-badge]][travis-ci]
-[![coverage][coveralls-badge]][coveralls]
-[![Greenkeeper][greenkeeper-badge]][greenkeeper]
-[![TypeScript][typescript-badge]][typescript]
-[![Prettier][prettier-badge]][prettier]
+# ![Cybernaut](https://clebert.github.io/cybernaut/images/logo.svg)
 
 > Reliable, automated web UI testing in BDD-style.
 
-[![Example][example-png]][example-png]
+## Packages
 
-WYSIWYM—the above **human-readable** test output corresponds to what is programmed:
+Cybernaut is a multi-package repository (sometimes called [monorepo](https://github.com/babel/babel/blob/master/doc/design/monorepo.md)).
 
-```js
-const {browser, it, test} = require('cybernaut');
+### For end users
 
-test('This is an example test', async t => {
-  await t.perform(browser.loadPage('http://example.com/'), {retries: 0});
+#### [@cybernaut/engine](https://github.com/clebert/cybernaut/tree/master/%40cybernaut/engine)
 
-  await t.assert(browser.pageTitle, it.should.equal('Example Domain'));
+> An engine for reliably asserting/verifying conditions and for reliably performing actions.
 
-  const moreInformationLink = browser.defineElement(
-    'more-information-link',
-    'a'
-  );
+#### [@cybernaut/chromeless](https://github.com/clebert/cybernaut/tree/master/%40cybernaut/chromeless)
 
-  await t.perform(moreInformationLink.click());
+> A [@cybernaut/engine](https://github.com/clebert/cybernaut/tree/master/%40cybernaut/engine)-compatible API for [Chromeless](https://github.com/graphcool/chromeless).
 
-  await t.assert(browser.pageTitle, it.should.contain('IANA'));
-});
-```
+#### @cybernaut/selenium (planned)
 
-## Getting started
+> A [@cybernaut/engine](https://github.com/clebert/cybernaut/tree/master/%40cybernaut/engine)-compatible API for [Selenium WebDriver](http://www.seleniumhq.org/projects/webdriver/).
 
-Although it is possible to run your tests [locally][testing-locally], it is recommended to run them on Docker.
-For this, only Docker has to be [installed][docker-installation], no further dependencies are required.
+### For API developers
 
-To get started, put a test file (e.g. test.e2e.js) into a directory:
+#### [@cybernaut/core](https://github.com/clebert/cybernaut/tree/master/%40cybernaut/core)
+
+> The foundation (the core) of all [@cybernaut/engine](https://github.com/clebert/cybernaut/tree/master/%40cybernaut/engine)-compatible APIs.
+
+#### [@cybernaut/mocks](https://github.com/clebert/cybernaut/tree/master/%40cybernaut/mocks)
+
+> Shared [mock objects](https://en.wikipedia.org/wiki/Mock_object).
+
+#### [@cybernaut/types](https://github.com/clebert/cybernaut/tree/master/%40cybernaut/types)
+
+> Shared [TypeScript](http://www.typescriptlang.org/) type definitions.
+
+#### [@cybernaut/utils](https://github.com/clebert/cybernaut/tree/master/%40cybernaut/utils)
+
+> Shared utility functions.
+
+## Development
+
+### Installing dependencies and bootstrapping packages
 
 ```sh
-mkdir -p tests && vi tests/test.e2e.js
+npm install
 ```
 
-and run it on Chrome with Docker:
+### Compiling sources
 
 ```sh
-docker run -it --rm \
-  -v "$(pwd)"/tests:/opt/cybernaut-tests \
-  -v /dev/shm:/dev/shm \
-  clebert/cybernaut-chrome:latest
+npm run compile
 ```
 
-**For further information, please consult the [documentation][testing-with-docker].**
+### Running unit tests
 
-## Introduction
-
-Cybernaut is built on top of selenium-webdriver and lets you control a browser with just a few lines of code.
-Your test code will look simple, concise and easy to read and is automatically output line by line in a human-readable form (WYSIWYM).
-It provides a [`Promise`][mdn-promise]-based API and allows the use of [`async`][mdn-async]/[`await`][mdn-await] to write your code without nesting and with the possibility of using control-flow primitives such as `if...else`.
-
-Additionally, there are [pre-built][docker-containers] Docker containers to run your tests effortlessly in any environment such as Travis CI.
-
-### Writing reliable tests will be easy
-
-Let's say we want to write a test which checks the text of a headline element.
-
-A test written with, for example, selenium-webdriver consists of three test steps.
-Each of these test steps can go wrong:
-
-```js
-// Fails if the headline element does not yet exist.
-const headline = await driver.findElement(By.css('h1'));
-
-// Fails if the headline element is stale.
-const text = await headline.getText();
-
-// Fails if the actual text does not equal the expected text.
-assert.equal(text, 'Lorem ipsum');
+```sh
+npm test
 ```
 
-Cybernaut allows all these test steps to be implemented in a single test step. This single test step is executed in an atomic way.
-This means that if one part of this test step fails, the entire test step fails and can then be repeated as a whole by the integrated test runner:
+### Compiling sources and running unit tests continuously
 
-```js
-// Can not fail because it is just a definition of an element.
-const headline = defineElement('headline', 'h1');
-
-// Can fail but only after several attempts.
-await t.assert(headline.text, it.should.equal('Lorem ipsum'));
+```sh
+npm run watch
 ```
 
-By this mechanism, a high reliability and thus the stability of your tests can be ensured.
+### Linting sources
+
+```sh
+npm run lint
+```
+
+### Formatting sources
+
+```sh
+npm run format
+```
+
+*Note: By default, a [Git Hook](https://git-scm.com/docs/githooks) is installed to automatically format all files of a commit.*
+
+### Checking formatting of sources
+
+```sh
+npm run format:check
+```
 
 ---
 Built by (c) Clemens Akens. Released under the MIT license.
-
-[coveralls]: https://coveralls.io/github/clebert/cybernaut?branch=master
-[coveralls-badge]: https://coveralls.io/repos/github/clebert/cybernaut/badge.svg?branch=master
-[docker-containers]: https://cybernaut.js.org/docs/overview/testing-with-docker.html#docker-containers
-[docker-installation]: https://docs.docker.com/engine/installation/
-[example]: https://github.com/clebert/cybernaut/tree/master/example
-[example-png]: https://clebert.github.io/cybernaut/images/example.png
-[greenkeeper]: https://greenkeeper.io/
-[greenkeeper-badge]: https://badges.greenkeeper.io/clebert/cybernaut.svg
-[logo-svg]: https://clebert.github.io/cybernaut/images/logo.svg
-[mdn-async]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
-[mdn-await]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await
-[mdn-promise]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
-[npm-cybernaut]: https://www.npmjs.com/package/cybernaut
-[npm-cybernaut-badge]: https://img.shields.io/npm/v/cybernaut.svg?maxAge=3600
-[prettier]: https://github.com/prettier/prettier
-[prettier-badge]: https://img.shields.io/badge/Prettier-styled-ff69b4.svg
-[testing-locally]: https://cybernaut.js.org/docs/overview/testing-locally.html
-[testing-with-docker]: https://cybernaut.js.org/docs/overview/testing-with-docker.html
-[travis-ci]: https://travis-ci.org/clebert/cybernaut
-[travis-ci-badge]: https://travis-ci.org/clebert/cybernaut.svg?branch=master
-[typescript]: http://www.typescriptlang.org/
-[typescript-badge]: https://img.shields.io/badge/TypeScript-friendly-blue.svg

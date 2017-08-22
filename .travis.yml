@@ -1,16 +1,17 @@
+dist: trusty
+addons:
+  chrome: stable
 language: node_js
 cache:
   directories:
   - node_modules
 node_js:
 - '8'
+before_install:
+- ./scripts/travis/before-install.sh
+before_script:
+- ./scripts/travis/before-script.sh
 script:
 - ./scripts/travis/script.sh
 after_success:
 - ./scripts/travis/after-success.sh
-branches:
-  except:
-  - /^v\d+\.\d+\.\d+$/
-sudo: required
-services:
-- docker
