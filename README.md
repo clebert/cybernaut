@@ -1,5 +1,7 @@
 # ![Cybernaut](https://clebert.github.io/cybernaut/images/logo.svg)
 
+[![Build Status](https://travis-ci.org/clebert/cybernaut.svg?branch=master)](https://travis-ci.org/clebert/cybernaut)
+
 > Reliable, automated web UI testing in BDD-style.
 
 ## Packages
