@@ -4,7 +4,7 @@ import {Action} from '@cybernaut/types/lib/Action';
 import {getOption} from '@cybernaut/utils/lib/getOption';
 import {Chromeless} from 'chromeless';
 
-export interface Options {
+export interface ChromeOptions {
   readonly chromeless: Chromeless<any>; // tslint:disable-line no-any
   readonly noScreenshot: boolean;
 }
@@ -16,7 +16,7 @@ export class Chrome extends Describable {
   private readonly noScreenshot: boolean;
 
   // tslint:disable-next-line no-any
-  public constructor(options?: Partial<Options>) {
+  public constructor(options?: Partial<ChromeOptions>) {
     super('chrome');
 
     this.chromeless = getOption(options, 'chromeless', new Chromeless());
