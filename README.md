@@ -1,6 +1,7 @@
 # ![Cybernaut](https://clebert.github.io/cybernaut/images/logo.svg)
 
 [![Build Status](https://travis-ci.org/clebert/cybernaut.svg?branch=master)](https://travis-ci.org/clebert/cybernaut)
+[![Coverage Status](https://coveralls.io/repos/github/clebert/cybernaut/badge.svg?branch=master)](https://coveralls.io/github/clebert/cybernaut?branch=master)
 
 > Reliable, automated web UI testing in BDD-style.
 
