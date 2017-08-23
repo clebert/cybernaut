@@ -105,13 +105,17 @@ export class Chrome extends Describable {
     };
   }
 
-  public captureScreenshot(): Action<string> {
+  public captureScreenshot(writeToFile: boolean = false): Action<string> {
     return {
       description: this.describeMethodCall(...arguments),
       implementation: async () => {
         const screenshot = await this.client.Page.captureScreenshot({
           fromSurface: true
         });
+
+        if (!writeToFile) {
+          return screenshot.data;
+        }
 
         return tempWrite(
           new Buffer(screenshot.data, 'base64'),

@@ -21,7 +21,9 @@ describe('Chrome', () => {
       await assert(chrome.pageTitle.is.containing('SPIEGEL ONLINE'));
       await assert(chrome.pageUrl.is.equalTo('http://m.spiegel.de/'));
 
-      console.info(await perform(chrome.captureScreenshot()));
+      console.info(
+        await perform(chrome.captureScreenshot(process.env.CI !== 'true'))
+      );
     } finally {
       await chrome.quit();
     }
