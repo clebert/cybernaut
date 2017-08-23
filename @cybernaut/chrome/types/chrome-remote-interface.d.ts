@@ -1,73 +1,144 @@
 declare namespace CDP {
-  interface PageCaptureScreenshotReturnObject {
-    readonly data: string;
+  /* https://chromedevtools.github.io/devtools-protocol/tot/Emulation/ */
+  namespace Emulation {
+    interface SetDeviceMetricsOverrideParameters {
+      readonly width: number;
+      readonly height: number;
+      readonly deviceScaleFactor: number;
+      readonly mobile: boolean;
+      readonly fitWindow: boolean;
+      readonly screenWidth?: number;
+      readonly screenHeight?: number;
+      readonly dontSetVisibleSize?: boolean;
+    }
+
+    interface SetTouchEmulationEnabledParameters {
+      readonly enabled: boolean;
+    }
+
+    interface SetCPUThrottlingRateParameters {
+      readonly rate: number;
+    }
+
+    interface CanEmulateReturnObject {
+      readonly result: boolean;
+    }
   }
 
-  interface PageNavigateParameters {
-    readonly url: string;
+  interface Emulation {
+    setDeviceMetricsOverride(
+      parameters: Emulation.SetDeviceMetricsOverrideParameters
+    ): Promise<void>;
+
+    setTouchEmulationEnabled(
+      parameters: Emulation.SetTouchEmulationEnabledParameters
+    ): Promise<void>;
+
+    setCPUThrottlingRate(
+      parameters: Emulation.SetCPUThrottlingRateParameters
+    ): Promise<void>;
+
+    canEmulate(): Promise<Emulation.CanEmulateReturnObject>;
   }
 
-  // https://chromedevtools.github.io/devtools-protocol/tot/Page/
-  interface Page {
-    captureScreenshot(): Promise<PageCaptureScreenshotReturnObject>;
+  /* https://chromedevtools.github.io/devtools-protocol/tot/Network/ */
+  namespace Network {
+    interface SetUserAgentOverrideParameters {
+      readonly userAgent: string;
+    }
+  }
+
+  interface Network {
     enable(): Promise<void>;
+    setUserAgentOverride(
+      parameters: Network.SetUserAgentOverrideParameters
+    ): Promise<void>;
+  }
+
+  /* https://chromedevtools.github.io/devtools-protocol/tot/Page/ */
+  namespace Page {
+    interface NavigateParameters {
+      readonly url: string;
+    }
+
+    interface CaptureScreenshotParameters {
+      readonly fromSurface?: boolean;
+    }
+
+    interface CaptureScreenshotReturnObject {
+      readonly data: string;
+    }
+  }
+
+  interface Page {
+    enable(): Promise<void>;
+    navigate(parameters: Page.NavigateParameters): Promise<void>;
+
+    captureScreenshot(
+      parameters?: Page.CaptureScreenshotParameters
+    ): Promise<Page.CaptureScreenshotReturnObject>;
+
     loadEventFired(): Promise<void>;
-    navigate(parameters: PageNavigateParameters): Promise<void>;
   }
 
-  interface RuntimeEvaluateParameters {
-    readonly expression: string;
+  /* https://chromedevtools.github.io/devtools-protocol/tot/Runtime/ */
+  namespace Runtime {
+    interface EvaluateParameters {
+      readonly expression: string;
+    }
+
+    interface RemoteObject {
+      type:
+        | 'object'
+        | 'function'
+        | 'undefined'
+        | 'string'
+        | 'number'
+        | 'boolean'
+        | 'symbol';
+      subtype?:
+        | 'array'
+        | 'null'
+        | 'node'
+        | 'regexp'
+        | 'date'
+        | 'map'
+        | 'set'
+        | 'weakmap'
+        | 'weakset'
+        | 'iterator'
+        | 'generator'
+        | 'error'
+        | 'proxy'
+        | 'promise'
+        | 'typedarray';
+      className?: string;
+      value?: any /* tslint:disable-line no-any */;
+      description?: string;
+    }
+
+    interface EvaluateReturnObject {
+      readonly result: RemoteObject;
+    }
   }
 
-  // https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#type-RemoteObject
-  interface RuntimeRemoteObject {
-    type:
-      | 'object'
-      | 'function'
-      | 'undefined'
-      | 'string'
-      | 'number'
-      | 'boolean'
-      | 'symbol';
-    subtype?:
-      | 'array'
-      | 'null'
-      | 'node'
-      | 'regexp'
-      | 'date'
-      | 'map'
-      | 'set'
-      | 'weakmap'
-      | 'weakset'
-      | 'iterator'
-      | 'generator'
-      | 'error'
-      | 'proxy'
-      | 'promise'
-      | 'typedarray';
-    className?: string;
-    value?: any; // tslint:disable-line no-any
-    description?: string;
-  }
-
-  interface RuntimeEvaluateReturnObject {
-    readonly result: RuntimeRemoteObject;
-  }
-
-  // https://chromedevtools.github.io/devtools-protocol/tot/Runtime/
   interface Runtime {
     evaluate(
-      parameters: RuntimeEvaluateParameters
-    ): Promise<RuntimeEvaluateReturnObject>;
+      parameters: Runtime.EvaluateParameters
+    ): Promise<Runtime.EvaluateReturnObject>;
   }
 
+  /* https://github.com/cyrus-and/chrome-remote-interface#class-cdp */
   interface Client {
+    readonly Emulation: Emulation;
+    readonly Network: Network;
     readonly Page: Page;
     readonly Runtime: Runtime;
 
     close(): Promise<void>;
   }
 
+  /* https://github.com/cyrus-and/chrome-remote-interface#cdpoptions-callback */
   interface Options {
     readonly host?: string;
     readonly port?: number;

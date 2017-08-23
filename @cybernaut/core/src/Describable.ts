@@ -19,7 +19,7 @@ export abstract class Describable {
     });
   }
 
-  // tslint:disable-next-line no-any
+  /* tslint:disable-next-line no-any */
   protected describeMethodCall(...args: any[]): string {
     return `${this.description}(${args.map(format).join(', ')})`;
   }

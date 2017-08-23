@@ -1,9 +1,10 @@
 import {Engine} from '@cybernaut/engine/lib/Engine';
 import {Chrome} from '../Chrome';
+import {Device} from '../Device';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000;
 
-const {assert, perform} = new Engine({retries: 1, retryDelay: 500});
+const {assert, perform} = new Engine();
 
 describe('Chrome', () => {
   let chrome: Chrome;
@@ -14,11 +15,13 @@ describe('Chrome', () => {
 
   it('should be able to control Chromeless as expected', async () => {
     try {
-      await perform(chrome.loadPage('http://example.com/'));
-      await assert(chrome.pageTitle.is.equalTo('Example Domain'));
-      await assert(chrome.pageUrl.is.equalTo('http://example.com/'));
+      await perform(chrome.emulateDevice(Device.iPhone5()));
+      await perform(chrome.navigate('https://spiegel.de/'));
 
-      console.log(await perform(chrome.captureScreenshot()));
+      await assert(chrome.pageTitle.is.containing('SPIEGEL ONLINE'));
+      await assert(chrome.pageUrl.is.equalTo('http://m.spiegel.de/'));
+
+      console.info(await perform(chrome.captureScreenshot()));
     } finally {
       await chrome.quit();
     }

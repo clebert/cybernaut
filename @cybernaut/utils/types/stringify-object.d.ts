@@ -5,7 +5,7 @@ declare module 'stringify-object' {
     readonly singleQuotes?: boolean;
   }
 
-  // tslint:disable-next-line no-any
+  /* tslint:disable-next-line no-any */
   function stringifyObject(value: any, options?: Options): string;
 
   export = stringifyObject;

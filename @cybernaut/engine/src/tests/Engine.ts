@@ -2,16 +2,16 @@ import {MockAction} from '@cybernaut/mocks/lib//MockAction';
 import {MockCondition} from '@cybernaut/mocks/lib//MockCondition';
 import {Engine} from '../Engine';
 
-// This function works in conjunction with Jest fake timers.
+/* This function works in conjunction with Jest fake timers. */
 async function nap(): Promise<void> {
   for (let i = 0; i < 10; i += 1) {
     await Promise.resolve();
   }
 }
 
-let action: MockAction<any>; // tslint:disable-line no-any
-let condition: MockCondition<any>; // tslint:disable-line no-any
-let negatedCondition: MockCondition<any>; // tslint:disable-line no-any
+let action: MockAction<any>; /* tslint:disable-line no-any */
+let condition: MockCondition<any>; /* tslint:disable-line no-any */
+let negatedCondition: MockCondition<any>; /* tslint:disable-line no-any */
 let error: Error;
 
 beforeEach(() => {

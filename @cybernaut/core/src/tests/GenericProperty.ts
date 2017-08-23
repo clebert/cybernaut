@@ -2,7 +2,7 @@ import {GenericProperty} from '../GenericProperty';
 
 const accessor = async () => undefined;
 
-// tslint:disable-next-line no-any
+/* tslint:disable-next-line no-any */
 const property = new GenericProperty<any>('property', accessor);
 
 function test(negated: boolean): void {

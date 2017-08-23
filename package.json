@@ -11,6 +11,7 @@
     "format": "./scripts/format.sh --write",
     "format:check": "./scripts/format.sh --list-different",
     "lint": "node ./scripts/lint.js && lerna run lint",
+    "pretest": "npm run compile",
     "test": "jest --no-cache",
     "watch": "run-p watch:*",
     "watch:compile": "lerna run watch:compile --stream --no-sort --concurrency 99",
@@ -42,7 +43,7 @@
     "collectCoverageFrom": [
       "**/@cybernaut/*/src/**/*.{ts,tsx}",
       "!**/@cybernaut/*/src/**/tests/**/*.{ts,tsx}",
-      "!**/@cybernaut/chrome/src/**/*.{ts,tsx}",
+      "!**/@cybernaut/chrome/src/Chrome.ts",
       "!**/@cybernaut/mocks/src/**/*.{ts,tsx}",
       "!**/@cybernaut/types/src/**/*.{ts,tsx}"
     ],
@@ -60,7 +61,7 @@
     "transform": {
       ".ts": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
-    "verbose": true
+    "verbose": false
   },
   "lint-staged": {
     "*.{ts,tsx}": [

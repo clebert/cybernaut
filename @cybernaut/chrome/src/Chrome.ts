@@ -8,6 +8,7 @@ import {StringProperty} from '@cybernaut/core/lib/StringProperty';
 import {Action} from '@cybernaut/types/lib/Action';
 import {getOption} from '@cybernaut/utils/lib/getOption';
 import {LaunchedChrome, launch} from 'chrome-launcher';
+import {Device} from './Device';
 
 export interface ChromeOptions {
   readonly chromeFlags: string[];
@@ -16,12 +17,6 @@ export interface ChromeOptions {
 }
 
 export class Chrome extends Describable {
-  public static async connect(options?: CDP.Options): Promise<Chrome> {
-    const client = await CDP(options);
-
-    return new Chrome(client);
-  }
-
   public static async launch(
     options?: Partial<ChromeOptions>
   ): Promise<Chrome> {
@@ -43,29 +38,58 @@ export class Chrome extends Describable {
     return Chrome.launch({...options, chromeFlags});
   }
 
-  private readonly chromeProcess?: LaunchedChrome;
   private readonly client: CDP.Client;
+  private readonly chromeProcess?: LaunchedChrome;
 
   public constructor(client: CDP.Client, chromeProcess?: LaunchedChrome) {
     super('chrome');
 
-    this.chromeProcess = chromeProcess;
     this.client = client;
+    this.chromeProcess = chromeProcess;
   }
 
   public get pageTitle(): StringProperty {
+    /* istanbul ignore next */
     return new StringProperty(this.description, async () =>
       this.run(() => document.title)
     );
   }
 
   public get pageUrl(): StringProperty {
+    /* istanbul ignore next */
     return new StringProperty(this.description, async () =>
       this.run(() => window.location.href)
     );
   }
 
-  public loadPage(url: string): Action<void> {
+  public emulateDevice(device: Device): Action<void> {
+    return {
+      description: this.describeMethodCall(...arguments),
+      implementation: async () => {
+        const {Emulation, Network} = this.client;
+
+        if ((await Emulation.canEmulate()).result) {
+          await Emulation.setDeviceMetricsOverride({
+            width: device.width,
+            height: device.height,
+            deviceScaleFactor: device.scaleFactor,
+            mobile: device.mobile,
+            fitWindow: false,
+            screenWidth: device.width,
+            screenHeight: device.height,
+            dontSetVisibleSize: false
+          });
+
+          await Emulation.setTouchEmulationEnabled({enabled: device.touch});
+
+          await Network.enable();
+          await Network.setUserAgentOverride({userAgent: device.userAgent});
+        }
+      }
+    };
+  }
+
+  public navigate(url: string, waitUntilLoaded: boolean = false): Action<void> {
     return {
       description: this.describeMethodCall(...arguments),
       implementation: async () => {
@@ -73,7 +97,10 @@ export class Chrome extends Describable {
 
         await Page.enable();
         await Page.navigate({url});
-        await Page.loadEventFired();
+
+        if (waitUntilLoaded) {
+          await Page.loadEventFired();
+        }
       }
     };
   }
@@ -82,7 +109,9 @@ export class Chrome extends Describable {
     return {
       description: this.describeMethodCall(...arguments),
       implementation: async () => {
-        const screenshot = await this.client.Page.captureScreenshot();
+        const screenshot = await this.client.Page.captureScreenshot({
+          fromSurface: true
+        });
 
         return tempWrite(
           new Buffer(screenshot.data, 'base64'),
@@ -100,7 +129,7 @@ export class Chrome extends Describable {
     }
   }
 
-  // tslint:disable-next-line no-any
+  /* tslint:disable-next-line no-any */
   private async run<T>(script: () => T): Promise<T> {
     const expression = `(${script.toString()})()`;
     const {result} = await this.client.Runtime.evaluate({expression});
@@ -111,7 +140,7 @@ export class Chrome extends Describable {
       const message = execArray ? execArray[1] : undefined;
 
       if (className) {
-        // tslint:disable-next-line no-any
+        /* tslint:disable-next-line no-any */
         throw new (global as any)[className](message);
       } else {
         throw new Error(message);

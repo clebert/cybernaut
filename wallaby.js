@@ -1,7 +1,7 @@
 function setup({testFramework}) {
   const {jest} = require('./package.json');
 
-  // https://github.com/wallabyjs/public/issues/1152#issuecomment-300151646
+  /* https://github.com/wallabyjs/public/issues/1152#issuecomment-300151646 */
   delete jest.transform;
 
   testFramework.configure(jest);
@@ -46,7 +46,7 @@ module.exports = ({localProjectDir, projectCacheDir}) => {
     testFramework: 'jest',
     tests: [
       '@cybernaut/*/src/**/tests/**/*.{ts,tsx}',
-      '!@cybernaut/chrome/src/**/tests/**/*.{ts,tsx}'
+      '!@cybernaut/chrome/src/tests/Chrome.ts'
     ]
   };
 };
