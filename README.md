@@ -49,28 +49,16 @@ Cybernaut is a multi-package repository (sometimes called [monorepo][monorepo]).
 npm install
 ```
 
-### Compiling sources
-
-```sh
-npm run compile
-```
-
-### Running unit tests
-
-```sh
-npm test
-```
-
 ### Compiling sources and running unit tests continuously
 
 ```sh
 npm run watch
 ```
 
-### Linting sources
+### Running CI tests
 
 ```sh
-npm run lint
+npm test
 ```
 
 ### Formatting sources
@@ -80,12 +68,6 @@ npm run format
 ```
 
 *Note: By default, a [Git Hook][git-hook] is installed to automatically format all files of a commit.*
-
-### Checking formatting of sources
-
-```sh
-npm run format:check
-```
 
 ---
 Built by (c) Clemens Akens. Released under the MIT license.

@@ -8,10 +8,12 @@ cache:
 node_js:
 - '8'
 before_install:
-- ./scripts/travis/before-install.sh
+- 'npm prune'
 before_script:
-- ./scripts/travis/before-script.sh
+- 'git fetch --unshallow'
+- '"$(npm bin)"/commitlint --from="$TRAVIS_BRANCH" --to="$TRAVIS_COMMIT"'
+- '"$(npm bin)"/commitlint --from="$TRAVIS_COMMIT"'
 script:
-- ./scripts/travis/script.sh
+- 'npm test'
 after_success:
-- ./scripts/travis/after-success.sh
+- '< coverage/lcov.info "$(npm bin)"/coveralls'

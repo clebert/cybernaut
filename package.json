@@ -12,7 +12,7 @@
     "format:check": "./scripts/format.sh --list-different",
     "lint": "node ./scripts/lint.js && lerna run lint",
     "pretest": "npm run compile",
-    "test": "jest --no-cache",
+    "test": "npm run format:check && npm run lint && jest --no-cache",
     "watch": "run-p watch:*",
     "watch:compile": "lerna run watch:compile --stream --no-sort --concurrency 99",
     "watch:test": "jest --watch"
