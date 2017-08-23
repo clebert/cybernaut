@@ -1,10 +1,15 @@
 declare namespace CDP {
+  interface PageCaptureScreenshotReturnObject {
+    readonly data: string;
+  }
+
   interface PageNavigateParameters {
     readonly url: string;
   }
 
   // https://chromedevtools.github.io/devtools-protocol/tot/Page/
   interface Page {
+    captureScreenshot(): Promise<PageCaptureScreenshotReturnObject>;
     enable(): Promise<void>;
     loadEventFired(): Promise<void>;
     navigate(parameters: PageNavigateParameters): Promise<void>;

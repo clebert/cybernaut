@@ -23,7 +23,8 @@
     "@cybernaut/types": "0.0.0",
     "@cybernaut/utils": "0.0.0",
     "chrome-launcher": "0.6.0",
-    "chrome-remote-interface": "0.24.4"
+    "chrome-remote-interface": "0.24.4",
+    "temp-write": "3.3.0"
   },
   "devDependencies": {
     "@cybernaut/engine": "0.0.0"

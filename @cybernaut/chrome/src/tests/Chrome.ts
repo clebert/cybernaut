@@ -17,6 +17,8 @@ describe('Chrome', () => {
       await perform(chrome.loadPage('http://example.com/'));
       await assert(chrome.pageTitle.is.equalTo('Example Domain'));
       await assert(chrome.pageUrl.is.equalTo('http://example.com/'));
+
+      console.log(await perform(chrome.captureScreenshot()));
     } finally {
       await chrome.quit();
     }

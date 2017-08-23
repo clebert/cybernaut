@@ -1,6 +1,7 @@
 /// <reference path="../types/chrome-remote-interface.d.ts" />
 
 import CDP = require('chrome-remote-interface');
+import tempWrite = require('temp-write');
 
 import {Describable} from '@cybernaut/core/lib/Describable';
 import {StringProperty} from '@cybernaut/core/lib/StringProperty';
@@ -73,6 +74,20 @@ export class Chrome extends Describable {
         await Page.enable();
         await Page.navigate({url});
         await Page.loadEventFired();
+      }
+    };
+  }
+
+  public captureScreenshot(): Action<string> {
+    return {
+      description: this.describeMethodCall(...arguments),
+      implementation: async () => {
+        const screenshot = await this.client.Page.captureScreenshot();
+
+        return tempWrite(
+          new Buffer(screenshot.data, 'base64'),
+          'screenshot.png'
+        );
       }
     };
   }
