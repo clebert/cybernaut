@@ -46,7 +46,7 @@ module.exports = ({localProjectDir, projectCacheDir}) => {
     testFramework: 'jest',
     tests: [
       '@cybernaut/*/src/**/tests/**/*.{ts,tsx}',
-      '!@cybernaut/chromeless/src/**/tests/**/*.{ts,tsx}'
+      '!@cybernaut/chrome/src/**/tests/**/*.{ts,tsx}'
     ]
   };
 };

@@ -42,7 +42,7 @@
     "collectCoverageFrom": [
       "**/@cybernaut/*/src/**/*.{ts,tsx}",
       "!**/@cybernaut/*/src/**/tests/**/*.{ts,tsx}",
-      "!**/@cybernaut/chromeless/src/**/*.{ts,tsx}",
+      "!**/@cybernaut/chrome/src/**/*.{ts,tsx}",
       "!**/@cybernaut/mocks/src/**/*.{ts,tsx}",
       "!**/@cybernaut/types/src/**/*.{ts,tsx}"
     ],

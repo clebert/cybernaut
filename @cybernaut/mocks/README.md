@@ -1,6 +1,6 @@
 # @cybernaut/mocks
 
-> Shared [mock objects](https://en.wikipedia.org/wiki/Mock_object).
+> Shared [mock objects][mock-object].
 
 ## Installation
 
@@ -10,3 +10,5 @@ npm install --save-dev @cybernaut/mocks
 
 ---
 Built by (c) Clemens Akens. Released under the MIT license.
+
+[mock-object]: https://en.wikipedia.org/wiki/Mock_object

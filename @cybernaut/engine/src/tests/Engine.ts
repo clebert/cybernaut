@@ -29,9 +29,9 @@ describe('Test.assert()', () => {
       throw error;
     });
 
-    const engine = new Engine({retryDelay: 0});
+    const {assert} = new Engine({retryDelay: 0});
 
-    await expect(engine.assert(condition)).rejects.toEqual(
+    await expect(assert(condition)).rejects.toEqual(
       new Error('Assert: a condition => Error: an error')
     );
 
@@ -48,9 +48,9 @@ describe('Test.assert()', () => {
       .mockImplementationOnce(() => false)
       .mockImplementation(() => true);
 
-    const engine = new Engine({retryDelay: 0});
+    const {assert} = new Engine({retryDelay: 0});
 
-    await engine.assert(condition);
+    await assert(condition);
 
     expect(condition.accessor.mock.calls).toEqual([[], []]);
     expect(condition.predicate.mock.calls).toEqual([['a value'], ['a value']]);
@@ -62,9 +62,9 @@ describe('Test.assert()', () => {
     condition.accessor.mockImplementation(async () => 'a value');
     condition.predicate.mockImplementation(() => false);
 
-    const engine = new Engine({retries: 2, retryDelay: 0});
+    const {assert} = new Engine({retries: 2, retryDelay: 0});
 
-    await expect(engine.assert(condition)).rejects.toEqual(
+    await expect(assert(condition)).rejects.toEqual(
       new Error("Assert: a condition => Actual value: 'a value'")
     );
 
@@ -83,9 +83,9 @@ describe('Test.assert()', () => {
     negatedCondition.accessor.mockImplementation(async () => 'a value');
     negatedCondition.predicate.mockImplementation(() => false);
 
-    const engine = new Engine({retries: 2, retryDelay: 0});
+    const {assert} = new Engine({retries: 2, retryDelay: 0});
 
-    await engine.assert(negatedCondition);
+    await assert(negatedCondition);
 
     expect(negatedCondition.accessor.mock.calls).toEqual([[]]);
     expect(negatedCondition.predicate.mock.calls).toEqual([['a value']]);
@@ -98,12 +98,12 @@ describe('Test.assert()', () => {
       .mockImplementationOnce(() => false)
       .mockImplementation(() => true);
 
-    const engine = new Engine();
+    const {assert} = new Engine();
 
     try {
       jest.useFakeTimers();
 
-      const promise = engine.assert(condition);
+      const promise = assert(condition);
 
       await nap();
 
@@ -139,9 +139,9 @@ describe('Test.verify()', () => {
       throw error;
     });
 
-    const engine = new Engine({retryDelay: 0});
+    const {verify} = new Engine({retryDelay: 0});
 
-    await expect(engine.verify(condition)).rejects.toEqual(
+    await expect(verify(condition)).rejects.toEqual(
       new Error('Verify: a condition => Error: an error')
     );
 
@@ -158,9 +158,9 @@ describe('Test.verify()', () => {
       .mockImplementationOnce(() => false)
       .mockImplementation(() => true);
 
-    const engine = new Engine({retryDelay: 0});
+    const {verify} = new Engine({retryDelay: 0});
 
-    expect(await engine.verify(condition)).toBe(true);
+    expect(await verify(condition)).toBe(true);
 
     expect(condition.accessor.mock.calls).toEqual([[], []]);
     expect(condition.predicate.mock.calls).toEqual([['a value'], ['a value']]);
@@ -172,9 +172,9 @@ describe('Test.verify()', () => {
     condition.accessor.mockImplementation(async () => 'a value');
     condition.predicate.mockImplementation(() => false);
 
-    const engine = new Engine({retries: 2, retryDelay: 0});
+    const {verify} = new Engine({retries: 2, retryDelay: 0});
 
-    expect(await engine.verify(condition)).toBe(false);
+    expect(await verify(condition)).toBe(false);
 
     expect(condition.accessor.mock.calls).toEqual([[], [], []]);
 
@@ -191,9 +191,9 @@ describe('Test.verify()', () => {
     negatedCondition.accessor.mockImplementation(async () => 'a value');
     negatedCondition.predicate.mockImplementation(() => false);
 
-    const engine = new Engine({retries: 2, retryDelay: 0});
+    const {verify} = new Engine({retries: 2, retryDelay: 0});
 
-    expect(await engine.verify(negatedCondition)).toBe(true);
+    expect(await verify(negatedCondition)).toBe(true);
 
     expect(negatedCondition.accessor.mock.calls).toEqual([[]]);
     expect(negatedCondition.predicate.mock.calls).toEqual([['a value']]);
@@ -206,12 +206,12 @@ describe('Test.verify()', () => {
       .mockImplementationOnce(() => false)
       .mockImplementation(() => true);
 
-    const engine = new Engine();
+    const {verify} = new Engine();
 
     try {
       jest.useFakeTimers();
 
-      const promise = engine.verify(condition);
+      const promise = verify(condition);
 
       await nap();
 
@@ -247,9 +247,9 @@ describe('Test.perform()', () => {
       throw error;
     });
 
-    const engine = new Engine({retryDelay: 0});
+    const {perform} = new Engine({retryDelay: 0});
 
-    await expect(engine.perform(action)).rejects.toEqual(
+    await expect(perform(action)).rejects.toEqual(
       new Error('Perform: an action => Error: an error')
     );
 
@@ -265,9 +265,9 @@ describe('Test.perform()', () => {
       })
       .mockImplementation(async () => 'a screenshot');
 
-    const engine = new Engine({retryDelay: 0});
+    const {perform} = new Engine({retryDelay: 0});
 
-    await engine.perform(action);
+    await perform(action);
 
     expect(action.implementation.mock.calls).toEqual([[], []]);
   });
@@ -279,9 +279,9 @@ describe('Test.perform()', () => {
       throw error;
     });
 
-    const engine = new Engine({retries: 2, retryDelay: 0});
+    const {perform} = new Engine({retries: 2, retryDelay: 0});
 
-    await expect(engine.perform(action)).rejects.toBeDefined();
+    await expect(perform(action)).rejects.toBeDefined();
 
     expect(action.implementation.mock.calls).toEqual([[], [], []]);
   });
@@ -295,12 +295,12 @@ describe('Test.perform()', () => {
       })
       .mockImplementation(async () => 'a screenshot');
 
-    const engine = new Engine();
+    const {perform} = new Engine();
 
     try {
       jest.useFakeTimers();
 
-      const promise = engine.perform(action);
+      const promise = perform(action);
 
       await nap();
 

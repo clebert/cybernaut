@@ -26,6 +26,10 @@ export class Engine {
   public constructor(options?: Partial<EngineOptions>) {
     this.retries = getOption(options, 'retries', 4);
     this.retryDelay = getOption(options, 'retryDelay', 1000);
+
+    this.assert = this.assert.bind(this);
+    this.perform = this.perform.bind(this);
+    this.verify = this.verify.bind(this);
   }
 
   public async assert<T>(condition: Condition<T>): Promise<void> {
