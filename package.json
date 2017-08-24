@@ -11,7 +11,7 @@
     "format": "./scripts/format.sh --write",
     "format:check": "./scripts/format.sh --list-different",
     "lint": "node ./scripts/lint.js && lerna run lint",
-    "prerelease": "npm run clean && npm test",
+    "prerelease": "npm run clean && npm install && npm test",
     "release": "lerna publish",
     "pretest": "npm run compile",
     "test": "npm run format:check && npm run lint && jest --no-cache",
