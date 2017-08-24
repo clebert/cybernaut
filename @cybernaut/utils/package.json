@@ -4,6 +4,7 @@
   "description": "Shared utility functions.",
   "license": "MIT",
   "author": "Clemens Akens <clebert@me.com>",
+  "homepage": "https://cybernaut.js.org/",
   "repository": {
     "type": "git",
     "url": "https://github.com/clebert/cybernaut.git"

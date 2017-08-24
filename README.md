@@ -1,4 +1,4 @@
-# ![Cybernaut][cybernaut-logo]
+# [![Cybernaut][cybernaut-logo]][cybernaut-website]
 
 [![Build Status][travis-ci-badge]][travis-ci]
 [![Coverage Status][coveralls-badge]][coveralls]
@@ -15,7 +15,7 @@ Cybernaut is a multi-package repository (sometimes called [monorepo][monorepo]).
 
 > The heart of Cybernaut: An engine for reliably asserting/verifying conditions and for reliably performing actions.
 
-#### [@cybernaut/chrome][cybernaut-chrome] ⭐
+#### [@cybernaut/chrome][cybernaut-chrome] 🔥
 
 > A [`@cybernaut/engine`][cybernaut-engine]-compatible API for [Google Chrome][google-chrome].
 
@@ -77,10 +77,11 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [cybernaut-chrome]: https://github.com/clebert/cybernaut/tree/master/%40cybernaut/chrome
 [cybernaut-core]: https://github.com/clebert/cybernaut/tree/master/%40cybernaut/core
 [cybernaut-engine]: https://github.com/clebert/cybernaut/tree/master/%40cybernaut/engine
-[cybernaut-logo]: https://clebert.github.io/cybernaut/images/logo.svg
+[cybernaut-logo]: https://clebert.github.io/cybernaut/logo.svg
 [cybernaut-mocks]: https://github.com/clebert/cybernaut/tree/master/%40cybernaut/mocks
 [cybernaut-types]: https://github.com/clebert/cybernaut/tree/master/%40cybernaut/types
 [cybernaut-utils]: https://github.com/clebert/cybernaut/tree/master/%40cybernaut/utils
+[cybernaut-website]: https://cybernaut.js.org/
 [git-hook]: https://git-scm.com/docs/githooks
 [google-chrome]: https://www.google.com/chrome/
 [mock-object]: https://en.wikipedia.org/wiki/Mock_object

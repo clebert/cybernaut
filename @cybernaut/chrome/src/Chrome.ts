@@ -13,7 +13,6 @@ import {Device} from './Device';
 export interface ChromeOptions {
   readonly chromeFlags: string[];
   readonly chromePath: string;
-  readonly enableExtensions: boolean;
 }
 
 export class Chrome extends Describable {
@@ -62,7 +61,10 @@ export class Chrome extends Describable {
     );
   }
 
-  public emulateDevice(device: Device): Action<void> {
+  public emulateDevice(
+    device: Device,
+    fitWindow: boolean = false
+  ): Action<void> {
     return {
       description: this.describeMethodCall(...arguments),
       implementation: async () => {
@@ -74,7 +76,7 @@ export class Chrome extends Describable {
             height: device.height,
             deviceScaleFactor: device.scaleFactor,
             mobile: device.mobile,
-            fitWindow: false,
+            fitWindow,
             screenWidth: device.width,
             screenHeight: device.height,
             dontSetVisibleSize: false
