@@ -10,6 +10,8 @@ npm install --save @cybernaut/core
 
 ## Type definitions
 
+*Note: The type definitions for `Accessor<T>`, `Condition<T>`, and `Predicate<T>` can be found [here][cybernaut-types-type-definitions].*
+
 ### @cybernaut/core/lib/Describable
 
 ```ts
@@ -116,8 +118,6 @@ export class StringProperty extends Describable {
   public readonly isNot: StringConditionBuilder;
 }
 ```
-
-*Note: The type definitions for `Accessor<T>`, `Condition<T>`, and `Predicate<T>` can be found [here][cybernaut-types-type-definitions].*
 
 ---
 Built by (c) Clemens Akens. Released under the MIT license.
