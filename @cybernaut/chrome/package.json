@@ -1,0 +1,36 @@
+{
+  "name": "@cybernaut/chromeless",
+  "version": "0.0.0",
+  "description": "A @cybernaut/engine-compatible API for Google Chrome.",
+  "license": "MIT",
+  "author": "Clemens Akens <clebert@me.com>",
+  "homepage": "https://cybernaut.js.org/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clebert/cybernaut.git"
+  },
+  "bugs": {
+    "url": "https://github.com/clebert/cybernaut/issues"
+  },
+  "files": ["lib", "types"],
+  "scripts": {
+    "compile": "../../scripts/lerna/compile.sh",
+    "lint": "../../scripts/lerna/lint.sh",
+    "watch:compile": "../../scripts/lerna/compile.sh --watch"
+  },
+  "engines": {"node": ">=8"},
+  "dependencies": {
+    "@cybernaut/core": "0.0.0",
+    "@cybernaut/types": "0.0.0",
+    "@cybernaut/utils": "0.0.0",
+    "chrome-launcher": "0.6.0",
+    "chrome-remote-interface": "0.24.4",
+    "temp-write": "3.3.0"
+  },
+  "devDependencies": {
+    "@cybernaut/engine": "0.0.0"
+  },
+  "peerDependencies": {
+    "@cybernaut/engine": "0.0.0"
+  }
+}

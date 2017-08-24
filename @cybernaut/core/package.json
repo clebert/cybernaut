@@ -1,0 +1,27 @@
+{
+  "name": "@cybernaut/core",
+  "version": "0.0.0",
+  "description": "The foundation (the core) of all @cybernaut/engine-compatible APIs.",
+  "license": "MIT",
+  "author": "Clemens Akens <clebert@me.com>",
+  "homepage": "https://cybernaut.js.org/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clebert/cybernaut.git"
+  },
+  "bugs": {
+    "url": "https://github.com/clebert/cybernaut/issues"
+  },
+  "files": ["lib"],
+  "scripts": {
+    "compile": "../../scripts/lerna/compile.sh",
+    "lint": "../../scripts/lerna/lint.sh",
+    "watch:compile": "../../scripts/lerna/compile.sh --watch"
+  },
+  "engines": {"node": ">=8"},
+  "dependencies": {
+    "@cybernaut/types": "0.0.0",
+    "@cybernaut/utils": "0.0.0",
+    "deep-strict-equal": "0.2.0"
+  }
+}

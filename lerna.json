@@ -1,0 +1,10 @@
+{
+  "lerna": "2.0.0",
+  "command": {
+    "init": {
+      "exact": true
+    }
+  },
+  "packages": ["@cybernaut/*"],
+  "version": "0.0.0"
+}

@@ -1,27 +1,11 @@
 {
-  "files.exclude": {
-    "**/_book/**": true,
-    "**/.DS_Store": true,
-    "**/.git/**": true,
-    "**/coverage/**": true,
-    "**/dist/**": true,
-    "**/node_modules/**": true,
-    "**/npm-debug.log": true,
-    "**/resources/**": true
-  },
   "search.exclude": {
-    "**/_book/**": true,
-    "**/.DS_Store": true,
-    "**/.git/**": true,
     "**/coverage/**": true,
-    "**/dist/**": true,
-    "**/docs/api-reference/browser/**": true,
-    "**/docs/api-reference/element/**": true,
-    "**/docs/api-reference/it/**": true,
-    "**/docs/api-reference/utils/**": true,
+    "**/lerna-debug.log": true,
+    "**/lib/**": true,
     "**/node_modules/**": true,
     "**/npm-debug.log": true,
-    "**/resources/**": true
+    "**/package-lock.json": true
   },
   "prettier.bracketSpacing": false,
   "prettier.parser": "typescript",
@@ -29,5 +13,5 @@
   "tslint.configFile": "./tslint.json",
   "tslint.enable": true,
   "tslint.ignoreDefinitionFiles": false,
-  "typescript.tsdk": "./node_modules/typescript/lib"
+  "typescript.tsdk": "./node_modules/typescript/lib/"
 }
