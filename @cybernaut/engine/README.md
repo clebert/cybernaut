@@ -40,6 +40,8 @@ const {assert, perform, verify} = new Engine({
 
 ## Type definitions
 
+*Note: The type definitions for `Action<T>` and `Condition<T>` can be found [here][cybernaut-types-type-definitions].*
+
 ### @cybernaut/engine/lib/Engine
 
 ```ts
@@ -59,8 +61,6 @@ export class Engine {
   public verify<T>(condition: Condition<T>): Promise<boolean>;
 }
 ```
-
-*Note: The type definitions for `Action<T>` and `Condition<T>` can be found [here][cybernaut-types-type-definitions].*
 
 ---
 Built by (c) Clemens Akens. Released under the MIT license.
