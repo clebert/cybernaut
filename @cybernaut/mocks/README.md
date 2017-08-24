@@ -12,6 +12,8 @@ npm install --save-dev @cybernaut/mocks @types/jest
 
 ## Type definitions
 
+*Note: The type definitions for `Action<T>` and `Condition<T>` can be found [here][cybernaut-types-type-definitions].*
+
 ### @cybernaut/mocks/lib/MockAction
 
 ```ts
@@ -43,8 +45,6 @@ export class MockCondition<T> implements Condition<T> {
   public constructor(description: string, negated: boolean);
 }
 ```
-
-*Note: The type definitions for `Action<T>` and `Condition<T>` can be found [here][cybernaut-types-type-definitions].*
 
 ---
 Built by (c) Clemens Akens. Released under the MIT license.
