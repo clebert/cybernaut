@@ -11,11 +11,11 @@ Cybernaut is a multi-package repository (sometimes called [monorepo][monorepo]).
 
 ### For end users
 
-#### [@cybernaut/engine][cybernaut-engine] ⭐⭐⭐⭐⭐
+#### [@cybernaut/engine][cybernaut-engine] ❤️
 
-> An engine for reliably asserting/verifying conditions and for reliably performing actions.
+> The heart of Cybernaut: An engine for reliably asserting/verifying conditions and for reliably performing actions.
 
-#### [@cybernaut/chrome][cybernaut-chrome] ⭐⭐⭐⭐⭐
+#### [@cybernaut/chrome][cybernaut-chrome] ⭐
 
 > A [`@cybernaut/engine`][cybernaut-engine]-compatible API for [Google Chrome][google-chrome].
 

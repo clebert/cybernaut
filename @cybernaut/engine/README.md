@@ -1,6 +1,6 @@
 # @cybernaut/engine
 
-> An engine for reliably asserting/verifying conditions and for reliably performing actions.
+> The heart of Cybernaut: An engine for reliably asserting/verifying conditions and for reliably performing actions.
 
 ## Installation
 

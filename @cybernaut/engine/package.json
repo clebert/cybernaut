@@ -1,7 +1,7 @@
 {
   "name": "@cybernaut/engine",
   "version": "0.0.0",
-  "description": "An engine for reliably asserting/verifying conditions and for reliably performing actions.",
+  "description": "The heart of Cybernaut: An engine for reliably asserting/verifying conditions and for reliably performing actions.",
   "license": "MIT",
   "author": "Clemens Akens <clebert@me.com>",
   "repository": {
