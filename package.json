@@ -12,6 +12,7 @@
     "lint": "node ./scripts/lint.js && lerna run lint",
     "prerelease": "npm run clean && npm install && npm test",
     "release": "lerna publish --skip-npm && lerna run release",
+    "postrelease": "git push --follow-tags origin master",
     "pretest": "npm run compile",
     "test": "npm run format:check && npm run lint && jest --no-cache",
     "watch": "run-p watch:*",
