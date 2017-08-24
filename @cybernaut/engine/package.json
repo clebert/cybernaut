@@ -1,6 +1,6 @@
 {
   "name": "@cybernaut/engine",
-  "version": "0.0.0",
+  "version": "10.0.0",
   "description": "The heart of Cybernaut: An engine for reliably asserting/verifying conditions and for reliably performing actions.",
   "license": "MIT",
   "author": "Clemens Akens <clebert@me.com>",
@@ -20,10 +20,10 @@
   },
   "engines": {"node": ">=8"},
   "dependencies": {
-    "@cybernaut/types": "0.0.0",
-    "@cybernaut/utils": "0.0.0"
+    "@cybernaut/types": "^10.0.0",
+    "@cybernaut/utils": "^10.0.0"
   },
   "devDependencies": {
-    "@cybernaut/mocks": "0.0.0"
+    "@cybernaut/mocks": "^10.0.0"
   }
 }

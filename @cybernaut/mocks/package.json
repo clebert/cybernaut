@@ -1,6 +1,6 @@
 {
   "name": "@cybernaut/mocks",
-  "version": "0.0.0",
+  "version": "10.0.0",
   "description": "Shared mock objects.",
   "license": "MIT",
   "author": "Clemens Akens <clebert@me.com>",
@@ -20,6 +20,6 @@
   },
   "engines": {"node": ">=8"},
   "dependencies": {
-    "@cybernaut/types": "0.0.0"
+    "@cybernaut/types": "^10.0.0"
   }
 }
