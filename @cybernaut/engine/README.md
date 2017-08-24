@@ -41,12 +41,12 @@ const {assert, perform, verify} = new Engine({
 ## Type definitions
 
 ```ts
-export interface EngineOptions {
+interface EngineOptions {
   readonly retries: number; // Default: 4
   readonly retryDelay: number; // Default: 1000
 }
 
-export declare class Engine {
+class Engine {
   constructor(options?: Partial<EngineOptions>);
 
   assert<T>(condition: Condition<T>): Promise<void>;
