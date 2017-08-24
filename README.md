@@ -69,6 +69,12 @@ npm run format
 
 *Note: By default, a [Git Hook][git-hook] is installed to automatically format all files of a commit.*
 
+### Releasing a new version
+
+```sh
+npm run release
+```
+
 ---
 Built by (c) Clemens Akens. Released under the MIT license.
 
