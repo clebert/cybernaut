@@ -13,7 +13,7 @@ npm install --save @cybernaut/engine
 - [`@cybernaut/chrome`][cybernaut-chrome]
 - `@cybernaut/selenium` (planned)
 
-## Usage example
+## Usage example (JavaScript)
 
 ```js
 const {Engine} = require('@cybernaut/engine/lib/Engine');
@@ -40,18 +40,23 @@ const {assert, perform, verify} = new Engine({
 
 ## Type definitions
 
+### @cybernaut/engine/lib/Engine
+
 ```ts
-interface EngineOptions {
+import {Action} from '@cybernaut/types/lib/Action';
+import {Condition} from '@cybernaut/types/lib/Condition';
+
+export interface EngineOptions {
   readonly retries: number; // Default: 4
   readonly retryDelay: number; // Default: 1000
 }
 
-class Engine {
-  constructor(options?: Partial<EngineOptions>);
+export class Engine {
+  public constructor(options?: Partial<EngineOptions>);
 
-  assert<T>(condition: Condition<T>): Promise<void>;
-  perform<T>(action: Action<T>): Promise<T>;
-  verify<T>(condition: Condition<T>): Promise<boolean>;
+  public assert<T>(condition: Condition<T>): Promise<void>;
+  public perform<T>(action: Action<T>): Promise<T>;
+  public verify<T>(condition: Condition<T>): Promise<boolean>;
 }
 ```
 
