@@ -55,7 +55,10 @@ class Engine {
 }
 ```
 
+*Note: The type definitions for `Action<T>` and `Condition<T>` can be found [here][cybernaut-types-type-definitions].*
+
 ---
 Built by (c) Clemens Akens. Released under the MIT license.
 
 [cybernaut-chrome]: https://github.com/clebert/cybernaut/tree/master/%40cybernaut/chrome
+[cybernaut-types-type-definitions]: https://github.com/clebert/cybernaut/tree/master/%40cybernaut/types#type-definitions
