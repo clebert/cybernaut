@@ -1,5 +1,9 @@
 # @cybernaut/core
 
+[![Package Version][npm-cybernaut-core-badge]][npm-cybernaut-core]
+[![Build Status][travis-ci-badge]][travis-ci]
+[![Coverage Status][coveralls-badge]][coveralls]
+
 > The foundation (the core) of all [`@cybernaut/engine`][cybernaut-engine]-compatible APIs.
 
 ## Installation
@@ -122,5 +126,11 @@ export class StringProperty extends Describable {
 ---
 Built by (c) Clemens Akens. Released under the MIT license.
 
-[cybernaut-engine]: https://github.com/clebert/cybernaut/tree/master/%40cybernaut/engine
-[cybernaut-types-type-definitions]: https://github.com/clebert/cybernaut/tree/master/%40cybernaut/types#type-definitions
+[coveralls]: https://coveralls.io/github/clebert/cybernaut?branch=master
+[coveralls-badge]: https://coveralls.io/repos/github/clebert/cybernaut/badge.svg?branch=master
+[cybernaut-engine]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/engine
+[cybernaut-types-type-definitions]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/types#type-definitions
+[npm-cybernaut-core]: https://www.npmjs.com/package/@cybernaut/core
+[npm-cybernaut-core-badge]: https://img.shields.io/npm/v/@cybernaut/core.svg
+[travis-ci]: https://travis-ci.org/clebert/cybernaut
+[travis-ci-badge]: https://travis-ci.org/clebert/cybernaut.svg?branch=master

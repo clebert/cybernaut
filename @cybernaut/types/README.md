@@ -1,5 +1,9 @@
 # @cybernaut/types
 
+[![Package Version][npm-cybernaut-types-badge]][npm-cybernaut-types]
+[![Build Status][travis-ci-badge]][travis-ci]
+[![Coverage Status][coveralls-badge]][coveralls]
+
 > Shared [TypeScript][type-script] type definitions.
 
 ## Installation
@@ -56,4 +60,10 @@ export interface Condition<T> {
 ---
 Built by (c) Clemens Akens. Released under the MIT license.
 
+[coveralls]: https://coveralls.io/github/clebert/cybernaut?branch=master
+[coveralls-badge]: https://coveralls.io/repos/github/clebert/cybernaut/badge.svg?branch=master
+[npm-cybernaut-types]: https://www.npmjs.com/package/@cybernaut/types
+[npm-cybernaut-types-badge]: https://img.shields.io/npm/v/@cybernaut/types.svg
+[travis-ci]: https://travis-ci.org/clebert/cybernaut
+[travis-ci-badge]: https://travis-ci.org/clebert/cybernaut.svg?branch=master
 [type-script]: http://www.typescriptlang.org/

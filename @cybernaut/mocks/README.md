@@ -1,5 +1,9 @@
 # @cybernaut/mocks
 
+[![Package Version][npm-cybernaut-mocks-badge]][npm-cybernaut-mocks]
+[![Build Status][travis-ci-badge]][travis-ci]
+[![Coverage Status][coveralls-badge]][coveralls]
+
 > Shared [mock objects][mock-object].
 
 ## Installation
@@ -49,7 +53,13 @@ export class MockCondition<T> implements Condition<T> {
 ---
 Built by (c) Clemens Akens. Released under the MIT license.
 
-[cybernaut-types-type-definitions]: https://github.com/clebert/cybernaut/tree/master/%40cybernaut/types#type-definitions
+[coveralls]: https://coveralls.io/github/clebert/cybernaut?branch=master
+[coveralls-badge]: https://coveralls.io/repos/github/clebert/cybernaut/badge.svg?branch=master
+[cybernaut-types-type-definitions]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/types#type-definitions
 [mock-object]: https://en.wikipedia.org/wiki/Mock_object
+[npm-cybernaut-mocks]: https://www.npmjs.com/package/@cybernaut/mocks
+[npm-cybernaut-mocks-badge]: https://img.shields.io/npm/v/@cybernaut/mocks.svg
+[travis-ci]: https://travis-ci.org/clebert/cybernaut
+[travis-ci-badge]: https://travis-ci.org/clebert/cybernaut.svg?branch=master
 [type-script]: http://www.typescriptlang.org/
 [types-jest]: https://www.npmjs.com/package/@types/jest

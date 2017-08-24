@@ -1,5 +1,6 @@
 # [![Cybernaut][cybernaut-logo]][cybernaut-website]
 
+[![Package Version][npm-cybernaut-engine-badge]][npm-cybernaut-org]
 [![Build Status][travis-ci-badge]][travis-ci]
 [![Coverage Status][coveralls-badge]][coveralls]
 
@@ -80,18 +81,20 @@ Built by (c) Clemens Akens. Released under the MIT license.
 
 [coveralls]: https://coveralls.io/github/clebert/cybernaut?branch=master
 [coveralls-badge]: https://coveralls.io/repos/github/clebert/cybernaut/badge.svg?branch=master
-[cybernaut-chrome]: https://github.com/clebert/cybernaut/tree/master/%40cybernaut/chrome
-[cybernaut-core]: https://github.com/clebert/cybernaut/tree/master/%40cybernaut/core
-[cybernaut-engine]: https://github.com/clebert/cybernaut/tree/master/%40cybernaut/engine
+[cybernaut-chrome]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/chrome
+[cybernaut-core]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/core
+[cybernaut-engine]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/engine
 [cybernaut-logo]: https://clebert.github.io/cybernaut/logo.svg
-[cybernaut-mocks]: https://github.com/clebert/cybernaut/tree/master/%40cybernaut/mocks
-[cybernaut-types]: https://github.com/clebert/cybernaut/tree/master/%40cybernaut/types
-[cybernaut-utils]: https://github.com/clebert/cybernaut/tree/master/%40cybernaut/utils
+[cybernaut-mocks]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/mocks
+[cybernaut-types]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/types
+[cybernaut-utils]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/utils
 [cybernaut-website]: https://cybernaut.js.org/
 [git-hook]: https://git-scm.com/docs/githooks
 [google-chrome]: https://www.google.com/chrome/
 [mock-object]: https://en.wikipedia.org/wiki/Mock_object
 [monorepo]: https://github.com/babel/babel/blob/master/doc/design/monorepo.md
+[npm-cybernaut-engine-badge]: https://img.shields.io/npm/v/@cybernaut/engine.svg
+[npm-cybernaut-org]: https://www.npmjs.com/org/cybernaut
 [selenium-webdriver]: http://www.seleniumhq.org/projects/webdriver/
 [travis-ci]: https://travis-ci.org/clebert/cybernaut
 [travis-ci-badge]: https://travis-ci.org/clebert/cybernaut.svg?branch=master

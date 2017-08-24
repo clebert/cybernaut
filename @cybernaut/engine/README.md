@@ -1,5 +1,9 @@
 # @cybernaut/engine
 
+[![Package Version][npm-cybernaut-engine-badge]][npm-cybernaut-engine]
+[![Build Status][travis-ci-badge]][travis-ci]
+[![Coverage Status][coveralls-badge]][coveralls]
+
 > The heart of Cybernaut: An engine for reliably asserting/verifying conditions and for reliably performing actions.
 
 ## Installation
@@ -65,5 +69,11 @@ export class Engine {
 ---
 Built by (c) Clemens Akens. Released under the MIT license.
 
-[cybernaut-chrome]: https://github.com/clebert/cybernaut/tree/master/%40cybernaut/chrome
-[cybernaut-types-type-definitions]: https://github.com/clebert/cybernaut/tree/master/%40cybernaut/types#type-definitions
+[coveralls]: https://coveralls.io/github/clebert/cybernaut?branch=master
+[coveralls-badge]: https://coveralls.io/repos/github/clebert/cybernaut/badge.svg?branch=master
+[cybernaut-chrome]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/chrome
+[cybernaut-types-type-definitions]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/types#type-definitions
+[npm-cybernaut-engine]: https://www.npmjs.com/package/@cybernaut/engine
+[npm-cybernaut-engine-badge]: https://img.shields.io/npm/v/@cybernaut/engine.svg
+[travis-ci]: https://travis-ci.org/clebert/cybernaut
+[travis-ci-badge]: https://travis-ci.org/clebert/cybernaut.svg?branch=master
