@@ -1,5 +1,5 @@
 {
-  "name": "@cybernaut/chromeless",
+  "name": "@cybernaut/chrome",
   "version": "0.0.0",
   "description": "A @cybernaut/engine-compatible API for Google Chrome.",
   "license": "MIT",

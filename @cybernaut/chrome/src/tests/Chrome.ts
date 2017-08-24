@@ -13,7 +13,7 @@ describe('Chrome', () => {
     chrome = await Chrome.launchHeadless();
   });
 
-  it('should be able to control Chromeless as expected', async () => {
+  it('should work as expected', async () => {
     try {
       await perform(chrome.emulateDevice(Device.iPhone5()));
       await perform(chrome.navigate('https://spiegel.de/'));
