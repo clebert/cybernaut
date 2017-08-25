@@ -15,7 +15,11 @@ npm install --save @cybernaut/core
 
 ## Type definitions
 
-*Note: The type definitions for `Accessor<T>`, `Condition<T>`, and `Predicate<T>` can be found [here][type-definitions-cybernaut-types].*
+### External imports
+
+- [`@cybernaut/types/lib/Accessor`][type-definition-accessor]
+- [`@cybernaut/types/lib/Predicate`][type-definition-predicate]
+- [`@cybernaut/types/lib/Condition`][type-definition-condition]
 
 ### @cybernaut/core/lib/Describable
 
@@ -138,4 +142,6 @@ Built by (c) Clemens Akens. Released under the MIT license.
 
 [package-engine]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/engine
 
-[type-definitions-cybernaut-types]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/types#type-definitions
+[type-definition-accessor]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/types#cybernauttypeslibaccessor
+[type-definition-condition]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/types#cybernauttypeslibcondition
+[type-definition-predicate]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/types#cybernauttypeslibpredicate

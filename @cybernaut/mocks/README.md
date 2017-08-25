@@ -17,7 +17,10 @@ npm install --save-dev @cybernaut/mocks @types/jest
 
 ## Type definitions
 
-*Note: The type definitions for `Action<T>` and `Condition<T>` can be found [here][type-definitions-cybernaut-types].*
+### External imports
+
+- [`@cybernaut/types/lib/Action`][type-definition-action]
+- [`@cybernaut/types/lib/Condition`][type-definition-condition]
 
 ### @cybernaut/mocks/lib/MockAction
 
@@ -67,4 +70,5 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [external-typescript]: http://www.typescriptlang.org/
 [external-types-jest]: https://www.npmjs.com/package/@types/jest
 
-[type-definitions-cybernaut-types]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/types#type-definitions
+[type-definition-action]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/types#cybernauttypeslibaction
+[type-definition-condition]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/types#cybernauttypeslibcondition
