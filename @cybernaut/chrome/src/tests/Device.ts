@@ -1,5 +1,3 @@
-/* https://github.com/ChromeDevTools/devtools-frontend/blob/master/front_end/emulated_devices/module.json */
-
 import {Device} from '../Device';
 
 describe('Device.constructor()', () => {

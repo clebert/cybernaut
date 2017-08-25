@@ -1,8 +1,9 @@
 # @cybernaut/engine
 
-[![Package Version][npm-cybernaut-engine-badge]][npm-cybernaut-engine]
-[![Build Status][travis-ci-badge]][travis-ci]
-[![Coverage Status][coveralls-badge]][coveralls]
+[![Package Version][badge-npm-image]][badge-npm-link]
+[![Build Status][badge-travis-image]][badge-travis-link]
+[![Coverage Status][badge-coveralls-image]][badge-coveralls-link]
+[![GitHub Stars][badge-github-image]][badge-github-link]
 
 > The heart of Cybernaut: An engine for reliably asserting/verifying conditions and for reliably performing actions.
 
@@ -14,7 +15,7 @@ npm install --save @cybernaut/engine
 
 ## Compatible APIs
 
-- [`@cybernaut/chrome`][cybernaut-chrome]
+- [`@cybernaut/chrome`][package-chrome]
 - `@cybernaut/selenium` (planned)
 
 ## Usage example (JavaScript)
@@ -44,7 +45,7 @@ const {assert, perform, verify} = new Engine({
 
 ## Type definitions
 
-*Note: The type definitions for `Action<T>` and `Condition<T>` can be found [here][cybernaut-types-type-definitions].*
+*Note: The type definitions for `Action<T>` and `Condition<T>` can be found [here][type-definitions-cybernaut-types].*
 
 ### @cybernaut/engine/lib/Engine
 
@@ -69,11 +70,15 @@ export class Engine {
 ---
 Built by (c) Clemens Akens. Released under the MIT license.
 
-[coveralls]: https://coveralls.io/github/clebert/cybernaut?branch=master
-[coveralls-badge]: https://coveralls.io/repos/github/clebert/cybernaut/badge.svg?branch=master
-[cybernaut-chrome]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/chrome
-[cybernaut-types-type-definitions]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/types#type-definitions
-[npm-cybernaut-engine]: https://www.npmjs.com/package/@cybernaut/engine
-[npm-cybernaut-engine-badge]: https://img.shields.io/npm/v/@cybernaut/engine.svg
-[travis-ci]: https://travis-ci.org/clebert/cybernaut
-[travis-ci-badge]: https://travis-ci.org/clebert/cybernaut.svg?branch=master
+[badge-npm-image]: https://img.shields.io/npm/v/@cybernaut/engine.svg
+[badge-npm-link]: https://www.npmjs.com/package/@cybernaut/engine
+[badge-travis-image]: https://travis-ci.org/clebert/cybernaut.svg?branch=master
+[badge-travis-link]: https://travis-ci.org/clebert/cybernaut
+[badge-coveralls-image]: https://coveralls.io/repos/github/clebert/cybernaut/badge.svg?branch=master
+[badge-coveralls-link]: https://coveralls.io/github/clebert/cybernaut?branch=master
+[badge-github-image]: https://img.shields.io/github/stars/clebert/cybernaut.svg?style=social&label=GitHub&style=plastic
+[badge-github-link]: https://github.com/clebert/cybernaut
+
+[package-chrome]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/chrome
+
+[type-definitions-cybernaut-types]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/types#type-definitions

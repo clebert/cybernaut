@@ -1,10 +1,11 @@
 # @cybernaut/mocks
 
-[![Package Version][npm-cybernaut-mocks-badge]][npm-cybernaut-mocks]
-[![Build Status][travis-ci-badge]][travis-ci]
-[![Coverage Status][coveralls-badge]][coveralls]
+[![Package Version][badge-npm-image]][badge-npm-link]
+[![Build Status][badge-travis-image]][badge-travis-link]
+[![Coverage Status][badge-coveralls-image]][badge-coveralls-link]
+[![GitHub Stars][badge-github-image]][badge-github-link]
 
-> Shared [mock objects][mock-object].
+> Shared [mock objects][external-mock-object].
 
 ## Installation
 
@@ -12,11 +13,11 @@
 npm install --save-dev @cybernaut/mocks @types/jest
 ```
 
-*Note: [TypeScript][type-script] users need to install [`@types/jest`][types-jest] as a dev dependency.*
+*Note: [TypeScript][external-typescript] users need to install [`@types/jest`][external-types-jest] as a dev dependency.*
 
 ## Type definitions
 
-*Note: The type definitions for `Action<T>` and `Condition<T>` can be found [here][cybernaut-types-type-definitions].*
+*Note: The type definitions for `Action<T>` and `Condition<T>` can be found [here][type-definitions-cybernaut-types].*
 
 ### @cybernaut/mocks/lib/MockAction
 
@@ -53,13 +54,17 @@ export class MockCondition<T> implements Condition<T> {
 ---
 Built by (c) Clemens Akens. Released under the MIT license.
 
-[coveralls]: https://coveralls.io/github/clebert/cybernaut?branch=master
-[coveralls-badge]: https://coveralls.io/repos/github/clebert/cybernaut/badge.svg?branch=master
-[cybernaut-types-type-definitions]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/types#type-definitions
-[mock-object]: https://en.wikipedia.org/wiki/Mock_object
-[npm-cybernaut-mocks]: https://www.npmjs.com/package/@cybernaut/mocks
-[npm-cybernaut-mocks-badge]: https://img.shields.io/npm/v/@cybernaut/mocks.svg
-[travis-ci]: https://travis-ci.org/clebert/cybernaut
-[travis-ci-badge]: https://travis-ci.org/clebert/cybernaut.svg?branch=master
-[type-script]: http://www.typescriptlang.org/
-[types-jest]: https://www.npmjs.com/package/@types/jest
+[badge-npm-image]: https://img.shields.io/npm/v/@cybernaut/mocks.svg
+[badge-npm-link]: https://www.npmjs.com/package/@cybernaut/mocks
+[badge-travis-image]: https://travis-ci.org/clebert/cybernaut.svg?branch=master
+[badge-travis-link]: https://travis-ci.org/clebert/cybernaut
+[badge-coveralls-image]: https://coveralls.io/repos/github/clebert/cybernaut/badge.svg?branch=master
+[badge-coveralls-link]: https://coveralls.io/github/clebert/cybernaut?branch=master
+[badge-github-image]: https://img.shields.io/github/stars/clebert/cybernaut.svg?style=social&label=GitHub&style=plastic
+[badge-github-link]: https://github.com/clebert/cybernaut
+
+[external-mock-object]: https://en.wikipedia.org/wiki/Mock_object
+[external-typescript]: http://www.typescriptlang.org/
+[external-types-jest]: https://www.npmjs.com/package/@types/jest
+
+[type-definitions-cybernaut-types]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/types#type-definitions

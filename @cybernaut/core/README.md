@@ -1,10 +1,11 @@
 # @cybernaut/core
 
-[![Package Version][npm-cybernaut-core-badge]][npm-cybernaut-core]
-[![Build Status][travis-ci-badge]][travis-ci]
-[![Coverage Status][coveralls-badge]][coveralls]
+[![Package Version][badge-npm-image]][badge-npm-link]
+[![Build Status][badge-travis-image]][badge-travis-link]
+[![Coverage Status][badge-coveralls-image]][badge-coveralls-link]
+[![GitHub Stars][badge-github-image]][badge-github-link]
 
-> The foundation (the core) of all [`@cybernaut/engine`][cybernaut-engine]-compatible APIs.
+> The foundation (the core) of all [`@cybernaut/engine`][package-engine]-compatible APIs.
 
 ## Installation
 
@@ -14,7 +15,7 @@ npm install --save @cybernaut/core
 
 ## Type definitions
 
-*Note: The type definitions for `Accessor<T>`, `Condition<T>`, and `Predicate<T>` can be found [here][cybernaut-types-type-definitions].*
+*Note: The type definitions for `Accessor<T>`, `Condition<T>`, and `Predicate<T>` can be found [here][type-definitions-cybernaut-types].*
 
 ### @cybernaut/core/lib/Describable
 
@@ -126,11 +127,15 @@ export class StringProperty extends Describable {
 ---
 Built by (c) Clemens Akens. Released under the MIT license.
 
-[coveralls]: https://coveralls.io/github/clebert/cybernaut?branch=master
-[coveralls-badge]: https://coveralls.io/repos/github/clebert/cybernaut/badge.svg?branch=master
-[cybernaut-engine]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/engine
-[cybernaut-types-type-definitions]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/types#type-definitions
-[npm-cybernaut-core]: https://www.npmjs.com/package/@cybernaut/core
-[npm-cybernaut-core-badge]: https://img.shields.io/npm/v/@cybernaut/core.svg
-[travis-ci]: https://travis-ci.org/clebert/cybernaut
-[travis-ci-badge]: https://travis-ci.org/clebert/cybernaut.svg?branch=master
+[badge-npm-image]: https://img.shields.io/npm/v/@cybernaut/core.svg
+[badge-npm-link]: https://www.npmjs.com/package/@cybernaut/core
+[badge-travis-image]: https://travis-ci.org/clebert/cybernaut.svg?branch=master
+[badge-travis-link]: https://travis-ci.org/clebert/cybernaut
+[badge-coveralls-image]: https://coveralls.io/repos/github/clebert/cybernaut/badge.svg?branch=master
+[badge-coveralls-link]: https://coveralls.io/github/clebert/cybernaut?branch=master
+[badge-github-image]: https://img.shields.io/github/stars/clebert/cybernaut.svg?style=social&label=GitHub&style=plastic
+[badge-github-link]: https://github.com/clebert/cybernaut
+
+[package-engine]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/engine
+
+[type-definitions-cybernaut-types]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/types#type-definitions

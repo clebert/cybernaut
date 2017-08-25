@@ -1,10 +1,11 @@
 # @cybernaut/chrome
 
-[![Package Version][npm-cybernaut-chrome-badge]][npm-cybernaut-chrome]
-[![Build Status][travis-ci-badge]][travis-ci]
-[![Coverage Status][coveralls-badge]][coveralls]
+[![Package Version][badge-npm-image]][badge-npm-link]
+[![Build Status][badge-travis-image]][badge-travis-link]
+[![Coverage Status][badge-coveralls-image]][badge-coveralls-link]
+[![GitHub Stars][badge-github-image]][badge-github-link]
 
-> A [`@cybernaut/engine`][cybernaut-engine]-compatible API for [Google Chrome][google-chrome].
+> A [`@cybernaut/engine`][package-engine]-compatible API for [Google Chrome][external-google-chrome].
 
 *Note: This API is still work-in-progress and therefore incomplete and unstable.* 🔥
 
@@ -14,7 +15,7 @@
 npm install --save @cybernaut/chrome @cybernaut/engine
 ```
 
-*Note: [`@cybernaut/engine`][cybernaut-engine] is a peer dependency of `@cybernaut/chrome`.*
+*Note: [`@cybernaut/engine`][package-engine] is a peer dependency of `@cybernaut/chrome`.*
 
 ## Usage examples (JavaScript)
 
@@ -24,7 +25,7 @@ npm install --save @cybernaut/chrome @cybernaut/engine
 // TODO
 ```
 
-### [Jest][jest]
+### [Jest][external-jest]
 
 ```js
 // TODO
@@ -88,12 +89,16 @@ export class Chrome extends Describable {
 ---
 Built by (c) Clemens Akens. Released under the MIT license.
 
-[coveralls]: https://coveralls.io/github/clebert/cybernaut?branch=master
-[coveralls-badge]: https://coveralls.io/repos/github/clebert/cybernaut/badge.svg?branch=master
-[cybernaut-engine]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/engine
-[google-chrome]: https://www.google.com/chrome/
-[jest]: https://facebook.github.io/jest/
-[npm-cybernaut-chrome]: https://www.npmjs.com/package/@cybernaut/chrome
-[npm-cybernaut-chrome-badge]: https://img.shields.io/npm/v/@cybernaut/chrome.svg
-[travis-ci]: https://travis-ci.org/clebert/cybernaut
-[travis-ci-badge]: https://travis-ci.org/clebert/cybernaut.svg?branch=master
+[badge-npm-image]: https://img.shields.io/npm/v/@cybernaut/chrome.svg
+[badge-npm-link]: https://www.npmjs.com/package/@cybernaut/chrome
+[badge-travis-image]: https://travis-ci.org/clebert/cybernaut.svg?branch=master
+[badge-travis-link]: https://travis-ci.org/clebert/cybernaut
+[badge-coveralls-image]: https://coveralls.io/repos/github/clebert/cybernaut/badge.svg?branch=master
+[badge-coveralls-link]: https://coveralls.io/github/clebert/cybernaut?branch=master
+[badge-github-image]: https://img.shields.io/github/stars/clebert/cybernaut.svg?style=social&label=GitHub&style=plastic
+[badge-github-link]: https://github.com/clebert/cybernaut
+
+[package-engine]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/engine
+
+[external-google-chrome]: https://www.google.com/chrome/
+[external-jest]: https://facebook.github.io/jest/
