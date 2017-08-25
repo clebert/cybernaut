@@ -5,7 +5,7 @@
 [![Coverage Status][badge-coveralls-image]][badge-coveralls-link]
 [![GitHub Stars][badge-github-image]][badge-github-link]
 
-> Reliable, automated web UI testing in BDD-style.
+> Reliable, automated Web UI testing in BDD-style.
 
 ## Packages
 
