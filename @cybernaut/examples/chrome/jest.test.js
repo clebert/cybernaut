@@ -1,9 +1,14 @@
-/* IMPORTANT: If you edit this file, please copy all the changes you have made to the README of @cybernaut/chrome. */
+/* IMPORTANT: If you edit this file,
+ * please copy all the changes you have made to the README of @cybernaut/chrome.
+ */
 
 const {Chrome} = require('@cybernaut/chrome/lib/Chrome');
 const {Device} = require('@cybernaut/chrome/lib/Device');
 const {Engine} = require('@cybernaut/engine/lib/Engine');
 
+/* Automated web UI tests usually run much longer than unit tests,
+ * so the default timeout should be adjusted accordingly.
+ */
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000;
 
 const {assert, perform} = new Engine();

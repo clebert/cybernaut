@@ -60,6 +60,9 @@ const {Chrome} = require('@cybernaut/chrome/lib/Chrome');
 const {Device} = require('@cybernaut/chrome/lib/Device');
 const {Engine} = require('@cybernaut/engine/lib/Engine');
 
+/* Automated web UI tests usually run much longer than unit tests,
+ * so the default timeout should be adjusted accordingly.
+ */
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000;
 
 const {assert, perform} = new Engine();
@@ -92,9 +95,9 @@ test('example.com', async () => {
 
 ```ts
 export interface DeviceOptions {
-  readonly scaleFactor: number; // Default: 0
-  readonly mobile: boolean; // Default: false
-  readonly touch: boolean; // Default: false
+  readonly scaleFactor: number; /* Default: 0 */
+  readonly mobile: boolean; /* Default: false */
+  readonly touch: boolean; /* Default: false */
 }
 
 export class Device {

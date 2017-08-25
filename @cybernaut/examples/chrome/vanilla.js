@@ -1,4 +1,6 @@
-/* IMPORTANT: If you edit this file, please copy all the changes you have made to the README of @cybernaut/chrome. */
+/* IMPORTANT: If you edit this file,
+ * please copy all the changes you have made to the README of @cybernaut/chrome.
+ */
 
 const {Chrome} = require('@cybernaut/chrome/lib/Chrome');
 const {Device} = require('@cybernaut/chrome/lib/Device');

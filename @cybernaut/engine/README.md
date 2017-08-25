@@ -36,7 +36,7 @@ const {assert, perform, verify} = new Engine({
   await perform(anyAction);
 
   if (await verify(anyCondition)) {
-    // Do something ...
+    /* Do something ... */
   }
 })().catch(error => {
   console.error(error);
@@ -59,8 +59,8 @@ import {Action} from '@cybernaut/types/lib/Action';
 import {Condition} from '@cybernaut/types/lib/Condition';
 
 export interface EngineOptions {
-  readonly retries: number; // Default: 4
-  readonly retryDelay: number; // Default: 1000
+  readonly retries: number; /* Default: 4 */
+  readonly retryDelay: number; /* Default: 1000 */
 }
 
 export class Engine {
