@@ -14,7 +14,7 @@
     "release": "lerna publish --skip-npm && lerna run release",
     "postrelease": "git push --follow-tags origin master",
     "pretest": "npm run compile",
-    "test": "npm run format:check && npm run lint && jest --no-cache",
+    "test": "npm run format:check && npm run lint && jest --no-cache && lerna run examples",
     "watch": "run-p watch:*",
     "watch:compile": "lerna run watch:compile --stream --no-sort --concurrency 99",
     "watch:test": "jest --watch"

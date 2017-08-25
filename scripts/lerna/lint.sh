@@ -2,7 +2,7 @@
 
 set -e
 
-# IMPORTANT: If you change the script, please check it with ShellCheck.
+# IMPORTANT: If you edit this file, please validate it using ShellCheck.
 # http://www.shellcheck.net/
 
 NODE_MODULES=../../node_modules

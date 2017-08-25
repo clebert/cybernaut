@@ -17,7 +17,10 @@ npm install --save @cybernaut/engine
 
 - [`@cybernaut/chrome`][package-chrome]
 
-## Usage example (JavaScript)
+## Usage example
+
+The example uses language features of ECMAScript 2017.
+Particularly useful are [async functions][external-async-function] which are natively supported by [Node.js][external-nodejs] 7.6.0 or later.
 
 ```js
 const {Engine} = require('@cybernaut/engine/lib/Engine');
@@ -28,11 +31,11 @@ const {assert, perform, verify} = new Engine({
 });
 
 (async () => {
-  await assert(aCondition);
+  await assert(anyCondition);
 
-  await perform(anAction);
+  await perform(anyAction);
 
-  if (await verify(aCondition)) {
+  if (await verify(anyCondition)) {
     // Do something ...
   }
 })().catch(error => {
@@ -85,3 +88,6 @@ Built by (c) Clemens Akens. Released under the MIT license.
 
 [type-definition-action]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/types#cybernauttypeslibaction
 [type-definition-condition]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/types#cybernauttypeslibcondition
+
+[external-async-function]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
+[external-nodejs]: https://nodejs.org/en/

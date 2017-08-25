@@ -7,7 +7,7 @@
 
 > A [`@cybernaut/engine`][package-engine]-compatible API for [Google Chrome][external-google-chrome].
 
-*Note: This API is still work-in-progress and therefore incomplete and unstable.* 🔥
+**This API is still work-in-progress and therefore incomplete and unstable!** 🔥
 
 ## Installation
 
@@ -17,18 +17,73 @@ npm install --save @cybernaut/chrome @cybernaut/engine
 
 *Note: [`@cybernaut/engine`][package-engine] is a peer dependency of `@cybernaut/chrome`.*
 
-## Usage examples (JavaScript)
+## Usage examples
 
-### Vanilla
+Both examples use language features of ECMAScript 2017.
+Particularly useful are [async functions][external-async-function] which are natively supported by [Node.js][external-nodejs] 7.6.0 or later.
+
+### [Vanilla][external-vanilla-software]
 
 ```js
-// TODO
+const {Chrome} = require('@cybernaut/chrome/lib/Chrome');
+const {Device} = require('@cybernaut/chrome/lib/Device');
+const {Engine} = require('@cybernaut/engine/lib/Engine');
+
+const {assert, perform} = new Engine();
+
+(async () => {
+  const chrome = await Chrome.launchHeadless();
+
+  try {
+    await perform(chrome.emulateDevice(Device.iPhone5()));
+    await perform(chrome.navigate('https://www.example.com/'));
+
+    await assert(chrome.pageTitle.is.equalTo('Example Domain'));
+
+    const writeToFile = process.env.CI !== 'true';
+
+    console.info(await perform(chrome.captureScreenshot(writeToFile)));
+  } finally {
+    await chrome.quit();
+  }
+})().catch(error => {
+  console.error(error);
+
+  process.exit(1);
+});
 ```
 
 ### [Jest][external-jest]
 
 ```js
-// TODO
+const {Chrome} = require('@cybernaut/chrome/lib/Chrome');
+const {Device} = require('@cybernaut/chrome/lib/Device');
+const {Engine} = require('@cybernaut/engine/lib/Engine');
+
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000;
+
+const {assert, perform} = new Engine();
+
+let chrome;
+
+beforeEach(async () => {
+  chrome = await Chrome.launchHeadless();
+});
+
+test('example.com', async () => {
+  try {
+    await perform(chrome.emulateDevice(Device.iPhone5()));
+    await perform(chrome.navigate('https://www.example.com/'));
+
+    await assert(chrome.pageTitle.is.equalTo('Example Domain'));
+
+    const writeToFile = process.env.CI !== 'true';
+
+    console.info(await perform(chrome.captureScreenshot(writeToFile)));
+  } finally {
+    await chrome.quit();
+  }
+});
 ```
 
 ## Type definitions
@@ -100,5 +155,8 @@ Built by (c) Clemens Akens. Released under the MIT license.
 
 [package-engine]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/engine
 
+[external-async-function]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
 [external-google-chrome]: https://www.google.com/chrome/
 [external-jest]: https://facebook.github.io/jest/
+[external-nodejs]: https://nodejs.org/en/
+[external-vanilla-software]: https://en.wikipedia.org/wiki/Vanilla_software
