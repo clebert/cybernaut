@@ -16,7 +16,6 @@ npm install --save @cybernaut/engine
 ## Compatible APIs
 
 - [`@cybernaut/chrome`][package-chrome]
-- `@cybernaut/selenium` (planned)
 
 ## Usage example (JavaScript)
 

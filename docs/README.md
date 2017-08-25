@@ -1,4 +1,6 @@
-# [![Cybernaut][cybernaut-logo]][cybernaut-website]
+# Cybernaut
+
+![Cybernaut][cybernaut-logo]
 
 ## Packages
 
@@ -13,10 +15,6 @@ Cybernaut is a multi-package repository (sometimes called [monorepo][external-mo
 #### [@cybernaut/chrome][package-chrome] 🔥
 
 > A [`@cybernaut/engine`][package-engine]-compatible API for [Google Chrome][external-google-chrome].
-
-#### @cybernaut/selenium (planned)
-
-> A [`@cybernaut/engine`][package-engine]-compatible API for [Selenium WebDriver][external-selenium-webdriver].
 
 ### For API developers
 
@@ -50,4 +48,3 @@ Cybernaut is a multi-package repository (sometimes called [monorepo][external-mo
 [external-mock-object]: https://en.wikipedia.org/wiki/Mock_object
 [external-monorepo]: https://github.com/babel/babel/blob/master/doc/design/monorepo.md
 [external-typescript]: http://www.typescriptlang.org/
-[external-selenium-webdriver]: http://www.seleniumhq.org/projects/webdriver/
