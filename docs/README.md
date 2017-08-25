@@ -1,6 +1,4 @@
-# Cybernaut
-
-![Cybernaut][cybernaut-logo]
+# ![Cybernaut][cybernaut-logo]
 
 ## Packages
 
