@@ -85,7 +85,7 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [badge-github-image]: https://img.shields.io/github/stars/clebert/cybernaut.svg?style=social&label=GitHub&style=plastic
 [badge-github-link]: https://github.com/clebert/cybernaut
 
-[cybernaut-logo]: https://clebert.github.io/cybernaut/logo.svg
+[cybernaut-logo]: https://cybernaut.js.org/logo.svg
 [cybernaut-website]: https://cybernaut.js.org/
 
 [package-chrome]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/chrome

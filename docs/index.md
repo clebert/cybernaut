@@ -10,7 +10,7 @@
 
 > A [`@cybernaut/engine`][package-engine]-compatible API for [Google Chrome][external-google-chrome].
 
-[cybernaut-logo]: https://clebert.github.io/cybernaut/logo.svg
+[cybernaut-logo]: https://cybernaut.js.org/logo.svg
 
 [package-chrome]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/chrome
 [package-engine]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/engine
