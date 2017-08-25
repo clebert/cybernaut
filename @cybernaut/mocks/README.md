@@ -66,9 +66,9 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [badge-github-image]: https://img.shields.io/github/stars/clebert/cybernaut.svg?style=social&label=GitHub&style=plastic
 [badge-github-link]: https://github.com/clebert/cybernaut
 
+[type-definition-action]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/types#cybernauttypeslibaction
+[type-definition-condition]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/types#cybernauttypeslibcondition
+
 [external-mock-object]: https://en.wikipedia.org/wiki/Mock_object
 [external-typescript]: http://www.typescriptlang.org/
 [external-types-jest]: https://www.npmjs.com/package/@types/jest
-
-[type-definition-action]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/types#cybernauttypeslibaction
-[type-definition-condition]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/types#cybernauttypeslibcondition

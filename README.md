@@ -9,7 +9,7 @@
 
 ## Packages
 
-Cybernaut is a multi-package repository (sometimes called [monorepo][external-monorepo]).
+Cybernaut is a multi-package repository.
 
 ### For end users
 
@@ -98,5 +98,4 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [external-git-hook]: https://git-scm.com/docs/githooks
 [external-google-chrome]: https://www.google.com/chrome/
 [external-mock-object]: https://en.wikipedia.org/wiki/Mock_object
-[external-monorepo]: https://github.com/babel/babel/blob/master/doc/design/monorepo.md
 [external-typescript]: http://www.typescriptlang.org/
