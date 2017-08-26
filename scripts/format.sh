@@ -9,7 +9,13 @@ set -e
   --single-quote \
   --no-bracket-spacing \
   "$@" \
-  '{@cybernaut/*,scripts/**,.}/*.{js,json}'
+  '{@cybernaut/*,.}/*.json'
+
+"$(npm bin)"/prettier \
+  --single-quote \
+  --no-bracket-spacing \
+  "$@" \
+  '{@cybernaut/examples/**,scripts/**,.}/*.js'
 
 "$(npm bin)"/prettier \
   --single-quote \
