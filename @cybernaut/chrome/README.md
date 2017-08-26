@@ -36,7 +36,7 @@ const {assert, perform} = new Engine();
 
   try {
     await perform(chrome.emulateDevice(Device.iPhone5()));
-    await perform(chrome.navigate('https://www.example.com/'));
+    await perform(chrome.navigateTo('https://www.example.com/'));
 
     await assert(chrome.pageTitle.is.equalTo('Example Domain'));
 
@@ -76,7 +76,7 @@ beforeEach(async () => {
 test('example.com', async () => {
   try {
     await perform(chrome.emulateDevice(Device.iPhone5()));
-    await perform(chrome.navigate('https://www.example.com/'));
+    await perform(chrome.navigateTo('https://www.example.com/'));
 
     await assert(chrome.pageTitle.is.equalTo('Example Domain'));
 
@@ -138,7 +138,7 @@ export class Chrome extends Describable {
   public readonly pageUrl: StringProperty;
 
   public emulateDevice(device: Device, fitWindow: boolean = false): Action<void>;
-  public navigate(url: string, waitUntilLoaded: boolean = false): Action<void>;
+  public navigateTo(url: string, waitUntilLoaded: boolean = false): Action<void>;
   public captureScreenshot(writeToFile: boolean = false): Action<string>;
   public quit(): Promise<void>;
 }

@@ -16,7 +16,7 @@ describe('Chrome', () => {
   it('should work as expected', async () => {
     try {
       await perform(chrome.emulateDevice(Device.iPhone5()));
-      await perform(chrome.navigate('https://spiegel.de/'));
+      await perform(chrome.navigateTo('https://spiegel.de/'));
 
       await assert(chrome.pageTitle.is.containing('SPIEGEL ONLINE'));
       await assert(chrome.pageUrl.is.equalTo('http://m.spiegel.de/'));

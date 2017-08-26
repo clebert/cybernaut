@@ -91,7 +91,10 @@ export class Chrome extends Describable {
     };
   }
 
-  public navigate(url: string, waitUntilLoaded: boolean = false): Action<void> {
+  public navigateTo(
+    url: string,
+    waitUntilLoaded: boolean = false
+  ): Action<void> {
     return {
       description: this.describeMethodCall(...arguments),
       implementation: async () => {

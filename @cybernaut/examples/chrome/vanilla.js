@@ -13,7 +13,7 @@ const {assert, perform} = new Engine();
 
   try {
     await perform(chrome.emulateDevice(Device.iPhone5()));
-    await perform(chrome.navigate('https://www.example.com/'));
+    await perform(chrome.navigateTo('https://www.example.com/'));
 
     await assert(chrome.pageTitle.is.equalTo('Example Domain'));
 
