@@ -2,24 +2,18 @@
 
 set -e
 
-# IMPORTANT: If you edit this file, please validate it using ShellCheck.
+# IMPORTANT: If you edit this file, please validate it using ShellCheck:
 # http://www.shellcheck.net/
 
 "$(npm bin)"/prettier \
   --single-quote \
   --no-bracket-spacing \
   "$@" \
-  '{@cybernaut/*,.}/*.json'
-
-"$(npm bin)"/prettier \
-  --single-quote \
-  --no-bracket-spacing \
-  "$@" \
-  '{@cybernaut/examples/**,scripts/**,.}/*.js'
+  '**/*.{js,json,jsx}'
 
 "$(npm bin)"/prettier \
   --single-quote \
   --no-bracket-spacing \
   --parser typescript \
   "$@" \
-  '@cybernaut/*/{src,types}/**/*.{ts,tsx}'
+  '**/*.{ts,tsx}'
