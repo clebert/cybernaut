@@ -4,6 +4,17 @@
   "description": "Shared utility functions.",
   "license": "MIT",
   "author": "Clemens Akens <clebert@me.com>",
+  "keywords": [
+    "bdd",
+    "chrome",
+    "e2e",
+    "selenium",
+    "test",
+    "testing",
+    "ui",
+    "web",
+    "webdriver"
+  ],
   "homepage": "https://cybernaut.js.org/",
   "repository": {
     "type": "git",
@@ -12,7 +23,9 @@
   "bugs": {
     "url": "https://github.com/clebert/cybernaut/issues"
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "compile": "../../scripts/lerna/compile.sh",
     "lint": "../../scripts/lerna/lint.sh",
