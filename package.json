@@ -24,7 +24,7 @@
     "@commitlint/config-angular": "^3.1.1",
     "@commitlint/config-lerna-scopes": "^3.1.1",
     "@types/jest": "^20.0.8",
-    "@types/node": "^8.0.24",
+    "@types/node": "^8.0.25",
     "coveralls": "^2.13.1",
     "custom-tslint-formatters": "^2.1.1",
     "globby": "^6.1.0",
@@ -37,7 +37,7 @@
     "prettier": "^1.5.3",
     "ts-config": "^13.0.0",
     "ts-jest": "^20.0.10",
-    "tslint": "^5.6.0",
+    "tslint": "^5.7.0",
     "typescript": "^2.4.2"
   },
   "jest": {
