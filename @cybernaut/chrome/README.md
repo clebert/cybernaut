@@ -91,6 +91,12 @@ test('example.com', async () => {
 
 ## Type definitions
 
+### External imports
+
+- [`@cybernaut/core/lib/Describable`][type-definition-describable]
+- [`@cybernaut/core/lib/StringProperty`][type-definition-string-property]
+- [`@cybernaut/types/lib/Action`][type-definition-action]
+
 ### @cybernaut/chrome/lib/Device
 
 ```ts
@@ -157,6 +163,10 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [badge-github-link]: https://github.com/clebert/cybernaut
 
 [package-engine]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/engine
+
+[type-definition-action]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/types#cybernauttypeslibaction
+[type-definition-describable]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/core#cybernautcorelibdescribable
+[type-definition-string-property]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/core#cybernautcorelibstringproperty
 
 [external-async-function]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
 [external-google-chrome]: https://www.google.com/chrome/
