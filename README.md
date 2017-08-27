@@ -3,7 +3,6 @@
 [![Package Version][badge-npm-image]][badge-npm-link]
 [![Build Status][badge-travis-image]][badge-travis-link]
 [![Coverage Status][badge-coveralls-image]][badge-coveralls-link]
-[![GitHub Stars][badge-github-image]][badge-github-link]
 
 > Reliable, automated Web UI testing in BDD-style.
 
@@ -46,6 +45,8 @@ Cybernaut is a multi-package repository.
 ```sh
 npm install
 ```
+
+*Note: Please also install [Google Chrome][external-google-chrome] 59 or later.*
 
 ### Upgrading dependencies
 
@@ -94,8 +95,6 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [badge-travis-link]: https://travis-ci.org/clebert/cybernaut
 [badge-coveralls-image]: https://coveralls.io/repos/github/clebert/cybernaut/badge.svg?branch=master
 [badge-coveralls-link]: https://coveralls.io/github/clebert/cybernaut?branch=master
-[badge-github-image]: https://img.shields.io/github/stars/clebert/cybernaut.svg?style=social&label=GitHub&style=plastic
-[badge-github-link]: https://github.com/clebert/cybernaut
 
 [cybernaut-logo]: https://cybernaut.js.org/logo.svg
 [cybernaut-website]: https://cybernaut.js.org/
