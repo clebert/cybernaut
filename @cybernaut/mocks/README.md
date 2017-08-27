@@ -54,7 +54,7 @@ export class MockCondition<T> implements Condition<T> {
 ```
 
 ---
-Built by (c) Clemens Akens. Released under the MIT license.
+Built by (c) Clemens Akens. Released under the terms of the [MIT License][cybernaut-license].
 
 [badge-npm-image]: https://img.shields.io/npm/v/@cybernaut/mocks.svg
 [badge-npm-link]: https://www.npmjs.com/package/@cybernaut/mocks
@@ -62,6 +62,8 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [badge-travis-link]: https://travis-ci.org/clebert/cybernaut
 [badge-coveralls-image]: https://coveralls.io/repos/github/clebert/cybernaut/badge.svg?branch=master
 [badge-coveralls-link]: https://coveralls.io/github/clebert/cybernaut?branch=master
+
+[cybernaut-license]: https://github.com/clebert/cybernaut/blob/master/LICENSE
 
 [type-definition-action]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/types#cybernauttypeslibaction
 [type-definition-condition]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/types#cybernauttypeslibcondition

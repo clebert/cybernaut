@@ -128,7 +128,7 @@ export class StringProperty extends Describable {
 ```
 
 ---
-Built by (c) Clemens Akens. Released under the MIT license.
+Built by (c) Clemens Akens. Released under the terms of the [MIT License][cybernaut-license].
 
 [badge-npm-image]: https://img.shields.io/npm/v/@cybernaut/core.svg
 [badge-npm-link]: https://www.npmjs.com/package/@cybernaut/core
@@ -136,6 +136,8 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [badge-travis-link]: https://travis-ci.org/clebert/cybernaut
 [badge-coveralls-image]: https://coveralls.io/repos/github/clebert/cybernaut/badge.svg?branch=master
 [badge-coveralls-link]: https://coveralls.io/github/clebert/cybernaut?branch=master
+
+[cybernaut-license]: https://github.com/clebert/cybernaut/blob/master/LICENSE
 
 [package-engine]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/engine
 

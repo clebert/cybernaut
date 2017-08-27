@@ -87,7 +87,7 @@ npm run release
 ```
 
 ---
-Built by (c) Clemens Akens. Released under the MIT license.
+Built by (c) Clemens Akens. Released under the terms of the [MIT License][cybernaut-license].
 
 [badge-npm-image]: https://img.shields.io/npm/v/@cybernaut/engine.svg
 [badge-npm-link]: https://www.npmjs.com/org/cybernaut
@@ -96,6 +96,7 @@ Built by (c) Clemens Akens. Released under the MIT license.
 [badge-coveralls-image]: https://coveralls.io/repos/github/clebert/cybernaut/badge.svg?branch=master
 [badge-coveralls-link]: https://coveralls.io/github/clebert/cybernaut?branch=master
 
+[cybernaut-license]: https://github.com/clebert/cybernaut/blob/master/LICENSE
 [cybernaut-logo]: https://cybernaut.js.org/logo.svg
 [cybernaut-website]: https://cybernaut.js.org/
 
