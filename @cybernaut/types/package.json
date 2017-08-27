@@ -26,12 +26,6 @@
   "files": [
     "lib"
   ],
-  "scripts": {
-    "compile": "../../scripts/lerna/compile.sh",
-    "lint": "../../scripts/lerna/lint.sh",
-    "release": "npm publish --access=public",
-    "watch:compile": "../../scripts/lerna/compile.sh --watch"
-  },
   "engines": {
     "node": ">=8"
   }

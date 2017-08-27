@@ -2,22 +2,26 @@
   "name": "cybernaut",
   "private": true,
   "scripts": {
-    "precommit": "lint-staged",
-    "commitmsg": "commitlint --edit",
-    "postinstall": "./scripts/copy.sh && lerna bootstrap",
     "clean": "./scripts/clean.sh",
+    "precommit": "lint-staged",
     "commit": "commit",
-    "compile": "lerna run compile",
-    "format": "./scripts/format.sh --write",
-    "format:check": "./scripts/format.sh --list-different",
-    "lint": "node ./scripts/lint.js && lerna run lint",
+    "commitmsg": "commitlint --edit",
+    "precompile": "lerna exec --ignore @cybernaut/examples -- rm -rf lib/",
+    "compile": "lerna exec --ignore @cybernaut/examples -- tsc --project .",
+    "postcompile": "lerna exec --ignore @cybernaut/examples -- rm -rf lib/tests/",
+    "examples": "lerna exec --scope @cybernaut/examples -- jest --no-cache && node @cybernaut/examples/chrome/vanilla.js",
+    "format": "./scripts/prettier.sh --write",
+    "format:test": "./scripts/prettier.sh --list-different",
+    "postinstall": "./scripts/copy.sh && lerna bootstrap",
+    "lint": "node scripts/markdownlint.js && lerna exec --ignore @cybernaut/examples -- ../../scripts/lerna/tslint.sh",
     "prerelease": "npm run clean && npm install && npm test",
-    "release": "lerna publish --skip-npm && lerna run release",
+    "release": "lerna publish --skip-npm && lerna exec --ignore @cybernaut/examples -- npm publish --access=public",
     "postrelease": "git push --follow-tags origin master",
     "pretest": "npm run compile",
-    "test": "npm run format:check && npm run lint && jest --no-cache && lerna run examples",
+    "test": "npm run format:test && npm run lint && jest --no-cache && npm run examples",
+    "upgrade": "lerna exec -- ncu --upgrade",
     "watch": "run-p watch:*",
-    "watch:compile": "lerna run watch:compile --stream --no-sort --concurrency 99",
+    "watch:compile": "lerna exec --ignore @cybernaut/examples --parallel --concurrency 99 -- tsc --project . --watch",
     "watch:test": "jest --watch"
   },
   "devDependencies": {
@@ -35,6 +39,7 @@
     "lerna": "^2.1.0",
     "lint-staged": "^4.0.4",
     "markdownlint": "^0.6.0",
+    "npm-check-updates": "^2.12.1",
     "npm-run-all": "^4.0.2",
     "prettier": "1.6.0-beta2",
     "ts-config": "^13.0.0",
@@ -60,8 +65,16 @@
       }
     },
     "mapCoverage": true,
-    "moduleFileExtensions": ["js", "jsx", "json", "ts", "tsx"],
-    "testMatch": ["**/@cybernaut/*/src/**/tests/**/*.{ts,tsx}"],
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "json",
+      "ts",
+      "tsx"
+    ],
+    "testMatch": [
+      "**/@cybernaut/*/src/**/tests/**/*.{ts,tsx}"
+    ],
     "transform": {
       ".ts": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },

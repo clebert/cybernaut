@@ -1,3 +1,5 @@
+@cybernaut/*/tsconfig.json
+@cybernaut/*/tslint.json
 coverage/
 lib/
 node_modules/

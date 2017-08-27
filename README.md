@@ -47,6 +47,12 @@ Cybernaut is a multi-package repository.
 npm install
 ```
 
+### Upgrading dependencies
+
+```sh
+npm run upgrade
+```
+
 ### Compiling sources and running unit tests continuously
 
 ```sh

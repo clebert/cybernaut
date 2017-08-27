@@ -1,9 +1,6 @@
 {
   "name": "@cybernaut/examples",
   "private": true,
-  "scripts": {
-    "examples": "../../scripts/lerna/examples.sh"
-  },
   "dependencies": {
     "@cybernaut/chrome": "^11.0.0",
     "@cybernaut/engine": "^11.0.0"
