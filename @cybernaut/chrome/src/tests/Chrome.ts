@@ -1,31 +1,46 @@
 import {Engine} from '@cybernaut/engine/lib/Engine';
+import * as express from 'express';
+import {Server} from 'http';
+import {join} from 'path';
+import {getPortPromise} from 'portfinder';
 import {Chrome} from '../Chrome';
-import {Device} from '../Device';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000;
 
 const {assert, perform} = new Engine();
 
-describe('Chrome', () => {
-  let chrome: Chrome;
+const app = express();
 
-  beforeEach(async () => {
-    chrome = await Chrome.launchHeadless();
-  });
+app.use(express.static(join(__dirname, 'fixtures')));
 
-  it('should work as expected', async () => {
-    try {
-      await perform(chrome.emulateDevice(Device.iPhone5()));
-      await perform(chrome.navigateTo('https://spiegel.de/'));
+let chrome: Chrome;
+let port: number;
+let server: Server;
 
-      await assert(chrome.pageTitle.is.containing('SPIEGEL ONLINE'));
-      await assert(chrome.pageUrl.is.equalTo('http://m.spiegel.de/'));
+function createUrl(name: string = ''): string {
+  return `http://localhost:${port}/${name}`;
+}
 
-      console.info(
-        await perform(chrome.captureScreenshot(process.env.CI !== 'true'))
-      );
-    } finally {
-      await chrome.quit();
-    }
-  });
+beforeEach(async () => {
+  chrome = await Chrome.launchHeadless();
+  port = await getPortPromise();
+  server = app.listen(port);
+});
+
+afterEach(async () => {
+  try {
+    await chrome.quit();
+  } finally {
+    server.close();
+  }
+});
+
+test('navigate to test page', async () => {
+  await perform(chrome.navigateTo(createUrl()));
+
+  await assert(chrome.pageTitle.is.containing('Test'));
+
+  const writeToFile = process.env.CI !== 'true';
+
+  console.info(await perform(chrome.captureScreenshot(writeToFile)));
 });

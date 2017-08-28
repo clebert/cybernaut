@@ -19,17 +19,17 @@ beforeEach(async () => {
   chrome = await Chrome.launchHeadless();
 });
 
-test('example', async () => {
-  try {
-    await perform(chrome.emulateDevice(Device.iPhone5()));
-    await perform(chrome.navigateTo('https://www.example.com/'));
+afterEach(async () => {
+  await chrome.quit();
+});
 
-    await assert(chrome.pageTitle.is.equalTo('Example Domain'));
+test('example.com', async () => {
+  await perform(chrome.emulateDevice(Device.iPhone5()));
+  await perform(chrome.navigateTo('https://www.example.com/'));
 
-    const writeToFile = process.env.CI !== 'true';
+  await assert(chrome.pageTitle.is.equalTo('Example Domain'));
 
-    console.info(await perform(chrome.captureScreenshot(writeToFile)));
-  } finally {
-    await chrome.quit();
-  }
+  const writeToFile = process.env.CI !== 'true';
+
+  console.info(await perform(chrome.captureScreenshot(writeToFile)));
 });
