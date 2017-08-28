@@ -19,7 +19,7 @@
     "postrelease": "git push --follow-tags origin master",
     "pretest": "npm run compile",
     "test": "npm run format:test && npm run lint && jest --no-cache && npm run examples",
-    "upgrade": "lerna exec -- ncu --upgrade",
+    "upgrade": "ncu -ua && lerna exec -- ncu -ua",
     "watch": "run-p watch:*",
     "watch:compile": "lerna exec --ignore @cybernaut/examples --parallel --concurrency 99 -- tsc --project . --watch",
     "watch:test": "jest --watch"
@@ -42,7 +42,7 @@
     "lint-staged": "^4.0.4",
     "markdownlint": "^0.6.0",
     "npm-check-updates": "^2.12.1",
-    "npm-run-all": "^4.0.2",
+    "npm-run-all": "^4.1.1",
     "portfinder": "^1.0.13",
     "prettier": "1.6.0-beta2",
     "ts-config": "^13.0.0",
