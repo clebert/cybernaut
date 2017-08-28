@@ -18,9 +18,6 @@ npm install --save @cybernaut/engine
 
 ## Usage example
 
-The example uses language features of ECMAScript 2017.
-Particularly useful are [async functions][external-async-function] which are natively supported by [Node.js][external-nodejs] 7.6.0 or later.
-
 ```js
 const {Engine} = require('@cybernaut/engine/lib/Engine');
 
@@ -43,6 +40,9 @@ const {assert, perform, verify} = new Engine({
   process.exit(1);
 });
 ```
+
+*Note: This example uses language features of ECMAScript 2017.
+Particularly useful are [async functions][external-async-function] which are natively supported by [Node.js][external-nodejs] 7.6.0 or later.*
 
 ## Type definitions
 

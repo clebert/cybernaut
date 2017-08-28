@@ -18,9 +18,6 @@ npm install --save @cybernaut/chrome @cybernaut/engine
 
 ## Usage examples
 
-Both examples use language features of ECMAScript 2017.
-Particularly useful are [async functions][external-async-function] which are natively supported by [Node.js][external-nodejs] 7.6.0 or later.
-
 ### [Vanilla][external-vanilla-software]
 
 ```js
@@ -87,6 +84,9 @@ test('example.com', async () => {
   console.info(await perform(chrome.captureScreenshot(writeToFile)));
 });
 ```
+
+*Note: Both examples use language features of ECMAScript 2017.
+Particularly useful are [async functions][external-async-function] which are natively supported by [Node.js][external-nodejs] 7.6.0 or later.*
 
 ## Type definitions
 
