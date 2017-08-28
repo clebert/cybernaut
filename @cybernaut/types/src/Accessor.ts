@@ -1,1 +1,2 @@
-export type Accessor<T> = () => Promise<T>;
+/* tslint:disable-next-line no-any*/
+export type Accessor = () => Promise<any>;

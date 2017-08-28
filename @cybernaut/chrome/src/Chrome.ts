@@ -4,7 +4,7 @@ import CDP = require('chrome-remote-interface');
 import tempWrite = require('temp-write');
 
 import {Describable} from '@cybernaut/core/lib/Describable';
-import {StringProperty} from '@cybernaut/core/lib/StringProperty';
+import {Property} from '@cybernaut/core/lib/Property';
 import {Action} from '@cybernaut/types/lib/Action';
 import {getOption} from '@cybernaut/utils/lib/getOption';
 import {LaunchedChrome, launch} from 'chrome-launcher';
@@ -47,18 +47,18 @@ export class Chrome extends Describable {
     this.chromeProcess = chromeProcess;
   }
 
-  public get pageTitle(): StringProperty {
+  public get pageTitle(): Property {
     /* istanbul ignore next */
-    return new StringProperty(this.description, async () =>
-      this.run(() => document.title)
-    );
+    const script = () => document.title;
+
+    return new Property(this.description, async () => this.evaluate(script));
   }
 
-  public get pageUrl(): StringProperty {
+  public get pageUrl(): Property {
     /* istanbul ignore next */
-    return new StringProperty(this.description, async () =>
-      this.run(() => window.location.href)
-    );
+    const script = () => window.location.href;
+
+    return new Property(this.description, async () => this.evaluate(script));
   }
 
   public emulateDevice(
@@ -138,8 +138,7 @@ export class Chrome extends Describable {
     }
   }
 
-  /* tslint:disable-next-line no-any */
-  private async run<T>(script: () => T): Promise<T> {
+  private async evaluate<T>(script: () => T): Promise<T> {
     const expression = `(${script.toString()})()`;
     const {result} = await this.client.Runtime.evaluate({expression});
     const {className, description, subtype, type} = result;

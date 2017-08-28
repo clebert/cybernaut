@@ -1,5 +1,5 @@
-import {MockAction} from '@cybernaut/mocks/lib//MockAction';
-import {MockCondition} from '@cybernaut/mocks/lib//MockCondition';
+import {MockAction} from '@cybernaut/mocks/lib/MockAction';
+import {MockCondition} from '@cybernaut/mocks/lib/MockCondition';
 import {Engine} from '../Engine';
 
 /* This function works in conjunction with Jest fake timers. */
@@ -9,9 +9,10 @@ async function nap(): Promise<void> {
   }
 }
 
-let action: MockAction<any>; /* tslint:disable-line no-any */
-let condition: MockCondition<any>; /* tslint:disable-line no-any */
-let negatedCondition: MockCondition<any>; /* tslint:disable-line no-any */
+/* tslint:disable-next-line no-any */
+let action: MockAction<any>;
+let condition: MockCondition;
+let negatedCondition: MockCondition;
 let error: Error;
 
 beforeEach(() => {

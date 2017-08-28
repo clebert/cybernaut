@@ -43,10 +43,10 @@ export class MockAction<T> implements Action<T> {
 
 import {Condition} from '@cybernaut/types/lib/Condition';
 
-export class MockCondition<T> implements Condition<T> {
+export class MockCondition implements Condition {
   public readonly description: string;
-  public readonly accessor: jest.Mock<T>;
-  public readonly predicate: jest.Mock<T>;
+  public readonly accessor: jest.Mock<any>;
+  public readonly predicate: jest.Mock<any>;
   public readonly negated: boolean;
 
   public constructor(description: string, negated: boolean);

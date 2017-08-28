@@ -3,8 +3,9 @@ import {Condition} from '@cybernaut/types/lib/Condition';
 import {format} from '@cybernaut/utils/lib/format';
 import {getOption} from '@cybernaut/utils/lib/getOption';
 
-interface ConditionResult<T> {
-  readonly actualValue: T;
+interface ConditionResult {
+  /* tslint:disable-next-line no-any */
+  readonly actualValue: any;
   readonly attempts: number;
 }
 
@@ -32,10 +33,10 @@ export class Engine {
     this.verify = this.verify.bind(this);
   }
 
-  public async assert<T>(condition: Condition<T>): Promise<void> {
+  public async assert(condition: Condition): Promise<void> {
     const {description} = condition;
 
-    let result: ConditionResult<T> | undefined;
+    let result: ConditionResult | undefined;
 
     try {
       result = await this.check(condition);
@@ -72,7 +73,7 @@ export class Engine {
     }
   }
 
-  public async verify<T>(condition: Condition<T>): Promise<boolean> {
+  public async verify(condition: Condition): Promise<boolean> {
     const {description} = condition;
 
     try {
@@ -88,7 +89,7 @@ export class Engine {
     }
   }
 
-  private async check<T>(condition: Condition<T>): Promise<ConditionResult<T>> {
+  private async check(condition: Condition): Promise<ConditionResult> {
     const {accessor, negated, predicate} = condition;
 
     let attempt = 1;

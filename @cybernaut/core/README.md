@@ -17,8 +17,8 @@ npm install --save @cybernaut/core
 ### External imports
 
 - [`@cybernaut/types/lib/Accessor`][type-definition-accessor]
-- [`@cybernaut/types/lib/Predicate`][type-definition-predicate]
 - [`@cybernaut/types/lib/Condition`][type-definition-condition]
+- [`@cybernaut/types/lib/Predicate`][type-definition-predicate]
 
 ### @cybernaut/core/lib/Describable
 
@@ -32,7 +32,7 @@ export abstract class Describable {
 }
 ```
 
-### @cybernaut/core/lib/GenericConditionBuilder
+### @cybernaut/core/lib/ConditionBuilder
 
 ```ts
 import {Describable} from '@cybernaut/core/lib/Describable';
@@ -40,90 +40,34 @@ import {Accessor} from '@cybernaut/types/lib/Accessor';
 import {Condition} from '@cybernaut/types/lib/Condition';
 import {Predicate} from '@cybernaut/types/lib/Predicate';
 
-export class GenericConditionBuilder<T> extends Describable {
-  public constructor(description: string, accessor: Accessor<T>, negated: boolean);
+export class ConditionBuilder extends Describable {
+  public constructor(description: string, accessor: Accessor, negated: boolean);
 
-  public equalTo(value: T): Condition<T>;
+  public equalTo(value: any): Condition;
 
-  protected condition(description: string, predicate: Predicate<T>): Condition<T>;
+  public above(value: number): Condition;
+  public atLeast(value: number): Condition;
+  public atMost(value: number): Condition;
+  public below(value: number): Condition;
+  public between(minValue: number, maxValue: number): Condition;
+
+  public containing(value: string): Condition;
+  public matching(value: RegExp): Condition;
 }
 ```
 
-### @cybernaut/core/lib/GenericProperty
+### @cybernaut/core/lib/Property
 
 ```ts
+import {ConditionBuilder} from '@cybernaut/core/lib/ConditionBuilder';
 import {Describable} from '@cybernaut/core/lib/Describable';
-import {GenericConditionBuilder} from '@cybernaut/core/lib/GenericConditionBuilder';
 import {Accessor} from '@cybernaut/types/lib/Accessor';
 
-export class GenericProperty<T> extends Describable {
-  public constructor(description: string, accessor: Accessor<T>);
+export class Property extends Describable {
+  public constructor(description: string, accessor: Accessor);
 
-  public readonly is: GenericConditionBuilder<T>;
-  public readonly isNot: GenericConditionBuilder<T>;
-}
-```
-
-### @cybernaut/core/lib/NumberConditionBuilder
-
-```ts
-import {GenericConditionBuilder} from '@cybernaut/core/lib/GenericConditionBuilder';
-import {Accessor} from '@cybernaut/types/lib/Accessor';
-import {Condition} from '@cybernaut/types/lib/Condition';
-
-export class NumberConditionBuilder extends GenericConditionBuilder<number> {
-  public constructor(description: string, accessor: Accessor<number>, negated: boolean);
-
-  public above(value: number): Condition<number>;
-  public atLeast(value: number): Condition<number>;
-  public atMost(value: number): Condition<number>;
-  public below(value: number): Condition<number>;
-  public between(minValue: number, maxValue: number): Condition<number>;
-}
-```
-
-### @cybernaut/core/lib/NumberProperty
-
-```ts
-import {Describable} from '@cybernaut/core/lib/Describable';
-import {NumberConditionBuilder} from '@cybernaut/core/lib/NumberConditionBuilder';
-import {Accessor} from '@cybernaut/types/lib/Accessor';
-
-export class NumberProperty extends Describable {
-  public constructor(description: string, accessor: Accessor<number>);
-
-  public readonly is: NumberConditionBuilder;
-  public readonly isNot: NumberConditionBuilder;
-}
-```
-
-### @cybernaut/core/lib/StringConditionBuilder
-
-```ts
-import {GenericConditionBuilder} from '@cybernaut/core/lib/GenericConditionBuilder';
-import {Accessor} from '@cybernaut/types/lib/Accessor';
-import {Condition} from '@cybernaut/types/lib/Condition';
-
-export class StringConditionBuilder extends GenericConditionBuilder<string> {
-  public constructor(description: string, accessor: Accessor<string>, negated: boolean);
-
-  public containing(value: string): Condition<string>;
-  public matching(value: RegExp): Condition<string>;
-}
-```
-
-### @cybernaut/core/lib/StringProperty
-
-```ts
-import {Describable} from '@cybernaut/core/lib/Describable';
-import {StringConditionBuilder} from '@cybernaut/core/lib/StringConditionBuilder';
-import {Accessor} from '@cybernaut/types/lib/Accessor';
-
-export class StringProperty extends Describable {
-  public constructor(description: string, accessor: Accessor<string>);
-
-  public readonly is: StringConditionBuilder;
-  public readonly isNot: StringConditionBuilder;
+  public readonly is: ConditionBuilder;
+  public readonly isNot: ConditionBuilder;
 }
 ```
 

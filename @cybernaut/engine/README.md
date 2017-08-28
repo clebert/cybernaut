@@ -65,9 +65,9 @@ export interface EngineOptions {
 export class Engine {
   public constructor(options?: Partial<EngineOptions>);
 
-  public assert<T>(condition: Condition<T>): Promise<void>;
+  public assert(condition: Condition): Promise<void>;
   public perform<T>(action: Action<T>): Promise<T>;
-  public verify<T>(condition: Condition<T>): Promise<boolean>;
+  public verify(condition: Condition): Promise<boolean>;
 }
 ```
 

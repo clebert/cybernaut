@@ -1,1 +1,2 @@
-export type Predicate<T> = (actualValue: T) => boolean;
+/* tslint:disable-next-line no-any*/
+export type Predicate = (actualValue: any) => boolean;

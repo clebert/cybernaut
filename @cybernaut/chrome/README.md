@@ -93,7 +93,7 @@ Particularly useful are [async functions][external-async-function] which are nat
 ### External imports
 
 - [`@cybernaut/core/lib/Describable`][type-definition-describable]
-- [`@cybernaut/core/lib/StringProperty`][type-definition-string-property]
+- [`@cybernaut/core/lib/Property`][type-definition-property]
 - [`@cybernaut/types/lib/Action`][type-definition-action]
 
 ### @cybernaut/chrome/lib/Device
@@ -127,7 +127,7 @@ export class Device {
 ```ts
 import {Device} from '@cybernaut/chrome/lib/Device';
 import {Describable} from '@cybernaut/core/lib/Describable';
-import {StringProperty} from '@cybernaut/core/lib/StringProperty';
+import {Property} from '@cybernaut/core/lib/Property';
 import {Action} from '@cybernaut/types/lib/Action';
 
 export interface ChromeOptions {
@@ -139,8 +139,8 @@ export class Chrome extends Describable {
   public static launch(options?: Partial<ChromeOptions>): Promise<Chrome>;
   public static launchHeadless(options?: Partial<ChromeOptions>): Promise<Chrome>;
 
-  public readonly pageTitle: StringProperty;
-  public readonly pageUrl: StringProperty;
+  public readonly pageTitle: Property;
+  public readonly pageUrl: Property;
 
   public emulateDevice(device: Device, fitWindow: boolean = false): Action<void>;
   public navigateTo(url: string, waitUntilLoaded: boolean = false): Action<void>;
@@ -165,7 +165,7 @@ Built by (c) Clemens Akens. Released under the terms of the [MIT License][cybern
 
 [type-definition-action]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/types#cybernauttypeslibaction
 [type-definition-describable]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/core#cybernautcorelibdescribable
-[type-definition-string-property]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/core#cybernautcorelibstringproperty
+[type-definition-property]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/core#cybernautcorelibproperty
 
 [external-async-function]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
 [external-google-chrome]: https://www.google.com/chrome/

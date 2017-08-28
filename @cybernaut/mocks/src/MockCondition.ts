@@ -1,9 +1,13 @@
 import {Condition} from '@cybernaut/types/lib/Condition';
 
-export class MockCondition<T> implements Condition<T> {
+export class MockCondition implements Condition {
   public readonly description: string;
-  public readonly accessor: jest.Mock<T> = jest.fn<T>();
-  public readonly predicate: jest.Mock<T> = jest.fn<T>();
+
+  /* tslint:disable no-any */
+  public readonly accessor: jest.Mock<any> = jest.fn();
+  public readonly predicate: jest.Mock<any> = jest.fn();
+  /* tslint:enable no-any */
+
   public readonly negated: boolean;
 
   public constructor(description: string, negated: boolean) {

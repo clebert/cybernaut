@@ -34,13 +34,13 @@ export interface Action<T> {
 ### @cybernaut/types/lib/Accessor
 
 ```ts
-export type Accessor<T> = () => Promise<T>;
+export type Accessor = () => Promise<any>;
 ```
 
 ### @cybernaut/types/lib/Predicate
 
 ```ts
-export type Predicate<T> = (actualValue: T) => boolean;
+export type Predicate = (actualValue: any) => boolean;
 ```
 
 ### @cybernaut/types/lib/Condition
@@ -49,10 +49,10 @@ export type Predicate<T> = (actualValue: T) => boolean;
 import {Accessor} from '@cybernaut/types/lib/Accessor';
 import {Predicate} from '@cybernaut/types/lib/Predicate';
 
-export interface Condition<T> {
+export interface Condition {
   readonly description: string;
-  readonly accessor: Accessor<T>;
-  readonly predicate: Predicate<T>;
+  readonly accessor: Accessor;
+  readonly predicate: Predicate;
   readonly negated: boolean;
 }
 ```
