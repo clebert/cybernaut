@@ -130,6 +130,8 @@ import {Describable} from '@cybernaut/core/lib/Describable';
 import {Property} from '@cybernaut/core/lib/Property';
 import {Action} from '@cybernaut/types/lib/Action';
 
+export type Script<T = any> = (...args: any[]) => T;
+
 export interface ChromeOptions {
   readonly chromeFlags: string[];
   readonly chromePath: string;
@@ -142,9 +144,13 @@ export class Chrome extends Describable {
   public readonly pageTitle: Property;
   public readonly pageUrl: Property;
 
+  public scriptResult(script: Script, ...args: any[]): Property;
+
   public emulateDevice(device: Device, fitWindow: boolean = false): Action<void>;
   public navigateTo(url: string, waitUntilLoaded: boolean = false): Action<void>;
+  public runScript<T>(script: Script<T>, ...args: any[]): Action<T>;
   public captureScreenshot(writeToFile: boolean = false): Action<string>;
+
   public quit(): Promise<void>;
 }
 ```

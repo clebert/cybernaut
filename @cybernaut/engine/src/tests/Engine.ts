@@ -22,7 +22,27 @@ beforeEach(() => {
   error = new Error('an error');
 });
 
-describe('Test.assert()', () => {
+describe('Engine.retries', () => {
+  it('should be the default value', () => {
+    expect(new Engine().retries).toBe(4);
+  });
+
+  it('should be the specified value', () => {
+    expect(new Engine({retries: 2}).retries).toBe(2);
+  });
+});
+
+describe('Engine.retryDelay', () => {
+  it('should be the default value', () => {
+    expect(new Engine().retryDelay).toBe(1000);
+  });
+
+  it('should be the specified value', () => {
+    expect(new Engine({retryDelay: 0}).retryDelay).toBe(0);
+  });
+});
+
+describe('Engine.assert()', () => {
   it('should throw an error when the specified accessor throws', async () => {
     expect.assertions(3);
 
@@ -132,7 +152,7 @@ describe('Test.assert()', () => {
   });
 });
 
-describe('Test.verify()', () => {
+describe('Engine.verify()', () => {
   it('should throw an error when the specified accessor throws', async () => {
     expect.assertions(3);
 
@@ -240,7 +260,7 @@ describe('Test.verify()', () => {
   });
 });
 
-describe('Test.perform()', () => {
+describe('Engine.perform()', () => {
   it('should throw an error when the specified implementation throws', async () => {
     expect.assertions(2);
 

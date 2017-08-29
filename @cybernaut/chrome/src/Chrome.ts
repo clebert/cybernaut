@@ -10,6 +10,9 @@ import {getOption} from '@cybernaut/utils/lib/getOption';
 import {LaunchedChrome, launch} from 'chrome-launcher';
 import {Device} from './Device';
 
+/* tslint:disable-next-line no-any */
+export type Script<T = any> = (...args: any[]) => T;
+
 export interface ChromeOptions {
   readonly chromeFlags: string[];
   readonly chromePath: string;
@@ -61,6 +64,15 @@ export class Chrome extends Describable {
     return new Property(this.description, async () => this.evaluate(script));
   }
 
+  /* tslint:disable-next-line no-any */
+  public scriptResult(script: Script, ...args: any[]): Property {
+    const description = this.describeMethodCall(...arguments);
+
+    return new Property(description, async () =>
+      this.evaluate(script, ...args)
+    );
+  }
+
   public emulateDevice(
     device: Device,
     fitWindow: boolean = false
@@ -110,6 +122,14 @@ export class Chrome extends Describable {
     };
   }
 
+  /* tslint:disable-next-line no-any */
+  public runScript<T>(script: Script<T>, ...args: any[]): Action<T> {
+    return {
+      description: this.describeMethodCall(...arguments),
+      implementation: async () => this.evaluate<T>(script, ...args)
+    };
+  }
+
   public captureScreenshot(writeToFile: boolean = false): Action<string> {
     return {
       description: this.describeMethodCall(...arguments),
@@ -138,21 +158,20 @@ export class Chrome extends Describable {
     }
   }
 
-  private async evaluate<T>(script: () => T): Promise<T> {
-    const expression = `(${script.toString()})()`;
+  /* tslint:disable-next-line no-any */
+  private async evaluate<T>(script: Script, ...args: any[]): Promise<T> {
+    const expression = `(${script.toString()})(${args
+      .map(arg => JSON.stringify(arg))
+      .join(', ')})`;
+
     const {result} = await this.client.Runtime.evaluate({expression});
-    const {className, description, subtype, type} = result;
+    const {description, subtype, type} = result;
 
     if (type === 'object' && subtype === 'error') {
+      /* istanbul ignore next */
       const execArray = description ? /: (.*)/.exec(description) : null;
-      const message = execArray ? execArray[1] : undefined;
 
-      if (className) {
-        /* tslint:disable-next-line no-any */
-        throw new (global as any)[className](message);
-      } else {
-        throw new Error(message);
-      }
+      throw new Error(execArray ? execArray[1] : 'Unknown error');
     }
 
     return result.value;

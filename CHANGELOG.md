@@ -9,63 +9,27 @@ and this project adheres to [Semantic Versioning][external-semver-spec].
 
 ### Added
 
-#### @cybernaut/core/lib/ConditionBuilder
-
-- Added as a replacement for the classes `GenericConditionBuilder`, `NumberConditionBuilder`, and `StringConditionBuilder`.
-
-#### @cybernaut/core/lib/Property
-
-- Added as a replacement for the classes `GenericProperty`, `NumberProperty`, and `StringProperty`.
+- Added the method `runScript` to the class `@cybernaut/chrome/lib/Chrome`.
+- Added the method `scriptResult` to the class `@cybernaut/chrome/lib/Chrome`.
+- Added the class `@cybernaut/core/lib/ConditionBuilder` as a replacement for the classes `@cybernaut/core/lib/GenericConditionBuilder`, `@cybernaut/core/lib/NumberConditionBuilder`, and `@cybernaut/core/lib/StringConditionBuilder`.
+- Added the class `@cybernaut/core/lib/Property` as a replacement for the classes `@cybernaut/core/lib/GenericProperty`, `@cybernaut/core/lib/NumberProperty`, and `@cybernaut/core/lib/StringProperty`.
+- Added the property `retries` to the class `@cybernaut/engine/lib/Engine`.
+- Added the property `retryDelay` to the class `@cybernaut/engine/lib/Engine`.
 
 ### Changed
 
-#### @cybernaut/chrome/lib/Chrome
-
-- **Breaking:** Renamed the method `navigate()` to `navigateTo()`.
-
-#### @cybernaut/core/lib/GenericConditionBuilder
-
-- **Breaking:** Removed this class.
-
-#### @cybernaut/core/lib/NumberConditionBuilder
-
-- **Breaking:** Removed this class.
-
-#### @cybernaut/core/lib/StringConditionBuilder
-
-- **Breaking:** Removed this class.
-
-#### @cybernaut/core/lib/GenericProperty
-
-- **Breaking:** Removed this class.
-
-#### @cybernaut/core/lib/NumberProperty
-
-- **Breaking:** Removed this class.
-
-#### @cybernaut/core/lib/StringProperty
-
-- **Breaking:** Removed this class.
-
-#### @cybernaut/engine/lib/Engine
-
-- **Breaking (TypeScript):** Removed a generic type declaration.
-
-#### @cybernaut/mocks/lib/MockCondition
-
-- **Breaking (TypeScript):** Removed a generic type declaration.
-
-#### @cybernaut/types/lib/Accessor
-
-- **Breaking (TypeScript):** Removed a generic type declaration.
-
-#### @cybernaut/types/lib/Condition
-
-- **Breaking (TypeScript):** Removed a generic type declaration.
-
-#### @cybernaut/types/lib/Predicate
-
-- **Breaking (TypeScript):** Removed a generic type declaration.
+- **Breaking:** Renamed the method `navigate` to `navigateTo` of the class `@cybernaut/chrome/lib/Chrome`.
+- **Breaking:** Removed the class `@cybernaut/core/lib/GenericConditionBuilder`.
+- **Breaking:** Removed the class `@cybernaut/core/lib/NumberConditionBuilder`.
+- **Breaking:** Removed the class `@cybernaut/core/lib/StringConditionBuilder`.
+- **Breaking:** Removed the class `@cybernaut/core/lib/GenericProperty`.
+- **Breaking:** Removed the class `@cybernaut/core/lib/NumberProperty`.
+- **Breaking:** Removed the class `@cybernaut/core/lib/StringProperty`.
+- **Breaking (TypeScript):** Removed generic type declarations from the class `@cybernaut/engine/lib/Engine`.
+- **Breaking (TypeScript):** Removed generic type declarations from the class `@cybernaut/mocks/lib/MockCondition`.
+- **Breaking (TypeScript):** Removed generic type declarations from the interface `@cybernaut/types/lib/Accessor`.
+- **Breaking (TypeScript):** Removed generic type declarations from the interface `@cybernaut/types/lib/Condition`.
+- **Breaking (TypeScript):** Removed generic type declarations from the interface `@cybernaut/types/lib/Predicate`.
 
 ### Fixed
 
