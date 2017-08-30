@@ -10,7 +10,7 @@ describe('iPhone4()', () => {
     expect(mobileDevice).toEqual({
       width: 320,
       height: 480,
-      scaleFactor: 2,
+      pixelRatio: 2,
       userAgent: iPhoneUserAgent
     });
   });
@@ -21,7 +21,7 @@ describe('iPhone4()', () => {
     expect(mobileDevice).toEqual({
       width: 480,
       height: 320,
-      scaleFactor: 2,
+      pixelRatio: 2,
       userAgent: iPhoneUserAgent
     });
   });
@@ -34,7 +34,7 @@ describe('iPhone5()', () => {
     expect(mobileDevice).toEqual({
       width: 320,
       height: 568,
-      scaleFactor: 2,
+      pixelRatio: 2,
       userAgent: iPhoneUserAgent
     });
   });
@@ -45,7 +45,7 @@ describe('iPhone5()', () => {
     expect(mobileDevice).toEqual({
       width: 568,
       height: 320,
-      scaleFactor: 2,
+      pixelRatio: 2,
       userAgent: iPhoneUserAgent
     });
   });
@@ -58,7 +58,7 @@ describe('iPhone6()', () => {
     expect(mobileDevice).toEqual({
       width: 375,
       height: 667,
-      scaleFactor: 2,
+      pixelRatio: 2,
       userAgent: iPhoneUserAgent
     });
   });
@@ -69,7 +69,7 @@ describe('iPhone6()', () => {
     expect(mobileDevice).toEqual({
       width: 667,
       height: 375,
-      scaleFactor: 2,
+      pixelRatio: 2,
       userAgent: iPhoneUserAgent
     });
   });
@@ -82,7 +82,7 @@ describe('iPhone6Plus()', () => {
     expect(mobileDevice).toEqual({
       width: 414,
       height: 736,
-      scaleFactor: 3,
+      pixelRatio: 3,
       userAgent: iPhoneUserAgent
     });
   });
@@ -93,7 +93,7 @@ describe('iPhone6Plus()', () => {
     expect(mobileDevice).toEqual({
       width: 736,
       height: 414,
-      scaleFactor: 3,
+      pixelRatio: 3,
       userAgent: iPhoneUserAgent
     });
   });

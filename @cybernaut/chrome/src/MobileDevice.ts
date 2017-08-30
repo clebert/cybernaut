@@ -1,7 +1,7 @@
 export interface MobileDevice {
   readonly width: number;
   readonly height: number;
-  readonly scaleFactor: number;
+  readonly pixelRatio: number;
   readonly userAgent: string;
 }
 
@@ -27,7 +27,7 @@ function getSize(
 export function iPhone4(horizontal: boolean = false): MobileDevice {
   return {
     ...getSize(horizontal, 480, 320),
-    scaleFactor: 2,
+    pixelRatio: 2,
     userAgent: iPhoneUserAgent
   };
 }
@@ -35,7 +35,7 @@ export function iPhone4(horizontal: boolean = false): MobileDevice {
 export function iPhone5(horizontal: boolean = false): MobileDevice {
   return {
     ...getSize(horizontal, 568, 320),
-    scaleFactor: 2,
+    pixelRatio: 2,
     userAgent: iPhoneUserAgent
   };
 }
@@ -43,7 +43,7 @@ export function iPhone5(horizontal: boolean = false): MobileDevice {
 export function iPhone6(horizontal: boolean = false): MobileDevice {
   return {
     ...getSize(horizontal, 667, 375),
-    scaleFactor: 2,
+    pixelRatio: 2,
     userAgent: iPhoneUserAgent
   };
 }
@@ -51,7 +51,7 @@ export function iPhone6(horizontal: boolean = false): MobileDevice {
 export function iPhone6Plus(horizontal: boolean = false): MobileDevice {
   return {
     ...getSize(horizontal, 736, 414),
-    scaleFactor: 3,
+    pixelRatio: 3,
     userAgent: iPhoneUserAgent
   };
 }

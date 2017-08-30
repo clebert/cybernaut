@@ -102,7 +102,7 @@ Particularly useful are [async functions][external-async-function] which are nat
 export interface MobileDevice {
   readonly width: number;
   readonly height: number;
-  readonly scaleFactor: number;
+  readonly pixelRatio: number;
   readonly userAgent: string;
 }
 

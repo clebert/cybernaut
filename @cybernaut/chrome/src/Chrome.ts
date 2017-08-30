@@ -85,7 +85,7 @@ export class Chrome extends Describable {
         await Emulation.setDeviceMetricsOverride({
           width: mobileDevice.width,
           height: mobileDevice.height,
-          deviceScaleFactor: mobileDevice.scaleFactor,
+          deviceScaleFactor: mobileDevice.pixelRatio,
           mobile: true,
           fitWindow,
           screenWidth: mobileDevice.width,

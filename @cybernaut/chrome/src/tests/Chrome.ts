@@ -7,7 +7,7 @@ import {Server} from 'http';
 import {join} from 'path';
 import {getPortPromise} from 'portfinder';
 import {Chrome} from '../Chrome';
-// import {MobileDevice} from '../MobileDevice';
+import {MobileDevice} from '../MobileDevice';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000;
 
@@ -247,5 +247,88 @@ describe('Chrome.captureScreenshot()', () => {
     );
 
     expect(isPNG(data)).toBe(true);
+  });
+});
+
+describe('Chrome.emulateMobileDevice()', () => {
+  let device: MobileDevice;
+
+  beforeEach(() => {
+    device = {
+      width: 1920,
+      height: 1080,
+      pixelRatio: 3,
+      userAgent: 'an user agent'
+    };
+  });
+
+  it('should describe itself correctly', () => {
+    const action = chrome.emulateMobileDevice(device, true);
+
+    expect(action.description).toBe(
+      "chrome.emulateMobileDevice({width: 1920, height: 1080, pixelRatio: 3, userAgent: 'an user agent'}, true)"
+    );
+  });
+
+  it('should set the screen width', async () => {
+    await perform(chrome.navigateTo(createUrl('emulateMobileDevice')));
+    await perform(chrome.emulateMobileDevice(device));
+
+    await assert(
+      chrome.scriptResult(() => window.screen.width).is.equalTo(device.width)
+    );
+  });
+
+  it('should set the screen height', async () => {
+    await perform(chrome.navigateTo(createUrl('emulateMobileDevice')));
+    await perform(chrome.emulateMobileDevice(device));
+
+    await assert(
+      chrome.scriptResult(() => window.screen.height).is.equalTo(device.height)
+    );
+  });
+
+  it('should set the device pixel ratio', async () => {
+    await perform(chrome.navigateTo(createUrl('emulateMobileDevice')));
+    await perform(chrome.emulateMobileDevice(device));
+
+    await assert(
+      chrome
+        .scriptResult(() => window.devicePixelRatio)
+        .is.equalTo(device.pixelRatio)
+    );
+  });
+
+  it('should set the user agent', async () => {
+    await perform(chrome.navigateTo(createUrl('emulateMobileDevice')));
+    await perform(chrome.emulateMobileDevice(device));
+
+    await assert(
+      chrome
+        .scriptResult(() => navigator.userAgent)
+        .is.equalTo(device.userAgent)
+    );
+  });
+
+  it('should enable touch events', async () => {
+    await perform(chrome.navigateTo(createUrl('emulateMobileDevice')));
+    await perform(chrome.emulateMobileDevice(device));
+
+    await assert(
+      chrome.scriptResult(() => 'ontouchstart' in window).is.equalTo(true)
+    );
+  });
+
+  it('should scale the view to fit the available browser window area', async () => {
+    await perform(chrome.navigateTo(createUrl('emulateMobileDevice')));
+    await perform(chrome.emulateMobileDevice(device, true));
+
+    const writeToFile = process.env.CI !== 'true';
+
+    /* This test case can only be checked by visual inspection. */
+    console.info(
+      'emulateMobileDevice:fitWindow:',
+      await perform(chrome.captureScreenshot(writeToFile))
+    );
   });
 });
