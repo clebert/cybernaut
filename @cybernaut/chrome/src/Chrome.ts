@@ -73,6 +73,33 @@ export class Chrome extends Describable {
     );
   }
 
+  public navigateTo(
+    url: string,
+    waitUntilLoaded: boolean = false
+  ): Action<void> {
+    return {
+      description: this.describeMethodCall(...arguments),
+      implementation: async () => {
+        const {Page} = this.client;
+
+        await Page.enable();
+        await Page.navigate({url});
+
+        if (waitUntilLoaded) {
+          await Page.loadEventFired();
+        }
+      }
+    };
+  }
+
+  /* tslint:disable-next-line no-any */
+  public runScript<T>(script: Script<T>, ...args: any[]): Action<T> {
+    return {
+      description: this.describeMethodCall(...arguments),
+      implementation: async () => this.evaluate<T>(script, ...args)
+    };
+  }
+
   public emulateMobileDevice(
     mobileDevice: MobileDevice,
     fitWindow: boolean = false
@@ -101,33 +128,6 @@ export class Chrome extends Describable {
           userAgent: mobileDevice.userAgent
         });
       }
-    };
-  }
-
-  public navigateTo(
-    url: string,
-    waitUntilLoaded: boolean = false
-  ): Action<void> {
-    return {
-      description: this.describeMethodCall(...arguments),
-      implementation: async () => {
-        const {Page} = this.client;
-
-        await Page.enable();
-        await Page.navigate({url});
-
-        if (waitUntilLoaded) {
-          await Page.loadEventFired();
-        }
-      }
-    };
-  }
-
-  /* tslint:disable-next-line no-any */
-  public runScript<T>(script: Script<T>, ...args: any[]): Action<T> {
-    return {
-      description: this.describeMethodCall(...arguments),
-      implementation: async () => this.evaluate<T>(script, ...args)
     };
   }
 

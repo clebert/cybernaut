@@ -12,8 +12,8 @@ const {assert, perform} = new Engine();
   const chrome = await Chrome.launchHeadless();
 
   try {
-    await perform(chrome.emulateMobileDevice(iPhone5()));
     await perform(chrome.navigateTo('https://www.example.com/'));
+    await perform(chrome.emulateMobileDevice(iPhone5()));
 
     await assert(chrome.pageTitle.is.equalTo('Example Domain'));
 
