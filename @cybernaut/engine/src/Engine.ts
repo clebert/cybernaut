@@ -21,8 +21,8 @@ async function sleep(duration: number): Promise<void> {
 }
 
 export class Engine {
-  private readonly retries: number;
-  private readonly retryDelay: number;
+  public readonly retries: number;
+  public readonly retryDelay: number;
 
   public constructor(options?: Partial<EngineOptions>) {
     this.retries = getOption(options, 'retries', 4);

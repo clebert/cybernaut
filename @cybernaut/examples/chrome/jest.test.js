@@ -3,7 +3,7 @@
  */
 
 const {Chrome} = require('@cybernaut/chrome/lib/Chrome');
-const {Device} = require('@cybernaut/chrome/lib/Device');
+const {iPhone5} = require('@cybernaut/chrome/lib/MobileDevice');
 const {Engine} = require('@cybernaut/engine/lib/Engine');
 
 /* Automated Web UI tests usually run much longer than unit tests,
@@ -24,7 +24,7 @@ afterEach(async () => {
 });
 
 test('example.com', async () => {
-  await perform(chrome.emulateDevice(Device.iPhone5()));
+  await perform(chrome.emulateMobileDevice(iPhone5()));
   await perform(chrome.navigateTo('https://www.example.com/'));
 
   await assert(chrome.pageTitle.is.equalTo('Example Domain'));

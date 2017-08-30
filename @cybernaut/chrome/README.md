@@ -22,7 +22,7 @@ npm install --save @cybernaut/chrome @cybernaut/engine
 
 ```js
 const {Chrome} = require('@cybernaut/chrome/lib/Chrome');
-const {Device} = require('@cybernaut/chrome/lib/Device');
+const {iPhone5} = require('@cybernaut/chrome/lib/MobileDevice');
 const {Engine} = require('@cybernaut/engine/lib/Engine');
 
 const {assert, perform} = new Engine();
@@ -31,7 +31,7 @@ const {assert, perform} = new Engine();
   const chrome = await Chrome.launchHeadless();
 
   try {
-    await perform(chrome.emulateDevice(Device.iPhone5()));
+    await perform(chrome.emulateMobileDevice(iPhone5()));
     await perform(chrome.navigateTo('https://www.example.com/'));
 
     await assert(chrome.pageTitle.is.equalTo('Example Domain'));
@@ -53,7 +53,7 @@ const {assert, perform} = new Engine();
 
 ```js
 const {Chrome} = require('@cybernaut/chrome/lib/Chrome');
-const {Device} = require('@cybernaut/chrome/lib/Device');
+const {iPhone5} = require('@cybernaut/chrome/lib/MobileDevice');
 const {Engine} = require('@cybernaut/engine/lib/Engine');
 
 /* Automated Web UI tests usually run much longer than unit tests,
@@ -74,7 +74,7 @@ afterEach(async () => {
 });
 
 test('example.com', async () => {
-  await perform(chrome.emulateDevice(Device.iPhone5()));
+  await perform(chrome.emulateMobileDevice(iPhone5()));
   await perform(chrome.navigateTo('https://www.example.com/'));
 
   await assert(chrome.pageTitle.is.equalTo('Example Domain'));
@@ -96,39 +96,31 @@ Particularly useful are [async functions][external-async-function] which are nat
 - [`@cybernaut/core/lib/Property`][type-definition-property]
 - [`@cybernaut/types/lib/Action`][type-definition-action]
 
-### @cybernaut/chrome/lib/Device
+### @cybernaut/chrome/lib/MobileDevice
 
 ```ts
-export interface DeviceOptions {
-  readonly scaleFactor: number; /* Default: 0 */
-  readonly mobile: boolean; /* Default: false */
-  readonly touch: boolean; /* Default: false */
+export interface MobileDevice {
+  readonly width: number;
+  readonly height: number;
+  readonly pixelRatio: number;
+  readonly userAgent: string;
 }
 
-export class Device {
-  public static iPhone4(horizontal: boolean = false): Device;
-  public static iPhone5(horizontal: boolean = false): Device;
-  public static iPhone6(horizontal: boolean = false): Device;
-  public static iPhone6Plus(horizontal: boolean = false): Device;
-
-  public readonly width: number;
-  public readonly height: number;
-  public readonly userAgent: string;
-  public readonly scaleFactor: number;
-  public readonly mobile: boolean;
-  public readonly touch: boolean;
-
-  public constructor(width: number, height: number, userAgent: string, options?: Partial<DeviceOptions>);
-}
+export function iPhone4(horizontal?: boolean): MobileDevice;
+export function iPhone5(horizontal?: boolean): MobileDevice;
+export function iPhone6(horizontal?: boolean): MobileDevice;
+export function iPhone6Plus(horizontal?: boolean): MobileDevice;
 ```
 
 ### @cybernaut/chrome/lib/Chrome
 
 ```ts
-import {Device} from '@cybernaut/chrome/lib/Device';
+import {MobileDevice} from '@cybernaut/chrome/lib/MobileDevice';
 import {Describable} from '@cybernaut/core/lib/Describable';
 import {Property} from '@cybernaut/core/lib/Property';
 import {Action} from '@cybernaut/types/lib/Action';
+
+export type Script<T = any> = (...args: any[]) => T;
 
 export interface ChromeOptions {
   readonly chromeFlags: string[];
@@ -142,9 +134,13 @@ export class Chrome extends Describable {
   public readonly pageTitle: Property;
   public readonly pageUrl: Property;
 
-  public emulateDevice(device: Device, fitWindow: boolean = false): Action<void>;
+  public scriptResult(script: Script, ...args: any[]): Property;
+
+  public emulateMobileDevice(mobileDevice: MobileDevice, fitWindow: boolean = false): Action<void>;
   public navigateTo(url: string, waitUntilLoaded: boolean = false): Action<void>;
+  public runScript<T>(script: Script<T>, ...args: any[]): Action<T>;
   public captureScreenshot(writeToFile: boolean = false): Action<string>;
+
   public quit(): Promise<void>;
 }
 ```

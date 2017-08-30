@@ -63,6 +63,9 @@ export interface EngineOptions {
 }
 
 export class Engine {
+  public readonly retries: number;
+  public readonly retryDelay: number;
+
   public constructor(options?: Partial<EngineOptions>);
 
   public assert(condition: Condition): Promise<void>;
