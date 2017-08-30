@@ -2,8 +2,6 @@ import {format} from '../format';
 
 describe('format()', () => {
   it('should return a formatted string representation of the specified value', () => {
-    expect.assertions(16);
-
     expect(format([])).toBe('[]');
 
     expect(format(false)).toBe('false');

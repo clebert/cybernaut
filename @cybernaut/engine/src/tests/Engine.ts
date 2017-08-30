@@ -44,8 +44,6 @@ describe('Engine.retryDelay', () => {
 
 describe('Engine.assert()', () => {
   it('should throw an error when the specified accessor throws', async () => {
-    expect.assertions(3);
-
     condition.accessor.mockImplementation(async () => {
       throw error;
     });
@@ -61,8 +59,6 @@ describe('Engine.assert()', () => {
   });
 
   it('should return when the specified predicate finally succeeds', async () => {
-    expect.assertions(2);
-
     condition.accessor.mockImplementation(async () => 'a value');
 
     condition.predicate
@@ -78,8 +74,6 @@ describe('Engine.assert()', () => {
   });
 
   it('should throw an error when the specified predicate fails', async () => {
-    expect.assertions(3);
-
     condition.accessor.mockImplementation(async () => 'a value');
     condition.predicate.mockImplementation(() => false);
 
@@ -99,8 +93,6 @@ describe('Engine.assert()', () => {
   });
 
   it('should return when the specified negated predicate fails', async () => {
-    expect.assertions(2);
-
     negatedCondition.accessor.mockImplementation(async () => 'a value');
     negatedCondition.predicate.mockImplementation(() => false);
 
@@ -113,8 +105,6 @@ describe('Engine.assert()', () => {
   });
 
   it('should delay any retry', async () => {
-    expect.assertions(6);
-
     condition.predicate
       .mockImplementationOnce(() => false)
       .mockImplementation(() => true);
@@ -154,8 +144,6 @@ describe('Engine.assert()', () => {
 
 describe('Engine.verify()', () => {
   it('should throw an error when the specified accessor throws', async () => {
-    expect.assertions(3);
-
     condition.accessor.mockImplementation(async () => {
       throw error;
     });
@@ -171,8 +159,6 @@ describe('Engine.verify()', () => {
   });
 
   it('should return true when the specified predicate finally succeeds', async () => {
-    expect.assertions(3);
-
     condition.accessor.mockImplementation(async () => 'a value');
 
     condition.predicate
@@ -188,8 +174,6 @@ describe('Engine.verify()', () => {
   });
 
   it('should return false when the specified predicate fails', async () => {
-    expect.assertions(3);
-
     condition.accessor.mockImplementation(async () => 'a value');
     condition.predicate.mockImplementation(() => false);
 
@@ -207,8 +191,6 @@ describe('Engine.verify()', () => {
   });
 
   it('should return true when the specified negated predicate fails', async () => {
-    expect.assertions(3);
-
     negatedCondition.accessor.mockImplementation(async () => 'a value');
     negatedCondition.predicate.mockImplementation(() => false);
 
@@ -221,8 +203,6 @@ describe('Engine.verify()', () => {
   });
 
   it('should delay any retry', async () => {
-    expect.assertions(6);
-
     condition.predicate
       .mockImplementationOnce(() => false)
       .mockImplementation(() => true);
@@ -262,8 +242,6 @@ describe('Engine.verify()', () => {
 
 describe('Engine.perform()', () => {
   it('should throw an error when the specified implementation throws', async () => {
-    expect.assertions(2);
-
     action.implementation.mockImplementation(async () => {
       throw error;
     });
@@ -278,8 +256,6 @@ describe('Engine.perform()', () => {
   });
 
   it('should return when the specified implementation finally returns', async () => {
-    expect.assertions(1);
-
     action.implementation
       .mockImplementationOnce(async () => {
         throw error;
@@ -294,8 +270,6 @@ describe('Engine.perform()', () => {
   });
 
   it('should respect custom engine options', async () => {
-    expect.assertions(2);
-
     action.implementation.mockImplementation(async () => {
       throw error;
     });
@@ -308,8 +282,6 @@ describe('Engine.perform()', () => {
   });
 
   it('should delay any retry', async () => {
-    expect.assertions(3);
-
     action.implementation
       .mockImplementationOnce(async () => {
         throw error;

@@ -16,8 +16,6 @@ function test(negated: boolean): void {
     });
 
     it(`should return a ${negated ? 'negated ' : ''}condition`, () => {
-      expect.assertions(3);
-
       const condition = createCondition(['foo', {}]);
 
       expect(condition.accessor).toBe(accessor);
@@ -31,16 +29,12 @@ function test(negated: boolean): void {
 
     describe('condition.predicate()', () => {
       it('should return true', () => {
-        expect.assertions(3);
-
         expect(createCondition(['foo', {}]).predicate(['foo', {}])).toBe(true);
         expect(createCondition(NaN).predicate(NaN)).toBe(true);
         expect(createCondition(null).predicate(null)).toBe(true);
       });
 
       it('should return false', () => {
-        expect.assertions(3);
-
         expect(createCondition(['foo', {}]).predicate(['bar', {}])).toBe(false);
         expect(createCondition(NaN).predicate(0)).toBe(false);
         expect(createCondition(null).predicate(undefined)).toBe(false);
@@ -54,8 +48,6 @@ function test(negated: boolean): void {
     });
 
     it(`should return a ${negated ? 'negated ' : ''}condition`, () => {
-      expect.assertions(3);
-
       const condition = createCondition(10);
 
       expect(condition.accessor).toBe(accessor);
@@ -65,15 +57,11 @@ function test(negated: boolean): void {
 
     describe('condition.predicate()', () => {
       it('should return true', () => {
-        expect.assertions(2);
-
         expect(createCondition(10).predicate(11)).toBe(true);
         expect(createCondition(10).predicate(Infinity)).toBe(true);
       });
 
       it('should return false', () => {
-        expect.assertions(3);
-
         expect(createCondition(10).predicate(9)).toBe(false);
         expect(createCondition(10).predicate(10)).toBe(false);
         expect(createCondition(10).predicate(NaN)).toBe(false);
@@ -93,8 +81,6 @@ function test(negated: boolean): void {
     });
 
     it(`should return a ${negated ? 'negated ' : ''}condition`, () => {
-      expect.assertions(3);
-
       const condition = createCondition(10);
 
       expect(condition.accessor).toBe(accessor);
@@ -104,16 +90,12 @@ function test(negated: boolean): void {
 
     describe('condition.predicate()', () => {
       it('should return true', () => {
-        expect.assertions(3);
-
         expect(createCondition(10).predicate(10)).toBe(true);
         expect(createCondition(10).predicate(11)).toBe(true);
         expect(createCondition(10).predicate(Infinity)).toBe(true);
       });
 
       it('should return false', () => {
-        expect.assertions(2);
-
         expect(createCondition(10).predicate(9)).toBe(false);
         expect(createCondition(10).predicate(NaN)).toBe(false);
       });
@@ -132,8 +114,6 @@ function test(negated: boolean): void {
     });
 
     it(`should return a ${negated ? 'negated ' : ''}condition`, () => {
-      expect.assertions(3);
-
       const condition = createCondition(10);
 
       expect(condition.accessor).toBe(accessor);
@@ -143,15 +123,11 @@ function test(negated: boolean): void {
 
     describe('condition.predicate()', () => {
       it('should return true', () => {
-        expect.assertions(2);
-
         expect(createCondition(10).predicate(9)).toBe(true);
         expect(createCondition(10).predicate(10)).toBe(true);
       });
 
       it('should return false', () => {
-        expect.assertions(3);
-
         expect(createCondition(10).predicate(11)).toBe(false);
         expect(createCondition(10).predicate(Infinity)).toBe(false);
         expect(createCondition(10).predicate(NaN)).toBe(false);
@@ -171,8 +147,6 @@ function test(negated: boolean): void {
     });
 
     it(`should return a ${negated ? 'negated ' : ''}condition`, () => {
-      expect.assertions(3);
-
       const condition = createCondition(10);
 
       expect(condition.accessor).toBe(accessor);
@@ -182,14 +156,10 @@ function test(negated: boolean): void {
 
     describe('condition.predicate()', () => {
       it('should return true', () => {
-        expect.assertions(1);
-
         expect(createCondition(10).predicate(9)).toBe(true);
       });
 
       it('should return false', () => {
-        expect.assertions(4);
-
         expect(createCondition(10).predicate(10)).toBe(false);
         expect(createCondition(10).predicate(11)).toBe(false);
         expect(createCondition(10).predicate(Infinity)).toBe(false);
@@ -211,8 +181,6 @@ function test(negated: boolean): void {
     });
 
     it(`should return a ${negated ? 'negated ' : ''}condition`, () => {
-      expect.assertions(3);
-
       const condition = createCondition(9, 11);
 
       expect(condition.accessor).toBe(accessor);
@@ -222,16 +190,12 @@ function test(negated: boolean): void {
 
     describe('condition.predicate()', () => {
       it('should return true', () => {
-        expect.assertions(3);
-
         expect(createCondition(9, 11).predicate(9)).toBe(true);
         expect(createCondition(9, 11).predicate(10)).toBe(true);
         expect(createCondition(9, 11).predicate(11)).toBe(true);
       });
 
       it('should return false', () => {
-        expect.assertions(4);
-
         expect(createCondition(9, 11).predicate(8)).toBe(false);
         expect(createCondition(9, 11).predicate(12)).toBe(false);
         expect(createCondition(9, 11).predicate(Infinity)).toBe(false);
@@ -252,8 +216,6 @@ function test(negated: boolean): void {
     });
 
     it(`should return a ${negated ? 'negated ' : ''}condition`, () => {
-      expect.assertions(3);
-
       const condition = createCondition('foo');
 
       expect(condition.accessor).toBe(accessor);
@@ -263,15 +225,11 @@ function test(negated: boolean): void {
 
     describe('condition.predicate()', () => {
       it('should return true', () => {
-        expect.assertions(2);
-
         expect(createCondition('foo').predicate('foo')).toBe(true);
         expect(createCondition('foo').predicate('foobar')).toBe(true);
       });
 
       it('should return false', () => {
-        expect.assertions(2);
-
         expect(createCondition('foo').predicate('bar')).toBe(false);
         expect(createCondition('foo').predicate('')).toBe(false);
       });
@@ -290,8 +248,6 @@ function test(negated: boolean): void {
     });
 
     it(`should return a ${negated ? 'negated ' : ''}condition`, () => {
-      expect.assertions(3);
-
       const condition = createCondition(/foo/g);
 
       expect(condition.accessor).toBe(accessor);
@@ -301,15 +257,11 @@ function test(negated: boolean): void {
 
     describe('condition.predicate()', () => {
       it('should return true', () => {
-        expect.assertions(2);
-
         expect(createCondition(/foo/).predicate('foo')).toBe(true);
         expect(createCondition(/foo/).predicate('foobar')).toBe(true);
       });
 
       it('should return false', () => {
-        expect.assertions(2);
-
         expect(createCondition(/foo/).predicate('bar')).toBe(false);
         expect(createCondition(/foo/).predicate('')).toBe(false);
       });

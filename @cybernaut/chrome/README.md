@@ -106,10 +106,22 @@ export interface MobileDevice {
   readonly userAgent: string;
 }
 
-export function iPhone4(horizontal?: boolean): MobileDevice;
-export function iPhone5(horizontal?: boolean): MobileDevice;
-export function iPhone6(horizontal?: boolean): MobileDevice;
-export function iPhone6Plus(horizontal?: boolean): MobileDevice;
+export function iPadMini(horizontal: boolean = false): MobileDevice;
+export function iPad(horizontal: boolean = false): MobileDevice;
+export function iPadPro(horizontal: boolean = false): MobileDevice;
+
+export function iPhone4(horizontal: boolean = false): MobileDevice;
+export function iPhone5(horizontal: boolean = false): MobileDevice;
+export function iPhone6(horizontal: boolean = false): MobileDevice;
+export function iPhone6Plus(horizontal: boolean = false): MobileDevice;
+
+export function Nexus4(horizontal: boolean = false): MobileDevice;
+export function Nexus5(horizontal: boolean = false): MobileDevice;
+export function Nexus5X(horizontal: boolean = false): MobileDevice;
+export function Nexus6(horizontal: boolean = false): MobileDevice;
+export function Nexus6P(horizontal: boolean = false): MobileDevice;
+export function Nexus7(horizontal: boolean = false): MobileDevice;
+export function Nexus10(horizontal: boolean = false): MobileDevice;
 ```
 
 ### @cybernaut/chrome/lib/Chrome

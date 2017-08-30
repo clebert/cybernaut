@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning][external-semver-spec].
 - Added the property `retries` to the class `@cybernaut/engine/lib/Engine`.
 - Added the property `retryDelay` to the class `@cybernaut/engine/lib/Engine`.
 - Added the interface `@cybernaut/chrome/lib/MobileDevice`.
-- Added the factory functions `iPhone4`, `iPhone5`, `iPhone6`, `iPhone6Plus` to `@cybernaut/chrome/lib/MobileDevice`.
+- Added the factory functions `iPadMini`, `iPad`, `iPadPro`, `iPhone4`, `iPhone5`, `iPhone6`, `iPhone6Plus`, `Nexus4`, `Nexus5`, `Nexus5X`, `Nexus6`, `Nexus6P`, `Nexus7`, and `Nexus10` to `@cybernaut/chrome/lib/MobileDevice`.
 
 ### Changed
 
