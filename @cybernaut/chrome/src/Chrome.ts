@@ -8,7 +8,7 @@ import {Property} from '@cybernaut/core/lib/Property';
 import {Action} from '@cybernaut/types/lib/Action';
 import {getOption} from '@cybernaut/utils/lib/getOption';
 import {LaunchedChrome, launch} from 'chrome-launcher';
-import {Device} from './Device';
+import {MobileDevice} from './MobileDevice';
 
 /* tslint:disable-next-line no-any */
 export type Script<T = any> = (...args: any[]) => T;
@@ -41,9 +41,9 @@ export class Chrome extends Describable {
   }
 
   private readonly client: CDP.Client;
-  private readonly chromeProcess?: LaunchedChrome;
+  private readonly chromeProcess: LaunchedChrome;
 
-  public constructor(client: CDP.Client, chromeProcess?: LaunchedChrome) {
+  public constructor(client: CDP.Client, chromeProcess: LaunchedChrome) {
     super('chrome');
 
     this.client = client;
@@ -73,8 +73,8 @@ export class Chrome extends Describable {
     );
   }
 
-  public emulateDevice(
-    device: Device,
+  public emulateMobileDevice(
+    mobileDevice: MobileDevice,
     fitWindow: boolean = false
   ): Action<void> {
     return {
@@ -82,23 +82,24 @@ export class Chrome extends Describable {
       implementation: async () => {
         const {Emulation, Network} = this.client;
 
-        if ((await Emulation.canEmulate()).result) {
-          await Emulation.setDeviceMetricsOverride({
-            width: device.width,
-            height: device.height,
-            deviceScaleFactor: device.scaleFactor,
-            mobile: device.mobile,
-            fitWindow,
-            screenWidth: device.width,
-            screenHeight: device.height,
-            dontSetVisibleSize: false
-          });
+        await Emulation.setDeviceMetricsOverride({
+          width: mobileDevice.width,
+          height: mobileDevice.height,
+          deviceScaleFactor: mobileDevice.scaleFactor,
+          mobile: true,
+          fitWindow,
+          screenWidth: mobileDevice.width,
+          screenHeight: mobileDevice.height,
+          dontSetVisibleSize: false
+        });
 
-          await Emulation.setTouchEmulationEnabled({enabled: device.touch});
+        await Emulation.setTouchEmulationEnabled({enabled: true});
 
-          await Network.enable();
-          await Network.setUserAgentOverride({userAgent: device.userAgent});
-        }
+        await Network.enable();
+
+        await Network.setUserAgentOverride({
+          userAgent: mobileDevice.userAgent
+        });
       }
     };
   }
@@ -152,10 +153,7 @@ export class Chrome extends Describable {
 
   public async quit(): Promise<void> {
     await this.client.close();
-
-    if (this.chromeProcess) {
-      await this.chromeProcess.kill();
-    }
+    await this.chromeProcess.kill();
   }
 
   /* tslint:disable-next-line no-any */

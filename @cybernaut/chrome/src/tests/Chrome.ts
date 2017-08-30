@@ -7,6 +7,7 @@ import {Server} from 'http';
 import {join} from 'path';
 import {getPortPromise} from 'portfinder';
 import {Chrome} from '../Chrome';
+// import {MobileDevice} from '../MobileDevice';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000;
 
@@ -215,17 +216,13 @@ describe('Chrome.pageUrl', () => {
   });
 });
 
-describe('Chrome.emulateDevice()', () => {
-  it('should emulate a touch device', async () => {
-    // TODO
-  });
-
-  it('should emulate a non-touch device', async () => {
-    // TODO
-  });
-});
-
 describe('Chrome.captureScreenshot()', () => {
+  it('should describe itself correctly', () => {
+    const action = chrome.captureScreenshot(true);
+
+    expect(action.description).toBe('chrome.captureScreenshot(true)');
+  });
+
   it('should write a PNG file and return its filename', async () => {
     await perform(chrome.navigateTo(createUrl('captureScreenshot')));
 

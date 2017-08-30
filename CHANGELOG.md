@@ -15,10 +15,14 @@ and this project adheres to [Semantic Versioning][external-semver-spec].
 - Added the class `@cybernaut/core/lib/Property` as a replacement for the classes `@cybernaut/core/lib/GenericProperty`, `@cybernaut/core/lib/NumberProperty`, and `@cybernaut/core/lib/StringProperty`.
 - Added the property `retries` to the class `@cybernaut/engine/lib/Engine`.
 - Added the property `retryDelay` to the class `@cybernaut/engine/lib/Engine`.
+- Added the interface `@cybernaut/chrome/lib/MobileDevice`.
+- Added the factory functions `iPhone4`, `iPhone5`, `iPhone6`, `iPhone6Plus` to `@cybernaut/chrome/lib/MobileDevice`.
 
 ### Changed
 
 - **Breaking:** Renamed the method `navigate` to `navigateTo` of the class `@cybernaut/chrome/lib/Chrome`.
+- **Breaking:** Renamed the method `emulateDevice` to `emulateMobileDevice` of the class `@cybernaut/chrome/lib/Chrome`.
+- **Breaking:** Removed the class `@cybernaut/chrome/lib/Device`.
 - **Breaking:** Removed the class `@cybernaut/core/lib/GenericConditionBuilder`.
 - **Breaking:** Removed the class `@cybernaut/core/lib/NumberConditionBuilder`.
 - **Breaking:** Removed the class `@cybernaut/core/lib/StringConditionBuilder`.
