@@ -1,5 +1,5 @@
 {
-  "lerna": "2.1.0",
+  "lerna": "2",
   "packages": ["@cybernaut/*"],
   "version": "12.0.0"
 }

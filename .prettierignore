@@ -1,6 +1,7 @@
 @cybernaut/*/tsconfig.json
 @cybernaut/*/tslint.json
 coverage/
+lerna.json
 lib/
 node_modules/
 package.json
