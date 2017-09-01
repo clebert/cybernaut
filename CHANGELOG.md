@@ -9,17 +9,25 @@ and this project adheres to [Semantic Versioning][external-semver-spec].
 
 ### Added
 
-**@cybernaut/engine:**
+### Changed
+
+### Fixed
+
+## v12.0.0 - 2017-09-02
+
+### Added
+
+#### @cybernaut/engine
 
 - Added the properties `Engine.retries` and `Engine.retryDelay`.
 
-**@cybernaut/chrome:**
+#### @cybernaut/chrome
 
 - Added the methods `Chrome.runScript()` and `Chrome.scriptResult()`.
 - Added the interface `MobileDevice`.
 - Added the factory functions `iPadMini()`, `iPad()`, `iPadPro()`, `iPhone4()`, `iPhone5()`, `iPhone6()`, `iPhone6Plus()`, `Nexus4()`, `Nexus5()`, `Nexus5X()`, `Nexus6()`, `Nexus6P()`, `Nexus7()`, and `Nexus10()`.
 
-**@cybernaut/core:**
+#### @cybernaut/core
 
 - Added the class `Loggable` as a replacement for the class `Describable`.
 - Added the class `ConditionBuilder` as a replacement for the classes `GenericConditionBuilder`, `NumberConditionBuilder`, and `StringConditionBuilder`.
@@ -27,11 +35,11 @@ and this project adheres to [Semantic Versioning][external-semver-spec].
 
 ### Changed
 
-**@cybernaut/engine:**
+#### @cybernaut/engine
 
 - Removed generic type declarations from the class `Engine`.
 
-**@cybernaut/chrome:**
+#### @cybernaut/chrome
 
 - **Breaking:** Changed the parameters of the static method `Chrome.launch()`.
 - **Breaking:** Renamed the method `Chrome.navigate()` to `Chrome.navigateTo()`.
@@ -40,21 +48,19 @@ and this project adheres to [Semantic Versioning][external-semver-spec].
 - **Breaking:** Removed the interface `ChromeOptions`.
 - **Breaking:** Removed the class `Device`.
 
-**@cybernaut/core:**
+#### @cybernaut/core
 
 - **Breaking:** Removed the classes `Describable`, `GenericConditionBuilder`, `NumberConditionBuilder`, `StringConditionBuilder`, `GenericProperty`, `NumberProperty`, and `StringProperty`.
 
-**@cybernaut/mocks:**
+#### @cybernaut/mocks
 
 - Removed generic type declarations from the class `MockCondition`.
 
-**@cybernaut/types:**
+#### @cybernaut/types
 
 - Removed generic type declarations from the interface `Accessor`.
 - Removed generic type declarations from the interface `Condition`.
 - Removed generic type declarations from the interface `Predicate`.
-
-### Fixed
 
 [external-keepachangelog]: http://keepachangelog.com/en/1.0.0/
 [external-semver-spec]: http://semver.org/spec/v2.0.0.html
