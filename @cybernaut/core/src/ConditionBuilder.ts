@@ -4,9 +4,9 @@ import {Accessor} from '@cybernaut/types/lib/Accessor';
 import {Condition} from '@cybernaut/types/lib/Condition';
 import {Predicate} from '@cybernaut/types/lib/Predicate';
 import {format} from '@cybernaut/utils/lib/format';
-import {Describable} from './Describable';
+import {Loggable} from './Loggable';
 
-export class ConditionBuilder extends Describable {
+export class ConditionBuilder extends Loggable {
   private readonly accessor: Accessor;
   private readonly negated: boolean;
 
@@ -15,7 +15,7 @@ export class ConditionBuilder extends Describable {
     accessor: Accessor,
     negated: boolean
   ) {
-    super(description);
+    super(description, ['accessor', 'negated', 'build']);
 
     this.accessor = accessor;
     this.negated = negated;
@@ -23,9 +23,7 @@ export class ConditionBuilder extends Describable {
 
   /* tslint:disable-next-line no-any */
   public equalTo(value: any): Condition {
-    const description = this.describeMethodCall(...arguments);
-
-    return this.build('any', description, actualValue => {
+    return this.build('any', this.log, actualValue => {
       if (actualValue !== actualValue && value !== value) {
         return true;
       }
@@ -35,69 +33,39 @@ export class ConditionBuilder extends Describable {
   }
 
   public above(value: number): Condition {
-    const description = this.describeMethodCall(...arguments);
-
-    return this.build(
-      'number',
-      description,
-      actualValue => actualValue > value
-    );
+    return this.build('number', this.log, actualValue => actualValue > value);
   }
 
   public atLeast(value: number): Condition {
-    const description = this.describeMethodCall(...arguments);
-
-    return this.build(
-      'number',
-      description,
-      actualValue => actualValue >= value
-    );
+    return this.build('number', this.log, actualValue => actualValue >= value);
   }
 
   public atMost(value: number): Condition {
-    const description = this.describeMethodCall(...arguments);
-
-    return this.build(
-      'number',
-      description,
-      actualValue => actualValue <= value
-    );
+    return this.build('number', this.log, actualValue => actualValue <= value);
   }
 
   public below(value: number): Condition {
-    const description = this.describeMethodCall(...arguments);
-
-    return this.build(
-      'number',
-      description,
-      actualValue => actualValue < value
-    );
+    return this.build('number', this.log, actualValue => actualValue < value);
   }
 
   public between(minValue: number, maxValue: number): Condition {
-    const description = this.describeMethodCall(...arguments);
-
     return this.build(
       'number',
-      description,
+      this.log,
       actualValue => actualValue >= minValue && actualValue <= maxValue
     );
   }
 
   public containing(value: string): Condition {
-    const description = this.describeMethodCall(...arguments);
-
     return this.build(
       'string',
-      description,
+      this.log,
       actualValue => actualValue.indexOf(value) > -1
     );
   }
 
   public matching(value: RegExp): Condition {
-    const description = this.describeMethodCall(...arguments);
-
-    return this.build('string', description, actualValue =>
+    return this.build('string', this.log, actualValue =>
       value.test(actualValue)
     );
   }

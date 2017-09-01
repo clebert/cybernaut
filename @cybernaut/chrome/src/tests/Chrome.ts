@@ -33,7 +33,7 @@ function createUrl(name: string): string {
 }
 
 beforeEach(async () => {
-  chrome = await Chrome.launchHeadless();
+  chrome = await Chrome.launch(true);
   port = await getPortPromise();
   server = app.listen(port);
 });
@@ -53,7 +53,7 @@ describe('Chrome.scriptResult()', () => {
       .is.equalTo('ab');
 
     expect(condition.description).toBe(
-      "chrome.scriptResult((a, b) => a + b, 'a', 'b').is.equalTo('ab')"
+      "Chrome.launch(true).scriptResult((a, b) => a + b, 'a', 'b').is.equalTo('ab')"
     );
   });
 
@@ -83,7 +83,7 @@ describe('Chrome.scriptResult()', () => {
     await expect(assert(condition)).rejects.toEqual(
       new Error(
         [
-          'Assert: chrome.scriptResult(() => {',
+          'Assert: Chrome.launch(true).scriptResult(() => {',
           "            throw new Error('an error');",
           '        }).is.equalTo(undefined) => Error: an error'
         ].join('\n')
@@ -101,7 +101,7 @@ describe('Chrome.scriptResult()', () => {
     await expect(assert(condition)).rejects.toEqual(
       new Error(
         [
-          'Assert: chrome.scriptResult(() => {',
+          'Assert: Chrome.launch(true).scriptResult(() => {',
           '            throw new Error();',
           '        }).is.equalTo(undefined) => Error: Unknown error'
         ].join('\n')
@@ -115,7 +115,7 @@ describe('Chrome.runScript()', () => {
     const action = chrome.runScript((a: string, b: string) => a + b, 'a', 'b');
 
     expect(action.description).toBe(
-      "chrome.runScript((a, b) => a + b, 'a', 'b')"
+      "Chrome.launch(true).runScript((a, b) => a + b, 'a', 'b')"
     );
   });
 
@@ -143,7 +143,7 @@ describe('Chrome.runScript()', () => {
     await expect(perform(action)).rejects.toEqual(
       new Error(
         [
-          'Perform: chrome.runScript(() => {',
+          'Perform: Chrome.launch(true).runScript(() => {',
           "            throw new Error('an error');",
           '        }) => Error: an error'
         ].join('\n')
@@ -159,7 +159,7 @@ describe('Chrome.runScript()', () => {
     await expect(perform(action)).rejects.toEqual(
       new Error(
         [
-          'Perform: chrome.runScript(() => {',
+          'Perform: Chrome.launch(true).runScript(() => {',
           '            throw new Error();',
           '        }) => Error: Unknown error'
         ].join('\n')
@@ -173,7 +173,7 @@ describe('Chrome.navigateTo()', () => {
     const action = chrome.navigateTo(createUrl('navigateTo'), true);
 
     expect(action.description).toBe(
-      `chrome.navigateTo('${createUrl('navigateTo')}', true)`
+      `Chrome.launch(true).navigateTo('${createUrl('navigateTo')}', true)`
     );
   });
 
@@ -191,7 +191,7 @@ describe('Chrome.pageTitle', () => {
     const condition = chrome.pageTitle.is.equalTo('pageTitle');
 
     expect(condition.description).toBe(
-      "chrome.pageTitle.is.equalTo('pageTitle')"
+      "Chrome.launch(true).pageTitle.is.equalTo('pageTitle')"
     );
   });
 
@@ -206,7 +206,9 @@ describe('Chrome.pageUrl', () => {
   it('should describe itself correctly', () => {
     const condition = chrome.pageUrl.is.equalTo('pageUrl');
 
-    expect(condition.description).toBe("chrome.pageUrl.is.equalTo('pageUrl')");
+    expect(condition.description).toBe(
+      "Chrome.launch(true).pageUrl.is.equalTo('pageUrl')"
+    );
   });
 
   it('should return the page url', async () => {
@@ -220,7 +222,9 @@ describe('Chrome.captureScreenshot()', () => {
   it('should describe itself correctly', () => {
     const action = chrome.captureScreenshot(true);
 
-    expect(action.description).toBe('chrome.captureScreenshot(true)');
+    expect(action.description).toBe(
+      'Chrome.launch(true).captureScreenshot(true)'
+    );
   });
 
   it('should write a PNG file and return its filename', async () => {
@@ -266,7 +270,7 @@ describe('Chrome.emulateMobileDevice()', () => {
     const action = chrome.emulateMobileDevice(device, true);
 
     expect(action.description).toBe(
-      "chrome.emulateMobileDevice({width: 1920, height: 1080, pixelRatio: 3, userAgent: 'an user agent'}, true)"
+      "Chrome.launch(true).emulateMobileDevice({width: 1920, height: 1080, pixelRatio: 3, userAgent: 'an user agent'}, true)"
     );
   });
 

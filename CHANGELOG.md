@@ -9,31 +9,50 @@ and this project adheres to [Semantic Versioning][external-semver-spec].
 
 ### Added
 
-- Added the method `runScript` to the class `@cybernaut/chrome/lib/Chrome`.
-- Added the method `scriptResult` to the class `@cybernaut/chrome/lib/Chrome`.
-- Added the class `@cybernaut/core/lib/ConditionBuilder` as a replacement for the classes `@cybernaut/core/lib/GenericConditionBuilder`, `@cybernaut/core/lib/NumberConditionBuilder`, and `@cybernaut/core/lib/StringConditionBuilder`.
-- Added the class `@cybernaut/core/lib/Property` as a replacement for the classes `@cybernaut/core/lib/GenericProperty`, `@cybernaut/core/lib/NumberProperty`, and `@cybernaut/core/lib/StringProperty`.
-- Added the property `retries` to the class `@cybernaut/engine/lib/Engine`.
-- Added the property `retryDelay` to the class `@cybernaut/engine/lib/Engine`.
-- Added the interface `@cybernaut/chrome/lib/MobileDevice`.
-- Added the factory functions `iPadMini`, `iPad`, `iPadPro`, `iPhone4`, `iPhone5`, `iPhone6`, `iPhone6Plus`, `Nexus4`, `Nexus5`, `Nexus5X`, `Nexus6`, `Nexus6P`, `Nexus7`, and `Nexus10` to `@cybernaut/chrome/lib/MobileDevice`.
+**@cybernaut/engine:**
+
+- Added the properties `Engine.retries` and `Engine.retryDelay`.
+
+**@cybernaut/chrome:**
+
+- Added the methods `Chrome.runScript()` and `Chrome.scriptResult()`.
+- Added the interface `MobileDevice`.
+- Added the factory functions `iPadMini()`, `iPad()`, `iPadPro()`, `iPhone4()`, `iPhone5()`, `iPhone6()`, `iPhone6Plus()`, `Nexus4()`, `Nexus5()`, `Nexus5X()`, `Nexus6()`, `Nexus6P()`, `Nexus7()`, and `Nexus10()`.
+
+**@cybernaut/core:**
+
+- Added the class `Loggable` as a replacement for the class `Describable`.
+- Added the class `ConditionBuilder` as a replacement for the classes `GenericConditionBuilder`, `NumberConditionBuilder`, and `StringConditionBuilder`.
+- Added the class `Property` as a replacement for the classes `GenericProperty`, `NumberProperty`, and `StringProperty`.
 
 ### Changed
 
-- **Breaking:** Renamed the method `navigate` to `navigateTo` of the class `@cybernaut/chrome/lib/Chrome`.
-- **Breaking:** Renamed the method `emulateDevice` to `emulateMobileDevice` of the class `@cybernaut/chrome/lib/Chrome`.
-- **Breaking:** Removed the class `@cybernaut/chrome/lib/Device`.
-- **Breaking:** Removed the class `@cybernaut/core/lib/GenericConditionBuilder`.
-- **Breaking:** Removed the class `@cybernaut/core/lib/NumberConditionBuilder`.
-- **Breaking:** Removed the class `@cybernaut/core/lib/StringConditionBuilder`.
-- **Breaking:** Removed the class `@cybernaut/core/lib/GenericProperty`.
-- **Breaking:** Removed the class `@cybernaut/core/lib/NumberProperty`.
-- **Breaking:** Removed the class `@cybernaut/core/lib/StringProperty`.
-- **Breaking (TypeScript):** Removed generic type declarations from the class `@cybernaut/engine/lib/Engine`.
-- **Breaking (TypeScript):** Removed generic type declarations from the class `@cybernaut/mocks/lib/MockCondition`.
-- **Breaking (TypeScript):** Removed generic type declarations from the interface `@cybernaut/types/lib/Accessor`.
-- **Breaking (TypeScript):** Removed generic type declarations from the interface `@cybernaut/types/lib/Condition`.
-- **Breaking (TypeScript):** Removed generic type declarations from the interface `@cybernaut/types/lib/Predicate`.
+**@cybernaut/engine:**
+
+- Removed generic type declarations from the class `Engine`.
+
+**@cybernaut/chrome:**
+
+- **Breaking:** Changed the parameters of the static method `Chrome.launch()`.
+- **Breaking:** Renamed the method `Chrome.navigate()` to `Chrome.navigateTo()`.
+- **Breaking:** Renamed the method `Chrome.emulateDevice()` to `Chrome.emulateMobileDevice()`.
+- **Breaking:** Removed the static method `Chrome.launchHeadless()`.
+- **Breaking:** Removed the interface `ChromeOptions`.
+- **Breaking:** Removed the class `Device`.
+
+**@cybernaut/core:**
+
+- **Breaking:** Removed the classes `Describable`, `GenericConditionBuilder`, `NumberConditionBuilder`, `StringConditionBuilder`, `GenericProperty`, `NumberProperty`, and `StringProperty`.
+
+**@cybernaut/mocks:**
+
+- Removed generic type declarations from the class `MockCondition`.
+
+**@cybernaut/types:**
+
+- Removed generic type declarations from the interface `Accessor`.
+- Removed generic type declarations from the interface `Condition`.
+- Removed generic type declarations from the interface `Predicate`.
 
 ### Fixed
 

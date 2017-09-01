@@ -16,7 +16,7 @@ const {assert, perform} = new Engine();
 let chrome;
 
 beforeEach(async () => {
-  chrome = await Chrome.launchHeadless();
+  chrome = await Chrome.launch(true);
 });
 
 afterEach(async () => {

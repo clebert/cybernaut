@@ -3,48 +3,38 @@
 import CDP = require('chrome-remote-interface');
 import tempWrite = require('temp-write');
 
-import {Describable} from '@cybernaut/core/lib/Describable';
+import {Loggable} from '@cybernaut/core/lib/Loggable';
 import {Property} from '@cybernaut/core/lib/Property';
 import {Action} from '@cybernaut/types/lib/Action';
-import {getOption} from '@cybernaut/utils/lib/getOption';
+import {format} from '@cybernaut/utils/lib/format';
 import {LaunchedChrome, launch} from 'chrome-launcher';
 import {MobileDevice} from './MobileDevice';
 
 /* tslint:disable-next-line no-any */
 export type Script<T = any> = (...args: any[]) => T;
 
-export interface ChromeOptions {
-  readonly chromeFlags: string[];
-  readonly chromePath: string;
-}
+export class Chrome extends Loggable {
+  /* istanbul ignore next */
+  public static async launch(headless: boolean = false): Promise<Chrome> {
+    const chromeProcess = await launch({
+      chromeFlags: headless ? ['--headless', '--disable-gpu'] : []
+    });
 
-export class Chrome extends Describable {
-  public static async launch(
-    options?: Partial<ChromeOptions>
-  ): Promise<Chrome> {
-    const chromeProcess = await launch(options);
     const client = await CDP({port: chromeProcess.port});
+    const description = `Chrome.launch(${format(headless)})`;
 
-    return new Chrome(client, chromeProcess);
-  }
-
-  public static async launchHeadless(
-    options?: Partial<ChromeOptions>
-  ): Promise<Chrome> {
-    const chromeFlags = [
-      ...getOption(options, 'chromeFlags', []),
-      '--headless',
-      '--disable-gpu'
-    ];
-
-    return Chrome.launch({...options, chromeFlags});
+    return new Chrome(description, client, chromeProcess);
   }
 
   private readonly client: CDP.Client;
   private readonly chromeProcess: LaunchedChrome;
 
-  public constructor(client: CDP.Client, chromeProcess: LaunchedChrome) {
-    super('chrome');
+  public constructor(
+    description: string,
+    client: CDP.Client,
+    chromeProcess: LaunchedChrome
+  ) {
+    super(description, ['client', 'chromeProcess', 'evaluate', 'then']);
 
     this.client = client;
     this.chromeProcess = chromeProcess;
@@ -54,23 +44,19 @@ export class Chrome extends Describable {
     /* istanbul ignore next */
     const script = () => document.title;
 
-    return new Property(this.description, async () => this.evaluate(script));
+    return new Property(this.log, async () => this.evaluate(script));
   }
 
   public get pageUrl(): Property {
     /* istanbul ignore next */
     const script = () => window.location.href;
 
-    return new Property(this.description, async () => this.evaluate(script));
+    return new Property(this.log, async () => this.evaluate(script));
   }
 
   /* tslint:disable-next-line no-any */
   public scriptResult(script: Script, ...args: any[]): Property {
-    const description = this.describeMethodCall(...arguments);
-
-    return new Property(description, async () =>
-      this.evaluate(script, ...args)
-    );
+    return new Property(this.log, async () => this.evaluate(script, ...args));
   }
 
   public navigateTo(
@@ -78,7 +64,7 @@ export class Chrome extends Describable {
     waitUntilLoaded: boolean = false
   ): Action<void> {
     return {
-      description: this.describeMethodCall(...arguments),
+      description: this.log,
       implementation: async () => {
         const {Page} = this.client;
 
@@ -95,7 +81,7 @@ export class Chrome extends Describable {
   /* tslint:disable-next-line no-any */
   public runScript<T>(script: Script<T>, ...args: any[]): Action<T> {
     return {
-      description: this.describeMethodCall(...arguments),
+      description: this.log,
       implementation: async () => this.evaluate<T>(script, ...args)
     };
   }
@@ -105,7 +91,7 @@ export class Chrome extends Describable {
     fitWindow: boolean = false
   ): Action<void> {
     return {
-      description: this.describeMethodCall(...arguments),
+      description: this.log,
       implementation: async () => {
         const {Emulation, Network} = this.client;
 
@@ -133,7 +119,7 @@ export class Chrome extends Describable {
 
   public captureScreenshot(writeToFile: boolean = false): Action<string> {
     return {
-      description: this.describeMethodCall(...arguments),
+      description: this.log,
       implementation: async () => {
         const screenshot = await this.client.Page.captureScreenshot({
           fromSurface: true
