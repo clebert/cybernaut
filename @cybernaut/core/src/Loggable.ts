@@ -27,6 +27,7 @@ export abstract class Loggable {
 
         value = target[property as keyof this];
 
+        /* tslint:disable-next-line strict-type-predicates */
         if (typeof value !== 'function') {
           return value === target ? receiver : value;
         }
