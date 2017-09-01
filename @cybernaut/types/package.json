@@ -1,6 +1,6 @@
 {
   "name": "@cybernaut/types",
-  "version": "11.0.0",
+  "version": "12.0.0",
   "description": "Shared TypeScript type definitions.",
   "license": "MIT",
   "author": "Clemens Akens <clebert@me.com>",

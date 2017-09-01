@@ -1,6 +1,6 @@
 {
   "name": "@cybernaut/core",
-  "version": "11.0.0",
+  "version": "12.0.0",
   "description": "The foundation (the core) of all @cybernaut/engine-compatible APIs.",
   "license": "MIT",
   "author": "Clemens Akens <clebert@me.com>",
@@ -30,8 +30,8 @@
     "node": ">=8"
   },
   "dependencies": {
-    "@cybernaut/types": "^11.0.0",
-    "@cybernaut/utils": "^11.0.0",
+    "@cybernaut/types": "^12.0.0",
+    "@cybernaut/utils": "^12.0.0",
     "deep-strict-equal": "^0.2.0"
   }
 }

@@ -1,7 +1,7 @@
 {
   "lerna": "2.1.0",
   "packages": ["@cybernaut/*"],
-  "version": "11.0.0",
+  "version": "12.0.0",
   "commands": {
     "publish": {
       "ignore": "@cybernaut/examples"
