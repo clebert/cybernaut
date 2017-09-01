@@ -9,7 +9,7 @@ const {Engine} = require('@cybernaut/engine/lib/Engine');
 const {assert, perform} = new Engine();
 
 (async () => {
-  const chrome = await Chrome.launchHeadless();
+  const chrome = await Chrome.launch(true);
 
   try {
     await perform(chrome.navigateTo('https://www.example.com/'));

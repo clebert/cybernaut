@@ -1,21 +1,21 @@
 import {Accessor} from '@cybernaut/types/lib/Accessor';
 import {ConditionBuilder} from './ConditionBuilder';
-import {Describable} from './Describable';
+import {Loggable} from './Loggable';
 
-export class Property extends Describable {
+export class Property extends Loggable {
   private readonly accessor: Accessor;
 
   public constructor(description: string, accessor: Accessor) {
-    super(description);
+    super(description, ['accessor']);
 
     this.accessor = accessor;
   }
 
   public get is(): ConditionBuilder {
-    return new ConditionBuilder(this.description, this.accessor, false);
+    return new ConditionBuilder(this.log, this.accessor, false);
   }
 
   public get isNot(): ConditionBuilder {
-    return new ConditionBuilder(this.description, this.accessor, true);
+    return new ConditionBuilder(this.log, this.accessor, true);
   }
 }

@@ -20,27 +20,25 @@ npm install --save @cybernaut/core
 - [`@cybernaut/types/lib/Condition`][type-definition-condition]
 - [`@cybernaut/types/lib/Predicate`][type-definition-predicate]
 
-### @cybernaut/core/lib/Describable
+### @cybernaut/core/lib/Loggable
 
 ```ts
-export abstract class Describable {
-  protected description: string;
+export abstract class Loggable {
+  protected readonly log: string;
 
-  public constructor(description: string);
-
-  protected describeMethodCall(...args: any[]): string;
+  constructor(description: string, keysToIgnore: string[] = []);
 }
 ```
 
 ### @cybernaut/core/lib/ConditionBuilder
 
 ```ts
-import {Describable} from '@cybernaut/core/lib/Describable';
+import {Loggable} from '@cybernaut/core/lib/Loggable';
 import {Accessor} from '@cybernaut/types/lib/Accessor';
 import {Condition} from '@cybernaut/types/lib/Condition';
 import {Predicate} from '@cybernaut/types/lib/Predicate';
 
-export class ConditionBuilder extends Describable {
+export class ConditionBuilder extends Loggable {
   public constructor(description: string, accessor: Accessor, negated: boolean);
 
   public equalTo(value: any): Condition;
@@ -60,10 +58,10 @@ export class ConditionBuilder extends Describable {
 
 ```ts
 import {ConditionBuilder} from '@cybernaut/core/lib/ConditionBuilder';
-import {Describable} from '@cybernaut/core/lib/Describable';
+import {Loggable} from '@cybernaut/core/lib/Loggable';
 import {Accessor} from '@cybernaut/types/lib/Accessor';
 
-export class Property extends Describable {
+export class Property extends Loggable {
   public constructor(description: string, accessor: Accessor);
 
   public readonly is: ConditionBuilder;

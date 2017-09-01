@@ -28,7 +28,7 @@ const {Engine} = require('@cybernaut/engine/lib/Engine');
 const {assert, perform} = new Engine();
 
 (async () => {
-  const chrome = await Chrome.launchHeadless();
+  const chrome = await Chrome.launch(true);
 
   try {
     await perform(chrome.navigateTo('https://www.example.com/'));
@@ -66,7 +66,7 @@ const {assert, perform} = new Engine();
 let chrome;
 
 beforeEach(async () => {
-  chrome = await Chrome.launchHeadless();
+  chrome = await Chrome.launch(true);
 });
 
 afterEach(async () => {
@@ -92,7 +92,7 @@ Particularly useful are [async functions][external-async-function] which are nat
 
 ### External imports
 
-- [`@cybernaut/core/lib/Describable`][type-definition-describable]
+- [`@cybernaut/core/lib/Loggable`][type-definition-loggable]
 - [`@cybernaut/core/lib/Property`][type-definition-property]
 - [`@cybernaut/types/lib/Action`][type-definition-action]
 
@@ -128,20 +128,14 @@ export function Nexus10(horizontal: boolean = false): MobileDevice;
 
 ```ts
 import {MobileDevice} from '@cybernaut/chrome/lib/MobileDevice';
-import {Describable} from '@cybernaut/core/lib/Describable';
+import {Loggable} from '@cybernaut/core/lib/Loggable';
 import {Property} from '@cybernaut/core/lib/Property';
 import {Action} from '@cybernaut/types/lib/Action';
 
 export type Script<T = any> = (...args: any[]) => T;
 
-export interface ChromeOptions {
-  readonly chromeFlags: string[];
-  readonly chromePath: string;
-}
-
-export class Chrome extends Describable {
-  public static launch(options?: Partial<ChromeOptions>): Promise<Chrome>;
-  public static launchHeadless(options?: Partial<ChromeOptions>): Promise<Chrome>;
+export class Chrome extends Loggable {
+  public static launch(headless: boolean = false): Promise<Chrome>;
 
   public readonly pageTitle: Property;
   public readonly pageUrl: Property;
@@ -172,7 +166,7 @@ Built by (c) Clemens Akens. Released under the terms of the [MIT License][cybern
 [package-engine]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/engine
 
 [type-definition-action]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/types#cybernauttypeslibaction
-[type-definition-describable]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/core#cybernautcorelibdescribable
+[type-definition-loggable]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/core#cybernautcorelibloggable
 [type-definition-property]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/core#cybernautcorelibproperty
 
 [external-async-function]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
