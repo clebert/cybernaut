@@ -20,12 +20,6 @@ npm install --save @cybernaut/utils
 export function format(value: any): string;
 ```
 
-### @cybernaut/utils/lib/getOption
-
-```ts
-export function getOption<T, K extends keyof T>(options: Partial<T> | undefined, key: K, defaultValue: T[K]): T[K];
-```
-
 ---
 Built by (c) Clemens Akens. Released under the terms of the [MIT License][cybernaut-license].
 

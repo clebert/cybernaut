@@ -1,17 +1,11 @@
 import {Action} from '@cybernaut/types/lib/Action';
 import {Condition} from '@cybernaut/types/lib/Condition';
 import {format} from '@cybernaut/utils/lib/format';
-import {getOption} from '@cybernaut/utils/lib/getOption';
 
 interface ConditionResult {
   /* tslint:disable-next-line no-any */
   readonly actualValue: any;
   readonly attempts: number;
-}
-
-export interface EngineOptions {
-  readonly retries: number;
-  readonly retryDelay: number;
 }
 
 async function sleep(duration: number): Promise<void> {
@@ -24,9 +18,9 @@ export class Engine {
   public readonly retries: number;
   public readonly retryDelay: number;
 
-  public constructor(options?: Partial<EngineOptions>) {
-    this.retries = getOption(options, 'retries', 4);
-    this.retryDelay = getOption(options, 'retryDelay', 1000);
+  public constructor(retries: number = 4, retryDelay: number = 500) {
+    this.retries = retries;
+    this.retryDelay = retryDelay;
 
     this.assert = this.assert.bind(this);
     this.perform = this.perform.bind(this);
