@@ -21,21 +21,28 @@ export class Chrome extends Loggable {
     });
 
     const client = await CDP({port: chromeProcess.port});
-    const description = `Chrome.launch(${format(headless)})`;
 
-    return new Chrome(description, client, chromeProcess);
+    return new Chrome(headless, client, chromeProcess);
   }
+
+  public readonly headless: boolean;
 
   private readonly client: CDP.Client;
   private readonly chromeProcess: LaunchedChrome;
 
   public constructor(
-    description: string,
+    headless: boolean,
     client: CDP.Client,
     chromeProcess: LaunchedChrome
   ) {
-    super(description, ['client', 'chromeProcess', 'evaluate', 'then']);
+    super(`Chrome.launch(${format(headless)})`, [
+      'client',
+      'chromeProcess',
+      'evaluate',
+      'then'
+    ]);
 
+    this.headless = headless;
     this.client = client;
     this.chromeProcess = chromeProcess;
   }
