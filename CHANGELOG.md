@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning][external-semver-spec].
 
 - **Breaking:** Changed the default value of the parameter `headless` of the static method `Chrome.launch()`.
 - **Breaking:** Changed the default value of the parameter `writeToFile` of the method `Chrome.captureScreenshot()`.
+- **Breaking:** Changed the default value of the parameter `fitWindow` of the method `Chrome.emulateMobileDevice()`.
 
 #### @cybernaut/utils
 

@@ -95,7 +95,7 @@ export class Chrome extends Loggable {
 
   public emulateMobileDevice(
     mobileDevice: MobileDevice,
-    fitWindow: boolean = false
+    fitWindow: boolean = true
   ): Action<void> {
     return {
       description: this.log,
