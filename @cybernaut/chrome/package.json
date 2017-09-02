@@ -1,6 +1,6 @@
 {
   "name": "@cybernaut/chrome",
-  "version": "12.0.0",
+  "version": "13.0.0",
   "description": "A @cybernaut/engine-compatible API for Google Chrome.",
   "license": "MIT",
   "author": "Clemens Akens <clebert@me.com>",
@@ -31,17 +31,17 @@
     "node": ">=8"
   },
   "dependencies": {
-    "@cybernaut/core": "^12.0.0",
+    "@cybernaut/core": "^13.0.0",
     "@cybernaut/types": "^12.0.0",
-    "@cybernaut/utils": "^12.0.0",
+    "@cybernaut/utils": "^13.0.0",
     "chrome-launcher": "^0.6.0",
     "chrome-remote-interface": "^0.24.5",
     "temp-write": "^3.3.0"
   },
   "devDependencies": {
-    "@cybernaut/engine": "^12.0.0"
+    "@cybernaut/engine": "^13.0.0"
   },
   "peerDependencies": {
-    "@cybernaut/engine": "^12.0.0"
+    "@cybernaut/engine": "^13.0.0"
   }
 }
