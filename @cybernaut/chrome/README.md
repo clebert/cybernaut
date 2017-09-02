@@ -142,7 +142,7 @@ export class Chrome extends Loggable {
 
   public navigateTo(url: string, waitUntilLoaded: boolean = false): Action<void>;
   public runScript<T>(script: Script<T>, ...args: any[]): Action<T>;
-  public emulateMobileDevice(mobileDevice: MobileDevice, fitWindow: boolean = false): Action<void>;
+  public emulateMobileDevice(mobileDevice: MobileDevice, fitWindow: boolean = true): Action<void>;
   public captureScreenshot(writeToFile: boolean = process.env.CI !== 'true'): Action<string>;
 
   public quit(): Promise<void>;

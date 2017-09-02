@@ -366,11 +366,22 @@ describe('Chrome.emulateMobileDevice()', () => {
 
   it('should scale the view to fit the available browser window area', async () => {
     await perform(chrome.navigateTo(createUrl('emulateMobileDevice'), true));
-    await perform(chrome.emulateMobileDevice(device, true));
+    await perform(chrome.emulateMobileDevice(device));
 
     /* This test case can only be checked by visual inspection. */
     console.info(
-      'emulateMobileDevice:fitWindow:',
+      'emulateMobileDevice:fitWindow:true:',
+      await perform(chrome.captureScreenshot())
+    );
+  });
+
+  it('should not scale the view to fit the available browser window area', async () => {
+    await perform(chrome.navigateTo(createUrl('emulateMobileDevice'), true));
+    await perform(chrome.emulateMobileDevice(device, false));
+
+    /* This test case can only be checked by visual inspection. */
+    console.info(
+      'emulateMobileDevice:fitWindow:false:',
       await perform(chrome.captureScreenshot())
     );
   });
