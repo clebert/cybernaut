@@ -36,9 +36,7 @@ const {assert, perform} = new Engine();
 
     await assert(chrome.pageTitle.is.equalTo('Example Domain'));
 
-    const writeToFile = process.env.CI !== 'true';
-
-    console.info(await perform(chrome.captureScreenshot(writeToFile)));
+    console.info(await perform(chrome.captureScreenshot()));
   } finally {
     await chrome.quit();
   }
@@ -79,9 +77,7 @@ test('example.com', async () => {
 
   await assert(chrome.pageTitle.is.equalTo('Example Domain'));
 
-  const writeToFile = process.env.CI !== 'true';
-
-  console.info(await perform(chrome.captureScreenshot(writeToFile)));
+  console.info(await perform(chrome.captureScreenshot()));
 });
 ```
 
@@ -147,7 +143,7 @@ export class Chrome extends Loggable {
   public navigateTo(url: string, waitUntilLoaded: boolean = false): Action<void>;
   public runScript<T>(script: Script<T>, ...args: any[]): Action<T>;
   public emulateMobileDevice(mobileDevice: MobileDevice, fitWindow: boolean = false): Action<void>;
-  public captureScreenshot(writeToFile: boolean = false): Action<string>;
+  public captureScreenshot(writeToFile: boolean = process.env.CI !== 'true'): Action<string>;
 
   public quit(): Promise<void>;
 }

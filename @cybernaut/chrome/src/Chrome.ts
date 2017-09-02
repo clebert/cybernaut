@@ -124,7 +124,9 @@ export class Chrome extends Loggable {
     };
   }
 
-  public captureScreenshot(writeToFile: boolean = false): Action<string> {
+  public captureScreenshot(
+    writeToFile: boolean = process.env.CI !== 'true'
+  ): Action<string> {
     return {
       description: this.log,
       implementation: async () => {
