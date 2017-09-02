@@ -20,6 +20,10 @@ and this project adheres to [Semantic Versioning][external-semver-spec].
 - **Breaking:** Changed the parameters of the constructor `Engine()`.
 - **Breaking:** Removed the interface `EngineOptions`.
 
+#### @cybernaut/chrome
+
+- **Breaking:** Changed the default value of the parameter `writeToFile` of the method `Chrome.captureScreenshot()`.
+
 #### @cybernaut/utils
 
 - **Breaking:** Removed the function `getOption()`.

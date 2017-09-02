@@ -17,9 +17,7 @@ const {assert, perform} = new Engine();
 
     await assert(chrome.pageTitle.is.equalTo('Example Domain'));
 
-    const writeToFile = process.env.CI !== 'true';
-
-    console.info(await perform(chrome.captureScreenshot(writeToFile)));
+    console.info(await perform(chrome.captureScreenshot()));
   } finally {
     await chrome.quit();
   }

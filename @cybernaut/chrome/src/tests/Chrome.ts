@@ -230,31 +230,70 @@ describe('Chrome.captureScreenshot()', () => {
     );
   });
 
-  it('should write a PNG file and return its filename', async () => {
-    await perform(chrome.navigateTo(createUrl('captureScreenshot')));
+  function testScreenshot(writeToFile?: false): void {
+    it('should return a Base64-encoded PNG', async () => {
+      await perform(chrome.navigateTo(createUrl('captureScreenshot')));
 
-    const filename = await perform(chrome.captureScreenshot(true));
+      const data = new Buffer(
+        await perform(chrome.captureScreenshot(writeToFile)),
+        'base64'
+      );
 
-    expect(filename).toMatch(
-      /* https://stackoverflow.com/a/13653180 */
-      /[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}\/screenshot.png$/i
-    );
+      expect(isPNG(data)).toBe(true);
+    });
+  }
 
-    const data = await readFile(filename);
+  function testScreenshotFile(writeToFile?: true): void {
+    it('should write a PNG file and return its filename', async () => {
+      await perform(chrome.navigateTo(createUrl('captureScreenshot')));
 
-    expect(isPNG(data)).toBe(true);
+      const filename = await perform(chrome.captureScreenshot(writeToFile));
+
+      expect(filename).toMatch(
+        /* https://stackoverflow.com/a/13653180 */
+        /[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}\/screenshot.png$/i
+      );
+
+      const data = await readFile(filename);
+
+      expect(isPNG(data)).toBe(true);
+    });
+  }
+
+  describe('on CI', () => {
+    let CI: string | undefined;
+
+    beforeAll(() => {
+      CI = process.env.CI;
+
+      process.env.CI = 'true';
+    });
+
+    afterAll(() => {
+      process.env.CI = CI;
+    });
+
+    testScreenshot();
   });
 
-  it('should return a Base64-encoded PNG', async () => {
-    await perform(chrome.navigateTo(createUrl('captureScreenshot')));
+  describe('locally', () => {
+    let CI: string | undefined;
 
-    const data = new Buffer(
-      await perform(chrome.captureScreenshot()),
-      'base64'
-    );
+    beforeAll(() => {
+      CI = process.env.CI;
 
-    expect(isPNG(data)).toBe(true);
+      process.env.CI = undefined;
+    });
+
+    afterAll(() => {
+      process.env.CI = CI;
+    });
+
+    testScreenshotFile();
   });
+
+  testScreenshot(false);
+  testScreenshotFile(true);
 });
 
 describe('Chrome.emulateMobileDevice()', () => {
@@ -330,12 +369,10 @@ describe('Chrome.emulateMobileDevice()', () => {
     await perform(chrome.navigateTo(createUrl('emulateMobileDevice'), true));
     await perform(chrome.emulateMobileDevice(device, true));
 
-    const writeToFile = process.env.CI !== 'true';
-
     /* This test case can only be checked by visual inspection. */
     console.info(
       'emulateMobileDevice:fitWindow:',
-      await perform(chrome.captureScreenshot(writeToFile))
+      await perform(chrome.captureScreenshot())
     );
   });
 });
