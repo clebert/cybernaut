@@ -11,7 +11,7 @@ import {MobileDevice} from '../MobileDevice';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000;
 
-const {assert, perform, retryDelay} = new Engine({retries: 1, retryDelay: 100});
+const {assert, perform, retryDelay} = new Engine(1, 100);
 
 const app = express();
 

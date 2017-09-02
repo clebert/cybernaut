@@ -34,7 +34,7 @@ describe('Engine.retries', () => {
 
 describe('Engine.retryDelay', () => {
   it('should be the default value', () => {
-    expect(new Engine().retryDelay).toBe(500);
+    expect(new Engine().retryDelay).toBe(250);
   });
 
   it('should be the specified value', () => {
@@ -109,7 +109,7 @@ describe('Engine.assert()', () => {
       .mockImplementationOnce(() => false)
       .mockImplementation(() => true);
 
-    const {assert} = new Engine();
+    const {assert, retryDelay} = new Engine();
 
     try {
       jest.useFakeTimers();
@@ -121,7 +121,7 @@ describe('Engine.assert()', () => {
       expect(condition.accessor.mock.calls.length).toBe(1);
       expect(condition.predicate.mock.calls.length).toBe(1);
 
-      jest.runTimersToTime(999);
+      jest.runTimersToTime(retryDelay - 1);
 
       await nap();
 
@@ -207,7 +207,7 @@ describe('Engine.verify()', () => {
       .mockImplementationOnce(() => false)
       .mockImplementation(() => true);
 
-    const {verify} = new Engine();
+    const {retryDelay, verify} = new Engine();
 
     try {
       jest.useFakeTimers();
@@ -219,7 +219,7 @@ describe('Engine.verify()', () => {
       expect(condition.accessor.mock.calls.length).toBe(1);
       expect(condition.predicate.mock.calls.length).toBe(1);
 
-      jest.runTimersToTime(999);
+      jest.runTimersToTime(retryDelay - 1);
 
       await nap();
 
@@ -288,7 +288,7 @@ describe('Engine.perform()', () => {
       })
       .mockImplementation(async () => 'a screenshot');
 
-    const {perform} = new Engine();
+    const {perform, retryDelay} = new Engine();
 
     try {
       jest.useFakeTimers();
@@ -299,7 +299,7 @@ describe('Engine.perform()', () => {
 
       expect(action.implementation.mock.calls.length).toBe(1);
 
-      jest.runTimersToTime(999);
+      jest.runTimersToTime(retryDelay - 1);
 
       await nap();
 

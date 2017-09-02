@@ -18,7 +18,7 @@ export class Engine {
   public readonly retries: number;
   public readonly retryDelay: number;
 
-  public constructor(retries: number = 4, retryDelay: number = 500) {
+  public constructor(retries: number = 4, retryDelay: number = 250) {
     this.retries = retries;
     this.retryDelay = retryDelay;
 
