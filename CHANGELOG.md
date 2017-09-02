@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning][external-semver-spec].
 
 ### Added
 
+### Changed
+
+### Fixed
+
+## v13.0.0 - 2017-09-02
+
+### Added
+
 #### @cybernaut/chrome
 
 - Added the property `Chrome.headless`.
@@ -29,8 +37,6 @@ and this project adheres to [Semantic Versioning][external-semver-spec].
 #### @cybernaut/utils
 
 - **Breaking:** Removed the function `getOption()`.
-
-### Fixed
 
 ## v12.0.0 - 2017-09-02
 
