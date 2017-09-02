@@ -137,6 +137,8 @@ export type Script<T = any> = (...args: any[]) => T;
 export class Chrome extends Loggable {
   public static launch(headless: boolean = false): Promise<Chrome>;
 
+  public readonly headless: boolean;
+
   public readonly pageTitle: Property;
   public readonly pageUrl: Property;
 

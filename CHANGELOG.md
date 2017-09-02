@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning][external-semver-spec].
 
 ### Added
 
+#### @cybernaut/chrome
+
+- Added the property `Chrome.headless`.
+
 ### Changed
 
 #### @cybernaut/engine
