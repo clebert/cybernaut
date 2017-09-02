@@ -21,10 +21,7 @@ npm install --save @cybernaut/engine
 ```js
 const {Engine} = require('@cybernaut/engine/lib/Engine');
 
-const {assert, perform, verify} = new Engine({
-  retries: 1,
-  retryDelay: 500
-});
+const {assert, perform, verify} = new Engine();
 
 (async () => {
   await assert(anyCondition);
@@ -57,16 +54,11 @@ Particularly useful are [async functions][external-async-function] which are nat
 import {Action} from '@cybernaut/types/lib/Action';
 import {Condition} from '@cybernaut/types/lib/Condition';
 
-export interface EngineOptions {
-  readonly retries: number; /* Default: 4 */
-  readonly retryDelay: number; /* Default: 1000 */
-}
-
 export class Engine {
   public readonly retries: number;
   public readonly retryDelay: number;
 
-  public constructor(options?: Partial<EngineOptions>);
+  public constructor(retries: number = 4, retryDelay: number = 250);
 
   public assert(condition: Condition): Promise<void>;
   public perform<T>(action: Action<T>): Promise<T>;

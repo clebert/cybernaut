@@ -11,6 +11,15 @@ and this project adheres to [Semantic Versioning][external-semver-spec].
 
 ### Changed
 
+#### @cybernaut/engine
+
+- **Breaking:** Changed the parameters of the constructor `Engine()`.
+- **Breaking:** Removed the interface `EngineOptions`.
+
+#### @cybernaut/utils
+
+- **Breaking:** Removed the function `getOption()`.
+
 ### Fixed
 
 ## v12.0.0 - 2017-09-02
