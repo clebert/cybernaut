@@ -33,8 +33,7 @@ function createUrl(name: string): string {
 }
 
 beforeEach(async () => {
-  /* The GUI mode can only be tested manually. */
-  chrome = await Chrome.launch(true);
+  chrome = await Chrome.launch(/* The GUI mode can only be tested manually. */);
   port = await getPortPromise();
   server = app.listen(port);
 });
