@@ -15,7 +15,7 @@
     "postinstall": "./scripts/copy.sh && lerna bootstrap",
     "lint": "node scripts/markdownlint.js && lerna exec --ignore @cybernaut/examples -- ../../scripts/lerna/tslint.sh",
     "prerelease": "npm run clean && npm install && npm test",
-    "release": "lerna publish --skip-npm && lerna exec --ignore @cybernaut/examples -- npm publish --access=public",
+    "release": "lerna publish --skip-npm && lerna exec --ignore @cybernaut/examples --since -- npm publish --access=public",
     "postrelease": "git push --follow-tags origin master",
     "pretest": "npm run compile",
     "test": "npm run format:test && npm run lint && jest --no-cache && npm run examples",
