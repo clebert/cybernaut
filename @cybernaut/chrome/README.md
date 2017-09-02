@@ -28,7 +28,7 @@ const {Engine} = require('@cybernaut/engine/lib/Engine');
 const {assert, perform} = new Engine();
 
 (async () => {
-  const chrome = await Chrome.launch(true);
+  const chrome = await Chrome.launch();
 
   try {
     await perform(chrome.navigateTo('https://www.example.com/'));
@@ -64,7 +64,7 @@ const {assert, perform} = new Engine();
 let chrome;
 
 beforeEach(async () => {
-  chrome = await Chrome.launch(true);
+  chrome = await Chrome.launch();
 });
 
 afterEach(async () => {
@@ -131,7 +131,7 @@ import {Action} from '@cybernaut/types/lib/Action';
 export type Script<T = any> = (...args: any[]) => T;
 
 export class Chrome extends Loggable {
-  public static launch(headless: boolean = false): Promise<Chrome>;
+  public static launch(headless: boolean = true): Promise<Chrome>;
 
   public readonly headless: boolean;
 
