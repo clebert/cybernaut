@@ -16,10 +16,10 @@ let negatedCondition: MockCondition;
 let error: Error;
 
 beforeEach(() => {
-  action = new MockAction('an action');
-  condition = new MockCondition('a condition', false);
-  negatedCondition = new MockCondition('a negated condition', true);
-  error = new Error('an error');
+  action = new MockAction('action');
+  condition = new MockCondition('condition', false);
+  negatedCondition = new MockCondition('negatedCondition', true);
+  error = new Error('error');
 });
 
 describe('Engine.retries', () => {
@@ -51,7 +51,7 @@ describe('Engine.assert()', () => {
     const {assert} = new Engine(4, 0);
 
     await expect(assert(condition)).rejects.toEqual(
-      new Error('Assert: a condition => Error: an error')
+      new Error('Assert: condition => Error: error')
     );
 
     expect(condition.accessor.mock.calls).toEqual([[], [], [], [], []]);
@@ -59,7 +59,7 @@ describe('Engine.assert()', () => {
   });
 
   it('should return when the specified predicate finally succeeds', async () => {
-    condition.accessor.mockImplementation(async () => 'a value');
+    condition.accessor.mockImplementation(async () => 'value');
 
     condition.predicate
       .mockImplementationOnce(() => false)
@@ -70,30 +70,30 @@ describe('Engine.assert()', () => {
     await assert(condition);
 
     expect(condition.accessor.mock.calls).toEqual([[], []]);
-    expect(condition.predicate.mock.calls).toEqual([['a value'], ['a value']]);
+    expect(condition.predicate.mock.calls).toEqual([['value'], ['value']]);
   });
 
   it('should throw an error when the specified predicate fails', async () => {
-    condition.accessor.mockImplementation(async () => 'a value');
+    condition.accessor.mockImplementation(async () => 'value');
     condition.predicate.mockImplementation(() => false);
 
     const {assert} = new Engine(2, 0);
 
     await expect(assert(condition)).rejects.toEqual(
-      new Error("Assert: a condition => Actual value: 'a value'")
+      new Error("Assert: condition => Actual value: 'value'")
     );
 
     expect(condition.accessor.mock.calls).toEqual([[], [], []]);
 
     expect(condition.predicate.mock.calls).toEqual([
-      ['a value'],
-      ['a value'],
-      ['a value']
+      ['value'],
+      ['value'],
+      ['value']
     ]);
   });
 
   it('should return when the specified negated predicate fails', async () => {
-    negatedCondition.accessor.mockImplementation(async () => 'a value');
+    negatedCondition.accessor.mockImplementation(async () => 'value');
     negatedCondition.predicate.mockImplementation(() => false);
 
     const {assert} = new Engine(2, 0);
@@ -101,7 +101,7 @@ describe('Engine.assert()', () => {
     await assert(negatedCondition);
 
     expect(negatedCondition.accessor.mock.calls).toEqual([[]]);
-    expect(negatedCondition.predicate.mock.calls).toEqual([['a value']]);
+    expect(negatedCondition.predicate.mock.calls).toEqual([['value']]);
   });
 
   it('should delay any retry', async () => {
@@ -151,7 +151,7 @@ describe('Engine.verify()', () => {
     const {verify} = new Engine(4, 0);
 
     await expect(verify(condition)).rejects.toEqual(
-      new Error('Verify: a condition => Error: an error')
+      new Error('Verify: condition => Error: error')
     );
 
     expect(condition.accessor.mock.calls).toEqual([[], [], [], [], []]);
@@ -159,7 +159,7 @@ describe('Engine.verify()', () => {
   });
 
   it('should return true when the specified predicate finally succeeds', async () => {
-    condition.accessor.mockImplementation(async () => 'a value');
+    condition.accessor.mockImplementation(async () => 'value');
 
     condition.predicate
       .mockImplementationOnce(() => false)
@@ -170,11 +170,11 @@ describe('Engine.verify()', () => {
     expect(await verify(condition)).toBe(true);
 
     expect(condition.accessor.mock.calls).toEqual([[], []]);
-    expect(condition.predicate.mock.calls).toEqual([['a value'], ['a value']]);
+    expect(condition.predicate.mock.calls).toEqual([['value'], ['value']]);
   });
 
   it('should return false when the specified predicate fails', async () => {
-    condition.accessor.mockImplementation(async () => 'a value');
+    condition.accessor.mockImplementation(async () => 'value');
     condition.predicate.mockImplementation(() => false);
 
     const {verify} = new Engine(2, 0);
@@ -184,14 +184,14 @@ describe('Engine.verify()', () => {
     expect(condition.accessor.mock.calls).toEqual([[], [], []]);
 
     expect(condition.predicate.mock.calls).toEqual([
-      ['a value'],
-      ['a value'],
-      ['a value']
+      ['value'],
+      ['value'],
+      ['value']
     ]);
   });
 
   it('should return true when the specified negated predicate fails', async () => {
-    negatedCondition.accessor.mockImplementation(async () => 'a value');
+    negatedCondition.accessor.mockImplementation(async () => 'value');
     negatedCondition.predicate.mockImplementation(() => false);
 
     const {verify} = new Engine(2, 0);
@@ -199,7 +199,7 @@ describe('Engine.verify()', () => {
     expect(await verify(negatedCondition)).toBe(true);
 
     expect(negatedCondition.accessor.mock.calls).toEqual([[]]);
-    expect(negatedCondition.predicate.mock.calls).toEqual([['a value']]);
+    expect(negatedCondition.predicate.mock.calls).toEqual([['value']]);
   });
 
   it('should delay any retry', async () => {
@@ -249,7 +249,7 @@ describe('Engine.perform()', () => {
     const {perform} = new Engine(4, 0);
 
     await expect(perform(action)).rejects.toEqual(
-      new Error('Perform: an action => Error: an error')
+      new Error('Perform: action => Error: error')
     );
 
     expect(action.implementation.mock.calls).toEqual([[], [], [], [], []]);
@@ -260,7 +260,7 @@ describe('Engine.perform()', () => {
       .mockImplementationOnce(async () => {
         throw error;
       })
-      .mockImplementation(async () => 'a screenshot');
+      .mockImplementation(async () => 'screenshot');
 
     const {perform} = new Engine(4, 0);
 
@@ -286,7 +286,7 @@ describe('Engine.perform()', () => {
       .mockImplementationOnce(async () => {
         throw error;
       })
-      .mockImplementation(async () => 'a screenshot');
+      .mockImplementation(async () => 'screenshot');
 
     const {perform, retryDelay} = new Engine();
 

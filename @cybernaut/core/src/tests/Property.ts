@@ -1,7 +1,7 @@
 import {Condition} from '@cybernaut/types/lib/Condition';
 import {Property} from '../Property';
 
-const accessor = async () => undefined;
+const accessor = async () => 'value';
 const property = new Property('property', accessor);
 
 function test(negated: boolean): void {
@@ -15,10 +15,10 @@ function test(negated: boolean): void {
       createCondition = value => property[verb].equalTo(value);
     });
 
-    it(`should return a ${negated ? 'negated ' : ''}condition`, () => {
+    it(`should return a ${negated ? 'negated ' : ''}condition`, async () => {
       const condition = createCondition(['foo', {}]);
 
-      expect(condition.accessor).toBe(accessor);
+      expect(await condition.accessor()).toBe('value');
 
       expect(condition.description).toBe(
         `property.${verb}.equalTo(['foo', {}])`
@@ -47,10 +47,10 @@ function test(negated: boolean): void {
       createCondition = value => property[verb].above(value);
     });
 
-    it(`should return a ${negated ? 'negated ' : ''}condition`, () => {
+    it(`should return a ${negated ? 'negated ' : ''}condition`, async () => {
       const condition = createCondition(10);
 
-      expect(condition.accessor).toBe(accessor);
+      expect(await condition.accessor()).toBe('value');
       expect(condition.description).toBe(`property.${verb}.above(10)`);
       expect(condition.negated).toBe(negated);
     });
@@ -80,10 +80,10 @@ function test(negated: boolean): void {
       createCondition = value => property[verb].atLeast(value);
     });
 
-    it(`should return a ${negated ? 'negated ' : ''}condition`, () => {
+    it(`should return a ${negated ? 'negated ' : ''}condition`, async () => {
       const condition = createCondition(10);
 
-      expect(condition.accessor).toBe(accessor);
+      expect(await condition.accessor()).toBe('value');
       expect(condition.description).toBe(`property.${verb}.atLeast(10)`);
       expect(condition.negated).toBe(negated);
     });
@@ -113,10 +113,10 @@ function test(negated: boolean): void {
       createCondition = value => property[verb].atMost(value);
     });
 
-    it(`should return a ${negated ? 'negated ' : ''}condition`, () => {
+    it(`should return a ${negated ? 'negated ' : ''}condition`, async () => {
       const condition = createCondition(10);
 
-      expect(condition.accessor).toBe(accessor);
+      expect(await condition.accessor()).toBe('value');
       expect(condition.description).toBe(`property.${verb}.atMost(10)`);
       expect(condition.negated).toBe(negated);
     });
@@ -146,10 +146,10 @@ function test(negated: boolean): void {
       createCondition = value => property[verb].below(value);
     });
 
-    it(`should return a ${negated ? 'negated ' : ''}condition`, () => {
+    it(`should return a ${negated ? 'negated ' : ''}condition`, async () => {
       const condition = createCondition(10);
 
-      expect(condition.accessor).toBe(accessor);
+      expect(await condition.accessor()).toBe('value');
       expect(condition.description).toBe(`property.${verb}.below(10)`);
       expect(condition.negated).toBe(negated);
     });
@@ -180,10 +180,10 @@ function test(negated: boolean): void {
         property[verb].between(minValue, maxValue);
     });
 
-    it(`should return a ${negated ? 'negated ' : ''}condition`, () => {
+    it(`should return a ${negated ? 'negated ' : ''}condition`, async () => {
       const condition = createCondition(9, 11);
 
-      expect(condition.accessor).toBe(accessor);
+      expect(await condition.accessor()).toBe('value');
       expect(condition.description).toBe(`property.${verb}.between(9, 11)`);
       expect(condition.negated).toBe(negated);
     });
@@ -215,10 +215,10 @@ function test(negated: boolean): void {
       createCondition = value => property[verb].containing(value);
     });
 
-    it(`should return a ${negated ? 'negated ' : ''}condition`, () => {
+    it(`should return a ${negated ? 'negated ' : ''}condition`, async () => {
       const condition = createCondition('foo');
 
-      expect(condition.accessor).toBe(accessor);
+      expect(await condition.accessor()).toBe('value');
       expect(condition.description).toBe(`property.${verb}.containing('foo')`);
       expect(condition.negated).toBe(negated);
     });
@@ -247,10 +247,10 @@ function test(negated: boolean): void {
       createCondition = value => property[verb].matching(value);
     });
 
-    it(`should return a ${negated ? 'negated ' : ''}condition`, () => {
+    it(`should return a ${negated ? 'negated ' : ''}condition`, async () => {
       const condition = createCondition(/foo/g);
 
-      expect(condition.accessor).toBe(accessor);
+      expect(await condition.accessor()).toBe('value');
       expect(condition.description).toBe(`property.${verb}.matching(/foo/g)`);
       expect(condition.negated).toBe(negated);
     });

@@ -88,7 +88,6 @@ Particularly useful are [async functions][external-async-function] which are nat
 
 ### External imports
 
-- [`@cybernaut/core/lib/Loggable`][type-definition-loggable]
 - [`@cybernaut/core/lib/Property`][type-definition-property]
 - [`@cybernaut/types/lib/Action`][type-definition-action]
 
@@ -124,13 +123,12 @@ export function Nexus10(horizontal: boolean = false): MobileDevice;
 
 ```ts
 import {MobileDevice} from '@cybernaut/chrome/lib/MobileDevice';
-import {Loggable} from '@cybernaut/core/lib/Loggable';
 import {Property} from '@cybernaut/core/lib/Property';
 import {Action} from '@cybernaut/types/lib/Action';
 
 export type Script<T = any> = (...args: any[]) => T;
 
-export class Chrome extends Loggable {
+export class Chrome {
   public static launch(headless: boolean = true): Promise<Chrome>;
 
   public readonly headless: boolean;
@@ -140,10 +138,21 @@ export class Chrome extends Loggable {
 
   public scriptResult(script: Script, ...args: any[]): Property;
 
-  public navigateTo(url: string, waitUntilLoaded: boolean = false): Action<void>;
+  public navigateTo(
+    url: string,
+    waitUntilLoaded: boolean = false
+  ): Action<void>;
+
   public runScript<T>(script: Script<T>, ...args: any[]): Action<T>;
-  public emulateMobileDevice(mobileDevice: MobileDevice, fitWindow: boolean = true): Action<void>;
-  public captureScreenshot(writeToFile: boolean = process.env.CI !== 'true'): Action<string>;
+
+  public emulateMobileDevice(
+    mobileDevice: MobileDevice,
+    fitWindow: boolean = true
+  ): Action<void>;
+
+  public captureScreenshot(
+    writeToFile: boolean = process.env.CI !== 'true'
+  ): Action<string>;
 
   public quit(): Promise<void>;
 }
@@ -164,7 +173,6 @@ Built by (c) Clemens Akens. Released under the terms of the [MIT License][cybern
 [package-engine]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/engine
 
 [type-definition-action]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/types#cybernauttypeslibaction
-[type-definition-loggable]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/core#cybernautcorelibloggable
 [type-definition-property]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/core#cybernautcorelibproperty
 
 [external-async-function]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function

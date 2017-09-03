@@ -1,21 +1,22 @@
 import {Accessor} from '@cybernaut/types/lib/Accessor';
+import {getRecording} from '@cybernaut/utils/lib/getRecording';
+import {recordable} from '@cybernaut/utils/lib/recordable';
 import {ConditionBuilder} from './ConditionBuilder';
-import {Loggable} from './Loggable';
 
-export class Property extends Loggable {
+export class Property {
   private readonly accessor: Accessor;
 
   public constructor(description: string, accessor: Accessor) {
-    super(description, ['accessor']);
-
     this.accessor = accessor;
+
+    return recordable<Property>(description, ['accessor'])(this);
   }
 
   public get is(): ConditionBuilder {
-    return new ConditionBuilder(this.log, this.accessor, false);
+    return new ConditionBuilder(getRecording(this), this.accessor, false);
   }
 
   public get isNot(): ConditionBuilder {
-    return new ConditionBuilder(this.log, this.accessor, true);
+    return new ConditionBuilder(getRecording(this), this.accessor, true);
   }
 }

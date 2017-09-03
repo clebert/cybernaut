@@ -13,6 +13,21 @@ and this project adheres to [Semantic Versioning][external-semver-spec].
 
 ### Fixed
 
+## v14.0.0 - 2017-09-04
+
+### Added
+
+#### @cybernaut/utils
+
+- Added the function `getRecording()`.
+- Added the function/decorator `recordable()`.
+
+### Changed
+
+#### @cybernaut/core
+
+- **Breaking:** Removed the class `Loggable`.
+
 ## v13.0.0 - 2017-09-02
 
 ### Added

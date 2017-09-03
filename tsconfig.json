@@ -1,6 +1,7 @@
 {
   "extends": "./node_modules/ts-config/tsconfig.json",
   "compilerOptions": {
+    "experimentalDecorators": true,
     "lib": ["dom", "es2017"]
   }
 }

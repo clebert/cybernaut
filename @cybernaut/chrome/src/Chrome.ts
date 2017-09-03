@@ -3,17 +3,18 @@
 import CDP = require('chrome-remote-interface');
 import tempWrite = require('temp-write');
 
-import {Loggable} from '@cybernaut/core/lib/Loggable';
 import {Property} from '@cybernaut/core/lib/Property';
 import {Action} from '@cybernaut/types/lib/Action';
-import {format} from '@cybernaut/utils/lib/format';
+import {getRecording} from '@cybernaut/utils/lib/getRecording';
+import {recordable} from '@cybernaut/utils/lib/recordable';
 import {LaunchedChrome, launch} from 'chrome-launcher';
 import {MobileDevice} from './MobileDevice';
 
 /* tslint:disable-next-line no-any */
 export type Script<T = any> = (...args: any[]) => T;
 
-export class Chrome extends Loggable {
+@recordable<typeof Chrome>('Chrome', ['prototype'])
+export class Chrome {
   /* istanbul ignore next */
   public static async launch(headless: boolean = true): Promise<Chrome> {
     const chromeProcess = await launch({
@@ -22,7 +23,7 @@ export class Chrome extends Loggable {
 
     const client = await CDP({port: chromeProcess.port});
 
-    return new Chrome(headless, client, chromeProcess);
+    return new Chrome(getRecording(Chrome), headless, client, chromeProcess);
   }
 
   public readonly headless: boolean;
@@ -31,39 +32,42 @@ export class Chrome extends Loggable {
   private readonly chromeProcess: LaunchedChrome;
 
   public constructor(
+    description: string,
     headless: boolean,
     client: CDP.Client,
     chromeProcess: LaunchedChrome
   ) {
-    super(`Chrome.launch(${format(headless)})`, [
+    this.headless = headless;
+    this.client = client;
+    this.chromeProcess = chromeProcess;
+
+    return recordable<Chrome>(description, [
       'client',
       'chromeProcess',
       'evaluate',
       'then'
-    ]);
-
-    this.headless = headless;
-    this.client = client;
-    this.chromeProcess = chromeProcess;
+    ])(this);
   }
 
   public get pageTitle(): Property {
     /* istanbul ignore next */
     const script = () => document.title;
 
-    return new Property(this.log, async () => this.evaluate(script));
+    return new Property(getRecording(this), async () => this.evaluate(script));
   }
 
   public get pageUrl(): Property {
     /* istanbul ignore next */
     const script = () => window.location.href;
 
-    return new Property(this.log, async () => this.evaluate(script));
+    return new Property(getRecording(this), async () => this.evaluate(script));
   }
 
   /* tslint:disable-next-line no-any */
   public scriptResult(script: Script, ...args: any[]): Property {
-    return new Property(this.log, async () => this.evaluate(script, ...args));
+    return new Property(getRecording(this), async () =>
+      this.evaluate(script, ...args)
+    );
   }
 
   public navigateTo(
@@ -71,7 +75,7 @@ export class Chrome extends Loggable {
     waitUntilLoaded: boolean = false
   ): Action<void> {
     return {
-      description: this.log,
+      description: getRecording(this),
       implementation: async () => {
         const {Page} = this.client;
 
@@ -88,7 +92,7 @@ export class Chrome extends Loggable {
   /* tslint:disable-next-line no-any */
   public runScript<T>(script: Script<T>, ...args: any[]): Action<T> {
     return {
-      description: this.log,
+      description: getRecording(this),
       implementation: async () => this.evaluate<T>(script, ...args)
     };
   }
@@ -98,7 +102,7 @@ export class Chrome extends Loggable {
     fitWindow: boolean = true
   ): Action<void> {
     return {
-      description: this.log,
+      description: getRecording(this),
       implementation: async () => {
         const {Emulation, Network} = this.client;
 
@@ -128,7 +132,7 @@ export class Chrome extends Loggable {
     writeToFile: boolean = process.env.CI !== 'true'
   ): Action<string> {
     return {
-      description: this.log,
+      description: getRecording(this),
       implementation: async () => {
         const screenshot = await this.client.Page.captureScreenshot({
           fromSurface: true

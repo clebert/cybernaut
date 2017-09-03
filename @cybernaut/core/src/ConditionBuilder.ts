@@ -4,9 +4,10 @@ import {Accessor} from '@cybernaut/types/lib/Accessor';
 import {Condition} from '@cybernaut/types/lib/Condition';
 import {Predicate} from '@cybernaut/types/lib/Predicate';
 import {format} from '@cybernaut/utils/lib/format';
-import {Loggable} from './Loggable';
+import {getRecording} from '@cybernaut/utils/lib/getRecording';
+import {recordable} from '@cybernaut/utils/lib/recordable';
 
-export class ConditionBuilder extends Loggable {
+export class ConditionBuilder {
   private readonly accessor: Accessor;
   private readonly negated: boolean;
 
@@ -15,15 +16,19 @@ export class ConditionBuilder extends Loggable {
     accessor: Accessor,
     negated: boolean
   ) {
-    super(description, ['accessor', 'negated', 'build']);
-
     this.accessor = accessor;
     this.negated = negated;
+
+    return recordable<ConditionBuilder>(description, [
+      'accessor',
+      'negated',
+      'build'
+    ])(this);
   }
 
   /* tslint:disable-next-line no-any */
   public equalTo(value: any): Condition {
-    return this.build('any', this.log, actualValue => {
+    return this.build('any', getRecording(this), actualValue => {
       if (actualValue !== actualValue && value !== value) {
         return true;
       }
@@ -33,25 +38,41 @@ export class ConditionBuilder extends Loggable {
   }
 
   public above(value: number): Condition {
-    return this.build('number', this.log, actualValue => actualValue > value);
+    return this.build(
+      'number',
+      getRecording(this),
+      actualValue => actualValue > value
+    );
   }
 
   public atLeast(value: number): Condition {
-    return this.build('number', this.log, actualValue => actualValue >= value);
+    return this.build(
+      'number',
+      getRecording(this),
+      actualValue => actualValue >= value
+    );
   }
 
   public atMost(value: number): Condition {
-    return this.build('number', this.log, actualValue => actualValue <= value);
+    return this.build(
+      'number',
+      getRecording(this),
+      actualValue => actualValue <= value
+    );
   }
 
   public below(value: number): Condition {
-    return this.build('number', this.log, actualValue => actualValue < value);
+    return this.build(
+      'number',
+      getRecording(this),
+      actualValue => actualValue < value
+    );
   }
 
   public between(minValue: number, maxValue: number): Condition {
     return this.build(
       'number',
-      this.log,
+      getRecording(this),
       actualValue => actualValue >= minValue && actualValue <= maxValue
     );
   }
@@ -59,13 +80,13 @@ export class ConditionBuilder extends Loggable {
   public containing(value: string): Condition {
     return this.build(
       'string',
-      this.log,
+      getRecording(this),
       actualValue => actualValue.indexOf(value) > -1
     );
   }
 
   public matching(value: RegExp): Condition {
-    return this.build('string', this.log, actualValue =>
+    return this.build('string', getRecording(this), actualValue =>
       value.test(actualValue)
     );
   }
