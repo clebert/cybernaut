@@ -8,6 +8,7 @@ import {Action} from '@cybernaut/types/lib/Action';
 import {getRecording} from '@cybernaut/utils/lib/getRecording';
 import {recordable} from '@cybernaut/utils/lib/recordable';
 import {LaunchedChrome, launch} from 'chrome-launcher';
+import {DOMNode} from './DOMNode';
 import {MobileDevice} from './MobileDevice';
 
 /* tslint:disable-next-line no-any */
@@ -47,6 +48,10 @@ export class Chrome {
       'evaluate',
       'then'
     ])(this);
+  }
+
+  public get rootNode(): DOMNode {
+    return new DOMNode(getRecording(this), this.client);
   }
 
   public get pageTitle(): Property {

@@ -17,7 +17,7 @@ const app = express();
 
 app.use(express.static(join(__dirname, 'fixtures')));
 
-app.get('/waitUntilLoaded.js', (req, res) => {
+app.get('/Chrome/waitUntilLoaded.js', (req, res) => {
   setTimeout(() => {
     res.setHeader('content-type', 'text/javascript');
     res.end("document.title = 'asyncTitle'");
@@ -29,7 +29,7 @@ let port: number;
 let server: Server;
 
 function createUrl(name: string): string {
-  return `http://localhost:${port}/${name}.html`;
+  return `http://localhost:${port}/Chrome/${name}.html`;
 }
 
 beforeEach(async () => {
