@@ -20,6 +20,21 @@ npm install --save @cybernaut/utils
 export function format(value: any): string;
 ```
 
+### @cybernaut/utils/lib/getRecording
+
+```ts
+export function getRecording(recordable: object): string;
+```
+
+### @cybernaut/utils/lib/recordable
+
+```ts
+export function recordable<T extends object>(
+  description: string,
+  keysToIgnore?: string[]
+): (target: T) => T;
+```
+
 ---
 Built by (c) Clemens Akens. Released under the terms of the [MIT License][cybernaut-license].
 

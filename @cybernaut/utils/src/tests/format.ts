@@ -23,9 +23,11 @@ describe('format()', () => {
     expect(format('')).toBe("''");
     expect(format("'foo'")).toBe("'\\'foo\\''");
 
-    expect(format([[], false, null, 0, {}, /pattern/g, ''])).toBe(
-      "[[], false, null, 0, {}, /pattern/g, '']"
-    );
+    expect(format(Symbol.for('foo'))).toBe('Symbol(foo)');
+
+    expect(
+      format([[], false, null, 0, {}, /pattern/g, '', Symbol.for('foo')])
+    ).toBe("[[], false, null, 0, {}, /pattern/g, '', Symbol(foo)]");
 
     expect(
       format({
@@ -35,10 +37,11 @@ describe('format()', () => {
         number: 0,
         object: {},
         regex: /pattern/g,
-        string: ''
+        string: '',
+        symbol: Symbol.for('foo')
       })
     ).toBe(
-      "{array: [], boolean: false, null: null, number: 0, object: {}, regex: /pattern/g, string: ''}"
+      "{array: [], boolean: false, null: null, number: 0, object: {}, regex: /pattern/g, string: '', symbol: Symbol(foo)}"
     );
   });
 });

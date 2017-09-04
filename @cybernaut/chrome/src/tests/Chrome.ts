@@ -20,7 +20,7 @@ app.use(express.static(join(__dirname, 'fixtures')));
 app.get('/waitUntilLoaded.js', (req, res) => {
   setTimeout(() => {
     res.setHeader('content-type', 'text/javascript');
-    res.end("document.title = 'an async title'");
+    res.end("document.title = 'asyncTitle'");
   }, retryDelay * 2);
 });
 
@@ -33,7 +33,8 @@ function createUrl(name: string): string {
 }
 
 beforeEach(async () => {
-  chrome = await Chrome.launch(/* The GUI mode can only be tested manually. */);
+  /* The GUI mode can only be tested manually. */
+  chrome = await Chrome.launch(true);
   port = await getPortPromise();
   server = app.listen(port);
 });
@@ -76,7 +77,7 @@ describe('Chrome.scriptResult()', () => {
   it('should throw a script error', async () => {
     const condition = chrome
       .scriptResult(() => {
-        throw new Error('an error');
+        throw new Error('error');
       })
       .is.equalTo(undefined);
 
@@ -84,8 +85,8 @@ describe('Chrome.scriptResult()', () => {
       new Error(
         [
           `Assert: Chrome.launch(${chrome.headless}).scriptResult(() => {`,
-          "            throw new Error('an error');",
-          '        }).is.equalTo(undefined) => Error: an error'
+          "            throw new Error('error');",
+          '        }).is.equalTo(undefined) => Error: error'
         ].join('\n')
       )
     );
@@ -137,15 +138,15 @@ describe('Chrome.runScript()', () => {
 
   it('should throw a script error', async () => {
     const action = chrome.runScript(() => {
-      throw new Error('an error');
+      throw new Error('error');
     });
 
     await expect(perform(action)).rejects.toEqual(
       new Error(
         [
           `Perform: Chrome.launch(${chrome.headless}).runScript(() => {`,
-          "            throw new Error('an error');",
-          '        }) => Error: an error'
+          "            throw new Error('error');",
+          '        }) => Error: error'
         ].join('\n')
       )
     );
@@ -183,7 +184,7 @@ describe('Chrome.navigateTo()', () => {
     await perform(chrome.navigateTo(createUrl('navigateTo'), true));
 
     await assert(
-      chrome.scriptResult(() => document.title).is.equalTo('an async title')
+      chrome.scriptResult(() => document.title).is.equalTo('asyncTitle')
     );
   });
 });
@@ -303,7 +304,7 @@ describe('Chrome.emulateMobileDevice()', () => {
       width: 1920,
       height: 1080,
       pixelRatio: 3,
-      userAgent: 'an user agent'
+      userAgent: 'userAgent'
     };
   });
 
@@ -311,7 +312,7 @@ describe('Chrome.emulateMobileDevice()', () => {
     const action = chrome.emulateMobileDevice(device, true);
 
     expect(action.description).toBe(
-      `Chrome.launch(${chrome.headless}).emulateMobileDevice({width: 1920, height: 1080, pixelRatio: 3, userAgent: 'an user agent'}, true)`
+      `Chrome.launch(${chrome.headless}).emulateMobileDevice({width: 1920, height: 1080, pixelRatio: 3, userAgent: 'userAgent'}, true)`
     );
   });
 

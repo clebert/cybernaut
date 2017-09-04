@@ -20,25 +20,14 @@ npm install --save @cybernaut/core
 - [`@cybernaut/types/lib/Condition`][type-definition-condition]
 - [`@cybernaut/types/lib/Predicate`][type-definition-predicate]
 
-### @cybernaut/core/lib/Loggable
-
-```ts
-export abstract class Loggable {
-  protected readonly log: string;
-
-  constructor(description: string, keysToIgnore: string[] = []);
-}
-```
-
 ### @cybernaut/core/lib/ConditionBuilder
 
 ```ts
-import {Loggable} from '@cybernaut/core/lib/Loggable';
 import {Accessor} from '@cybernaut/types/lib/Accessor';
 import {Condition} from '@cybernaut/types/lib/Condition';
 import {Predicate} from '@cybernaut/types/lib/Predicate';
 
-export class ConditionBuilder extends Loggable {
+export class ConditionBuilder {
   public constructor(description: string, accessor: Accessor, negated: boolean);
 
   public equalTo(value: any): Condition;
@@ -58,10 +47,9 @@ export class ConditionBuilder extends Loggable {
 
 ```ts
 import {ConditionBuilder} from '@cybernaut/core/lib/ConditionBuilder';
-import {Loggable} from '@cybernaut/core/lib/Loggable';
 import {Accessor} from '@cybernaut/types/lib/Accessor';
 
-export class Property extends Loggable {
+export class Property {
   public constructor(description: string, accessor: Accessor);
 
   public readonly is: ConditionBuilder;

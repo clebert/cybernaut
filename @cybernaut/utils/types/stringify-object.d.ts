@@ -3,6 +3,8 @@ declare module 'stringify-object' {
     readonly indent?: string;
     readonly inlineCharacterLimit?: number;
     readonly singleQuotes?: boolean;
+
+    filter?<T>(object: T, property: keyof T): boolean;
   }
 
   /* tslint:disable-next-line no-any */
