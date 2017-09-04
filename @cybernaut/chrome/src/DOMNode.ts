@@ -28,7 +28,7 @@ export class DOMNode {
 
   public get html(): Property {
     return new Property(getRecording(this), async () => {
-      const nodeId = await this.findNodeId();
+      const nodeId = await this.findNodeId(this);
 
       return (await this.client.DOM.getOuterHTML({nodeId})).outerHTML;
     });
@@ -43,10 +43,14 @@ export class DOMNode {
   }
 
   private async findNodeId(
+    {locator: currentLocator}: DOMNode,
     locators: DOMNodeLocator[] = []
   ): Promise<CDP.DOM.NodeId> {
-    if (this.locator) {
-      return this.findNodeId([this.locator, ...locators]);
+    if (currentLocator) {
+      return this.findNodeId(currentLocator.parentNode, [
+        currentLocator,
+        ...locators
+      ]);
     }
 
     const {DOM} = this.client;
