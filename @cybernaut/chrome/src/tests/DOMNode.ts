@@ -37,8 +37,22 @@ afterEach(async () => {
   }
 });
 
-describe('DOMNode.html()', () => {
-  it('should describe itself correctly', () => {
-    // TODO
+describe('rootNode', () => {
+  describe('DOMNode.html', () => {
+    it('should describe itself correctly', () => {
+      const condition = chrome.rootNode.html.is.containing('html');
+
+      expect(condition.description).toBe(
+        "Chrome.launch().rootNode.html.is.containing('html')"
+      );
+    });
   });
+});
+
+describe("rootNode.descendantNode('.container')", () => {
+  // TODO
+});
+
+describe("rootNode.descendantNode('.container').descendantNode('.text', 1)", () => {
+  // TODO
 });
