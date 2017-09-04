@@ -11,9 +11,8 @@ export interface DOMNodeLocator {
 }
 
 export class DOMNode {
-  public readonly locator?: DOMNodeLocator;
-
   private readonly client: CDP.Client;
+  private readonly locator?: DOMNodeLocator;
 
   public constructor(
     description: string,

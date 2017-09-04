@@ -13,6 +13,15 @@ and this project adheres to [Semantic Versioning][external-semver-spec].
 
 ### Fixed
 
+## v14.1.0 - 2017-09-05
+
+### Added
+
+#### @cybernaut/chrome
+
+- Added the class `DOMNode`.
+- Added the property `Chrome.rootNode`.
+
 ## v14.0.0 - 2017-09-04
 
 ### Added
