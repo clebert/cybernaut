@@ -58,7 +58,7 @@ beforeEach(() => {
 });
 
 describe('recordable()', () => {
-  describe('the proxy object', () => {
+  describe('the proxy', () => {
     it('should not have any extra properties', () => {
       expect(Object.getOwnPropertyNames(proxyClass).sort()).toEqual([]);
 
@@ -105,7 +105,7 @@ describe('recordable()', () => {
       );
     });
 
-    it('should reset the recording', () => {
+    it('should reset the recording of itself', () => {
       proxyClass.method(proxyClass);
 
       proxyObject.originalMethod();
@@ -143,7 +143,7 @@ describe('recordable()', () => {
     });
   });
 
-  describe('the original object', () => {
+  describe('the original', () => {
     it('should not have any extra properties', () => {
       expect(Object.getOwnPropertyNames(originalClass).sort()).toEqual([]);
 
@@ -161,6 +161,11 @@ describe('recordable()', () => {
         'valueMethod',
         'valueProperty'
       ]);
+    });
+
+    it('should provide access to the recording of the proxy', () => {
+      expect(getRecording(originalClass)).toBe('recordableClass');
+      expect(getRecording(originalObject)).toBe('recordableObject');
     });
 
     it('should not record any access to its properties', () => {
@@ -188,7 +193,7 @@ describe('recordable()', () => {
       expect(getRecording(originalObject)).toBe('recordableObject');
     });
 
-    it('should reset the recording', () => {
+    it('should reset the recording of the proxy', () => {
       proxyClass.method(proxyClass);
 
       proxyObject.originalMethod();
