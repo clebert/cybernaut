@@ -16,7 +16,6 @@ export type Script<T = any> = (...args: any[]) => T;
 
 @recordable<typeof Chrome>('Chrome', ['prototype'])
 export class Chrome {
-  /* istanbul ignore next */
   public static async launch(headless: boolean = true): Promise<Chrome> {
     const chromeProcess = await launch({
       chromeFlags: headless ? ['--headless', '--disable-gpu'] : []
