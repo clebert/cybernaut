@@ -1,9 +1,9 @@
 {
   "name": "@cybernaut/examples",
-  "version": "14.0.0",
+  "version": "14.1.0",
   "private": true,
   "dependencies": {
-    "@cybernaut/chrome": "^14.0.0",
+    "@cybernaut/chrome": "^14.1.0",
     "@cybernaut/engine": "^14.0.0"
   }
 }
