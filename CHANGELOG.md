@@ -19,8 +19,8 @@ and this project adheres to [Semantic Versioning][external-semver-spec].
 
 #### @cybernaut/chrome
 
-- Added the class `DOMNode`.
-- Added the property `Chrome.rootNode`.
+- Added the `DOMNode` class.
+- Added the `Chrome.rootNode` property.
 
 ## v14.0.0 - 2017-09-04
 
@@ -28,14 +28,14 @@ and this project adheres to [Semantic Versioning][external-semver-spec].
 
 #### @cybernaut/utils
 
-- Added the function `getRecording()`.
-- Added the function/decorator `recordable()`.
+- Added the `getRecording()` function.
+- Added the `recordable()` function/decorator.
 
 ### Changed
 
 #### @cybernaut/core
 
-- **Breaking:** Removed the class `Loggable`.
+- **Breaking:** Removed the `Loggable` class.
 
 ## v13.0.0 - 2017-09-02
 
@@ -43,24 +43,24 @@ and this project adheres to [Semantic Versioning][external-semver-spec].
 
 #### @cybernaut/chrome
 
-- Added the property `Chrome.headless`.
+- Added the `Chrome.headless` property.
 
 ### Changed
 
 #### @cybernaut/engine
 
-- **Breaking:** Changed the parameters of the constructor `Engine()`.
-- **Breaking:** Removed the interface `EngineOptions`.
+- **Breaking:** Changed the parameters of the `Engine()` constructor.
+- **Breaking:** Removed the `EngineOptions` interface.
 
 #### @cybernaut/chrome
 
-- **Breaking:** Changed the default value of the parameter `headless` of the static method `Chrome.launch()`.
-- **Breaking:** Changed the default value of the parameter `writeToFile` of the method `Chrome.captureScreenshot()`.
-- **Breaking:** Changed the default value of the parameter `fitWindow` of the method `Chrome.emulateMobileDevice()`.
+- **Breaking:** Changed the default value of the `headless` parameter of the `Chrome.launch()` static method.
+- **Breaking:** Changed the default value of the `writeToFile` parameter of the `Chrome.captureScreenshot()` method.
+- **Breaking:** Changed the default value of the `fitWindow` parameter of the `Chrome.emulateMobileDevice()` method.
 
 #### @cybernaut/utils
 
-- **Breaking:** Removed the function `getOption()`.
+- **Breaking:** Removed the `getOption()` function.
 
 ## v12.0.0 - 2017-09-02
 
@@ -68,48 +68,48 @@ and this project adheres to [Semantic Versioning][external-semver-spec].
 
 #### @cybernaut/engine
 
-- Added the properties `Engine.retries` and `Engine.retryDelay`.
+- Added the `Engine.retries` and `Engine.retryDelay` properties.
 
 #### @cybernaut/chrome
 
-- Added the methods `Chrome.runScript()` and `Chrome.scriptResult()`.
-- Added the interface `MobileDevice`.
-- Added the factory functions `iPadMini()`, `iPad()`, `iPadPro()`, `iPhone4()`, `iPhone5()`, `iPhone6()`, `iPhone6Plus()`, `Nexus4()`, `Nexus5()`, `Nexus5X()`, `Nexus6()`, `Nexus6P()`, `Nexus7()`, and `Nexus10()`.
+- Added the `Chrome.runScript()` and `Chrome.scriptResult()` methods.
+- Added the `MobileDevice` interface.
+- Added the `iPadMini()`, `iPad()`, `iPadPro()`, `iPhone4()`, `iPhone5()`, `iPhone6()`, `iPhone6Plus()`, `Nexus4()`, `Nexus5()`, `Nexus5X()`, `Nexus6()`, `Nexus6P()`, `Nexus7()`, and `Nexus10()` factory functions.
 
 #### @cybernaut/core
 
-- Added the class `Loggable` as a replacement for the class `Describable`.
-- Added the class `ConditionBuilder` as a replacement for the classes `GenericConditionBuilder`, `NumberConditionBuilder`, and `StringConditionBuilder`.
-- Added the class `Property` as a replacement for the classes `GenericProperty`, `NumberProperty`, and `StringProperty`.
+- Added the `Loggable` class as a replacement for the `Describable` class.
+- Added the `ConditionBuilder` class as a replacement for the `GenericConditionBuilder`, `NumberConditionBuilder`, and `StringConditionBuilder` classes.
+- Added the `Property` class as a replacement for the `GenericProperty`, `NumberProperty`, and `StringProperty` classes.
 
 ### Changed
 
 #### @cybernaut/engine
 
-- Removed generic type declarations from the class `Engine`.
+- Removed some generic type declarations from the `Engine` class.
 
 #### @cybernaut/chrome
 
-- **Breaking:** Changed the parameters of the static method `Chrome.launch()`.
-- **Breaking:** Renamed the method `Chrome.navigate()` to `Chrome.navigateTo()`.
-- **Breaking:** Renamed the method `Chrome.emulateDevice()` to `Chrome.emulateMobileDevice()`.
-- **Breaking:** Removed the static method `Chrome.launchHeadless()`.
-- **Breaking:** Removed the interface `ChromeOptions`.
-- **Breaking:** Removed the class `Device`.
+- **Breaking:** Changed the parameters of the `Chrome.launch()` static method.
+- **Breaking:** Renamed the `Chrome.navigate()` method to `Chrome.navigateTo()`.
+- **Breaking:** Renamed the `Chrome.emulateDevice()` method to `Chrome.emulateMobileDevice()`.
+- **Breaking:** Removed the `Chrome.launchHeadless()` static method.
+- **Breaking:** Removed the `ChromeOptions` interface.
+- **Breaking:** Removed the `Device` class.
 
 #### @cybernaut/core
 
-- **Breaking:** Removed the classes `Describable`, `GenericConditionBuilder`, `NumberConditionBuilder`, `StringConditionBuilder`, `GenericProperty`, `NumberProperty`, and `StringProperty`.
+- **Breaking:** Removed the `Describable`, `GenericConditionBuilder`, `NumberConditionBuilder`, `StringConditionBuilder`, `GenericProperty`, `NumberProperty`, and `StringProperty` classes.
 
 #### @cybernaut/mocks
 
-- Removed generic type declarations from the class `MockCondition`.
+- Removed some generic type declarations from the `MockCondition` class.
 
 #### @cybernaut/types
 
-- Removed generic type declarations from the interface `Accessor`.
-- Removed generic type declarations from the interface `Condition`.
-- Removed generic type declarations from the interface `Predicate`.
+- Removed some generic type declarations from the `Accessor` interface.
+- Removed some generic type declarations from the `Condition` interface.
+- Removed some generic type declarations from the `Predicate` interface.
 
 [external-keepachangelog]: http://keepachangelog.com/en/1.0.0/
 [external-semver-spec]: http://semver.org/spec/v2.0.0.html
