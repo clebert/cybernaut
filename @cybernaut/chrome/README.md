@@ -99,7 +99,7 @@ import {Property} from '@cybernaut/core/lib/Property';
 export class DOMNode {
   public readonly html: Property;
 
-  public descendantNode(selector: string, index?: number): DOMNode;
+  public descendantNode(selector: string, index: number = 0): DOMNode;
 }
 ```
 
