@@ -1,4 +1,46 @@
 declare namespace CDP {
+  /* https://chromedevtools.github.io/devtools-protocol/tot/DOM/ */
+  namespace DOM {
+    type NodeId = number;
+
+    interface Node {
+      readonly nodeId: NodeId;
+    }
+
+    interface GetDocumentReturnObject {
+      readonly root: Node;
+    }
+
+    interface QuerySelectorAllParameters {
+      readonly nodeId: NodeId;
+      readonly selector: string;
+    }
+
+    interface QuerySelectorAllReturnObject {
+      readonly nodeIds: NodeId[];
+    }
+
+    interface GetOuterHTMLParameters {
+      readonly nodeId?: NodeId;
+    }
+
+    interface GetOuterHTMLReturnObject {
+      readonly outerHTML: string;
+    }
+  }
+
+  interface DOM {
+    getDocument(): Promise<DOM.GetDocumentReturnObject>;
+
+    querySelectorAll(
+      parameters: DOM.QuerySelectorAllParameters
+    ): Promise<DOM.QuerySelectorAllReturnObject>;
+
+    getOuterHTML(
+      parameters?: DOM.GetOuterHTMLParameters
+    ): Promise<DOM.GetOuterHTMLReturnObject>;
+  }
+
   /* https://chromedevtools.github.io/devtools-protocol/tot/Emulation/ */
   namespace Emulation {
     interface SetDeviceMetricsOverrideParameters {
@@ -130,6 +172,7 @@ declare namespace CDP {
 
   /* https://github.com/cyrus-and/chrome-remote-interface#class-cdp */
   interface Client {
+    readonly DOM: DOM;
     readonly Emulation: Emulation;
     readonly Network: Network;
     readonly Page: Page;

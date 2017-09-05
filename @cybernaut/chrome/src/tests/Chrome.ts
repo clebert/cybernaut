@@ -15,7 +15,7 @@ const {assert, perform, retryDelay} = new Engine(1, 100);
 
 const app = express();
 
-app.use(express.static(join(__dirname, 'fixtures')));
+app.use(express.static(join(__dirname, 'fixtures/Chrome/')));
 
 app.get('/waitUntilLoaded.js', (req, res) => {
   setTimeout(() => {

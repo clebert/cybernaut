@@ -91,6 +91,21 @@ Particularly useful are [async functions][external-async-function] which are nat
 - [`@cybernaut/core/lib/Property`][type-definition-property]
 - [`@cybernaut/types/lib/Action`][type-definition-action]
 
+### @cybernaut/chrome/lib/DOMNode
+
+```ts
+import {Property} from '@cybernaut/core/lib/Property';
+
+export class DOMNode {
+  public readonly html: Property;
+
+  public descendantNode(selector: string, index: number = 0): DOMNode;
+}
+```
+
+*Note: An instance of this class can be obtained from the `Chrome.rootNode` property.
+The `DOMNode()` constructor is considered to be a private API.*
+
 ### @cybernaut/chrome/lib/MobileDevice
 
 ```ts
@@ -122,6 +137,7 @@ export function Nexus10(horizontal: boolean = false): MobileDevice;
 ### @cybernaut/chrome/lib/Chrome
 
 ```ts
+import {DOMNode} from '@cybernaut/chrome/lib/DOMNode';
 import {MobileDevice} from '@cybernaut/chrome/lib/MobileDevice';
 import {Property} from '@cybernaut/core/lib/Property';
 import {Action} from '@cybernaut/types/lib/Action';
@@ -132,6 +148,8 @@ export class Chrome {
   public static launch(headless: boolean = true): Promise<Chrome>;
 
   public readonly headless: boolean;
+
+  public readonly rootNode: DOMNode;
 
   public readonly pageTitle: Property;
   public readonly pageUrl: Property;
@@ -157,6 +175,9 @@ export class Chrome {
   public quit(): Promise<void>;
 }
 ```
+
+*Note: An instance of this class can be obtained from the `Chrome.launch()` static method.
+The `Chrome()` constructor is considered to be a private API.*
 
 ---
 Built by (c) Clemens Akens. Released under the terms of the [MIT License][cybernaut-license].
