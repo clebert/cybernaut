@@ -93,9 +93,6 @@ Particularly useful are [async functions][external-async-function] which are nat
 
 ### @cybernaut/chrome/lib/DOMNode
 
-*Note: An instance of this class can be obtained from the `Chrome.rootNode` property.
-The `DOMNode()` constructor is considered to be a private API.*
-
 ```ts
 import {Property} from '@cybernaut/core/lib/Property';
 
@@ -105,6 +102,9 @@ export class DOMNode {
   public descendantNode(selector: string, index?: number): DOMNode;
 }
 ```
+
+*Note: An instance of this class can be obtained from the `Chrome.rootNode` property.
+The `DOMNode()` constructor is considered to be a private API.*
 
 ### @cybernaut/chrome/lib/MobileDevice
 
@@ -135,9 +135,6 @@ export function Nexus10(horizontal: boolean = false): MobileDevice;
 ```
 
 ### @cybernaut/chrome/lib/Chrome
-
-*Note: An instance of this class can be obtained from the `Chrome.launch()` static method.
-The `Chrome()` constructor is considered to be a private API.*
 
 ```ts
 import {DOMNode} from '@cybernaut/chrome/lib/DOMNode';
@@ -178,6 +175,9 @@ export class Chrome {
   public quit(): Promise<void>;
 }
 ```
+
+*Note: An instance of this class can be obtained from the `Chrome.launch()` static method.
+The `Chrome()` constructor is considered to be a private API.*
 
 ---
 Built by (c) Clemens Akens. Released under the terms of the [MIT License][cybernaut-license].
