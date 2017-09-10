@@ -36,7 +36,7 @@ module.exports = ({localProjectDir, projectCacheDir}) => {
     env: {type: 'node', runner: 'node'},
     files: [
       '@cybernaut/*/src/**/*.{ts,tsx}',
-      '!@cybernaut/*/src/**/tests/**/*.{ts,tsx}'
+      '!@cybernaut/*/src/**/*.test.{ts,tsx}'
     ],
     preprocessors: {
       '**/*.{ts,tsx}': file =>
@@ -44,10 +44,6 @@ module.exports = ({localProjectDir, projectCacheDir}) => {
     },
     setup,
     testFramework: 'jest',
-    tests: [
-      '@cybernaut/*/src/**/tests/**/*.{ts,tsx}',
-      '!@cybernaut/chrome/src/tests/Chrome.ts',
-      '!@cybernaut/chrome/src/tests/DOMNode.ts'
-    ]
+    tests: ['@cybernaut/*/src/**/*.test.{ts,tsx}']
   };
 };

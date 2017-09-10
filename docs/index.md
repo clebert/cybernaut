@@ -2,17 +2,17 @@
 
 # Packages
 
-## [@cybernaut/engine][package-engine] ❤️
+## [@cybernaut/test][package-test]
 
-> The heart of Cybernaut: An engine for reliably asserting/verifying conditions and for reliably performing actions.
+> A solution for writing reliable tests using any Web UI testing framework.
 
-## [@cybernaut/chrome][package-chrome] 🔥
+## [@cybernaut/puppeteer][package-puppeteer]
 
-> A [`@cybernaut/engine`][package-engine]-compatible API for [Google Chrome][external-google-chrome].
+> Convenience functions for using [Puppeteer][external-puppeteer] with [@cybernaut/test][package-test].
 
 [cybernaut-logo]: https://cybernaut.js.org/logo.svg
 
-[package-chrome]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/chrome
-[package-engine]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/engine
+[package-puppeteer]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/puppeteer
+[package-test]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/test
 
-[external-google-chrome]: https://www.google.com/chrome/
+[external-puppeteer]: https://github.com/GoogleChrome/puppeteer

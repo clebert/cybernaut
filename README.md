@@ -3,39 +3,19 @@
 [![Build Status][badge-travis-image]][badge-travis-link]
 [![Coverage Status][badge-coveralls-image]][badge-coveralls-link]
 
-> Reliable, automated Web UI testing in BDD-style.
+> Reliable, automated Web UI testing.
 
 ## Packages
 
 Cybernaut is a multi-package repository.
 
-### For end users
+### [@cybernaut/test][package-test]
 
-#### [@cybernaut/engine][package-engine] ❤️
+> A solution for writing reliable tests using any Web UI testing framework.
 
-> The heart of Cybernaut: An engine for reliably asserting/verifying conditions and for reliably performing actions.
+### [@cybernaut/puppeteer][package-puppeteer]
 
-#### [@cybernaut/chrome][package-chrome] 🔥
-
-> A [`@cybernaut/engine`][package-engine]-compatible API for [Google Chrome][external-google-chrome].
-
-### For API developers
-
-#### [@cybernaut/core][package-core]
-
-> The foundation (the core) of all [`@cybernaut/engine`][package-engine]-compatible APIs.
-
-#### [@cybernaut/mocks][package-mocks]
-
-> Shared [mock objects][external-mock-object].
-
-#### [@cybernaut/types][package-types]
-
-> Shared [TypeScript][external-typescript] type definitions.
-
-#### [@cybernaut/utils][package-utils]
-
-> Shared utility functions.
+> Convenience functions for using [Puppeteer][external-puppeteer] with [@cybernaut/test][package-test].
 
 ## Development
 
@@ -44,8 +24,6 @@ Cybernaut is a multi-package repository.
 ```sh
 npm install
 ```
-
-*Note: Please also install [Google Chrome][external-google-chrome] 59 or later.*
 
 ### Upgrading dependencies
 
@@ -97,14 +75,8 @@ Built by (c) Clemens Akens. Released under the terms of the [MIT License][cybern
 [cybernaut-logo]: https://cybernaut.js.org/logo.svg
 [cybernaut-website]: https://cybernaut.js.org/
 
-[package-chrome]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/chrome
-[package-core]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/core
-[package-engine]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/engine
-[package-mocks]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/mocks
-[package-types]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/types
-[package-utils]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/utils
+[package-puppeteer]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/puppeteer
+[package-test]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/test
 
 [external-git-hook]: https://git-scm.com/docs/githooks
-[external-google-chrome]: https://www.google.com/chrome/
-[external-mock-object]: https://en.wikipedia.org/wiki/Mock_object
-[external-typescript]: http://www.typescriptlang.org/
+[external-puppeteer]: https://github.com/GoogleChrome/puppeteer
