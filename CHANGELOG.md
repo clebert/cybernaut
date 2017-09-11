@@ -13,6 +13,22 @@ and this project adheres to [Semantic Versioning][external-semver-spec].
 
 ### Fixed
 
+## v15.0.0 - 2017-09-11
+
+### Added
+
+- Added the `@cybernaut/puppeteer` package.
+- Added the `@cybernaut/test` package.
+
+### Changed
+
+- **Breaking:** Removed the `@cybernaut/chrome` package.
+- **Breaking:** Removed the `@cybernaut/core` package.
+- **Breaking:** Removed the `@cybernaut/engine` package.
+- **Breaking:** Removed the `@cybernaut/mocks` package.
+- **Breaking:** Removed the `@cybernaut/types` package.
+- **Breaking:** Removed the `@cybernaut/utils` package.
+
 ## v14.1.0 - 2017-09-05
 
 ### Added
