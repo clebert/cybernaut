@@ -1,3 +1,5 @@
+/* tslint:disable no-any */
+
 declare module 'puppeteer' {
   export interface ClickOptions {
     readonly button?: 'left' | 'right' | 'middle';
@@ -54,6 +56,13 @@ declare module 'puppeteer' {
   export interface Page {
     $(selector: string): Promise<ElementHandle>;
     $$(selector: string): Promise<ElementHandle[]>;
+
+    $eval<T, U extends Element = Element>(
+      selector: string,
+      pageFunction: (element: U, ...args: any[]) => T | Promise<T>,
+      ...args: any[]
+    ): Promise<T>;
+
     click(selector: string, options?: ClickOptions): Promise<void>;
     focus(selector: string): Promise<void>;
     goto(url: string, options?: NavigationOptions): Promise<Response>;
