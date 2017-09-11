@@ -9,7 +9,8 @@ export interface TestOptions {
   readonly testStepRetryDelay?: number;
 }
 
-export type TestStep<T> = (testContext: T) => Promise<void>;
+/* tslint:disable-next-line no-any */
+export type TestStep<T> = (testContext: T) => Promise<any>;
 export type TestCase<T> = (testContext: T) => TestStep<T>[];
 export type Test = () => Promise<void>;
 export type TestRunner<T> = (testCase: TestCase<T>) => Test;

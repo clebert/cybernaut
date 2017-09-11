@@ -25,7 +25,7 @@ export interface TestOptions {
   readonly testStepRetryDelay?: number; /* Default: 1000 */
 }
 
-export declare type TestStep<T> = (testContext: T) => Promise<void>;
+export declare type TestStep<T> = (testContext: T) => Promise<any>;
 export declare type TestCase<T> = (testContext: T) => TestStep<T>[];
 export declare type Test = () => Promise<void>;
 export declare type TestRunner<T> = (testCase: TestCase<T>) => Test;
