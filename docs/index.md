@@ -2,11 +2,11 @@
 
 # Packages
 
-## [@cybernaut/test][package-test]
+## [@cybernaut/test][package-test] ❤️
 
 > A solution for writing reliable tests using any Web UI testing framework.
 
-## [@cybernaut/puppeteer][package-puppeteer]
+## [@cybernaut/puppeteer][package-puppeteer] 🔥
 
 > Convenience functions for using [Puppeteer][external-puppeteer] with [@cybernaut/test][package-test].
 
