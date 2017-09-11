@@ -1,9 +1,9 @@
 {
   "name": "@cybernaut/examples",
-  "version": "15.0.0-3",
+  "version": "15.0.0-4",
   "private": true,
   "dependencies": {
-    "@cybernaut/puppeteer": "^15.0.0-3",
-    "@cybernaut/test": "^15.0.0-0"
+    "@cybernaut/puppeteer": "^15.0.0-4",
+    "@cybernaut/test": "^15.0.0-4"
   }
 }
