@@ -1,6 +1,12 @@
 declare module 'puppeteer' {
+  export interface ClickOptions {
+    readonly button?: 'left' | 'right' | 'middle';
+    readonly clickCount?: number;
+    readonly delay?: number;
+  }
+
   export interface ElementHandle {
-    click(): Promise<void>;
+    click(options?: ClickOptions): Promise<void>;
   }
 
   export interface ResponseHeaders {
@@ -48,6 +54,8 @@ declare module 'puppeteer' {
   export interface Page {
     $(selector: string): Promise<ElementHandle>;
     $$(selector: string): Promise<ElementHandle[]>;
+    click(selector: string, options?: ClickOptions): Promise<void>;
+    focus(selector: string): Promise<void>;
     goto(url: string, options?: NavigationOptions): Promise<Response>;
     screenshot(options?: ScreenshotOptions): Promise<Buffer>;
     title(): Promise<string>;
