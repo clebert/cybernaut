@@ -6,7 +6,7 @@ export async function clearInputField(
   page: Page,
   selector: string
 ): Promise<void> {
-  page.$eval<void, HTMLInputElement>(selector, element => {
+  await page.$eval<void, HTMLInputElement>(selector, element => {
     element.value = '';
   });
 }
