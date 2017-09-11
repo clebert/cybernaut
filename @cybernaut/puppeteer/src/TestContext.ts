@@ -1,7 +1,7 @@
 /// <reference path="../types/puppeteer.d.ts" />
 
 import {TestSetup, TestTeardown} from '@cybernaut/test/lib/TestRunner';
-import {Browser, Page, launch} from 'puppeteer';
+import {Browser, LaunchOptions, Page, launch} from 'puppeteer';
 
 export interface TestContext {
   readonly browser: Browser;
@@ -9,11 +9,10 @@ export interface TestContext {
 }
 
 export function createTestSetup(
-  browser?: Browser | Promise<Browser>
+  launchOptions?: LaunchOptions
 ): TestSetup<TestContext> {
   return async () => {
-    browser = (await browser) || (await launch());
-
+    const browser = await launch(launchOptions);
     const page = await browser.newPage();
 
     return {browser, page};

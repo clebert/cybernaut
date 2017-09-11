@@ -18,7 +18,7 @@ declare module 'puppeteer' {
     text(): Promise<string>;
   }
 
-  export interface GotoOptions {
+  export interface NavigationOptions {
     readonly timeout?: number;
     readonly waitUntil?: 'load' | 'networkidle';
     readonly networkIdleInflight?: number;
@@ -41,23 +41,44 @@ declare module 'puppeteer' {
     readonly omitBackground?: boolean;
   }
 
+  export interface TypeOptions {
+    readonly delay?: number;
+  }
+
   export interface Page {
     $(selector: string): Promise<ElementHandle>;
     $$(selector: string): Promise<ElementHandle[]>;
-    goto(url: string, options?: GotoOptions): Promise<Response>;
+    goto(url: string, options?: NavigationOptions): Promise<Response>;
     screenshot(options?: ScreenshotOptions): Promise<Buffer>;
     title(): Promise<string>;
+    type(text: string, options?: TypeOptions): Promise<void>;
     url(): string;
   }
 
   export interface Browser {
     close(): void;
     newPage(): Promise<Page>;
+    version(): Promise<string>;
+    wsEndpoint(): string;
+  }
+
+  export interface ConnectOptions {
+    readonly browserWSEndpoint?: string;
+    readonly ignoreHTTPSErrors?: boolean;
   }
 
   export interface LaunchOptions {
+    readonly ignoreHTTPSErrors?: boolean;
     readonly headless?: boolean;
+    readonly executablePath?: string;
+    readonly slowMo?: number;
+    readonly args?: string[];
+    readonly handleSIGINT?: boolean;
+    readonly timeout?: number;
+    readonly dumpio?: boolean;
+    readonly userDataDir?: string;
   }
 
+  export function connect(options?: ConnectOptions): Promise<Browser>;
   export function launch(options?: LaunchOptions): Promise<Browser>;
 }

@@ -57,7 +57,7 @@ Particularly useful are [async functions][external-async-function] which are nat
 /// <reference path="../types/puppeteer.d.ts" />
 
 import {TestSetup, TestTeardown} from '@cybernaut/test/lib/TestRunner';
-import {Browser, Page} from 'puppeteer';
+import {Browser, LaunchOptions, Page} from 'puppeteer';
 
 export interface TestContext {
   readonly browser: Browser;
@@ -65,7 +65,7 @@ export interface TestContext {
 }
 
 export declare function createTestSetup(
-  browser?: Browser | Promise<Browser>
+  launchOptions?: LaunchOptions
 ): TestSetup<TestContext>;
 
 export declare function createTestTeardown(): TestTeardown<TestContext>;
