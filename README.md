@@ -7,7 +7,7 @@
 
 ## Getting started
 
-Please take a look at the [@cybernaut/test][package-test] README.
+Please take a look at the [`@cybernaut/test` README][package-test].
 
 ## Packages
 
@@ -19,7 +19,7 @@ Cybernaut is a multi-package repository.
 
 ### [@cybernaut/puppeteer][package-puppeteer] 🔥
 
-> Convenience functions for using [Puppeteer][external-puppeteer] with [@cybernaut/test][package-test].
+> Convenience functions for using [Puppeteer][external-puppeteer] with [`@cybernaut/test`][package-test].
 
 ## Development
 

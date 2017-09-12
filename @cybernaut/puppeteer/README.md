@@ -4,7 +4,7 @@
 [![Build Status][badge-travis-image]][badge-travis-link]
 [![Coverage Status][badge-coveralls-image]][badge-coveralls-link]
 
-> Convenience functions for using [Puppeteer][external-puppeteer] with [@cybernaut/test][package-test].
+> Convenience functions for using [Puppeteer][external-puppeteer] with [`@cybernaut/test`][package-test].
 
 ## Installation
 
