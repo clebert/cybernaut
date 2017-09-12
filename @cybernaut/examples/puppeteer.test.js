@@ -13,20 +13,14 @@ const {createTestRunner} = require('@cybernaut/test/lib/TestRunner');
 /* Automated Web UI tests usually run much longer than unit tests,
  * so the default timeout should be adjusted accordingly.
  */
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 120 * 1000; /* 120 seconds */
 
 const run = createTestRunner(createTestSetup(), createTestTeardown());
 
 test(
   'Navigating to https://example.com and asserting the page title',
   run(({page}) => [
-    async () => {
-      const response = await page.goto('https://example.com');
-
-      expect(response.ok).toBe(true);
-    },
-    async () => {
-      expect(await page.title()).toBe('Example Domain');
-    }
+    async () => page.goto('https://example.com'),
+    async () => expect(page.title()).resolves.toBe('Example Domain')
   ])
 );

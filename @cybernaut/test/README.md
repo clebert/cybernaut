@@ -12,7 +12,78 @@
 npm install @cybernaut/test
 ```
 
-## Modules
+## Getting started
+
+Cybernaut provides a testing-framework independent test runner,
+that reliably performs individual test steps using a retry mechanism.
+
+### Example
+
+```ts
+const {createTestRunner} = require('@cybernaut/test/lib/TestRunner');
+
+/* This function will be called before any of the test steps run. */
+async function testSetup() {
+  const testContext = {attempts: 0};
+
+  return testContext;
+}
+
+/* This function will be called after all the test steps have completed. */
+async function testTeardown(testContext) {
+  console.log('attempts:', testContext.attempts);
+}
+
+const run = createTestRunner(testSetup, testTeardown, {
+  testStepMaxRetries: 2,
+  testStepRetryDelay: 100 /* ms */
+});
+
+function testCase(testContext) {
+  return [
+    async () => {
+      testContext.attempts += 1;
+
+      if (testContext.attempts < 3) {
+        console.log('test step 1: error');
+
+        throw new Error();
+      }
+
+      console.log('test step 1: ok');
+    },
+    async () => {
+      console.log('test step 2: ok');
+    }
+  ];
+}
+
+const test = run(testCase);
+
+/* Vanilla */
+
+test();
+
+/* Jest / Mocha */
+
+it('should run reliably', test);
+```
+
+### Vanilla output
+
+```sh
+test step 1: error
+test step 1: error
+test step 1: ok
+test step 2: ok
+attempts: 3
+```
+
+### More examples
+
+You can find more examples with [Puppeteer][external-puppeteer] and [Jest][external-jest] in the [@cybernaut/puppeteer][package-puppeteer] README.
+
+## Type definitions
 
 ### @cybernaut/test/lib/TestRunner
 
@@ -22,7 +93,7 @@ export declare type TestTeardown<T> = (testContext: T) => Promise<void>;
 
 export interface TestOptions {
   readonly testStepMaxRetries?: number; /* Default: 4 */
-  readonly testStepRetryDelay?: number; /* Default: 1000 */
+  readonly testStepRetryDelay?: number; /* Default: 1000 ms */
 }
 
 export declare type TestStep<T> = (testContext: T) => Promise<any>;
@@ -48,3 +119,8 @@ Built by (c) Clemens Akens. Released under the terms of the [MIT License][cybern
 [badge-coveralls-link]: https://coveralls.io/github/clebert/cybernaut?branch=master
 
 [cybernaut-license]: https://github.com/clebert/cybernaut/blob/master/LICENSE
+
+[package-puppeteer]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/puppeteer
+
+[external-jest]: https://facebook.github.io/jest/
+[external-puppeteer]: https://github.com/GoogleChrome/puppeteer

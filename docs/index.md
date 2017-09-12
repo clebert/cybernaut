@@ -1,5 +1,9 @@
 ![Cybernaut][cybernaut-logo]
 
+# Getting started
+
+Please take a look at the [@cybernaut/test][package-test] README.
+
 # Packages
 
 ## [@cybernaut/test][package-test] ❤️

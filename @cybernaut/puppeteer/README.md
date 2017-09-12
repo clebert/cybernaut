@@ -12,9 +12,12 @@
 npm install @cybernaut/puppeteer
 ```
 
-## Usage examples
+## Examples (using [Jest][external-jest])
 
-### [Jest][external-jest] + [Puppeteer][external-puppeteer]
+This examples use language features of ECMAScript 2017.
+Particularly useful are [async functions][external-async-function] which are natively supported by [Node.js][external-nodejs] 7.6.0 or later.
+
+### Navigating to [https://example.com](https://example.com) and asserting the page title
 
 ```ts
 const {
@@ -27,29 +30,22 @@ const {createTestRunner} = require('@cybernaut/test/lib/TestRunner');
 /* Automated Web UI tests usually run much longer than unit tests,
  * so the default timeout should be adjusted accordingly.
  */
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 120 * 1000; /* 120 seconds */
 
 const run = createTestRunner(createTestSetup(), createTestTeardown());
 
 test(
   'Navigating to https://example.com and asserting the page title',
   run(({page}) => [
-    async () => {
-      const response = await page.goto('https://example.com');
-
-      expect(response.ok).toBe(true);
-    },
-    async () => {
-      expect(await page.title()).toBe('Example Domain');
-    }
+    async () => page.goto('https://example.com'),
+    async () => expect(page.title()).resolves.toBe('Example Domain')
   ])
 );
 ```
 
-*Note: This example uses language features of ECMAScript 2017.
-Particularly useful are [async functions][external-async-function] which are natively supported by [Node.js][external-nodejs] 7.6.0 or later.*
+## Type definitions
 
-## Modules
+Because of the lack of publicly available [TypeScript][external-typescript] type definitions for [Puppeteer][external-puppeteer], this package provides its own.
 
 ### @cybernaut/puppeteer/lib/TestContext
 
@@ -68,8 +64,6 @@ export declare function createTestSetup(
 
 export declare function createTestTeardown(): TestTeardown<TestContext>;
 ```
-
-*Note: Because of the lack of publicly available [TypeScript][external-typescript] type definitions for [Puppeteer][external-puppeteer], this package provides its own.*
 
 ---
 Built by (c) Clemens Akens. Released under the terms of the [MIT License][cybernaut-license].

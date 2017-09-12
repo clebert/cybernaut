@@ -5,6 +5,10 @@
 
 > Reliable, automated Web UI testing.
 
+## Getting started
+
+Please take a look at the [@cybernaut/test][package-test] README.
+
 ## Packages
 
 Cybernaut is a multi-package repository.
@@ -45,11 +49,12 @@ npm test
 
 ### Formatting sources
 
+By default, a [Git Hook][external-git-hook] is installed to automatically format all files of a commit.
+Manually, it can be executed with the following command:
+
 ```sh
 npm run format
 ```
-
-*Note: By default, a [Git Hook][external-git-hook] is installed to automatically format all files of a commit.*
 
 ### Committing a change
 
