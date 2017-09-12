@@ -15,11 +15,11 @@ const {createTestRunner} = require('@cybernaut/test/lib/TestRunner');
  */
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000;
 
-const puppeteerTest = createTestRunner(createTestSetup(), createTestTeardown());
+const run = createTestRunner(createTestSetup(), createTestTeardown());
 
 test(
   'Navigating to https://example.com and asserting the page title',
-  puppeteerTest(({page}) => [
+  run(({page}) => [
     async () => {
       const response = await page.goto('https://example.com');
 
