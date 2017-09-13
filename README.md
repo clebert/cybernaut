@@ -7,7 +7,7 @@
 
 ## Getting started
 
-Please take a look at the [`@cybernaut/test` README][package-test].
+Please take a look at the [`@cybernaut/test` README][readme-test].
 
 ## Packages
 
@@ -82,6 +82,8 @@ Built by (c) Clemens Akens. Released under the terms of the [MIT License][cybern
 
 [package-puppeteer]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/puppeteer
 [package-test]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/test
+
+[readme-test]: https://github.com/clebert/cybernaut/blob/master/@cybernaut/test/README.md
 
 [external-git-hook]: https://git-scm.com/docs/githooks
 [external-puppeteer]: https://github.com/GoogleChrome/puppeteer

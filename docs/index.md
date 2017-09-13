@@ -2,7 +2,7 @@
 
 # Getting started
 
-Please take a look at the [`@cybernaut/test` README][package-test].
+Please take a look at the [`@cybernaut/test` README][readme-test].
 
 # Packages
 
@@ -18,5 +18,7 @@ Please take a look at the [`@cybernaut/test` README][package-test].
 
 [package-puppeteer]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/puppeteer
 [package-test]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/test
+
+[readme-test]: https://github.com/clebert/cybernaut/blob/master/@cybernaut/test/README.md
 
 [external-puppeteer]: https://github.com/GoogleChrome/puppeteer

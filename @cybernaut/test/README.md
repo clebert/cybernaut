@@ -81,7 +81,7 @@ attempts: 3
 
 ### More examples
 
-You can find more examples with [Puppeteer][external-puppeteer] and [Jest][external-jest] in the [`@cybernaut/puppeteer` README][package-puppeteer].
+You can find more examples with [Puppeteer][external-puppeteer] and [Jest][external-jest] in the [`@cybernaut/puppeteer` README][readme-puppeteer].
 
 ## Type definitions
 
@@ -121,6 +121,8 @@ Built by (c) Clemens Akens. Released under the terms of the [MIT License][cybern
 [cybernaut-license]: https://github.com/clebert/cybernaut/blob/master/LICENSE
 
 [package-puppeteer]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/puppeteer
+
+[readme-puppeteer]: https://github.com/clebert/cybernaut/blob/master/@cybernaut/puppeteer/README.md
 
 [external-jest]: https://facebook.github.io/jest/
 [external-puppeteer]: https://github.com/GoogleChrome/puppeteer
