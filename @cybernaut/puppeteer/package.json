@@ -1,6 +1,6 @@
 {
   "name": "@cybernaut/puppeteer",
-  "version": "15.0.0-5",
+  "version": "15.0.0",
   "description": "Convenience functions for using Puppeteer with @cybernaut/test.",
   "license": "MIT",
   "author": "Clemens Akens <clebert@me.com>",
@@ -17,7 +17,7 @@
     "types"
   ],
   "dependencies": {
-    "@cybernaut/test": "^15.0.0-4",
+    "@cybernaut/test": "^15.0.0",
     "puppeteer": "^0.10.2"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@cybernaut/test",
-  "version": "15.0.0-4",
+  "version": "15.0.0",
   "description": "A solution for writing reliable tests using any Web UI testing framework.",
   "license": "MIT",
   "author": "Clemens Akens <clebert@me.com>",
