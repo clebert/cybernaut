@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning][external-semver-spec].
 
 ### Fixed
 
-## v15.0.0 - 2017-09-11
+## v15.0.0 - 2017-09-17
 
 ### Added
 
