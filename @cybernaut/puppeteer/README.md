@@ -14,7 +14,7 @@ npm install @cybernaut/puppeteer
 
 ## Examples (using [Jest][external-jest])
 
-### Navigating to [https://example.com](https://example.com) and asserting the page title
+### Navigating to [https://example.com][external-example] and asserting the page title
 
 ```ts
 const {
@@ -76,6 +76,7 @@ Built by (c) Clemens Akens. Released under the terms of the [MIT License][cybern
 
 [package-test]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/test
 
+[external-example]: https://example.com
 [external-jest]: https://facebook.github.io/jest/
 [external-puppeteer]: https://github.com/GoogleChrome/puppeteer
 [external-typescript]: http://www.typescriptlang.org/

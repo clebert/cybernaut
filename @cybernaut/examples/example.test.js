@@ -41,7 +41,12 @@ const test = run(testContext => [
 
 /* Vanilla */
 
-test();
+const throwOnMainThread = error =>
+  setTimeout(() => {
+    throw error; /* https://stackoverflow.com/a/30741722 */
+  });
+
+test().catch(throwOnMainThread);
 
 /* Jest / Mocha */
 

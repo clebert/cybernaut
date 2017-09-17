@@ -42,7 +42,7 @@ const run = createTestRunner(testSetup, testTeardown, {
   testStepRetryDelay: 100 /* ms */
 });
 
-const test = run((testContext) => [
+const test = run(testContext => [
   async () => {
     testContext.attempts += 1;
 
@@ -61,7 +61,12 @@ const test = run((testContext) => [
 
 /* Vanilla */
 
-test();
+const throwOnMainThread = error =>
+  setTimeout(() => {
+    throw error; /* https://stackoverflow.com/a/30741722 */
+  });
+
+test().catch(throwOnMainThread);
 
 /* Jest / Mocha */
 
