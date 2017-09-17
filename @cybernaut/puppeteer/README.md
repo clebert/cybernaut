@@ -14,6 +14,10 @@ npm install @cybernaut/puppeteer
 
 ## Examples (using [Jest][external-jest])
 
+[Jest][external-jest] allows the parallel execution of multiple test files using the [`--maxWorkers` CLI option][external-jest-maxworkers].
+For this reason, a file should always contain only one test.
+Thus, the execution speed of the entire testuite can be increased massively.
+
 ### Navigating to [https://example.com][external-example] and asserting the page title
 
 ```ts
@@ -78,5 +82,6 @@ Built by (c) Clemens Akens. Released under the terms of the [MIT License][cybern
 
 [external-example]: https://example.com
 [external-jest]: https://facebook.github.io/jest/
+[external-jest-maxworkers]: https://facebook.github.io/jest/docs/en/cli.html#maxworkers-num
 [external-puppeteer]: https://github.com/GoogleChrome/puppeteer
 [external-typescript]: http://www.typescriptlang.org/
