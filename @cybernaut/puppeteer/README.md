@@ -96,7 +96,7 @@ test(
 
 Because of the lack of publicly available [TypeScript][external-typescript] type definitions for [Puppeteer][external-puppeteer], this package provides its own.
 
-**Attention ⚠️** These type definitions are [not yet complete][issue-391].
+**Attention ⚠️** The [TypeScript][external-typescript] type definitions for [Puppeteer][external-puppeteer] are [not yet complete][issue-391].
 
 ### @cybernaut/puppeteer/lib/TestContext
 
