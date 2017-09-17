@@ -85,7 +85,7 @@ attempts: 3
 
 ### More examples
 
-You can find more examples with [Puppeteer][external-puppeteer] and [Jest][external-jest] in the [`@cybernaut/puppeteer` README][readme-puppeteer].
+You can find more examples with [Puppeteer][external-puppeteer] and [Jest][external-jest] in the [👉 `@cybernaut/puppeteer` 👈 README][readme-puppeteer].
 
 ## Type definitions
 
