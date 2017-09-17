@@ -31,7 +31,7 @@ const {createTestRunner} = require('@cybernaut/test/lib/TestRunner');
 /* Automated Web UI tests usually run much longer than unit tests,
  * so the default timeout should be adjusted accordingly.
  */
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 120 * 1000; /* 120 seconds */
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 30 * 1000; /* 30 seconds */
 
 const run = createTestRunner(createTestSetup(), createTestTeardown());
 

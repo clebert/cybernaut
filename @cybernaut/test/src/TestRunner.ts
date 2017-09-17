@@ -34,7 +34,9 @@ export function createTestRunner<T>(
     const testContext = await testSetup();
 
     try {
-      for (const testStep of testCase(testContext)) {
+      const testSteps = testCase(testContext);
+
+      for (const testStep of testSteps) {
         await execute(
           async () => testStep(testContext),
           testStepMaxRetries,
