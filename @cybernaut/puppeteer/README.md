@@ -16,7 +16,7 @@ npm install @cybernaut/puppeteer
 
 [Jest][external-jest] allows the parallel execution of multiple test files using the [`--maxWorkers` CLI option][external-jest-maxworkers].
 For this reason, a file should always contain only one test.
-Thus, the execution speed of the entire testuite can be increased massively.
+Thus, the execution speed of your entire test suite can be increased massively.
 
 ### Navigating to [https://example.com][external-example] and asserting the page title
 
