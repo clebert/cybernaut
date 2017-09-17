@@ -14,7 +14,7 @@ npm install @cybernaut/puppeteer
 
 ## Examples (using [Jest][external-jest])
 
-**Tip💡** [Jest][external-jest] allows the parallel execution of multiple test files using the [`--maxWorkers` CLI option][external-jest-maxworkers].
+**Tip 💡** [Jest][external-jest] allows the parallel execution of multiple test files using the [`--maxWorkers` CLI option][external-jest-maxworkers].
 For this reason, a file should always contain only one test.
 Thus, the execution speed of your entire test suite can be increased massively.
 
@@ -46,7 +46,7 @@ test(
 
 ### Sign in to a fictitious "My Account" page
 
-**Tip💡** You should try to do only one user action per test step.
+**Tip 💡** You should try to do only one user action per test step.
 If one test step fails, then Cybernaut can re-run it without side effects.
 
 #### Bad example ❌
@@ -96,6 +96,8 @@ test(
 
 Because of the lack of publicly available [TypeScript][external-typescript] type definitions for [Puppeteer][external-puppeteer], this package provides its own.
 
+**Attention ⚠️** These type definitions are [not yet complete][issue-391].
+
 ### @cybernaut/puppeteer/lib/TestContext
 
 ```ts
@@ -127,6 +129,8 @@ Built by (c) Clemens Akens. Released under the terms of the [MIT License][cybern
 [cybernaut-license]: https://github.com/clebert/cybernaut/blob/master/LICENSE
 
 [package-test]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/test
+
+[issue-391]: https://github.com/clebert/cybernaut/issues/391
 
 [external-example]: https://example.com
 [external-jest]: https://facebook.github.io/jest/
