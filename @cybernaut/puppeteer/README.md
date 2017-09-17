@@ -46,8 +46,8 @@ test(
 
 ### Sign in to a fictitious "My Account" page
 
-**Tip 💡** You should try to do only one user action per test step.
-If one test step fails, then Cybernaut can re-run it without side effects.
+**Tip 💡** A single test step should include only one user action.
+If such a test step fails, then it can be repeated without side effects.
 
 #### Bad example ❌
 
