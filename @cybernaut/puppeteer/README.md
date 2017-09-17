@@ -14,9 +14,6 @@ npm install @cybernaut/puppeteer
 
 ## Examples (using [Jest][external-jest])
 
-This examples use language features of ECMAScript 2017.
-Particularly useful are [async functions][external-async-function] which are natively supported by [Node.js][external-nodejs] 7.6.0 or later.
-
 ### Navigating to [https://example.com](https://example.com) and asserting the page title
 
 ```ts
@@ -79,8 +76,6 @@ Built by (c) Clemens Akens. Released under the terms of the [MIT License][cybern
 
 [package-test]: https://github.com/clebert/cybernaut/tree/master/@cybernaut/test
 
-[external-async-function]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
 [external-jest]: https://facebook.github.io/jest/
-[external-nodejs]: https://nodejs.org/en/
 [external-puppeteer]: https://github.com/GoogleChrome/puppeteer
 [external-typescript]: http://www.typescriptlang.org/

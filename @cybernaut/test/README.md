@@ -19,6 +19,9 @@ that reliably performs individual test steps using a retry mechanism.
 
 ### Example
 
+The following example uses language features of ECMAScript 2017.
+Particularly useful are [async functions][external-async-function] which are natively supported by [Node.js][external-nodejs] 7.6.0 or later.
+
 ```ts
 const {createTestRunner} = require('@cybernaut/test/lib/TestRunner');
 
@@ -39,26 +42,22 @@ const run = createTestRunner(testSetup, testTeardown, {
   testStepRetryDelay: 100 /* ms */
 });
 
-function testCase(testContext) {
-  return [
-    async () => {
-      testContext.attempts += 1;
+const test = run((testContext) => [
+  async () => {
+    testContext.attempts += 1;
 
-      if (testContext.attempts < 3) {
-        console.log('test step 1: error');
+    if (testContext.attempts < 3) {
+      console.log('test step 1: error');
 
-        throw new Error();
-      }
-
-      console.log('test step 1: ok');
-    },
-    async () => {
-      console.log('test step 2: ok');
+      throw new Error();
     }
-  ];
-}
 
-const test = run(testCase);
+    console.log('test step 1: ok');
+  },
+  async () => {
+    console.log('test step 2: ok');
+  }
+]);
 
 /* Vanilla */
 
@@ -124,5 +123,7 @@ Built by (c) Clemens Akens. Released under the terms of the [MIT License][cybern
 
 [readme-puppeteer]: https://github.com/clebert/cybernaut/blob/master/@cybernaut/puppeteer/README.md
 
+[external-async-function]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
 [external-jest]: https://facebook.github.io/jest/
+[external-nodejs]: https://nodejs.org/en/
 [external-puppeteer]: https://github.com/GoogleChrome/puppeteer

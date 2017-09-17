@@ -22,26 +22,22 @@ const run = createTestRunner(testSetup, testTeardown, {
   testStepRetryDelay: 100 /* ms */
 });
 
-function testCase(testContext) {
-  return [
-    async () => {
-      testContext.attempts += 1;
+const test = run(testContext => [
+  async () => {
+    testContext.attempts += 1;
 
-      if (testContext.attempts < 3) {
-        console.log('test step 1: error');
+    if (testContext.attempts < 3) {
+      console.log('test step 1: error');
 
-        throw new Error();
-      }
-
-      console.log('test step 1: ok');
-    },
-    async () => {
-      console.log('test step 2: ok');
+      throw new Error();
     }
-  ];
-}
 
-const test = run(testCase);
+    console.log('test step 1: ok');
+  },
+  async () => {
+    console.log('test step 2: ok');
+  }
+]);
 
 /* Vanilla */
 
