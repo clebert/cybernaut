@@ -1,15 +1,17 @@
 import {sleep} from './sleep';
 
-export async function execute<T>(
-  fn: () => Promise<T>,
+export async function execute(
+  fn: () => Promise<void>,
   maxRetries: number,
   retryDelay: number
-): Promise<T> {
+): Promise<void> {
   let attempt = 1;
 
   while (true) {
     try {
-      return await fn();
+      await fn();
+
+      return;
     } catch (error) {
       if (attempt > maxRetries) {
         throw error;
