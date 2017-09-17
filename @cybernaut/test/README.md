@@ -22,7 +22,7 @@ that reliably performs individual test steps using a retry mechanism.
 The following example uses language features of ECMAScript 2017.
 Particularly useful are [async functions][external-async-function] which are natively supported by [Node.js][external-nodejs] 7.6.0 or later.
 
-```ts
+```js
 const {createTestRunner} = require('@cybernaut/test/lib/TestRunner');
 
 /* This function will be called before any of the test steps run. */

@@ -20,7 +20,7 @@ Thus, the execution speed of your entire test suite can be increased massively.
 
 ### Navigating to [https://example.com][external-example] and asserting the page title
 
-```ts
+```js
 const {
   createTestSetup,
   createTestTeardown
@@ -40,6 +40,54 @@ test(
   run(({page}) => [
     async () => page.goto('https://example.com'),
     async () => expect(page.title()).resolves.toBe('Example Domain')
+  ])
+);
+```
+
+### Sign in to a fictitious "My Account" page
+
+You should try to do only one user action per test step.
+If one test step fails, then Cybernaut can re-run it without side effects.
+
+#### Bad example ❌
+
+```js
+test(
+  'Sign in to a fictitious "My Account" page',
+  run(({page}) => [
+    async () => {
+      await page.goto('https://example.com');
+
+      await expect(page.title()).resolves.toBe('Sign In');
+
+      await page.focus('input#username');
+      await page.type('username@example.com', {delay: 100});
+
+      await page.focus('input#password');
+      await page.type('123456', {delay: 100});
+
+      await page.click('button#submit-button');
+
+      await expect(page.title()).resolves.toBe('My Account');
+    }
+  ])
+);
+```
+
+#### Good example ✅
+
+```js
+test(
+  'Sign in to a fictitious "My Account" page',
+  run(({page}) => [
+    async () => page.goto('https://example.com'),
+    async () => expect(page.title()).resolves.toBe('Sign In'),
+    async () => page.focus('input#username'),
+    async () => page.type('username@example.com', {delay: 100}),
+    async () => page.focus('input#password'),
+    async () => page.type('123456', {delay: 100}),
+    async () => page.click('button#submit-button'),
+    async () => expect(page.title()).resolves.toBe('My Account')
   ])
 );
 ```
