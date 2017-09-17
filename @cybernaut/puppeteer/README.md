@@ -14,7 +14,7 @@ npm install @cybernaut/puppeteer
 
 ## Examples (using [Jest][external-jest])
 
-[Jest][external-jest] allows the parallel execution of multiple test files using the [`--maxWorkers` CLI option][external-jest-maxworkers].
+**Tip💡** [Jest][external-jest] allows the parallel execution of multiple test files using the [`--maxWorkers` CLI option][external-jest-maxworkers].
 For this reason, a file should always contain only one test.
 Thus, the execution speed of your entire test suite can be increased massively.
 
@@ -46,7 +46,7 @@ test(
 
 ### Sign in to a fictitious "My Account" page
 
-You should try to do only one user action per test step.
+**Tip💡** You should try to do only one user action per test step.
 If one test step fails, then Cybernaut can re-run it without side effects.
 
 #### Bad example ❌
