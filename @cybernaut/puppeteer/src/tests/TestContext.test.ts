@@ -1,6 +1,8 @@
 import {createTestRunner} from '@cybernaut/test/lib/TestRunner';
 import {createTestSetup, createTestTeardown} from '../TestContext';
 
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 30 * 1000; /* 30 seconds */
+
 const run = createTestRunner(createTestSetup(), createTestTeardown());
 
 test(
