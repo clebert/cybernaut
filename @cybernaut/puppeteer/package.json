@@ -18,6 +18,12 @@
   ],
   "dependencies": {
     "@cybernaut/test": "^15.0.0",
-    "puppeteer": "^0.10.2"
+    "puppeteer": "^0.10.2",
+    "temp-write": "^3.3.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^4.0.2",
+    "fs-extra": "^4.0.2",
+    "is-png": "^1.1.0"
   }
 }
