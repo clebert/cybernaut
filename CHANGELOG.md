@@ -13,6 +13,14 @@ and this project adheres to [Semantic Versioning][external-semver-spec].
 
 ### Fixed
 
+## v15.1.0 - 2017-09-19
+
+### Added
+
+#### @cybernaut/puppeteer
+
+- Added the `takeScreenshot()` function.
+
 ## v15.0.0 - 2017-09-17
 
 ### Added
