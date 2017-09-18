@@ -92,6 +92,37 @@ test(
 );
 ```
 
+### Taking an environment-dependent screenshot
+
+`@cybernaut/puppeteer` provides an environment-dependent screenshot function.
+On the CI the screenshot is output as Base64-encoded PNG, locally as PNG file.
+
+**Tip 💡** The Base64-encoded PNG can be visualized by any Online Base64 Image Decoder.
+
+```js
+const {takeScreenshot} = require('@cybernaut/puppeteer/lib/takeScreenshot');
+
+test(
+  'Taking an environment-dependent screenshot',
+  run(({page}) => [
+    async () => page.goto('https://example.com'),
+    async () => console.info('Screenshot:', await takeScreenshot(page))
+  ])
+);
+```
+
+#### Output (`process.env.CI === 'true'`)
+
+```sh
+Screenshot: iVBORw0KGgoAAAANSUhEUgAAAyAAAAJYCAYAAACadoJwAAA...
+```
+
+#### Output (`process.env.CI !== 'true'`)
+
+```sh
+Screenshot: /private/var/folders/dd/5ynm3wcj1y3dsdkzx13d_8qm0000gn/T/92254da8-6df6-4ae2-aae2-29b68fe0f3a4/screenshot.png
+```
+
 ## Type definitions
 
 Because of the lack of publicly available [TypeScript][external-typescript] type definitions for [Puppeteer][external-puppeteer], this package provides its own.
@@ -114,6 +145,14 @@ export declare function createTestSetup(
 ): TestSetup<TestContext>;
 
 export declare function createTestTeardown(): TestTeardown<TestContext>;
+```
+
+### @cybernaut/puppeteer/lib/takeScreenshot
+
+```ts
+import {Page} from 'puppeteer';
+
+export declare function takeScreenshot(page: Page): Promise<string>;
 ```
 
 ---
