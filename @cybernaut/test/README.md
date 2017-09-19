@@ -1,4 +1,4 @@
-# @cybernaut/test
+# @cybernaut/test ❤️
 
 [![Package Version][badge-npm-image]][badge-npm-link]
 [![Build Status][badge-travis-image]][badge-travis-link]

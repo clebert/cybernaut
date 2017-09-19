@@ -17,7 +17,7 @@ Cybernaut is a multi-package repository.
 
 > A solution for writing reliable tests using any Web UI testing framework.
 
-### [@cybernaut/puppeteer][package-puppeteer] 🔥
+### [@cybernaut/puppeteer][package-puppeteer] ⭐️
 
 > Convenience functions for using [Puppeteer][external-puppeteer] with [`@cybernaut/test`][package-test].
 

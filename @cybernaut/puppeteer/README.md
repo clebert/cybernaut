@@ -1,4 +1,4 @@
-# @cybernaut/puppeteer
+# @cybernaut/puppeteer ⭐️
 
 [![Package Version][badge-npm-image]][badge-npm-link]
 [![Build Status][badge-travis-image]][badge-travis-link]

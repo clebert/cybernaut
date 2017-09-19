@@ -10,7 +10,7 @@ Please take a look at the [`@cybernaut/test` README][readme-test].
 
 > A solution for writing reliable tests using any Web UI testing framework.
 
-## [@cybernaut/puppeteer][package-puppeteer] 🔥
+## [@cybernaut/puppeteer][package-puppeteer] ⭐️
 
 > Convenience functions for using [Puppeteer][external-puppeteer] with [`@cybernaut/test`][package-test].
 

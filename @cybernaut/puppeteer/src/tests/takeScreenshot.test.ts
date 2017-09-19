@@ -9,7 +9,9 @@ import {takeScreenshot} from '../takeScreenshot';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 30 * 1000; /* 30 seconds */
 
-const run = createTestRunner(createTestSetup(), createTestTeardown());
+const run = createTestRunner(createTestSetup(), createTestTeardown(), {
+  testStepMaxRetries: 0
+});
 
 describe('takeScreenshot()', () => {
   it(
