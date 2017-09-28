@@ -29,7 +29,7 @@
     "@commitlint/prompt-cli": "^3.2.0",
     "@types/jest": "^20.0.8",
     "@types/node": "^8.0.28",
-    "coveralls": "^2.13.1",
+    "coveralls": "^3.0.0",
     "custom-tslint-formatters": "^2.1.1",
     "git-latest-semver-tag": "^1.0.2",
     "globby": "^6.1.0",
