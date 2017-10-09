@@ -25,7 +25,7 @@
   "devDependencies": {
     "@commitlint/cli": "^3.2.0",
     "@commitlint/config-angular": "^3.1.1",
-    "@commitlint/config-lerna-scopes": "^3.1.1",
+    "@commitlint/config-lerna-scopes": "^4.1.1",
     "@commitlint/prompt-cli": "^3.2.0",
     "@types/jest": "^20.0.8",
     "@types/node": "^8.0.28",
