@@ -5,6 +5,8 @@
 
 > Reliable, automated Web UI testing.
 
+**⚠️ Cybernaut is deprecated in favor of [PageObjectJS](https://pageobject.js.org/).**
+
 ## Getting started
 
 Please take a look at the [`@cybernaut/test` README][readme-test].
